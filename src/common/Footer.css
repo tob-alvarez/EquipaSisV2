@@ -1,0 +1,13 @@
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    background-color: #3b3b3b;
+    align-items: center;
+    padding: 5px;
+}
+.logoBme{
+    height: 40px;
+}

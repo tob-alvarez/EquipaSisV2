@@ -1,0 +1,11 @@
+{
+    "login":{
+        "usuario": "Usuario",
+        "contraseña": "Contraseña",
+        "olvidaste": "Olvidaste como acceder?",
+        "ingresar": "Ingresar"
+    },
+    "inicio":{
+        "bienvenida": "Bienvenido"
+    }
+}

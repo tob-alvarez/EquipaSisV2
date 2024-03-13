@@ -1,0 +1,41 @@
+.boxLogin{
+    min-height: 80vh;
+    box-shadow: #00000090 5px 5px 5px 5px;
+    border-radius: 10px;
+}
+@media (max-width: 900px) {
+    .boxLogin{
+        display: none;
+    }
+    .boxLeft{
+        width: 0 !important;
+    }
+    .boxRight{
+        width: 100% !important;
+        border-radius: 10px !important;
+        background-image: url(/src/assets/fondologin.png);
+    }
+    img{
+        display: none;
+    }
+  }
+
+.boxLeft{
+    width: 40%;
+    background-color: #d12c2c;
+    height: 80vh;
+    border-radius: 10px 0 0 10px;
+}
+.boxRight{
+    height: 80vh;
+    width: 60%;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0 10px 10px 0;
+    background-color: #ffffff;
+}
+.p-pointer{
+    cursor: pointer;
+}

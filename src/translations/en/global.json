@@ -1,0 +1,11 @@
+{
+    "login":{
+        "usuario": "Username",
+        "contraseña": "Password",
+        "olvidaste": "Forgot your access?",
+        "ingresar": "Log-In"
+    },
+    "inicio":{
+        "bienvenida": "Welcome"
+    }
+}
