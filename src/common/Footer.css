@@ -11,3 +11,8 @@
 .logoBme{
     height: 40px;
 }
+@media (max-width: 900px) {
+    .footer p{
+        font-size: 10px;
+    }
+  }

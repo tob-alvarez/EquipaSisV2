@@ -11,6 +11,7 @@ const EquipaProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [ t, i18n] = useTranslation("global")
   const [selected, setSelected] = useState([]);
+  const [botonState, setBotonState] = useState(false);
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem('language');
@@ -28,31 +29,47 @@ const EquipaProvider = ({ children }) => {
     }
   };
 
-
-  const getAuth = async () => {
+  const login = async (e, loginValues) => {
+    e.preventDefault()
+    setBotonState(true);
     try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        setLoading(false);
-        return setAuthenticated(false);
-      }
-      axios.defaults.headers.common["Authorization"] = token;
-      const { data } = await axios.get("/usuarios/authStatus");
-      setUser(data.usuarioSinContraseña);
-      setAuthenticated(true);
+      const { data } = await axios.get(`https://v2.equipasis.com/api/usuarios.php?tarea=valida_usuario&email_persona=${loginValues.email_persona}&clave=${loginValues.clave}`);
+      setAuthenticated(!!data.persona[0]);
+      setUser(data.persona[0]);
+      // axios.defaults.headers.common["Authorization"] = data.token;
+      // localStorage.setItem("token", data.token);
+      console.log(data)
+      
     } catch (error) {
-      setAuthenticated(false);
-      // toast.error("Error de autenticación. Ingrese nuevamente");
+      console.error(error.response?.data.message || error.message);
     }
-    setLoading(false);
+    setBotonState(false);
   };
+  
+  // const getAuth = async () => {
+  //   try {
+  //     const token = localStorage.getItem("token");
+  //     if (!token) {
+  //       setLoading(false);
+  //       return setAuthenticated(false);
+  //     }
+  //     axios.defaults.headers.common["Authorization"] = token;
+  //     const { data } = await axios.get("/usuarios/authStatus");
+  //     setUser(data.usuarioSinContraseña);
+  //     setAuthenticated(true);
+  //   } catch (error) {
+  //     setAuthenticated(false);
+  //     // toast.error("Error de autenticación. Ingrese nuevamente");
+  //   }
+  //   setLoading(false);
+  // };
 
   const logout = () => {
     setAuthenticated(false);
     localStorage.removeItem("token");
     localStorage.removeItem("tokenSet");
     const url = new URL(`http://localhost:5173/`);
-    url.searchParams.append("logout", true);
+    // url.searchParams.append("logout", true);
     window.open(url.toString(), '_self');
   };
 
@@ -63,13 +80,15 @@ const EquipaProvider = ({ children }) => {
         authenticated,
         setAuthenticated,
         loading,
-        getAuth,
+        // getAuth,
         setLoading,
         logout,
         selected,
         setSelected,
         handleChangeLanguage,
-        t
+        t,
+        login,
+        botonState
       }}
     >
       {children}
