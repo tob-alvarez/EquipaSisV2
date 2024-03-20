@@ -13,6 +13,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import HomeIcon from '@mui/icons-material/Home';
+import ingles from '../assets/united-kingdom.svg'
+import spain from '../assets/spain.svg'
+import portugal from '../assets/portugal.svg'
 // import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 // import ComputerIcon from '@mui/icons-material/Computer';
 // import ChecklistRtlIcon from '@mui/icons-material/ChecklistRtl';
@@ -20,7 +23,6 @@ import HomeIcon from '@mui/icons-material/Home';
 // import DescriptionIcon from '@mui/icons-material/Description';
 // import SettingsIcon from '@mui/icons-material/Settings';
 import { EquipaContext } from "../context/EquipaContext";
-import Login from "../components/Login/Login";
 import {
   Avatar,
   List,
@@ -30,9 +32,11 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Select,
   Tooltip,
 } from "@mui/material";
 import Footer from "./Footer";
+import Reloj from "./Reloj";
 
 const drawerWidth = 240;
 
@@ -105,30 +109,52 @@ export default function Layout({ children }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { handleChangeLanguage, t, authenticated, logout, getAuth, permisos} = React.useContext(EquipaContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
-  const { authenticated, logout} = React.useContext(EquipaContext);
-
+  const nombre = localStorage.getItem('nombre')
+  const rol = localStorage.getItem('rol')
   const handleLogout = ()=>{
     logout()
   }
+  
+  React.useEffect(() => {
+    getAuth();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); 
+  
+  const permisosHabilitados = permisos.filter(permiso => permiso.ver_opcion === '1');
+  const menuItems = permisosHabilitados.reduce((menu, permiso) => {
+    const menuItemIndex = menu.findIndex(item => item.label === permiso.padre);
+    if (menuItemIndex === -1) {
+      // Si no existe un menuItem con el mismo padre, lo creamos
+      const menuItem = {
+        label: permiso.padre,
+        subItems: [{ label: permiso.hijo, path: permiso.path }]
+      };
+      menu.push(menuItem);
+    } else {
+      // Si ya existe un menuItem con el mismo padre, agregamos el subItem
+      menu[menuItemIndex].subItems.push({ label: permiso.hijo, path: permiso.path });
+    }
+    return menu;
+  }, []);
+  
+  console.log(menuItems);
+  
 
-  return authenticated ? (
+  return  authenticated ? (
     <>
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -146,14 +172,39 @@ export default function Layout({ children }) {
             >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Equipasis v2
-          </Typography>
+          <div className="d-flex align-items-center justify-content-between w-100">
+            <div className="d-flex align-items-center">
+              <Typography variant="h6" noWrap component="div">
+                Equipasis v2
+              </Typography>
+              <Select
+                  value={localStorage.getItem("language") || "en"}
+                  onChange={(e) => handleChangeLanguage(e.target.value)}
+                  sx={{marginLeft: 5}}
+                  className="text-white"
+                >
+                  <MenuItem value={"en"}>EN <img src={ingles} className="icono-lang ps-2"/></MenuItem>
+                  <MenuItem value={"es"}>ES <img src={spain} className="icono-lang ps-2"/></MenuItem>
+                  <MenuItem value={"por"}>POR <img src={portugal} className="icono-lang ps-2"/></MenuItem>
+                </Select>
+            </div>
+            <div>
+              <p className="m-0 px-2 nombreNavbar" style={{fontSize: ".71rem"}}>
+                {nombre}
+              </p>
+              <p className="m-0 px-2 nombreNavbar" style={{fontSize: ".61rem"}}>
+                {rol}
+              </p>
+              <Reloj/>
+            </div>
+          </div>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar 
+                  alt={nombre} 
+                  src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -220,10 +271,11 @@ export default function Layout({ children }) {
     </Box>
     <Footer/>
     </>
-    ) : (
-      <>
-        <Login />
-        <Footer/>
-      </>
+  )
+  : (
+    <>
+      {children}
+      <Footer/>
+    </>
   );
 }

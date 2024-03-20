@@ -4,7 +4,8 @@ import "./App.css";
 import EquipaProvider from "./context/EquipaContext";
 import Home from "./components/Home/Home";
 import Layout from "./common/Layout";
-// import PrivateRoute from "./routes/PrivateRoute";
+import Login from "./components/Login/Login";
+import PrivateRoute from "./routes/PrivateRoute";
 
 function App() {
   return (
@@ -12,13 +13,15 @@ function App() {
       <EquipaProvider>
         <Layout>
           <Routes>
+            <Route exact path="/*" element={<Login />} />
+            <Route path="/login" element={<Login />} />
             <Route
               exact
-              path="/*"
+              path="/inicio"
               element={
-                // <PrivateRoute>
+                <PrivateRoute>
                   <Home />
-                // </PrivateRoute>
+                </PrivateRoute>
               }
             />
           </Routes>

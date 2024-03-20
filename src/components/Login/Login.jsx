@@ -17,14 +17,12 @@ const Login = () => {
     email_persona: "",
     clave:"",
   })
-  const { handleChangeLanguage, t, botonState, login} =
-    useContext(EquipaContext);
+  const { handleChangeLanguage, t, botonState, login} = useContext(EquipaContext);
 
     useEffect(() => {
       if (authenticated) {
         navigate("/inicio");
       }
-      console.log(authenticated)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [authenticated]);
 
@@ -51,7 +49,6 @@ const Login = () => {
       ...loginValues,
       [name]: value,
     });
-    console.log(loginValues);
   };
 
   return (

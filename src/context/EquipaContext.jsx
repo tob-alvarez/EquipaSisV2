@@ -1,12 +1,15 @@
 import { createContext, useEffect, useState } from "react";
 import axios from '../config/axios';
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 export const EquipaContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 const EquipaProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [permisos, setPermisos] = useState(null);
+  const navigate = useNavigate()
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [ t, i18n] = useTranslation("global")
@@ -28,7 +31,6 @@ const EquipaProvider = ({ children }) => {
       console.log(error);
     }
   };
-
   const login = async (e, loginValues) => {
     e.preventDefault()
     setBotonState(true);
@@ -36,8 +38,11 @@ const EquipaProvider = ({ children }) => {
       const { data } = await axios.get(`https://v2.equipasis.com/api/usuarios.php?tarea=valida_usuario&email_persona=${loginValues.email_persona}&clave=${loginValues.clave}`);
       setAuthenticated(!!data.persona[0]);
       setUser(data.persona[0]);
-      // axios.defaults.headers.common["Authorization"] = data.token;
-      // localStorage.setItem("token", data.token);
+      localStorage.setItem("token", true);
+      localStorage.setItem("nombre", data.persona[0].nombre_persona);
+      localStorage.setItem("rol", data.persona[0].nombre_tusuario);
+      setPermisos(data.permisos)
+      navigate('/inicio')
       console.log(data)
       
     } catch (error) {
@@ -46,23 +51,25 @@ const EquipaProvider = ({ children }) => {
     setBotonState(false);
   };
   
-  // const getAuth = async () => {
-  //   try {
-  //     const token = localStorage.getItem("token");
-  //     if (!token) {
-  //       setLoading(false);
-  //       return setAuthenticated(false);
-  //     }
-  //     axios.defaults.headers.common["Authorization"] = token;
-  //     const { data } = await axios.get("/usuarios/authStatus");
-  //     setUser(data.usuarioSinContraseña);
-  //     setAuthenticated(true);
-  //   } catch (error) {
-  //     setAuthenticated(false);
-  //     // toast.error("Error de autenticación. Ingrese nuevamente");
-  //   }
-  //   setLoading(false);
-  // };
+  const getAuth = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setLoading(false);
+        return setAuthenticated(false);
+      }
+      setAuthenticated(true)
+    } catch (error) {
+      setAuthenticated(false)
+      localStorage.removeItem("token");
+      localStorage.removeItem("nombre");
+      localStorage.removeItem("rol");
+      localStorage.removeItem("permisos");
+      console.log("error de auth");
+      console.log(error)
+    }
+    setLoading(false)
+  }
 
   const logout = () => {
     setAuthenticated(false);
@@ -80,7 +87,7 @@ const EquipaProvider = ({ children }) => {
         authenticated,
         setAuthenticated,
         loading,
-        // getAuth,
+        getAuth,
         setLoading,
         logout,
         selected,
@@ -88,7 +95,8 @@ const EquipaProvider = ({ children }) => {
         handleChangeLanguage,
         t,
         login,
-        botonState
+        botonState,
+        permisos
       }}
     >
       {children}
