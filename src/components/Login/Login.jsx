@@ -66,7 +66,7 @@ const Login = () => {
           </div>
           <div className="d-flex gap-5 flex-column boxRight justify-content-center align-items-center">
             <div className="d-flex align-items-center gap-4">
-              <img src={logo} alt="" />
+              <img src={logo} alt="" className="imgLogin" />
               <h1 className="m-0">Equipasis</h1>
               <div className="d-flex align-items-center gap-1">
                 <Select

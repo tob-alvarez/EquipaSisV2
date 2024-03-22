@@ -13,3 +13,13 @@
 .layoutHeight{
   min-height: 100dvh;
 }
+/* .css-cveggr-MuiListItemIcon-root{
+  min-width: 36px !important;
+} */
+.css-10hburv-MuiTypography-root{
+  font-size: 0.8rem !important;
+  text-align: center !important;
+}
+/* .css-1d3z3hw-MuiOutlinedInput-notchedOutline{
+  border: none !important;
+} */

@@ -64,7 +64,6 @@ const EquipaProvider = ({ children }) => {
       localStorage.removeItem("token");
       localStorage.removeItem("nombre");
       localStorage.removeItem("rol");
-      localStorage.removeItem("permisos");
       console.log("error de auth");
       console.log(error)
     }
