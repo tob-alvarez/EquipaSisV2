@@ -7,5 +7,13 @@
     },
     "inicio":{
         "bienvenida": "bemvindo"
+    },
+    "accion":{
+        "titulo": "Ação",
+        "busqueda": "Procurar",
+        "nombre-accion": "Ação de nome",
+        "nombre-corto": "Nome curto",
+        "estado": "Estado",
+        "acciones": "Ações"
     }
 }

@@ -12,7 +12,6 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import FlagIcon from '@mui/icons-material/Flag';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-
 const MenuLateral = ({menuItems, open}) => {
     const navigate = useNavigate()
     const redirigir = (ruta) => {
@@ -47,7 +46,6 @@ const MenuLateral = ({menuItems, open}) => {
                 return <HomeIcon />;
         }
     };
-    console.log(menuItems)
 
     return (
         <>

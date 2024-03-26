@@ -6,9 +6,6 @@
 
 
 
-
-
-
 import { useState, useEffect } from "react";
 // import { accion_pdf, accion_xls } from "@/components/pdf/accion_pdf";
 import {

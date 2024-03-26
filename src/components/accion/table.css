@@ -21,3 +21,6 @@
 input {
   font-size: 10px;
 }
+.inputContainer input{
+  width: 400px !important;
+}
