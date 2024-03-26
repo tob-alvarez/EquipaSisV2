@@ -6,6 +6,7 @@ import Home from "./components/Home/Home";
 import Layout from "./common/Layout";
 import Login from "./components/Login/Login";
 import PrivateRoute from "./routes/PrivateRoute";
+import Accion from "./components/accion/Accion";
 
 function App() {
   return (
@@ -21,6 +22,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <Home />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/accion"
+              element={
+                <PrivateRoute>
+                  <Accion />
                 </PrivateRoute>
               }
             />

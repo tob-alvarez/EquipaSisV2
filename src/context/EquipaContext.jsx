@@ -38,7 +38,7 @@ const EquipaProvider = ({ children }) => {
       const { data } = await axios.get(`https://v2.equipasis.com/api/usuarios.php?tarea=valida_usuario&email_persona=${loginValues.email_persona}&clave=${loginValues.clave}`);
       setAuthenticated(!!data.persona[0]);
       setUser(data.persona[0]);
-      localStorage.setItem("token", true);
+      sessionStorage.setItem("token", true);
       localStorage.setItem("nombre", data.persona[0].nombre_persona);
       localStorage.setItem("rol", data.persona[0].nombre_tusuario);
       setPermisos(data.permisos)
@@ -53,15 +53,16 @@ const EquipaProvider = ({ children }) => {
   
   const getAuth = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       if (!token) {
         setLoading(false);
         return setAuthenticated(false);
       }
       setAuthenticated(true)
+      navigate('/inicio')
     } catch (error) {
       setAuthenticated(false)
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
       localStorage.removeItem("nombre");
       localStorage.removeItem("rol");
       console.log("error de auth");
@@ -72,7 +73,7 @@ const EquipaProvider = ({ children }) => {
 
   const logout = () => {
     setAuthenticated(false);
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     localStorage.removeItem("tokenSet");
     const url = new URL(`http://localhost:5173/`);
     // url.searchParams.append("logout", true);
