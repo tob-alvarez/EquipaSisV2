@@ -1,62 +1,61 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
-import { alta_acciones } from "./funciones_accion";
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import { cambia_acciones } from "./funciones_accion";
+import EditIcon from '@mui/icons-material/Edit';
 
-const ModalAgregar = () => {
-
-  const [isModalAttachOpen, setIsModalAttachOpen] = useState(false);
-  const [id_accion, setId_accion] = useState("");
-  const [nombre_accion, setNombre_accion] = useState("");
-  const [nombre_corto_accion, setNombre_corto_accion] = useState("");
-  const [habilita, setHabilita] = useState(false);
-  const limpia_campos = () => {
-    setId_accion("");
-    setNombre_accion("");
-    setNombre_corto_accion("");
-    setHabilita(false);
-  };
-  const closeModalAttach = () => {
-    limpia_campos();
-    setIsModalAttachOpen(false);
-  };
-  const acepta_accion = () => {
-    const datos_cambios = {
-      id_accion: id_accion,
-      nombre_accion: nombre_accion,
-      corto_accion: nombre_corto_accion,
-      habilita: habilita === true ? "1" : "0",
+const ModalEditar = ({dato}) => {
+    const [isModalEditOpen, setIsModalEditOpen] = useState(false);
+    const [id_accion, setId_accion] = useState("");
+    const [nombre_accion, setNombre_accion] = useState("");
+    const [nombre_corto_accion, setNombre_corto_accion] = useState("");
+    const [habilita, setHabilita] = useState(false);
+    const limpia_campos = () => {
+      setId_accion("");
+      setNombre_accion("");
+      setNombre_corto_accion("");
+      setHabilita(false);
     };
-
-    if (nombre_accion == "" || nombre_corto_accion == "") {
-      alert("Los campos marcados con # son obligaotios");
-      return;
-    }
-
-    alta_acciones(datos_cambios).then((respuesta_accion) => {
-      if (respuesta_accion[0].registros > 0) {
-        toast.success(`Accion agregada correctamente`, {
-          duration: 3000,
-        });
-        limpia_campos()
-      } else {
-        toast.error(`${respuesta_accion[0].Mensage}`, {
-          duration: 3000,
-          className: "bg-success text-white fs-6",
-        });
+    const closeModalEdit = () => {
+      limpia_campos();
+      setIsModalEditOpen(false);
+    };
+    const acepta_accion = () => {
+      const datos_cambios = {
+        id_accion: dato.id_accion,
+        nombre_accion: nombre_accion,
+        corto_accion: nombre_corto_accion,
+        habilita: habilita === true ? "1" : "0",
+      };
+      console.log(datos_cambios)
+      if (nombre_accion == "" || nombre_corto_accion == "") {
+        alert("Los campos marcados con # son obligaotios");
+        return;
       }
-      setIsModalAttachOpen(false);
-    });
-  }
-
-
+  
+      cambia_acciones(datos_cambios).then((respuesta_accion) => {
+        if (respuesta_accion[0].registros > 0) {
+          toast.success(`Accion editada correctamente`, {
+            duration: 3000,
+          });
+          limpia_campos()
+        } else {
+          toast.error(`${respuesta_accion[0].Mensage}`, {
+            duration: 3000,
+            className: "bg-success text-white fs-6",
+          });
+        }
+        setIsModalEditOpen(false);
+      });
+    }
   return (
     <>
-      <ToastContainer position="top-center"/>
+    <ToastContainer position="top-center"/>
       <Modal
-        show={isModalAttachOpen}
-        onHide={closeModalAttach}
+        show={isModalEditOpen}
+        onHide={closeModalEdit}
         size="lg"
         backdrop="static"
         centered
@@ -65,7 +64,7 @@ const ModalAgregar = () => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            AGREGAR ACCION
+            EDITAR ACCION
             <p
               className="pb-0 mb-0 text-body-emphasis fw-bold"
               style={{ fontSize: "0.5em" }}
@@ -137,7 +136,7 @@ const ModalAgregar = () => {
               Aceptar
             </button>
             <button
-              onClick={closeModalAttach}
+              onClick={closeModalEdit}
               className="btn btn-secondary btn-sm m-2"
               style={{
                 float: "right",
@@ -151,13 +150,12 @@ const ModalAgregar = () => {
         </Modal.Footer>
       </Modal>
       
-        <AddCircleOutlineOutlinedIcon
-          onClick={() => setIsModalAttachOpen(true)}
-          sx={{ fontSize: '40px' }}
+        <EditIcon
+          onClick={() => setIsModalEditOpen(true)}
+          sx={{ fontSize: '30px' }}
           style={{ cursor: "pointer" }} />
     </>
-
   )
 }
 
-export default ModalAgregar
+export default ModalEditar

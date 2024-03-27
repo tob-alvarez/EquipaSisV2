@@ -59,7 +59,6 @@ const EquipaProvider = ({ children }) => {
         return setAuthenticated(false);
       }
       setAuthenticated(true)
-      navigate('/inicio')
     } catch (error) {
       setAuthenticated(false)
       sessionStorage.removeItem("token");

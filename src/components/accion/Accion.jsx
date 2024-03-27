@@ -4,23 +4,23 @@ import {
   trae_acciones,
   // trae_permiso_acciones,
   // cambia_acciones,
-  // alta_acciones,
   ayuda_acciones,
   trae_permisos
 } from "./funciones_accion";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+
+import { accion_pdf, accion_xls } from "../pdf/accion_pdf";
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { Modal } from "bootstrap";
+import ModalAgregar from "./ModalAgregar";
+import ModalAyuda from "./ModalAyuda";
+import ModalEditar from "./ModalEditar";
+import ModalBorrar from "./ModalBorrar";
 
 const Accion = () => {
   const [t] = useTranslation("global")
@@ -28,15 +28,16 @@ const Accion = () => {
   const [permisos_usuario, setPermisos_usuario] = useState([]);
   const [ayuda, setAyuda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
+  const itemsPerPage = 10;
   const [searchTerm, setSearchTerm] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [datos, setDatos] = useState({
     tarea: "permiso_usuario",
     accion: "accion",
     id_usuario: "1"
   });
   
-
+  
   useEffect(() => {
       trae_acciones().then((result) => setDatosAcciones(result));
       ayuda_acciones().then((ayuda) => setAyuda(ayuda[0].texto));
@@ -53,7 +54,8 @@ const Accion = () => {
     return expresionesArray.some(
       (expresion) =>
         grilla.nombre_accion.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.corto_accion.toLowerCase().includes(expresion.toLowerCase())
+        grilla.corto_accion.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
     );
   }
 
@@ -75,13 +77,19 @@ const Accion = () => {
       setCurrentPage(page);
     }
   };
+  const printInfoProcess = () => {
+    accion_pdf(searchTerm);
+  };
+  const downloadInfo = () => {
+    accion_xls(searchTerm);
+  };
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-center m-0 mb-2">
+      <div className="d-flex justify-content-between align-items-center mb-2 container">
         {/* Funciones agregar, descargar, imprimir y ayuda */}
-        <h1 className="m-0">{t("accion.titulo")}</h1>
-        <div className="inputContainer">
+        <h4 className="m-0">{t("accion.titulo")}</h4>
+        <div className="inputContainer d-flex">
           <label htmlFor="search" className="form-label mb-0 p-2">
             {t("accion.busqueda")}
           </label>
@@ -95,12 +103,7 @@ const Accion = () => {
         </div>
         <div>
           {permisos_usuario.agregar == 1 ? (
-            <AddCircleOutlineOutlinedIcon
-              className="icons"
-              sx={{ fontSize: '40px' }}
-              style={{ cursor: "pointer" }}
-            // onClick={openModal}
-            />
+            <ModalAgregar />
           ) : (
             ""
           )}
@@ -109,7 +112,7 @@ const Accion = () => {
               sx={{ fontSize: '40px' }}
               className="icons"
               style={{ cursor: "pointer" }}
-            // onClick={downloadInfo}
+              onClick={downloadInfo}
             />
           ) : (
             ""
@@ -119,16 +122,13 @@ const Accion = () => {
               className="icons"
               sx={{ fontSize: '40px' }}
               style={{ cursor: "pointer" }}
-            // onClick={printInfoProcess}
+              onClick={printInfoProcess}
             />
           ) : (
             ""
           )}
-          <HelpOutlineIcon
-            sx={{ fontSize: '40px' }}
-            className="icons"
-            style={{ cursor: "pointer" }}
-          // onClick={openModalHelp}
+          <ModalAyuda
+            ayuda={ayuda}
           />
         </div>
       </div>
@@ -151,7 +151,7 @@ const Accion = () => {
                   sx={{
                     backgroundColor: index % 2 === 0 ? '#f0f0f0' : '#e0e0e0',
                     '& .MuiTableCell-root': {
-                      padding: '4px', // Ajusta el relleno de las celdas para reducir la altura
+                      padding: '0px', // Ajusta el relleno de las celdas para reducir la altura
                     },
                     height: '10px', // Ajusta la altura de la fila
                   }}
@@ -161,21 +161,21 @@ const Accion = () => {
                   <TableCell>{dato.corto_accion}</TableCell>
                   <TableCell>
                     <Typography
-                      fontWeight={dato.habilita === 1 ? 'bold' : 'lighter'}
-                      color={dato.habilita === 1 ? '' : '#ff0000'}
+                      fontWeight={dato.habilita_3 === 'HABILITADO' ? 'bold' : 'lighter'}
+                      color={dato.habilita_3 === 'HABILITADO' ? '' : '#ff0000'}
                     >
-                      {dato.habilita === 1 ? 'HABILITADO' : 'DESHABILITADO'}
+                      {dato.habilita_3}
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
                     {permisos_usuario.modificar === "1" && (
                       <IconButton>
-                        <EditIcon />
+                        <ModalEditar dato={dato}/>
                       </IconButton>
                     )}
                     {permisos_usuario.eliminar === "1" && (
                       <IconButton>
-                        <DeleteIcon />
+                        <ModalBorrar dato={dato} />
                       </IconButton>
                     )}
                   </TableCell>

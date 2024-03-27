@@ -2,6 +2,7 @@
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import "bootstrap/dist/css/bootstrap.css";
+import 'react-toastify/dist/ReactToastify.css';
 import global_en from "./translations/en/global.json";
 import global_es from "./translations/es/global.json";
 import global_por from "./translations/por/global.json";
