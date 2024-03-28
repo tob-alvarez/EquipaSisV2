@@ -1,0 +1,106 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+import { Form, InputGroup, Modal } from "react-bootstrap"
+import { ToastContainer, toast } from "react-toastify";
+import { borra_acciones } from "./funciones_accion";
+import DeleteIcon from '@mui/icons-material/Delete';
+
+const ModalBorrar = ({dato}) => {
+    const [nombre_accion, setNombre_accion] = useState("");
+    const [habilita, setHabilita] = useState(false);
+    const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
+    const closeModalDelete = () => {
+        setIsModalDeleteOpen(false);
+      };
+    const borra_accion = () => {
+        const datos_cambios = {
+            id_accion: dato.id_accion,
+        };
+        borra_acciones(datos_cambios).then(() => {
+            setIsModalDeleteOpen(false);
+            toast.success("Registro deshabiltado correctamente", {
+            duration: 3000,
+            className: "bg-success text-white fs-6",
+          });
+        });
+      };
+    return (
+        <>
+            <ToastContainer position="top-center" />
+            <Modal
+                show={isModalDeleteOpen}
+                onHide={closeModalDelete}
+                backdrop="static"
+                keyboard={false}
+                scrollable={true}
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Elimina la accion?...</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {dato.habilita_3 == 'HABILITADO' ? (
+                        <>
+                            <h6>
+                                <b>Accion:</b>
+                            </h6>
+                            <p style={{ fontSize: "0.8em" }}>
+                                <b>{nombre_accion}</b>
+                            </p>
+                        </>
+                    ) : (
+                        <>
+                            <h6>
+                                <b>Accion:</b>
+                            </h6>
+                            <p style={{ fontSize: "0.8em" }}>
+                                <b>{nombre_accion}</b>
+                            </p>
+                            <p style={{ fontSize: "0.8em", color: "red" }}>
+                                Esta accion ya esta deshabilitada
+                            </p>
+                        </>
+                    )}
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className="justify-content-center mt-2">
+                        {dato.habilita_3 == 'HABILITADO' ? (
+                            <button
+                                onClick={borra_accion}
+                                className="btn btn-primary btn-sm m-2"
+                                style={{
+                                    float: "right",
+                                    backgroundColor: "green",
+                                    borderColor: "green",
+                                }}
+                            >
+                                Aceptar
+                            </button>
+                        ) : (
+                            ""
+                        )}
+                        <button
+                            onClick={closeModalDelete}
+                            className="btn btn-secondary btn-sm m-2"
+                            style={{
+                                float: "right",
+                                backgroundColor: "#990000",
+                                borderColor: "#990000",
+                            }}
+                        >
+                            Cerrar
+                        </button>
+                    </div>
+                </Modal.Footer>
+            </Modal>
+
+            <DeleteIcon
+                onClick={() => setIsModalDeleteOpen(true)}
+                sx={{ fontSize: '30px' }}
+                style={{ cursor: "pointer" }} />
+        </>
+    )
+}
+
+export default ModalBorrar
