@@ -5,7 +5,6 @@ import {
   ayuda_acciones,
   trae_permisos
 } from "./funciones_accion";
-
 import { accion_pdf, accion_xls } from "../pdf/accion_pdf";
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
@@ -26,7 +25,7 @@ const Accion = () => {
   const [permisos_usuario, setPermisos_usuario] = useState([]);
   const [ayuda, setAyuda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 15;
   const [searchTerm, setSearchTerm] = useState("");
   // eslint-disable-next-line no-unused-vars
   const [datos, setDatos] = useState({
@@ -76,7 +75,9 @@ const Accion = () => {
     }
   };
   const printInfoProcess = () => {
-    accion_pdf(searchTerm);
+    let idioma = localStorage.getItem("language")
+    console.log(idioma)
+    accion_pdf(searchTerm, idioma);
   };
   const downloadInfo = () => {
     accion_xls(searchTerm);
@@ -86,7 +87,7 @@ const Accion = () => {
     <>
       <div className="d-flex justify-content-between align-items-center mb-2 container">
         {/* Funciones agregar, descargar, imprimir y ayuda */}
-        <h4 className="m-0">{t("accion.titulo")}</h4>
+        <h1 className="m-0">{t("accion.titulo")}</h1>
         <div className="inputContainer d-flex">
           <label htmlFor="search" className="form-label mb-0 p-2">
             {t("accion.busqueda")}
@@ -151,19 +152,18 @@ const Accion = () => {
                     '& .MuiTableCell-root': {
                       padding: '0px', // Ajusta el relleno de las celdas para reducir la altura
                     },
-                    height: '10px', // Ajusta la altura de la fila
+                    height: '5px', // Ajusta la altura de la fila
                   }}
                 >
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_accion}</TableCell>
                   <TableCell>{dato.nombre_accion.toUpperCase()}</TableCell>
                   <TableCell>{dato.corto_accion}</TableCell>
                   <TableCell>
-                    <Typography
-                      fontWeight={dato.habilita_3 === 'HABILITADO' ? 'bold' : 'lighter'}
-                      color={dato.habilita_3 === 'HABILITADO' ? '' : '#ff0000'}
+                    <p
+                      style={dato.habilita_3 === 'HABILITADO' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >
                       {dato.habilita_3}
-                    </Typography>
+                    </p>
                   </TableCell>
                   <TableCell align="center">
                     {permisos_usuario.modificar === "1" && (
@@ -215,8 +215,11 @@ const Accion = () => {
               <KeyboardDoubleArrowRightIcon/>
             </Button>
 
-            <Typography variant="h6" className="col-3 align-self-center">
+            <Typography variant="p" className="col-3 align-self-center">
             {t("accion.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
+            </Typography>
+            <Typography variant="p" className="align-self-center">
+            {t("accion.registros")} {datos_acciones.length}
             </Typography>
           </div>
         </TableContainer>

@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { alta_acciones } from "./funciones_accion";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useTranslation } from "react-i18next";
+import { Switch } from "@mui/material";
 
 const ModalAgregar = () => {
 
@@ -39,13 +40,14 @@ const ModalAgregar = () => {
 
     alta_acciones(datos_cambios).then((respuesta_accion) => {
       if (respuesta_accion[0].registros > 0) {
-        toast.success(`Accion agregada correctamente`, {
-          duration: 3000,
+        toast.success(`${t("varios.alta")}`, {
+          duration: 2000,
         });
         limpia_campos()
+        window.location.reload()
       } else {
         toast.error(`${respuesta_accion[0].Mensage}`, {
-          duration: 3000,
+          duration: 2000,
           className: "bg-success text-white fs-6",
         });
       }
@@ -56,7 +58,7 @@ const ModalAgregar = () => {
 
   return (
     <>
-      <ToastContainer position="top-center"/>
+      <ToastContainer/>
       <Modal
         show={isModalAttachOpen}
         onHide={closeModalAttach}
@@ -115,8 +117,7 @@ const ModalAgregar = () => {
               </div>
 
               <div className="col-6 text-start">
-                <Form.Check // prettier-ignore
-                  type={"checkbox"}
+                <Switch
                   id={"habilita"}
                   checked={habilita}
                   label={t("accion.habilitado")}

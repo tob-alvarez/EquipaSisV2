@@ -22,14 +22,13 @@ const ModalBorrar = ({dato}) => {
         borra_acciones(datos_cambios).then(() => {
             setIsModalDeleteOpen(false);
             toast.success("Registro deshabiltado correctamente", {
-            duration: 3000,
+            duration: 2000,
             className: "bg-success text-white fs-6",
           });
         });
       };
     return (
         <>
-            <ToastContainer position="top-center" />
             <Modal
                 show={isModalDeleteOpen}
                 onHide={closeModalDelete}
@@ -99,7 +98,7 @@ const ModalBorrar = ({dato}) => {
 
             <DeleteIcon
                 onClick={() => setIsModalDeleteOpen(true)}
-                sx={{ fontSize: '30px' }}
+                sx={{ fontSize: '20px' }}
                 style={{ cursor: "pointer" }} />
         </>
     )

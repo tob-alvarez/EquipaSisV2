@@ -36,6 +36,9 @@
     "inicio":{
         "bienvenida": "Welcome"
     },
+    "varios":{
+        "alta": "Registration completed correctly"
+    },
     "accion":{
         "titulo": "Action",
         "busqueda": "Search",
@@ -43,6 +46,7 @@
         "nombre-corto": "Short name",
         "estado": "State",
         "acciones": "Actions",
+        "registros": "Records",
         "pagina": "Page",
         "de": "of",
         "agregarTitulo": "Add Action",

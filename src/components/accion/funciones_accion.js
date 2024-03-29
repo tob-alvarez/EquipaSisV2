@@ -128,7 +128,7 @@ export async function ayuda_acciones(){
 //     tarea: "permiso_usuario",
 //     id_usuario: id_usuario
 //   }); // Send the data to the server in JSON format.
-//   const endpoint = "https://v2.equipasis.com/api_desarrollo/accion.php"; // API endpoint where we send form data.
+//   const endpoint = "https://v2.equipasis.com/api/accion.php"; // API endpoint where we send form data.
 
 //   // Form the request for sending data to the server.
 //   const options = {

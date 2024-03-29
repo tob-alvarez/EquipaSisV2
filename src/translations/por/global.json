@@ -36,6 +36,9 @@
     "inicio":{
         "bienvenida": "bemvindo"
     },
+    "varios":{
+        "alta": "Alta realizada corretamente"
+    },
     "accion":{
         "titulo": "Ação",
         "busqueda": "Procurar",
@@ -43,6 +46,7 @@
         "nombre-corto": "Nome curto",
         "estado": "Estado",
         "acciones": "Ações",
+        "registros": "Registros",
         "pagina": "Página",
         "de": "a",
         "agregarTitulo": "Adicionar ação",
