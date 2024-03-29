@@ -1,6 +1,6 @@
 .boxLogin{
     min-height: 80vh;
-    box-shadow: #00000090 5px 5px 5px 5px;
+    box-shadow: #00000050 2px 2px 2px 1px;
     border-radius: 10px;
 }
 @media (max-width: 900px) {
@@ -9,11 +9,12 @@
     }
     .boxLeft{
         width: 0 !important;
+        display: none !important;
     }
     .boxRight{
         width: 100% !important;
         border-radius: 10px !important;
-        background-image: url(/src/assets/fondologin.png);
+        border-left: 1px solid #ccc;
     }
     img{
         display: none;
@@ -22,7 +23,7 @@
 
 .boxLeft{
     width: 40%;
-    background-color: #d12c2c;
+    background-color: #990000;
     height: 80vh;
     border-radius: 10px 0 0 10px;
 }
@@ -38,4 +39,10 @@
 }
 .p-pointer{
     cursor: pointer;
+}
+.icono-lang{
+    height: 20px;
+}
+.imgLogin{
+    height: 100px;
 }

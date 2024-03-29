@@ -12,29 +12,22 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import HomeIcon from '@mui/icons-material/Home';
-// import LeaderboardIcon from '@mui/icons-material/Leaderboard';
-// import ComputerIcon from '@mui/icons-material/Computer';
-// import ChecklistRtlIcon from '@mui/icons-material/ChecklistRtl';
-// import GroupsIcon from '@mui/icons-material/Groups';
-// import DescriptionIcon from '@mui/icons-material/Description';
-// import SettingsIcon from '@mui/icons-material/Settings';
+import ingles from '../assets/united-kingdom.svg'
+import spain from '../assets/spain.svg'
+import portugal from '../assets/portugal.svg'
 import { EquipaContext } from "../context/EquipaContext";
-import Login from "../components/Login/Login";
 import {
   Avatar,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Menu,
   MenuItem,
+  Select,
   Tooltip,
 } from "@mui/material";
 import Footer from "./Footer";
+import Reloj from "./Reloj";
+import MenuLateral from "./Menu";
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -105,125 +98,158 @@ export default function Layout({ children }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { handleChangeLanguage, authenticated, logout, getAuth, permisos} = React.useContext(EquipaContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
-  const { authenticated, logout} = React.useContext(EquipaContext);
-
+  const nombre = localStorage.getItem('nombre')
+  const rol = localStorage.getItem('rol')
   const handleLogout = ()=>{
     logout()
   }
+  
+  React.useEffect(() => {
+    getAuth();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); 
 
+    const permisosHabilitados = permisos?.filter(permiso => permiso.ver_opcion === '1');
+    const menuItems = permisosHabilitados?.reduce((menu, permiso) => {
+      const menuItemIndex = menu.findIndex(item => item.label === permiso.padre);
+      if (menuItemIndex === -1) {
+        // Si no existe un menuItem con el mismo padre, lo creamos
+        const menuItem = {
+          label: permiso.padre,
+          subItems: [{ label: permiso.hijo, path: permiso.path }]
+        };
+        menu.push(menuItem);
+      } else {
+        // Si ya existe un menuItem con el mismo padre, agregamos el subItem
+        menu[menuItemIndex].subItems.push({ label: permiso.hijo, path: permiso.path });
+      }
+      return menu;
+    }, []);
+  
   return authenticated ? (
     <>
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: "none" }),
-            }}
-            >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            EquipaSys
-          </Typography>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar position="fixed" open={open}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{
+                marginRight: 5,
+                ...(open && { display: "none" }),
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
             >
+              <MenuIcon />
+            </IconButton>
+            <div className="d-flex align-items-center justify-content-between w-100">
+              <div className="d-flex align-items-center">
+                <Typography variant="h6" noWrap component="div">
+                  Equipasis v2
+                </Typography>
+                <Select
+                  value={localStorage.getItem("language") || "en"}
+                  onChange={(e) => handleChangeLanguage(e.target.value)}
+                  sx={{ marginLeft: 5 }}
+                  className="text-white"
+                >
+                  <MenuItem value={"en"}>
+                    EN <img src={ingles} className="icono-lang ps-2" />
+                  </MenuItem>
+                  <MenuItem value={"es"}>
+                    ES <img src={spain} className="icono-lang ps-2" />
+                  </MenuItem>
+                  <MenuItem value={"por"}>
+                    POR <img src={portugal} className="icono-lang ps-2" />
+                  </MenuItem>
+                </Select>
+              </div>
+              <div>
+                <p
+                  className="m-0 px-2 nombreNavbar"
+                  style={{ fontSize: ".71rem" }}
+                >
+                  {nombre}
+                </p>
+                <p
+                  className="m-0 px-2 nombreNavbar"
+                  style={{ fontSize: ".61rem" }}
+                >
+                  {rol}
+                </p>
+                <Reloj />
+              </div>
+            </div>
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt={nombre} src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
                 <MenuItem onClick={handleLogout}>
                   <Typography textAlign="center">Lougout</Typography>
                 </MenuItem>
-            </Menu>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
+              </Menu>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <Drawer variant="permanent" open={open}>
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
               ) : (
                 <ChevronLeftIcon />
-                )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-            <ListItem disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-                >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <HomeIcon /> 
-                </ListItemIcon>
-                <ListItemText primary={'Inicio'} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-        </List>
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
-        {children}
+              )}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <MenuLateral menuItems={menuItems} open={open}/>
+        </Drawer>
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <DrawerHeader />
+          {children}
+        </Box>
       </Box>
-    </Box>
-    <Footer/>
+      <Footer />
     </>
-    ) : (
-      <>
-        <Login />
-        <Footer/>
-      </>
+  ) : (
+    <>
+      {children}
+      <Footer />
+    </>
   );
 }
