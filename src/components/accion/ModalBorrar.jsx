@@ -5,8 +5,10 @@ import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
 import { borra_acciones } from "./funciones_accion";
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useTranslation } from "react-i18next";
 
 const ModalBorrar = ({dato}) => {
+    const [t] = useTranslation("global")
     const [nombre_accion, setNombre_accion] = useState("");
     const [habilita, setHabilita] = useState(false);
     const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
@@ -37,28 +39,28 @@ const ModalBorrar = ({dato}) => {
                 centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Elimina la accion?...</Modal.Title>
+                    <Modal.Title> {t("accion.borrarTitulo")}...</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {dato.habilita_3 == 'HABILITADO' ? (
                         <>
                             <h6>
-                                <b>Accion:</b>
+                                <b>{t("accion.titulo")}:</b>
                             </h6>
                             <p style={{ fontSize: "0.8em" }}>
-                                <b>{nombre_accion}</b>
+                                <b>{dato.nombre_accion}</b>
                             </p>
                         </>
                     ) : (
                         <>
                             <h6>
-                                <b>Accion:</b>
+                                <b>{t("accion.titulo")}:</b>
                             </h6>
                             <p style={{ fontSize: "0.8em" }}>
-                                <b>{nombre_accion}</b>
+                                <b>{dato.nombre_accion}</b>
                             </p>
                             <p style={{ fontSize: "0.8em", color: "red" }}>
-                                Esta accion ya esta deshabilitada
+                            {t("accion.borrarListo")}
                             </p>
                         </>
                     )}
@@ -75,7 +77,7 @@ const ModalBorrar = ({dato}) => {
                                     borderColor: "green",
                                 }}
                             >
-                                Aceptar
+                                {t("login.aceptar")}
                             </button>
                         ) : (
                             ""
@@ -89,7 +91,7 @@ const ModalBorrar = ({dato}) => {
                                 borderColor: "#990000",
                             }}
                         >
-                            Cerrar
+                            {t("login.cancelar")}
                         </button>
                     </div>
                 </Modal.Footer>

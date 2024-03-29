@@ -27,8 +27,11 @@ const Login = () => {
     }, [authenticated]);
 
   const [open, setOpen] = useState(false);
+  const [openTerms, setOpenTerms] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleOpenTerms = () => setOpenTerms(true);
+  const handleCloseTerms = () => setOpenTerms(false);
   const style = {
     position: "absolute",
     top: "50%",
@@ -40,6 +43,21 @@ const Login = () => {
     borderRadius: "10px",
     boxShadow: 24,
     p: 10,
+  };
+  const style2 = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "50%",
+    height: "80%",
+    bgcolor: "background.paper",
+    border: "1px solid #ccc",
+    borderRadius: "10px",
+    boxShadow: 24,
+    p: 10,
+    maxHeight: '80vh',
+    overflowY: 'auto',
   };
 
   const handleInputChange = (event) => {
@@ -71,7 +89,7 @@ const Login = () => {
               <div className="d-flex align-items-center gap-1">
                 <Select
                   label={<LanguageIcon />}
-                  value={localStorage.getItem("language") || "en"}
+                  value={localStorage.getItem("language") || "es"}
                   onChange={(e) => handleChangeLanguage(e.target.value)}
                 >
                   <MenuItem value={"en"}>EN <img src={ingles} className="icono-lang ps-2"/></MenuItem>
@@ -113,9 +131,9 @@ const Login = () => {
               {t("login.ingresar")}
             </Button>
             </form>
-            <div className="d-flex">
+            <div className="d-flex align-items-center">
               <DraftsIcon />
-              <p className="m-0 p-pointer">Términos y Condiciones</p>
+              <p className="m-0 p-pointer" onClick={handleOpenTerms}>{t("login.terminosTitulo")}</p>
             </div>
           </div>
         </div>
@@ -129,25 +147,60 @@ const Login = () => {
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              RECORDAR COMO ACCEDER
+            {t("login.olvidaste")}
             </Typography>
             <TextField
-              placeholder="email del usuario"
-              label="Usuario"
+              placeholder={t("login.olvidaUsuario")}
+              label={t("login.olvidaUsuario")}
               variant="standard"
               sx={{ width: 400 }}
             />
             <p className="mt-4">
-              Recibirá en su correo electronico, la contraseña para poder
-              acceder a Equipasis
+            {t("login.mensajeCorreo")}
             </p>
             <div className="d-flex gap-3 justify-content-end">
               <Button variant="contained" color="error" onClick={handleClose}>
-                Cancelar
+              {t("login.cancelar")}
               </Button>
               <Button variant="contained" color="success">
-                Aceptar
+              {t("login.aceptar")}
               </Button>
+            </div>
+          </Box>
+        </Modal>
+      </div>
+      <div>
+        <Modal
+          open={openTerms}
+          onClose={handleCloseTerms}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style2}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+            {t("login.terminosTitulo")}
+            </Typography>
+            <div className="mt-5 d-flex flex-column gap-3">
+              {t("login.terminosSubtitulo1")} <br /> <br />
+              {t("login.terminosTexto1")} <br /> <br />
+              {t("login.terminosSubtitulo2")} <br /> <br />
+              {t("login.terminosTexto2")} <br /> <br />
+              {t("login.terminosSubtitulo3")} <br /> <br />
+              {t("login.terminosTexto3")} <br /> <br />
+              {t("login.terminosSubtitulo4")} <br /> <br />
+              {t("login.terminosTexto4")} <br /> <br />
+              {t("login.terminosSubtitulo5")} <br /> <br />
+              {t("login.terminosTexto5")} <br /> <br />
+              {t("login.terminosSubtitulo6")} <br /> <br />
+              {t("login.terminosTexto6")} <br /> <br />
+              {t("login.terminosSubtitulo7")} <br /> <br />
+              {t("login.terminosTexto7")} <br /> <br />
+              {t("login.terminosSubtitulo8")} <br /> <br />
+              {t("login.terminosTexto8")} <br /> <br />
+              {t("login.terminosSubtitulo9")} <br /> <br />
+              {t("login.terminosTexto9")} <br /> <br />
+              {t("login.terminosSubtitulo10")} <br /> <br />
+              {t("login.terminosTexto10")} <br /> <br />
             </div>
           </Box>
         </Modal>

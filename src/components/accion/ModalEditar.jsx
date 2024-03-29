@@ -5,8 +5,10 @@ import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
 import { cambia_acciones } from "./funciones_accion";
 import EditIcon from '@mui/icons-material/Edit';
+import { useTranslation } from "react-i18next";
 
 const ModalEditar = ({dato}) => {
+    const [t] = useTranslation("global")
     const [isModalEditOpen, setIsModalEditOpen] = useState(false);
     const [id_accion, setId_accion] = useState("");
     const [nombre_accion, setNombre_accion] = useState("");
@@ -31,7 +33,7 @@ const ModalEditar = ({dato}) => {
       };
       console.log(datos_cambios)
       if (nombre_accion == "" || nombre_corto_accion == "") {
-        alert("Los campos marcados con # son obligaotios");
+        toast.info(`${t("accion.datoObligatorio")}`);
         return;
       }
   
@@ -52,7 +54,7 @@ const ModalEditar = ({dato}) => {
     }
   return (
     <>
-    <ToastContainer position="top-center"/>
+    <ToastContainer position="bottom-right"/>
       <Modal
         show={isModalEditOpen}
         onHide={closeModalEdit}
@@ -64,12 +66,12 @@ const ModalEditar = ({dato}) => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            EDITAR ACCION
+          {t("accion.editarTitulo")}
             <p
               className="pb-0 mb-0 text-body-emphasis fw-bold"
               style={{ fontSize: "0.5em" }}
             >
-              (datos obligatorios marcados con #)
+              {t("accion.datoObligatorio")}
             </p>
           </Modal.Title>
         </Modal.Header>
@@ -78,7 +80,7 @@ const ModalEditar = ({dato}) => {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                  Nombre Acción: #
+                {t("accion.nombre-accion")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
@@ -95,7 +97,7 @@ const ModalEditar = ({dato}) => {
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                  Nombre Corto: #
+                {t("accion.nombre-corto")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
@@ -115,7 +117,7 @@ const ModalEditar = ({dato}) => {
                   type={"checkbox"}
                   id={"habilita"}
                   checked={habilita}
-                  label={`Habilitado (tildar por afirmativo)`}
+                  label={t("accion.habilitado")}
                   onChange={(e) => setHabilita(e.target.checked)}
                 />
               </div>
