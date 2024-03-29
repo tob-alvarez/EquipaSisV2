@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import './table.css'
 import {
   trae_acciones,
-  // trae_permiso_acciones,
-  // cambia_acciones,
   ayuda_acciones,
   trae_permisos
 } from "./funciones_accion";
@@ -218,7 +216,7 @@ const Accion = () => {
             </Button>
 
             <Typography variant="h6" className="col-3 align-self-center">
-              Página {currentPage} de {Math.ceil(filteredItems.length / itemsPerPage)}
+            {t("accion.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
             </Typography>
           </div>
         </TableContainer>
