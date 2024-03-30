@@ -51,5 +51,20 @@
         "borrarListo": "Esta ação já está desativada",
         "datoObligatorio": "Dados obrigatórios marcados com #",
         "habilitado": "Ativado (marque sim)"
+    },
+    "categoria":{
+        "titulo": "Categoria",
+        "busqueda": "Procurar",
+        "nombre-categoria": "Nome da Categoria",
+        "estado": "Estado",
+        "acciones": "Ações",
+        "pagina": "Página",
+        "de": "a",
+        "agregarTitulo": "Adicionar categoria",
+        "editarTitulo": "Editar categoria",
+        "borrarTitulo": "Excluir categoria",
+        "borrarListo": "Esta categoria já está desativada",
+        "datoObligatorio": "Dados obrigatórios marcados com #",
+        "habilitado": "Ativado (marque sim)"
     }
 }

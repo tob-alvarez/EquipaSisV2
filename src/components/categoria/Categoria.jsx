@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import './table.css'
 import {
-  trae_acciones,
-  ayuda_acciones,
+  trae_categorias,
+  ayuda_categorias,
   trae_permisos
-} from "./funciones_accion";
+} from "./funciones_categoria";
 
-import { accion_pdf, accion_xls } from "../pdf/accion_pdf";
+import { categoria_pdf, categoria_xls } from "../pdf/categoria_pdf";
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -20,9 +20,9 @@ import ModalAyuda from "./ModalAyuda";
 import ModalEditar from "./ModalEditar";
 import ModalBorrar from "./ModalBorrar";
 
-const Accion = () => {
+const categoria = () => {
   const [t] = useTranslation("global")
-  const [datos_acciones, setDatosAcciones] = useState([]);
+  const [datos_categorias, setDatoscategorias] = useState([]);
   const [permisos_usuario, setPermisos_usuario] = useState([]);
   const [ayuda, setAyuda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,14 +31,14 @@ const Accion = () => {
   // eslint-disable-next-line no-unused-vars
   const [datos, setDatos] = useState({
     tarea: "permiso_usuario",
-    accion: "accion",
+    categoria: "categoria",
     id_usuario: "1"
   });
   
   
   useEffect(() => {
-      trae_acciones().then((result) => setDatosAcciones(result));
-      ayuda_acciones().then((ayuda) => setAyuda(ayuda[0].texto));
+      trae_categorias().then((result) => setDatoscategorias(result));
+      ayuda_categorias().then((ayuda) => setAyuda(ayuda[0].texto));
       trae_permisos(datos).then((result) =>setPermisos_usuario(result[0]))
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -51,14 +51,13 @@ const Accion = () => {
       .map((expresion) => expresion.trim());
     return expresionesArray.some(
       (expresion) =>
-        grilla.nombre_accion.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.corto_accion.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_categoria.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
     );
   }
 
   function buscarEnGrilla(expresiones) {
-    return datos_acciones?.filter((grilla) => buscarPorExpresiones(grilla, expresiones));
+    return datos_categorias?.filter((grilla) => buscarPorExpresiones(grilla, expresiones));
   }
   const filteredItems = buscarEnGrilla(searchTerm);
   const currentItems = filteredItems?.slice(
@@ -71,25 +70,25 @@ const Accion = () => {
   };
 
   const handlePageChange = (page) => {
-    if (page >= 1 && page <= Math.ceil(datos_acciones.length / itemsPerPage)) {
+    if (page >= 1 && page <= Math.ceil(datos_categorias.length / itemsPerPage)) {
       setCurrentPage(page);
     }
   };
   const printInfoProcess = () => {
-    accion_pdf(searchTerm);
+    categoria_pdf(searchTerm);
   };
   const downloadInfo = () => {
-    accion_xls(searchTerm);
+    categoria_xls(searchTerm);
   };
 
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-2 container">
         {/* Funciones agregar, descargar, imprimir y ayuda */}
-        <h4 className="m-0">{t("accion.titulo")}</h4>
+        <h4 className="m-0">{t("categoria.titulo")}</h4>
         <div className="inputContainer d-flex">
           <label htmlFor="search" className="form-label mb-0 p-2">
-            {t("accion.busqueda")}
+            {t("categoria.busqueda")}
           </label>
           <input
             type="text"
@@ -136,10 +135,9 @@ const Accion = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell>{t("accion.nombre-accion")}</TableCell>
-                <TableCell>{t("accion.nombre-corto")}</TableCell>
-                <TableCell>{t("accion.estado")}</TableCell>
-                <TableCell align="center">{t("accion.acciones")}</TableCell>
+                <TableCell>{t("categoria.nombre-categoria")}</TableCell>
+                <TableCell>{t("categoria.estado")}</TableCell>
+                <TableCell align="center">{t("categoria.acciones")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -154,9 +152,8 @@ const Accion = () => {
                     height: '10px', // Ajusta la altura de la fila
                   }}
                 >
-                  <TableCell sx={{textAlign: 'center'}}>{dato.id_accion}</TableCell>
-                  <TableCell>{dato.nombre_accion.toUpperCase()}</TableCell>
-                  <TableCell>{dato.corto_accion}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>{dato.id_categoria}</TableCell>
+                  <TableCell>{dato.nombre_categoria.toUpperCase()}</TableCell>
                   <TableCell>
                     <Typography
                       fontWeight={dato.habilita_3 === 'HABILITADO'}
@@ -216,7 +213,7 @@ const Accion = () => {
             </Button>
 
             <Typography variant="h6" className="col-3 align-self-center">
-            {t("accion.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
+            {t("categoria.pagina")} {currentPage} {t("categoria.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
             </Typography>
           </div>
         </TableContainer>
@@ -225,4 +222,4 @@ const Accion = () => {
   )
 }
 
-export default Accion
+export default categoria
