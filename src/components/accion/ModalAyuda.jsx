@@ -2,9 +2,10 @@
 import { useState } from 'react';
 import { Modal } from 'react-bootstrap'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { useTranslation } from 'react-i18next';
 
 const ModalAyuda = ({ ayuda }) => {
-
+    const [t] = useTranslation("global")
     const [isModalHelpOpen, setIsModalHelpOpen] = useState(false);
     const closeModalHelp = () => {
         setIsModalHelpOpen(false);
@@ -22,7 +23,7 @@ const ModalAyuda = ({ ayuda }) => {
             >
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        <h2 className="form-header text-bold">AYUDA</h2>
+                        <h2 className="form-header text-bold">{t("accion.ayudaTitulo")}</h2>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

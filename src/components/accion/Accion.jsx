@@ -34,13 +34,26 @@ const Accion = () => {
     id_usuario: "1"
   });
   
+  let idioma = localStorage.getItem('language')
   
   useEffect(() => {
       trae_acciones().then((result) => setDatosAcciones(result));
-      ayuda_acciones().then((ayuda) => setAyuda(ayuda[0].texto));
+      switch (idioma) {
+        case "es":
+          ayuda_acciones().then((ayuda) => setAyuda(ayuda[0].texto));
+          break;
+        case "en":
+          ayuda_acciones().then((ayuda) => setAyuda(ayuda[0].texto_en));
+          break;
+        case "por":
+          ayuda_acciones().then((ayuda) => setAyuda(ayuda[0].texto_por));
+          break;
+        default:
+          ayuda_acciones().then((ayuda) => setAyuda(ayuda[0].texto));
+      }
       trae_permisos(datos).then((result) =>setPermisos_usuario(result[0]))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [idioma]);
   
   ////////////////// majeador de busqueda////////////////////////
 
@@ -219,7 +232,7 @@ const Accion = () => {
             {t("accion.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
             </Typography>
             <Typography variant="p" className="align-self-center">
-            {t("accion.registros")} {datos_acciones.length}
+            {t("accion.registros")} {filteredItems.length}
             </Typography>
           </div>
         </TableContainer>

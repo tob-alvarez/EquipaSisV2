@@ -67,6 +67,7 @@ const MenuLateral = ({menuItems, open}) => {
                         </ListItemIcon>
                         <ListItemText
                             primary={"INICIO"}
+                            onClick={() => redirigir(`/inicio`)}
                             sx={{opacity: open ? 1 : 0}}
                         />
                     </ListItemButton>
@@ -83,7 +84,7 @@ const MenuLateral = ({menuItems, open}) => {
                         }} onClick={() => handleClick(item.label)}>
                             <ListItemIcon sx={{
                                 minWidth: 0,
-                                justifyContent: "center",
+                                justifyContent: "left",
                             }}>{mapearIcono(item.label)}</ListItemIcon>
                             <ListItemText primary={item.label} sx={{opacity: open ? 1 : 0}}/>
                             {item.subItems &&

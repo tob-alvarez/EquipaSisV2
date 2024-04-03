@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
 import { cambia_categorias } from "./funciones_categoria";
 import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from "react-i18next";
+import { Switch } from "@mui/material";
 
 const ModalEditar = ({dato}) => {
     const [t] = useTranslation("global")
@@ -13,6 +14,19 @@ const ModalEditar = ({dato}) => {
     const [id_categoria, setId_categoria] = useState("");
     const [nombre_categoria, setNombre_categoria] = useState("");
     const [habilita, setHabilita] = useState(false);
+
+    useEffect(() => {
+      if (isModalEditOpen && dato) {
+        if (dato.habilita == 1) {
+          setHabilita(true);
+        } else {
+          setHabilita(false);
+        }
+        setNombre_categoria(dato.nombre_categoria);
+        console.log(dato)
+      }
+    }, [isModalEditOpen, dato]);
+
     const limpia_campos = () => {
       setId_categoria("");
       setNombre_categoria("");
@@ -93,8 +107,8 @@ const ModalEditar = ({dato}) => {
               </div>
 
               <div className="col-6 text-start">
-                <Form.Check // prettier-ignore
-                  type={"checkbox"}
+                <p>{t("categoria.habilitado")}</p>
+                <Switch 
                   id={"habilita"}
                   checked={habilita}
                   label={t("categoria.habilitado")}
