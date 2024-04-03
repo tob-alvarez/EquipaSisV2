@@ -15,7 +15,7 @@ export function pais_pdf(filtro) {
 
   const resultado = async () => {
     const JSONdata = JSON.stringify({ tarea: "imprime_pais" }); // Send the data to the server in JSON format.
-    const endpoint = "https://v2.equipasis.com/api_desarrollo/pais.php"; // API endpoint where we send form data.
+    const endpoint = "https://v2.equipasis.com/api/pais.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
     const options = {
@@ -103,7 +103,7 @@ export function pais_xls(filtro) {
 
   const resultado = async () => {
     const JSONdata = JSON.stringify({ tarea: "imprime_pais" }); // Send the data to the server in JSON format.
-    const endpoint = "https://v2.equipasis.com/api_desarrollo/pais.php"; // API endpoint where we send form data.
+    const endpoint = "https://v2.equipasis.com/api/pais.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
     const options = {

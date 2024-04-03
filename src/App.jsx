@@ -7,6 +7,7 @@ import Layout from "./common/Layout";
 import Login from "./components/Login/Login";
 import PrivateRoute from "./routes/PrivateRoute";
 import Accion from "./components/accion/Accion";
+import Categoria from "./components/categoria/Categoria";
 
 function App() {
   return (
@@ -31,6 +32,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <Accion />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/categoria"
+              element={
+                <PrivateRoute>
+                  <Categoria />
                 </PrivateRoute>
               }
             />

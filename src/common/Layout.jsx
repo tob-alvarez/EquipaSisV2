@@ -139,7 +139,7 @@ export default function Layout({ children }) {
       }
       return menu;
     }, []);
-  
+    
   return authenticated ? (
     <>
       <Box sx={{ display: "flex" }}>
