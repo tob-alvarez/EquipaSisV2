@@ -15,7 +15,7 @@ export function tipo_archivo_pdf(filtro) {
 
   const resultado = async () => {
     const JSONdata = JSON.stringify({ tarea: "imprime_tipo_archivo" }); // Send the data to the server in JSON format.
-    const endpoint = "https://v2.equipasis.com/api_desarrollo/tipo_archivo.php"; // API endpoint where we send form data.
+    const endpoint = "https://v2.equipasis.com/api/tipo_archivo.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
     const options = {
@@ -103,7 +103,7 @@ export function tipo_archivo_xls(filtro) {
 
   const resultado = async () => {
     const JSONdata = JSON.stringify({ tarea: "imprime_tipo_archivo" }); // Send the data to the server in JSON format.
-    const endpoint = "https://v2.equipasis.com/api_desarrollo/tipo_archivo.php"; // API endpoint where we send form data.
+    const endpoint = "https://v2.equipasis.com/api/tipo_archivo.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
     const options = {

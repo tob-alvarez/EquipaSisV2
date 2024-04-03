@@ -102,7 +102,7 @@ function cabecera() {
 async function dataFetch_otro () {
     const data_otro = await (
       await fetch(
-        "https://v2.equipasis.com/api_desarrollo/prueba.php?tarea=imprimir_tipo_usuario"
+        "https://v2.equipasis.com/api/prueba.php?tarea=imprimir_tipo_usuario"
       )
     ).json();
     data = data_otro["datos"];

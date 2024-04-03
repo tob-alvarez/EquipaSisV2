@@ -15,7 +15,7 @@ export function estado_equipo_pdf(filtro) {
 
   const resultado = async () => {
     const JSONdata = JSON.stringify({ tarea: "imprime_estado_equipo" }); // Send the data to the server in JSON format.
-    const endpoint = "https://v2.equipasis.com/api_desarrollo/estado_equipo.php"; // API endpoint where we send form data.
+    const endpoint = "https://v2.equipasis.com/api/estado_equipo.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
     const options = {
@@ -106,7 +106,7 @@ export function estado_equipo_xls(filtro) {
 
   const resultado = async () => {
     const JSONdata = JSON.stringify({ tarea: "imprime_estado_equipo" }); // Send the data to the server in JSON format.
-    const endpoint = "https://v2.equipasis.com/api_desarrollo/estado_equipo.php"; // API endpoint where we send form data.
+    const endpoint = "https://v2.equipasis.com/api/estado_equipo.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
     const options = {

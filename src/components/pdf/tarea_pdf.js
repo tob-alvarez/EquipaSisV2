@@ -1,7 +1,7 @@
 import jsPDF from "jspdf";
 import * as XLSX from "xlsx";
 
-export function tipo_pertenencia_pdf(filtro) {
+export function tarea_pdf(filtro) {
   const doc = new jsPDF({
     orientation: "p",
     unit: "mm",
@@ -14,8 +14,8 @@ export function tipo_pertenencia_pdf(filtro) {
   let habilita = "";
 
   const resultado = async () => {
-    const JSONdata = JSON.stringify({ tarea: "imprime_tipo_pertenencia" }); // Send the data to the server in JSON format.
-    const endpoint = "https://v2.equipasis.com/api/tipo_pertenencia.php"; // API endpoint where we send form data.
+    const JSONdata = JSON.stringify({ tarea: "imprime_tarea" }); // Send the data to the server in JSON format.
+    const endpoint = "https://v2.equipasis.com/api/tarea.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
     const options = {
@@ -30,30 +30,31 @@ export function tipo_pertenencia_pdf(filtro) {
     const result = await response.json();
 
     data = result.datos;
-    data = data.filter(item => item.nombre_tpertenencia.toLowerCase().indexOf(filtro) > -1);
+    data = data.filter(item => item.nombre_tarea.toLowerCase().indexOf(filtro) > -1);
     doc.setProperties({
-      title: "Registro de Tipo de Pertenencias",
+      title: "Registro de Tareas",
     });
     cabecera();
     data.map((datos, index) => {
-      if (index % 2 == 0 && datos.nombre_tpertenencia.length > 120) {
+      if (index % 2 == 0 && datos.nombre_tarea.length > 120) {
         doc.setFillColor("#ECECEC");
         doc.rect(15, lineas - 4, 169, 10, "F");
       }
 
-      if (index % 2 == 0 && datos.nombre_tpertenencia.length < 120) {
+      if (index % 2 == 0 && datos.nombre_tarea.length < 120) {
         doc.setFillColor("#ECECEC");
         doc.rect(15, lineas - 4, 169, 5, "F");
       }
 
-      doc.text(datos.id_tpertenencia, 20, lineas);
-      doc.text(datos.nombre_tpertenencia, 34, lineas);
+      doc.text(datos.id_tarea, 20, lineas);
+      doc.text(datos.nombre_tarea, 34, lineas);
+      doc.text(datos.nombre_ttarea, 100, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
       doc.text(habilita, 168, lineas);
 
-      if (datos.nombre_tpertenencia.length > 100) {
+      if (datos.nombre_tarea.length > 100) {
         //doc.line(5,lineas+6,200,lineas+6);
         lineas = lineas + 5;
       } else {
@@ -82,14 +83,16 @@ export function tipo_pertenencia_pdf(filtro) {
     doc.setFontSize(14);
 
     doc.setTextColor(55, 0, 0);
-    doc.text("Registro de Tipo de Pertenencias", 15, 12);
+    doc.text("Registro de Tareas", 15, 12);
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(9);
     doc.text("ID", 22, 25, { align: "center" });
     doc.line(30, 19.8, 30, 27.2);
-    doc.text("Nombre de Tipo de Pertenencia", 80, 25, { align: "center" });
+    doc.text("Nombre de la Tarea", 50, 25, { align: "center" });
+    doc.line(95, 19.8, 95, 27.2);
+    doc.text("Tipo de Tarea", 109, 25, { align: "center" });
     doc.line(160, 19.8, 160, 27.2);
-    doc.text("Habilitado", 172, 25, { align: "center" });
+    doc.text("Habilitada", 172, 25, { align: "center" });
     let fecha = new Date();
     fecha = fecha.toLocaleString();
 
@@ -98,12 +101,12 @@ export function tipo_pertenencia_pdf(filtro) {
   }
 }
 
-export function tipo_pertenencia_xls(filtro) {
+export function tarea_xls(filtro) {
   let data = [];
 
   const resultado = async () => {
-    const JSONdata = JSON.stringify({ tarea: "imprime_tipo_pertenencia" }); // Send the data to the server in JSON format.
-    const endpoint = "https://v2.equipasis.com/api/tipo_pertenencia.php"; // API endpoint where we send form data.
+    const JSONdata = JSON.stringify({ tarea: "imprime_tarea" }); // Send the data to the server in JSON format.
+    const endpoint = "https://v2.equipasis.com/api/tarea.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
     const options = {
@@ -118,20 +121,20 @@ export function tipo_pertenencia_xls(filtro) {
     const result = await response.json();
 
     let fecha = new Date();
-    fecha = fecha.toLocaleString();    
-
+    fecha = fecha.toLocaleString();
+    
     data = result.datos;
-    data = data.filter(item => item.nombre_tpertenencia.toLowerCase().indexOf(filtro) > -1);
+    data = data.filter(item => item.nombre_tarea.toLowerCase().indexOf(filtro) > -1);
     console.log(data.length);
     if (data.length != 0) {
       //const wb = XLSX.utils.table_to_book(table);
       const ws = XLSX.utils.json_to_sheet(data);
 
       var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "tipo_pertenencias");
+      XLSX.utils.book_append_sheet(wb, ws, "tareas");
 
       /* Export to file (start a download) */
-      XLSX.writeFile(wb, fecha + "_Tipo_pertenencia.xlsx");
+      XLSX.writeFile(wb, fecha + "_tarea.xlsx");
     }
   };
   resultado()
