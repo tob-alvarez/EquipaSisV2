@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { cambia_acciones } from "./funciones_accion";
 import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from "react-i18next";
@@ -12,9 +12,22 @@ const ModalEditar = ({dato}) => {
     const [t] = useTranslation("global")
     const [isModalEditOpen, setIsModalEditOpen] = useState(false);
     const [id_accion, setId_accion] = useState("");
-    const [nombre_accion, setNombre_accion] = useState(dato.nombre_accion);
-    const [nombre_corto_accion, setNombre_corto_accion] = useState(dato.corto_accion);
+    const [nombre_accion, setNombre_accion] = useState("");
+    const [nombre_corto_accion, setNombre_corto_accion] = useState("");
     const [habilita, setHabilita] = useState(false);
+    
+    useEffect(() => {
+      if (isModalEditOpen && dato) {
+        if (dato.habilita == 1) {
+          setHabilita(true);
+        } else {
+          setHabilita(false);
+        }
+        setNombre_accion(dato.nombre_accion);
+        setNombre_corto_accion(dato.corto_accion);
+      }
+    }, [isModalEditOpen, dato]);
+    
     const limpia_campos = () => {
       setId_accion("");
       setNombre_accion("");
@@ -41,12 +54,12 @@ const ModalEditar = ({dato}) => {
       cambia_acciones(datos_cambios).then((respuesta_accion) => {
         if (respuesta_accion[0].registros > 0) {
           toast.success(`Accion editada correctamente`, {
-            duration: 2000,
+            duration: 1500,
           });
           limpia_campos()
         } else {
           toast.error(`${respuesta_accion[0].Mensage}`, {
-            duration: 2000,
+            duration: 1500,
             className: "bg-success text-white fs-6",
           });
         }
@@ -114,6 +127,7 @@ const ModalEditar = ({dato}) => {
               </div>
 
               <div className="col-6 text-start">
+                <p>{t("accion.habilitado")}</p>
                 <Switch 
                   id={"habilita"}
                   checked={habilita}

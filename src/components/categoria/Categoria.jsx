@@ -20,7 +20,7 @@ import ModalAyuda from "./ModalAyuda";
 import ModalEditar from "./ModalEditar";
 import ModalBorrar from "./ModalBorrar";
 
-const categoria = () => {
+const Categoria = () => {
   const [t] = useTranslation("global")
   const [datos_categorias, setDatoscategorias] = useState([]);
   const [permisos_usuario, setPermisos_usuario] = useState([]);
@@ -222,4 +222,4 @@ const categoria = () => {
   )
 }
 
-export default categoria
+export default Categoria
