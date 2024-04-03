@@ -45,7 +45,6 @@ const ModalEditar = ({dato}) => {
         corto_accion: nombre_corto_accion,
         habilita: habilita === true ? "1" : "0",
       };
-      console.log(datos_cambios)
       if (nombre_accion == "" || nombre_corto_accion == "") {
         toast.info(`${t("accion.datoObligatorio")}`);
         return;
@@ -53,7 +52,7 @@ const ModalEditar = ({dato}) => {
   
       cambia_acciones(datos_cambios).then((respuesta_accion) => {
         if (respuesta_accion[0].registros > 0) {
-          toast.success(`Accion editada correctamente`, {
+          toast.success(`${t("varios.editado")}`, {
             duration: 1500,
           });
           limpia_campos()
