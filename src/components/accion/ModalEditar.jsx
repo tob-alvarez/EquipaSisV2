@@ -54,7 +54,7 @@ const ModalEditar = ({dato}) => {
       cambia_acciones(datos_cambios).then((respuesta_accion) => {
         if (respuesta_accion[0].registros > 0) {
           toast.success(`Accion editada correctamente`, {
-            duration: 1500,
+            duration: 15000,
           });
           limpia_campos()
         } else {
