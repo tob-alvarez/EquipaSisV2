@@ -1,17 +1,20 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
 import { borra_acciones } from "./funciones_accion";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useTranslation } from "react-i18next";
+import { EquipaContext } from "../../context/EquipaContext";
 
 const ModalBorrar = ({dato}) => {
     const [t] = useTranslation("global")
     const [nombre_accion, setNombre_accion] = useState("");
     const [habilita, setHabilita] = useState(false);
     const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
+    const { actualizador } = useContext(EquipaContext);
+
     const closeModalDelete = () => {
         setIsModalDeleteOpen(false);
       };
@@ -22,11 +25,13 @@ const ModalBorrar = ({dato}) => {
         borra_acciones(datos_cambios).then(() => {
             setIsModalDeleteOpen(false);
             toast.success("Registro deshabiltado correctamente", {
-            duration: 2000,
+            duration: 1000,
             className: "bg-success text-white fs-6",
           });
+          actualizador()
         });
       };
+
     return (
         <>
             <Modal

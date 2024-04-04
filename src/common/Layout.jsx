@@ -120,6 +120,7 @@ export default function Layout({ children }) {
   
   React.useEffect(() => {
     getAuth();
+    // Mandar el token y en el back hacer comparacion y traer de vuelta todo
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); 
 
