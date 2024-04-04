@@ -37,7 +37,8 @@
         "bienvenida": "Welcome"
     },
     "varios":{
-        "alta": "Registration completed correctly"
+        "alta": "Registration completed correctly",
+        "editado": "Edition made"
     },
     "accion":{
         "titulo": "Action",
@@ -50,6 +51,7 @@
         "pagina": "Page",
         "de": "of",
         "agregarTitulo": "Add Action",
+        "ayudaTitulo": "Help",
         "editarTitulo": "Edit Action",
         "borrarTitulo": "Delete Action",
         "borrarListo": "This action is already disabled",
