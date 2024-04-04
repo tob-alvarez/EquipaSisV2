@@ -25,6 +25,11 @@ const MenuLateral = ({menuItems, open}) => {
             [label]: !prevState[label]
         }));
     };
+    const ultimoItem = menuItems[menuItems.length - 1];
+    ultimoItem.subItems.sort((a, b) => {
+    // Comparar los subItems por su label
+    return a.label.localeCompare(b.label);
+    });
 
     const mapearIcono = (nombreOpcion) => {
         switch (nombreOpcion) {
