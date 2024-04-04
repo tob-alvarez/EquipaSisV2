@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import './table.css'
 import {
   trae_acciones,
@@ -18,6 +18,7 @@ import ModalAgregar from "./ModalAgregar";
 import ModalAyuda from "./ModalAyuda";
 import ModalEditar from "./ModalEditar";
 import ModalBorrar from "./ModalBorrar";
+import { EquipaContext } from "../../context/EquipaContext";
 
 const Accion = () => {
   const [t] = useTranslation("global")
@@ -26,6 +27,7 @@ const Accion = () => {
   const [ayuda, setAyuda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
+  const { refresh } = useContext(EquipaContext);
   const [searchTerm, setSearchTerm] = useState("");
   // eslint-disable-next-line no-unused-vars
   const [datos, setDatos] = useState({
@@ -53,7 +55,7 @@ const Accion = () => {
       }
       trae_permisos(datos).then((result) =>setPermisos_usuario(result[0]))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [idioma]);
+    }, [idioma, refresh]);
   
   ////////////////// majeador de busqueda////////////////////////
 

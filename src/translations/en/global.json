@@ -37,7 +37,8 @@
         "bienvenida": "Welcome"
     },
     "varios":{
-        "alta": "Registration completed correctly"
+        "alta": "Registration completed correctly",
+        "editado": "Edition made"
     },
     "accion":{
         "titulo": "Action",

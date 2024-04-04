@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { toast } from "react-toastify";
 import { cambia_acciones } from "./funciones_accion";
 import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
+import { EquipaContext } from "../../context/EquipaContext";
 
 const ModalEditar = ({dato}) => {
     const [t] = useTranslation("global")
@@ -15,6 +16,7 @@ const ModalEditar = ({dato}) => {
     const [nombre_accion, setNombre_accion] = useState("");
     const [nombre_corto_accion, setNombre_corto_accion] = useState("");
     const [habilita, setHabilita] = useState(false);
+    const { actualizador } = useContext(EquipaContext);
     
     useEffect(() => {
       if (isModalEditOpen && dato) {
@@ -45,7 +47,6 @@ const ModalEditar = ({dato}) => {
         corto_accion: nombre_corto_accion,
         habilita: habilita === true ? "1" : "0",
       };
-      console.log(datos_cambios)
       if (nombre_accion == "" || nombre_corto_accion == "") {
         toast.info(`${t("accion.datoObligatorio")}`);
         return;
@@ -53,10 +54,11 @@ const ModalEditar = ({dato}) => {
   
       cambia_acciones(datos_cambios).then((respuesta_accion) => {
         if (respuesta_accion[0].registros > 0) {
-          toast.success(`Accion editada correctamente`, {
+          toast.success(`${t("varios.editado")}`, {
             duration: 1500,
           });
           limpia_campos()
+          actualizador()
         } else {
           toast.error(`${respuesta_accion[0].Mensage}`, {
             duration: 1500,

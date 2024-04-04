@@ -156,8 +156,8 @@ const Categoria = () => {
                   <TableCell>{dato.nombre_categoria.toUpperCase()}</TableCell>
                   <TableCell>
                     <Typography
-                      fontWeight={dato.habilita_3 === 'HABILITADO'}
-                      color={dato.habilita_3 === 'HABILITADO' ? '' : '#ff0000'}
+                      fontWeight={dato.habilita_3 === 'SI'}
+                      color={dato.habilita_3 === 'SI' ? '' : '#ff0000'}
                     >
                       {dato.habilita_3}
                     </Typography>

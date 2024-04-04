@@ -37,7 +37,8 @@
         "bienvenida": "bemvindo"
     },
     "varios":{
-        "alta": "Alta realizada corretamente"
+        "alta": "Alta realizada corretamente",
+        "editado": "Edição feita"
     },
     "accion":{
         "titulo": "Ação",
