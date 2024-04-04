@@ -15,7 +15,7 @@ export function empresa_pdf(filtro) {
 
   const resultado = async () => {
     const JSONdata = JSON.stringify({ tarea: "imprime_empresa" }); // Send the data to the server in JSON format.
-    const endpoint = "https://v2.equipasis.com/api_desarrollo/empresa.php"; // API endpoint where we send form data.
+    const endpoint = "https://v2.equipasis.com/api/empresa.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
     const options = {
@@ -103,7 +103,7 @@ export function empresa_xls(filtro) {
 
   const resultado = async () => {
     const JSONdata = JSON.stringify({ tarea: "imprime_empresa" }); // Send the data to the server in JSON format.
-    const endpoint = "https://v2.equipasis.com/api_desarrollo/empresa.php"; // API endpoint where we send form data.
+    const endpoint = "https://v2.equipasis.com/api/empresa.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
     const options = {

@@ -55,5 +55,20 @@
         "borrarListo": "This action is already disabled",
         "datoObligatorio": "Mandatory data marked with #",
         "habilitado": "Enabled (check yes)"
+    },
+    "categoria":{
+        "titulo": "Category",
+        "busqueda": "Search",
+        "nombre-categoria": "Category Name",
+        "estado": "State",
+        "acciones": "Actions",
+        "pagina": "Page",
+        "de": "of",
+        "agregarTitulo": "Add Category",
+        "editarTitulo": "Edit Category",
+        "borrarTitulo": "Delete Category",
+        "borrarListo": "This category is already disabled",
+        "datoObligatorio": "Mandatory data marked with #",
+        "habilitado": "Enabled (check yes)"
     }
 }
