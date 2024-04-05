@@ -34,11 +34,12 @@
         "derechosReservados": "Todos os direitos reservados"
     },
     "inicio":{
-        "bienvenida": "bemvindo"
+        "bienvenida": "Bemvindo"
     },
     "varios":{
-        "alta": "Alta realizada corretamente",
-        "editado": "Edição feita"
+        "alta": "Registro bem-sucedido",
+        "editado": "Edição feita corretamente",
+        "borrado": "Desativação feita corretamente" 
     },
     "accion":{
         "titulo": "Ação",
@@ -56,7 +57,7 @@
         "borrarTitulo": "Excluir ação",
         "borrarListo": "Esta ação já está desativada",
         "datoObligatorio": "Dados obrigatórios marcados com #",
-        "habilitado": "Ativado (marque sim)"
+        "habilitado": "Ativado"
     },
     "categoria":{
         "titulo": "Categoria",
@@ -71,6 +72,6 @@
         "borrarTitulo": "Excluir categoria",
         "borrarListo": "Esta categoria já está desativada",
         "datoObligatorio": "Dados obrigatórios marcados com #",
-        "habilitado": "Ativado (marque sim)"
+        "habilitado": "Ativado"
     }
 }

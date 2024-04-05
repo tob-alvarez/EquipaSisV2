@@ -38,7 +38,8 @@
     },
     "varios":{
         "alta": "Registration completed correctly",
-        "editado": "Edition made"
+        "editado": "Editing done correctly",
+        "borrado": "Disabling done correctly"
     },
     "accion":{
         "titulo": "Action",
@@ -56,7 +57,7 @@
         "borrarTitulo": "Delete Action",
         "borrarListo": "This action is already disabled",
         "datoObligatorio": "Mandatory data marked with #",
-        "habilitado": "Enabled (check yes)"
+        "habilitado": "Enabled"
     },
     "categoria":{
         "titulo": "Category",
@@ -71,6 +72,6 @@
         "borrarTitulo": "Delete Category",
         "borrarListo": "This category is already disabled",
         "datoObligatorio": "Mandatory data marked with #",
-        "habilitado": "Enabled (check yes)"
+        "habilitado": "Enabled"
     }
 }

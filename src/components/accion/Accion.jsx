@@ -65,9 +65,10 @@ const Accion = () => {
       .map((expresion) => expresion.trim());
     return expresionesArray.some(
       (expresion) =>
+        grilla.id_accion.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.nombre_accion.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.corto_accion.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
+        grilla.corto_accion.toLowerCase().includes(expresion.toLowerCase()) 
     );
   }
 
@@ -175,7 +176,7 @@ const Accion = () => {
                   <TableCell>{dato.corto_accion}</TableCell>
                   <TableCell>
                     <p
-                      style={dato.habilita_3 === 'HABILITADO' ? {margin: 0}:{margin:0, color: "#ff0000"}}
+                      style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >
                       {dato.habilita_3}
                     </p>

@@ -119,13 +119,15 @@ const ModalAgregar = () => {
               </div>
 
               <div className="col-6 text-start">
-                <Switch
+                {t("accion.habilitado")}
+                <Switch 
                   id={"habilita"}
                   checked={habilita}
                   label={t("accion.habilitado")}
                   onChange={(e) => setHabilita(e.target.checked)}
                 />
               </div>
+
             </div>
           </div>
         </Modal.Body>

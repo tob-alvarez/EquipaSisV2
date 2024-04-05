@@ -24,7 +24,7 @@ const ModalBorrar = ({dato}) => {
         };
         borra_acciones(datos_cambios).then(() => {
             setIsModalDeleteOpen(false);
-            toast.success("Registro deshabiltado correctamente", {
+            toast.success(`${t("varios.borrado")}`, {
             duration: 1000,
             className: "bg-success text-white fs-6",
           });

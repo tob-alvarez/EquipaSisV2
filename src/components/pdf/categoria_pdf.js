@@ -24,7 +24,7 @@ export function categoria_pdf(filtro, idioma) {
       nombreAcciones = "Nome da Categoria";
       habilitado = "Habilitado";
       page = "Página";
-      reporte = "relatório em";
+      reporte = "Relatório em";
     } else {
       titulo = "Registro de Categorías";
       nombreAcciones = "Nombre de Categorías";
