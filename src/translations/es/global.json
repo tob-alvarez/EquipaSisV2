@@ -57,7 +57,7 @@
         "borrarTitulo": "Borrar Actión",
         "borrarListo": "Esta acción ya está deshabilitada",
         "datoObligatorio": "Datos obligatorios marcados con #",
-        "habilitado": "Habilitado (tildar por afirmativo)"
+        "habilitado": "Habilitado"
     },
     "categoria": {
         "titulo": "Categoría",
@@ -72,6 +72,6 @@
         "borrarTitulo": "Borrar Action",
         "borrarListo": "Esta accion ya esta deshabilitada",
         "datoObligatorio": "Datos obligatorios marcados con #",
-        "habilitado": "Habilitado (tildar por afirmativo)"
+        "habilitado": "Habilitado"
     }
 }

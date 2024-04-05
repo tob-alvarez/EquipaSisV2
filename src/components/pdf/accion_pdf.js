@@ -8,25 +8,25 @@ export function accion_pdf(filtro, idioma) {
   let page;
   let reporte;
   if (idioma === 'es') {
-    titulo = "Registro de acciones";
+    titulo = "Registro de Acciones";
     nombreAcciones = "Nombre de Acciones";
     habilitado = "Habilitada";
     page = "Página";
     reporte = "Reporte al"
   } else if (idioma === 'en') {
-    titulo = "Records of dates";
-    nombreAcciones = "Stock name";
+    titulo = "Records of Dates";
+    nombreAcciones = "Stock Name";
     habilitado = "Enabled";
     page = "Page";
     reporte = "Report as of";
   } else if (idioma === 'por') {
-    titulo = "Datas de ações";
-    nombreAcciones = "Nome da ação";
+    titulo = "Datas de Ações";
+    nombreAcciones = "Nome da Ação";
     habilitado = "Habilitado";
     page = "Página";
-    reporte = "relatório em";
+    reporte = "Relatório em";
   } else {
-    titulo = "Registro de acciones";
+    titulo = "Registro de Acciones";
     nombreAcciones = "Nombre de Acciones";
     habilitado = "Habilitada";
     page = "Página";

@@ -57,7 +57,7 @@
         "borrarTitulo": "Excluir ação",
         "borrarListo": "Esta ação já está desativada",
         "datoObligatorio": "Dados obrigatórios marcados com #",
-        "habilitado": "Ativado (marque sim)"
+        "habilitado": "Ativado"
     },
     "categoria":{
         "titulo": "Categoria",
@@ -72,6 +72,6 @@
         "borrarTitulo": "Excluir categoria",
         "borrarListo": "Esta categoria já está desativada",
         "datoObligatorio": "Dados obrigatórios marcados com #",
-        "habilitado": "Ativado (marque sim)"
+        "habilitado": "Ativado"
     }
 }

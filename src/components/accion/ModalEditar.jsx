@@ -129,7 +129,7 @@ const ModalEditar = ({dato}) => {
               </div>
 
               <div className="col-6 text-start">
-                <p>{t("accion.habilitado")}</p>
+                {t("accion.habilitado")}
                 <Switch 
                   id={"habilita"}
                   checked={habilita}

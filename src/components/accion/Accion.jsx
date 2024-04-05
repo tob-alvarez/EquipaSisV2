@@ -65,7 +65,8 @@ const Accion = () => {
       .map((expresion) => expresion.trim());
     return expresionesArray.some(
       (expresion) =>
-      grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.id_accion.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.nombre_accion.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.corto_accion.toLowerCase().includes(expresion.toLowerCase()) 
     );
