@@ -15,6 +15,7 @@ const EquipaProvider = ({ children }) => {
   const [ t, i18n] = useTranslation("global")
   const [selected, setSelected] = useState([]);
   const [botonState, setBotonState] = useState(false);
+  const [refresh, setRefresh] = useState(null);
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem('language');
@@ -73,11 +74,14 @@ const EquipaProvider = ({ children }) => {
   const logout = () => {
     setAuthenticated(false);
     sessionStorage.removeItem("token");
-    localStorage.removeItem("tokenSet");
     const url = new URL(`http://localhost:5173/`);
     // url.searchParams.append("logout", true);
     window.open(url.toString(), '_self');
   };
+
+  const actualizador = () =>{
+    setRefresh(!refresh)
+  }
 
   return (
     <EquipaContext.Provider
@@ -95,7 +99,9 @@ const EquipaProvider = ({ children }) => {
         t,
         login,
         botonState,
-        permisos
+        permisos,
+        refresh,
+        actualizador
       }}
     >
       {children}

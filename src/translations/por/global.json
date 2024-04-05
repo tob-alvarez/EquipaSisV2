@@ -34,10 +34,12 @@
         "derechosReservados": "Todos os direitos reservados"
     },
     "inicio":{
-        "bienvenida": "bemvindo"
+        "bienvenida": "Bemvindo"
     },
     "varios":{
-        "alta": "Alta realizada corretamente"
+        "alta": "Registro bem-sucedido",
+        "editado": "Edição feita corretamente",
+        "borrado": "Desativação feita corretamente" 
     },
     "accion":{
         "titulo": "Ação",

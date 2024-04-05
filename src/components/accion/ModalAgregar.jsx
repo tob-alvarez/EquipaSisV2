@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
 import { alta_acciones } from "./funciones_accion";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
+import { EquipaContext } from "../../context/EquipaContext";
 
 const ModalAgregar = () => {
 
@@ -14,6 +15,7 @@ const ModalAgregar = () => {
   const [nombre_accion, setNombre_accion] = useState("");
   const [nombre_corto_accion, setNombre_corto_accion] = useState("");
   const [habilita, setHabilita] = useState(false);
+  const { actualizador } = useContext(EquipaContext);
   const limpia_campos = () => {
     setId_accion("");
     setNombre_accion("");
@@ -44,7 +46,7 @@ const ModalAgregar = () => {
           duration: 2000,
         });
         limpia_campos()
-        window.location.reload()
+        actualizador()
       } else {
         toast.error(`${respuesta_accion[0].Mensage}`, {
           duration: 2000,
