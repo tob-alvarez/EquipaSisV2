@@ -30,8 +30,8 @@ export function proveedores_pdf(data,) {
 
 function cabecera() {
     const logo = new Image();
-    logo.src = '/imagenes/equipasis.jpg';
-    doc.addImage(logo, 'JPEG', 25, 30, 65, 52); // Agregar la imagen al PDF (X, Y, Width, Height) 
+    logo.src = "public/logo.png";
+    doc.addImage(logo, "PNG", 170, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
     doc.rect(4.3, 19.7, 201, 7.5)
     doc.setFillColor('#EBEBEB');
     doc.rect(5, 20, 200, 7, 'F')

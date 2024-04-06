@@ -151,7 +151,7 @@ const ModalEditar = ({dato}) => {
                 borderColor: "green",
               }}
             >
-              Aceptar
+              {t("login.aceptar")}
             </button>
             <button
               onClick={closeModalEdit}
@@ -162,7 +162,7 @@ const ModalEditar = ({dato}) => {
                 borderColor: "#990000",
               }}
             >
-              Cerrar
+              {t("login.cancelar")}
             </button>
           </div>
         </Modal.Footer>

@@ -5,7 +5,7 @@ export function categoria_pdf(filtro, idioma) {
     let titulo;
     let nombreAcciones;
     let habilitado;
-    let page;
+    let page; 
     let reporte;
     if (idioma === 'es') {
       titulo = "Registro de Categorías";
@@ -56,13 +56,12 @@ export function categoria_pdf(filtro, idioma) {
     // Get the response data from server as JSON.
     // If server returns the name submitted, that means the form works.
     const result = await response.json();
- console.log(filtro)
     data = result.datos;
     data = data.filter(item => item.nombre_categoria.toLowerCase().indexOf(filtro) > -1 || 
     item.id_categoria.toLowerCase().indexOf(filtro) > -1 ||
     item.habilita.toLowerCase().indexOf(filtro) > -1);
     doc.setProperties({
-      title: "Registro de Categorías",
+      title: titulo,
     });
     cabecera();
     data.map((datos, index) => {
@@ -104,7 +103,7 @@ export function categoria_pdf(filtro, idioma) {
   resultado();
   function cabecera() {
     const logo = new Image();
-    logo.src = "public/logoEquipasis.png";
+    logo.src = "public/logo.png";
     doc.addImage(logo, "PNG", 170, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
     doc.rect(14.8, 19.8, 169.3, 7.4);
     doc.setFillColor("#EBEBEB");

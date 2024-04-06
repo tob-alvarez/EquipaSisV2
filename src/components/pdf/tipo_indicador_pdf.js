@@ -73,9 +73,9 @@ export function tipo_indicador_pdf(filtro) {
   };
   resultado();
   function cabecera() {
-  //  const logo = new Image();
-  //  logo.src = "/imagenes/equipasis.jpg";
-  //  doc.addImage(logo, "JPEG", 170, 1, 20, 15); // Agregar la imagen al PDF (X, Y, Width, Height)
+    const logo = new Image();
+    logo.src = "public/logo.png";
+    doc.addImage(logo, "PNG", 170, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
     doc.rect(14.8, 19.8, 169.3, 7.4);
     doc.setFillColor("#EBEBEB");
     doc.rect(15, 20, 169, 7, "F");
