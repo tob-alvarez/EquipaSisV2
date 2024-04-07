@@ -9,25 +9,25 @@ export function categoria_pdf(filtro, idioma) {
     let reporte;
     if (idioma === 'es') {
       titulo = "Registro de Categorías";
-      nombreAcciones = "Nombre de Categorías";
+      nombreAcciones = "Nombre de Categoría";
       habilitado = "Habilitada";
       page = "Página";
       reporte = "Reporte al"
     } else if (idioma === 'en') {
-      titulo = "Records of Category";
+      titulo = "Records of Categories";
       nombreAcciones = "Category Name";
       habilitado = "Enabled";
       page = "Page";
       reporte = "Report as of";
     } else if (idioma === 'por') {
-      titulo = "Datas de Categoria";
+      titulo = "Datas de Categorias";
       nombreAcciones = "Nome da Categoria";
       habilitado = "Habilitado";
       page = "Página";
       reporte = "Relatório em";
     } else {
       titulo = "Registro de Categorías";
-      nombreAcciones = "Nombre de Categorías";
+      nombreAcciones = "Nombre de Categoría";
       habilitado = "Habilitada";
       page = "Página";
       reporte = "Reporte al"

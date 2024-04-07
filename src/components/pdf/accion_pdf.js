@@ -9,7 +9,7 @@ export function accion_pdf(filtro, idioma) {
   let reporte;
   if (idioma === 'es') {
     titulo = "Registro de Acciones";
-    nombreAcciones = "Nombre de Acciones";
+    nombreAcciones = "Nombre de Acción";
     habilitado = "Habilitada";
     page = "Página";
     reporte = "Reporte al"
@@ -27,7 +27,7 @@ export function accion_pdf(filtro, idioma) {
     reporte = "Relatório em";
   } else {
     titulo = "Registro de Acciones";
-    nombreAcciones = "Nombre de Acciones";
+    nombreAcciones = "Nombre de Acción";
     habilitado = "Habilitada";
     page = "Página";
     reporte = "Reporte al"
