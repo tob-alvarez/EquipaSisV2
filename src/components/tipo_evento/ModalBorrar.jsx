@@ -3,14 +3,14 @@
 import { useContext, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
-import { borra_tipo_archivos } from "./funciones_tipo_archivo";
+import { borra_tipo_eventos } from "./funciones_tipo_evento";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useTranslation } from "react-i18next";
 import { EquipaContext } from "../../context/EquipaContext";
 
 const ModalBorrar = ({dato}) => {
     const [t] = useTranslation("global")
-    const [nombre_tarchivo, setNombre_tarchivo] = useState("");
+    const [nombre_tevento, setNombre_tevento] = useState("");
     const [habilita, setHabilita] = useState(false);
     const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
     const { actualizador } = useContext(EquipaContext);
@@ -18,11 +18,11 @@ const ModalBorrar = ({dato}) => {
     const closeModalDelete = () => {
         setIsModalDeleteOpen(false);
       };
-    const borra_tipo_archivo = () => {
+    const borra_tipo_evento = () => {
         const datos_cambios = {
-            id_tarchivo: dato.id_tarchivo,
+            id_tevento: dato.id_tevento,
         };
-        borra_tipo_archivos(datos_cambios).then(() => {
+        borra_tipo_eventos(datos_cambios).then(() => {
             setIsModalDeleteOpen(false);
             toast.success(`${t("varios.borrado")}`, {
             duration: 1000,
@@ -43,22 +43,22 @@ const ModalBorrar = ({dato}) => {
                 centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title> {t("tipo_archivo.borrarTitulo")}...</Modal.Title>
+                    <Modal.Title> {t("tipo_evento.borrarTitulo")}...</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {dato.habilita_3 == 'SI' ? (
                         <>
                             <h6>
-                                <b>{t("tipo_archivo.titulo")}:</b> {dato.nombre_tarchivo}
+                                <b>{t("tipo_evento.titulo")}:</b> {dato.nombre_tevento}
                             </h6>
                         </>
                     ) : (
                         <>
                             <h6>
-                                <b>{t("tipo_archivo.titulo")}:</b> {dato.nombre_tarchivo}
+                                <b>{t("tipo_evento.titulo")}:</b> {dato.nombre_tevento}
                             </h6>
                             <p style={{ fontSize: "0.8em", color: "red" }}>
-                            {t("tipo_archivo.borrarListo")}
+                            {t("tipo_evento.borrarListo")}
                             </p>
                         </>
                     )}
@@ -67,7 +67,7 @@ const ModalBorrar = ({dato}) => {
                     <div className="justify-content-center mt-2">
                         {dato.habilita_3 == 'SI' ? (
                             <button
-                                onClick={borra_tipo_archivo}
+                                onClick={borra_tipo_evento}
                                 className="btn btn-primary btn-sm m-2"
                                 style={{
                                     float: "right",

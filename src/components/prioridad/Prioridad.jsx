@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import './table.css'
 import {
-  trae_tipo_archivos,
-  ayuda_tipo_archivos,
+  trae_prioridades,
+  ayuda_prioridades,
   trae_permisos
-} from "./funciones_tipo_archivo";
-import { tipo_archivo_pdf, tipo_archivo_xls } from "../pdf/tipo_archivo_pdf";
+} from "./funciones_prioridad";
+import { prioridad_pdf, prioridad_xls } from "../pdf/prioridad_pdf";
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -20,9 +20,9 @@ import ModalEditar from "./ModalEditar";
 import ModalBorrar from "./ModalBorrar";
 import { EquipaContext } from "../../context/EquipaContext";
 
-const Tipo_archivo = () => {
+const Prioridad = () => {
   const [t] = useTranslation("global")
-  const [datos_tipo_archivo, setDatostipo_archivo] = useState([]);
+  const [datos_prioridad, setDatosprioridad] = useState([]);
   const [permisos_usuario, setPermisos_usuario] = useState([]);
   const [ayuda, setAyuda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,26 +32,26 @@ const Tipo_archivo = () => {
   // eslint-disable-next-line no-unused-vars
   const [datos, setDatos] = useState({
     tarea: "permiso_usuario",
-    tipo_archivo: "tipo_archivo",
+    prioridad: "prioridad",
     id_usuario: "1"
   });
   
   let idioma = localStorage.getItem('language')
   
   useEffect(() => {
-      trae_tipo_archivos().then((result) => setDatostipo_archivo(result));
+      trae_prioridades().then((result) => setDatosprioridad(result));
       switch (idioma) {
         case "es":
-          ayuda_tipo_archivos().then((ayuda) => setAyuda(ayuda[0].texto));
+          ayuda_prioridades().then((ayuda) => setAyuda(ayuda[0].texto));
           break;
         case "en":
-          ayuda_tipo_archivos().then((ayuda) => setAyuda(ayuda[0].texto_en));
+          ayuda_prioridades().then((ayuda) => setAyuda(ayuda[0].texto_en));
           break;
         case "por":
-          ayuda_tipo_archivos().then((ayuda) => setAyuda(ayuda[0].texto_por));
+          ayuda_prioridades().then((ayuda) => setAyuda(ayuda[0].texto_por));
           break;
         default:
-          ayuda_tipo_archivos().then((ayuda) => setAyuda(ayuda[0].texto));
+          ayuda_prioridades().then((ayuda) => setAyuda(ayuda[0].texto));
       }
       trae_permisos(datos).then((result) =>setPermisos_usuario(result[0]))
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,14 +65,14 @@ const Tipo_archivo = () => {
       .map((expresion) => expresion.trim());
     return expresionesArray.some(
       (expresion) =>
-        grilla.id_tarchivo.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.nombre_tarchivo.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.id_prioridad.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_prioridad.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
     );
   }
 
   function buscarEnGrilla(expresiones) {
-    return datos_tipo_archivo?.filter((grilla) => buscarPorExpresiones(grilla, expresiones));
+    return datos_prioridad?.filter((grilla) => buscarPorExpresiones(grilla, expresiones));
   }
   const filteredItems = buscarEnGrilla(searchTerm);
   const currentItems = filteredItems?.slice(
@@ -85,27 +85,27 @@ const Tipo_archivo = () => {
   };
 
   const handlePageChange = (page) => {
-    if (page >= 1 && page <= Math.ceil(datos_tipo_archivo.length / itemsPerPage)) {
+    if (page >= 1 && page <= Math.ceil(datos_prioridad.length / itemsPerPage)) {
       setCurrentPage(page);
     }
   };
   const printInfoProcess = () => {
     let idioma = localStorage.getItem("language")
     console.log(idioma)
-    tipo_archivo_pdf(searchTerm, idioma);
+    prioridad_pdf(searchTerm, idioma);
   };
   const downloadInfo = () => {
-    tipo_archivo_xls(searchTerm);
+    prioridad_xls(searchTerm);
   };
 
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-2 container">
         {/* Funciones agregar, descargar, imprimir y ayuda */}
-        <h1 className="m-0">{t("tipo_archivo.titulo")}</h1>
+        <h1 className="m-0">{t("prioridad.titulo")}</h1>
         <div className="inputContainer d-flex">
           <label htmlFor="search" className="form-label mb-0 p-2">
-            {t("tipo_archivo.busqueda")}
+            {t("prioridad.busqueda")}
           </label>
           <input
             type="text"
@@ -152,9 +152,9 @@ const Tipo_archivo = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell>{t("tipo_archivo.nombre-tarchivo")}</TableCell>
-                <TableCell>{t("tipo_archivo.estado")}</TableCell>
-                <TableCell align="center">{t("tipo_archivo.acciones")}</TableCell>
+                <TableCell>{t("prioridad.nombre-prioridad")}</TableCell>
+                <TableCell>{t("prioridad.estado")}</TableCell>
+                <TableCell align="center">{t("prioridad.acciones")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -169,8 +169,8 @@ const Tipo_archivo = () => {
                     height: '5px', // Ajusta la altura de la fila
                   }}
                 >
-                  <TableCell sx={{textAlign: 'center'}}>{dato.id_tarchivo}</TableCell>
-                  <TableCell>{dato.nombre_tarchivo.toUpperCase()}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>{dato.id_prioridad}</TableCell>
+                  <TableCell>{dato.nombre_prioridad.toUpperCase()}</TableCell>
                   <TableCell>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
@@ -229,10 +229,10 @@ const Tipo_archivo = () => {
             </Button>
 
             <Typography variant="p" className="col-3 align-self-center">
-            {t("tipo_archivo.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
+            {t("prioridad.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
             </Typography>
             <Typography variant="p" className="align-self-center">
-            {t("tipo_archivo.registros")} {filteredItems.length}
+            {t("prioridad.registros")} {filteredItems.length}
             </Typography>
           </div>
         </TableContainer>
@@ -241,4 +241,4 @@ const Tipo_archivo = () => {
   )
 }
 
-export default Tipo_archivo
+export default Prioridad

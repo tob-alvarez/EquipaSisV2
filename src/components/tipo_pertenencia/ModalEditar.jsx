@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { toast } from "react-toastify";
-import { cambia_tipo_archivos } from "./funciones_tipo_archivo";
+import { cambia_tipo_pertenencias } from "./funciones_tipo_pertenencia";
 import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
@@ -12,8 +12,8 @@ import { EquipaContext } from "../../context/EquipaContext";
 const ModalEditar = ({dato}) => {
     const [t] = useTranslation("global")
     const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-    const [id_tarchivo, setId_tarchivo] = useState("");
-    const [nombre_tarchivo, setNombre_tarchivo] = useState("");
+    const [id_tpertenencia, setId_tpertenencia] = useState("");
+    const [nombre_tpertenencia, setNombre_tpertenencia] = useState("");
     const [habilita, setHabilita] = useState(false);
     const { actualizador } = useContext(EquipaContext);
     
@@ -24,13 +24,13 @@ const ModalEditar = ({dato}) => {
         } else {
           setHabilita(false);
         }
-        setNombre_tarchivo(dato.nombre_tarchivo);
+        setNombre_tpertenencia(dato.nombre_tpertenencia);
       }
     }, [isModalEditOpen, dato]);
     
     const limpia_campos = () => {
-      setId_tarchivo("");
-      setNombre_tarchivo("");
+      setId_tpertenencia("");
+      setNombre_tpertenencia("");
       setHabilita(false);
     };
     const closeModalEdit = () => {
@@ -39,16 +39,16 @@ const ModalEditar = ({dato}) => {
     };
     const acepta_accion = () => {
       const datos_cambios = {
-        id_tarchivo: dato.id_tarchivo,
-        nombre_tarchivo: dato.nombre_tarchivo,
+        id_tpertenencia: dato.id_tpertenencia,
+        nombre_tpertenencia: dato.nombre_tpertenencia,
         habilita: habilita === true ? "1" : "0",
       };
-      if (nombre_tarchivo == "") {
-        toast.info(`${t("tipo_archivo.datoObligatorio")}`);
+      if (nombre_tpertenencia == "") {
+        toast.info(`${t("tipo_pertenencia.datoObligatorio")}`);
         return;
       }
   
-      cambia_tipo_archivos(datos_cambios).then((respuesta_accion) => {
+      cambia_tipo_pertenencias(datos_cambios).then((respuesta_accion) => {
         if (respuesta_accion[0].registros > 0) {
           toast.success(`${t("varios.editado")}`, {
             duration: 1500,
@@ -78,12 +78,12 @@ const ModalEditar = ({dato}) => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-          {t("tipo_archivo.editarTitulo")}
+          {t("tipo_pertenencia.editarTitulo")}
             <p
               className="pb-0 mb-0 text-body-emphasis fw-bold"
               style={{ fontSize: "0.5em" }}
             >
-              {t("tipo_archivo.datoObligatorio")}
+              {t("tipo_pertenencia.datoObligatorio")}
             </p>
           </Modal.Title>
         </Modal.Header>
@@ -92,15 +92,15 @@ const ModalEditar = ({dato}) => {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("tipo_archivo.nombre-tarchivo")}: #
+                {t("tipo_pertenencia.nombre-tpertenencia")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
-                    id="nombre_tarchivo"
-                    value={nombre_tarchivo}
-                    onChange={(e) => setNombre_tarchivo(e.target.value)}
+                    id="nombre_tpertenencia"
+                    value={nombre_tpertenencia}
+                    onChange={(e) => setNombre_tpertenencia(e.target.value)}
                     onKeyUp={(e) =>
-                      setNombre_tarchivo(e.target.value.toUpperCase())
+                      setNombre_tpertenencia(e.target.value.toUpperCase())
                     }
                     className="mb-2"
                   />
@@ -108,11 +108,11 @@ const ModalEditar = ({dato}) => {
               </div>
 
               <div className="col-6 text-start">
-                {t("tipo_archivo.habilitado")}
+                {t("tipo_pertenencia.habilitado")}
                 <Switch 
                   id={"habilita"}
                   checked={habilita}
-                  label={t("tipo_archivo.habilitado")}
+                  label={t("tipo_pertenencia.habilitado")}
                   onChange={(e) => setHabilita(e.target.checked)}
                 />
               </div>

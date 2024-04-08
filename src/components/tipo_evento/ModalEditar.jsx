@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { toast } from "react-toastify";
-import { cambia_tipo_archivos } from "./funciones_tipo_archivo";
+import { cambia_tipo_eventos } from "./funciones_tipo_evento";
 import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
@@ -12,8 +12,8 @@ import { EquipaContext } from "../../context/EquipaContext";
 const ModalEditar = ({dato}) => {
     const [t] = useTranslation("global")
     const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-    const [id_tarchivo, setId_tarchivo] = useState("");
-    const [nombre_tarchivo, setNombre_tarchivo] = useState("");
+    const [id_tevento, setId_tevento] = useState("");
+    const [nombre_tevento, setNombre_tevento] = useState("");
     const [habilita, setHabilita] = useState(false);
     const { actualizador } = useContext(EquipaContext);
     
@@ -24,13 +24,13 @@ const ModalEditar = ({dato}) => {
         } else {
           setHabilita(false);
         }
-        setNombre_tarchivo(dato.nombre_tarchivo);
+        setNombre_tevento(dato.nombre_tevento);
       }
     }, [isModalEditOpen, dato]);
     
     const limpia_campos = () => {
-      setId_tarchivo("");
-      setNombre_tarchivo("");
+      setId_tevento("");
+      setNombre_tevento("");
       setHabilita(false);
     };
     const closeModalEdit = () => {
@@ -39,16 +39,16 @@ const ModalEditar = ({dato}) => {
     };
     const acepta_accion = () => {
       const datos_cambios = {
-        id_tarchivo: dato.id_tarchivo,
-        nombre_tarchivo: dato.nombre_tarchivo,
+        id_tevento: dato.id_tevento,
+        nombre_tevento: dato.nombre_tevento,
         habilita: habilita === true ? "1" : "0",
       };
-      if (nombre_tarchivo == "") {
-        toast.info(`${t("tipo_archivo.datoObligatorio")}`);
+      if (nombre_tevento == "") {
+        toast.info(`${t("tipo_evento.datoObligatorio")}`);
         return;
       }
   
-      cambia_tipo_archivos(datos_cambios).then((respuesta_accion) => {
+      cambia_tipo_eventos(datos_cambios).then((respuesta_accion) => {
         if (respuesta_accion[0].registros > 0) {
           toast.success(`${t("varios.editado")}`, {
             duration: 1500,
@@ -78,12 +78,12 @@ const ModalEditar = ({dato}) => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-          {t("tipo_archivo.editarTitulo")}
+          {t("tipo_evento.editarTitulo")}
             <p
               className="pb-0 mb-0 text-body-emphasis fw-bold"
               style={{ fontSize: "0.5em" }}
             >
-              {t("tipo_archivo.datoObligatorio")}
+              {t("tipo_evento.datoObligatorio")}
             </p>
           </Modal.Title>
         </Modal.Header>
@@ -92,15 +92,15 @@ const ModalEditar = ({dato}) => {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("tipo_archivo.nombre-tarchivo")}: #
+                {t("tipo_evento.nombre-tevento")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
-                    id="nombre_tarchivo"
-                    value={nombre_tarchivo}
-                    onChange={(e) => setNombre_tarchivo(e.target.value)}
+                    id="nombre_tevento"
+                    value={nombre_tevento}
+                    onChange={(e) => setNombre_tevento(e.target.value)}
                     onKeyUp={(e) =>
-                      setNombre_tarchivo(e.target.value.toUpperCase())
+                      setNombre_tevento(e.target.value.toUpperCase())
                     }
                     className="mb-2"
                   />
@@ -108,11 +108,11 @@ const ModalEditar = ({dato}) => {
               </div>
 
               <div className="col-6 text-start">
-                {t("tipo_archivo.habilitado")}
+                {t("tipo_evento.habilitado")}
                 <Switch 
                   id={"habilita"}
                   checked={habilita}
-                  label={t("tipo_archivo.habilitado")}
+                  label={t("tipo_evento.habilitado")}
                   onChange={(e) => setHabilita(e.target.checked)}
                 />
               </div>

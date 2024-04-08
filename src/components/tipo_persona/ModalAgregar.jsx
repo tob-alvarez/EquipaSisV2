@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
-import { alta_tipo_archivos } from "./funciones_tipo_archivo";
+import { alta_tipo_personas } from "./funciones_tipo_persona";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
@@ -11,13 +11,13 @@ const ModalAgregar = () => {
 
   const [isModalAttachOpen, setIsModalAttachOpen] = useState(false);
   const [t] = useTranslation("global")
-  const [id_tarchivo, setId_tarchivo] = useState("");
-  const [nombre_tarchivo, setNombre_tarchivo] = useState("");
+  const [id_tpersona, setId_tpersona] = useState("");
+  const [nombre_tpersona, setNombre_tpersona] = useState("");
   const [habilita, setHabilita] = useState(false);
   const { actualizador } = useContext(EquipaContext);
   const limpia_campos = () => {
-    setId_tarchivo("");
-    setNombre_tarchivo("");
+    setId_tpersona("");
+    setNombre_tpersona("");
     setHabilita(false);
   };
   const closeModalAttach = () => {
@@ -26,18 +26,18 @@ const ModalAgregar = () => {
   };
   const acepta_accion = () => {
     const datos_cambios = {
-      id_tarchivo: id_tarchivo,
-      nombre_tarchivo: nombre_tarchivo,
+      id_tpersona: id_tpersona,
+      nombre_tpersona: nombre_tpersona,
       habilita: habilita === true ? "1" : "0",
     };
 
-    if (nombre_tarchivo === "") {
-      toast.error(`${t("tipo_archivo.datoObligatorio")}`);
+    if (nombre_tpersona === "") {
+      toast.error(`${t("tipo_persona.datoObligatorio")}`);
       return;
     }
     
 
-    alta_tipo_archivos(datos_cambios).then((respuesta_accion) => {
+    alta_tipo_personas(datos_cambios).then((respuesta_accion) => {
       if (respuesta_accion[0].registros > 0) {
         toast.success(`${t("varios.alta")}`, {
           duration: 2000,
@@ -69,12 +69,12 @@ const ModalAgregar = () => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-          {t("tipo_archivo.agregarTitulo")}
+          {t("tipo_persona.agregarTitulo")}
             <p
               className="pb-0 mb-0 text-body-emphasis fw-bold"
               style={{ fontSize: "0.5em" }}
             >
-              {t("tipo_archivo.datoObligatorio")}
+              {t("tipo_persona.datoObligatorio")}
             </p>
           </Modal.Title>
         </Modal.Header>
@@ -83,15 +83,15 @@ const ModalAgregar = () => {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("tipo_archivo.nombre-tarchivo")}: #
+                {t("tipo_persona.nombre-tpersona")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
-                    id="nombre_tarchivo"
-                    value={nombre_tarchivo}
-                    onChange={(e) => setNombre_tarchivo(e.target.value)}
+                    id="nombre_tpersona"
+                    value={nombre_tpersona}
+                    onChange={(e) => setNombre_tpersona(e.target.value)}
                     onKeyUp={(e) =>
-                      setNombre_tarchivo(e.target.value.toUpperCase())
+                      setNombre_tpersona(e.target.value.toUpperCase())
                     }
                     className="mb-2"
                   />
@@ -99,11 +99,11 @@ const ModalAgregar = () => {
               </div>
 
               <div className="col-6 text-start">
-                {t("tipo_archivo.habilitado")}
+                {t("tipo_persona.habilitado")}
                 <Switch 
                   id={"habilita"}
                   checked={habilita}
-                  label={t("tipo_archivo.habilitado")}
+                  label={t("tipo_persona.habilitado")}
                   onChange={(e) => setHabilita(e.target.checked)}
                 />
               </div>

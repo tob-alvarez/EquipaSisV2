@@ -1,7 +1,7 @@
-export async function trae_tipo_archivos() {
+export async function trae_tipo_impresiones() {
 
-    const JSONdata = JSON.stringify({ tarea: "consulta_tipo_archivo" }); // Send the data to the server in JSON format.
-    const endpoint = "https://v2.equipasis.com/api/tipo_archivo.php"; // API endpoint where we send form data.
+    const JSONdata = JSON.stringify({ tarea: "consulta_tipo_impresion" }); // Send the data to the server in JSON format.
+    const endpoint = "https://v2.equipasis.com/api/tipo_impresion.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
     const options = {
@@ -12,16 +12,16 @@ export async function trae_tipo_archivos() {
     const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
 
     const result = await response.json();
-   return result.tipo_archivo;
+   return result.tipo_impresion;
 }
 
 export async function trae_permisos(datos){
   const JSONdata = JSON.stringify({ 
     tarea: datos.tarea,
-    tipo_archivo: datos.tipo_archivo ,
+    tipo_impresion: datos.tipo_impresion ,
     id_usuario: datos.id_usuario
   }); // Send the data to the server in JSON format.
-  const endpoint = "https://v2.equipasis.com/api/tipo_archivo.php"; // API endpoint where we send form data.
+  const endpoint = "https://v2.equipasis.com/api/tipo_impresion.php"; // API endpoint where we send form data.
 
   // Form the request for sending data to the server.
   const options = {
@@ -32,18 +32,18 @@ export async function trae_permisos(datos){
   const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
   const result = await response.json();
   
-  return result.tipo_archivo;
+  return result.tipo_impresion;
 }
 
-export async function cambia_tipo_archivos(datos){
+export async function cambia_tipo_impresiones(datos){
   console.log(datos)
   const JSONdata = JSON.stringify({ 
-    tarea: "cambia_tipo_archivo",
-    id_tarchivo:datos.id_tarchivo ,
-    nombre_tarchivo: datos.nombre_tarchivo,
+    tarea: "cambia_tipo_impresion",
+    id_timpresion:datos.id_timpresion ,
+    nombre_timpresion: datos.nombre_timpresion,
     habilita: datos.habilita
   }); // Send the data to the server in JSON format.
-  const endpoint = "https://v2.equipasis.com/api/tipo_archivo.php"; // API endpoint where we send form data.
+  const endpoint = "https://v2.equipasis.com/api/tipo_impresion.php"; // API endpoint where we send form data.
 
   // Form the request for sending data to the server.
   const options = {
@@ -56,13 +56,13 @@ export async function cambia_tipo_archivos(datos){
   const result = await response.json();
  return result.registros;
 }
-export async function borra_tipo_archivos(datos){
+export async function borra_tipo_impresiones(datos){
   console.log(datos)
   const JSONdata = JSON.stringify({ 
-    tarea: "borra_tipo_archivo",
-    id_tarchivo:datos.id_tarchivo ,
+    tarea: "borra_tipo_impresion",
+    id_timpresion:datos.id_timpresion ,
   }); // Send the data to the server in JSON format.
-  const endpoint = "https://v2.equipasis.com/api/tipo_archivo.php"; // API endpoint where we send form data.
+  const endpoint = "https://v2.equipasis.com/api/tipo_impresion.php"; // API endpoint where we send form data.
 
   // Form the request for sending data to the server.
   const options = {
@@ -76,14 +76,14 @@ export async function borra_tipo_archivos(datos){
  return result.registros;
 }
 
-export async function alta_tipo_archivos(datos){
+export async function alta_tipo_impresiones(datos){
 
   const JSONdata = JSON.stringify({ 
-    tarea: "alta_tipo_archivo",
-    nombre_tarchivo: datos.nombre_tarchivo,
+    tarea: "alta_tipo_impresion",
+    nombre_timpresion: datos.nombre_timpresion,
     habilita: datos.habilita
   }); // Send the data to the server in JSON format.
-  const endpoint = "https://v2.equipasis.com/api/tipo_archivo.php"; // API endpoint where we send form data.
+  const endpoint = "https://v2.equipasis.com/api/tipo_impresion.php"; // API endpoint where we send form data.
 
   // Form the request for sending data to the server.
   const options = {
@@ -99,12 +99,12 @@ export async function alta_tipo_archivos(datos){
  return result.registros;
 }
 
-export async function ayuda_tipo_archivos(){
+export async function ayuda_tipo_impresiones(){
 
   const JSONdata = JSON.stringify({ 
-    tarea: "ayuda_tipo_archivo"
+    tarea: "ayuda_tipo_impresion"
   }); // Send the data to the server in JSON format.
-  const endpoint = "https://v2.equipasis.com/api/tipo_archivo.php"; // API endpoint where we send form data.
+  const endpoint = "https://v2.equipasis.com/api/tipo_impresion.php"; // API endpoint where we send form data.
 
   // Form the request for sending data to the server.
   const options = {
@@ -117,5 +117,5 @@ export async function ayuda_tipo_archivos(){
   // Get the response data from server as JSON.
   // If server returns the name submitted, that means the form works.
   const result = await response.json();
- return result.tipo_archivo;
+ return result.tipo_impresion;
 }

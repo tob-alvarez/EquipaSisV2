@@ -23,7 +23,7 @@ const ModalAyuda = ({ ayuda }) => {
             >
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        <h2 className="form-header text-bold">{t("tipo_archivo.ayudaTitulo")}</h2>
+                        <h2 className="form-header text-bold">{t("tipo_evento.ayudaTitulo")}</h2>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

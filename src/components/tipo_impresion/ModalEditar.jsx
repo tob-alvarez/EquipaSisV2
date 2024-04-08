@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { toast } from "react-toastify";
-import { cambia_tipo_archivos } from "./funciones_tipo_archivo";
+import { cambia_tipo_impresiones } from "./funciones_tipo_impresion";
 import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
@@ -48,7 +48,7 @@ const ModalEditar = ({dato}) => {
         return;
       }
   
-      cambia_tipo_archivos(datos_cambios).then((respuesta_accion) => {
+      cambia_tipo_impresiones(datos_cambios).then((respuesta_accion) => {
         if (respuesta_accion[0].registros > 0) {
           toast.success(`${t("varios.editado")}`, {
             duration: 1500,
