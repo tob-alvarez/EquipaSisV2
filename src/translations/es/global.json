@@ -40,7 +40,9 @@
     "varios":{
         "alta": "Alta realizada correctamente",
         "editado": "Edición realizada correctamente",
-        "borrado": "Deshabilitación realizada correctamente"
+        "borrado": "Deshabilitación realizada correctamente",
+        "recuperacionExitosa": "Recuperación exitosa",
+        "recuperacionFallida": "Usuario Inexistente"
     },
     "accion": {
         "titulo": "Acción",

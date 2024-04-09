@@ -40,7 +40,9 @@
     "varios":{
         "alta": "Registro bem-sucedido",
         "editado": "Edição feita corretamente",
-        "borrado": "Desativação feita corretamente" 
+        "borrado": "Desativação feita corretamente",
+        "recuperacionExitosa": "Recuperação bem sucedida",
+        "recuperacionFallida": "Usuário inexistente"
     },
     "accion":{
         "titulo": "Ação",
