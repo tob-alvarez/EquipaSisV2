@@ -281,6 +281,24 @@
         "datoObligatorio": "Dados obrigatórios marcados com #",
         "habilitado": "Ativada"
     },
+    "tipo_control":{
+        "titulo": "Tipo de Controle",
+        "busqueda": "Procurar",
+        "nombre-tcontrol": "Nome do Tipo de Controle",
+        "unidad": "Unidade",
+        "estado": "Estado",
+        "acciones": "Ações",
+        "registros": "Registros",
+        "pagina": "Página",
+        "de": "a",
+        "agregarTitulo": "Adicionar Tipo de Controle",
+        "ayudaTitulo": "Ajuda",
+        "editarTitulo": "Editar Tipo de Controle",
+        "borrarTitulo": "Excluir Tipo de Controle",
+        "borrarListo": "Este Tipo de Controle já está desativada",
+        "datoObligatorio": "Dados obrigatórios marcados com #",
+        "habilitado": "Ativada"
+    },
     "tipo_evento":{
         "titulo": "Tipo de Evento",
         "busqueda": "Procurar",

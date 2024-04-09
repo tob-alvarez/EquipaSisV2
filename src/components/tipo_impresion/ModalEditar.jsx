@@ -12,8 +12,8 @@ import { EquipaContext } from "../../context/EquipaContext";
 const ModalEditar = ({dato}) => {
     const [t] = useTranslation("global")
     const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-    const [id_tarchivo, setId_tarchivo] = useState("");
-    const [nombre_tarchivo, setNombre_tarchivo] = useState("");
+    const [id_timpresion, setId_timpresion] = useState("");
+    const [nombre_timpresion, setNombre_timpresion] = useState("");
     const [habilita, setHabilita] = useState(false);
     const { actualizador } = useContext(EquipaContext);
     
@@ -24,13 +24,13 @@ const ModalEditar = ({dato}) => {
         } else {
           setHabilita(false);
         }
-        setNombre_tarchivo(dato.nombre_tarchivo);
+        setNombre_timpresion(dato.nombre_timpresion);
       }
     }, [isModalEditOpen, dato]);
     
     const limpia_campos = () => {
-      setId_tarchivo("");
-      setNombre_tarchivo("");
+      setId_timpresion("");
+      setNombre_timpresion("");
       setHabilita(false);
     };
     const closeModalEdit = () => {
@@ -39,12 +39,12 @@ const ModalEditar = ({dato}) => {
     };
     const acepta_accion = () => {
       const datos_cambios = {
-        id_tarchivo: dato.id_tarchivo,
-        nombre_tarchivo: dato.nombre_tarchivo,
+        id_timpresion: dato.id_timpresion,
+        nombre_timpresion: nombre_timpresion,
         habilita: habilita === true ? "1" : "0",
       };
-      if (nombre_tarchivo == "") {
-        toast.info(`${t("tipo_archivo.datoObligatorio")}`);
+      if (nombre_timpresion == "") {
+        toast.info(`${t("tipo_impresion.datoObligatorio")}`);
         return;
       }
   
@@ -78,12 +78,12 @@ const ModalEditar = ({dato}) => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-          {t("tipo_archivo.editarTitulo")}
+          {t("tipo_impresion.editarTitulo")}
             <p
               className="pb-0 mb-0 text-body-emphasis fw-bold"
               style={{ fontSize: "0.5em" }}
             >
-              {t("tipo_archivo.datoObligatorio")}
+              {t("tipo_impresion.datoObligatorio")}
             </p>
           </Modal.Title>
         </Modal.Header>
@@ -92,15 +92,15 @@ const ModalEditar = ({dato}) => {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("tipo_archivo.nombre-tarchivo")}: #
+                {t("tipo_impresion.nombre-timpresion")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
-                    id="nombre_tarchivo"
-                    value={nombre_tarchivo}
-                    onChange={(e) => setNombre_tarchivo(e.target.value)}
+                    id="nombre_timpresion"
+                    value={nombre_timpresion}
+                    onChange={(e) => setNombre_timpresion(e.target.value)}
                     onKeyUp={(e) =>
-                      setNombre_tarchivo(e.target.value.toUpperCase())
+                      setNombre_timpresion(e.target.value.toUpperCase())
                     }
                     className="mb-2"
                   />
@@ -108,11 +108,11 @@ const ModalEditar = ({dato}) => {
               </div>
 
               <div className="col-6 text-start">
-                {t("tipo_archivo.habilitado")}
+                {t("tipo_impresion.habilitado")}
                 <Switch 
                   id={"habilita"}
                   checked={habilita}
-                  label={t("tipo_archivo.habilitado")}
+                  label={t("tipo_impresion.habilitado")}
                   onChange={(e) => setHabilita(e.target.checked)}
                 />
               </div>

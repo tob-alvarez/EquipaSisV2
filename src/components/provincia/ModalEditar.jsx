@@ -40,7 +40,7 @@ const ModalEditar = ({dato}) => {
     const acepta_accion = () => {
       const datos_cambios = {
         id_provincia: dato.id_provincia,
-        nombre_provincia: dato.nombre_provincia,
+        nombre_provincia: nombre_provincia,
         habilita: habilita === true ? "1" : "0",
       };
       if (nombre_provincia == "") {

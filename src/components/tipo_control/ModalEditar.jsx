@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { toast } from "react-toastify";
-import { cambia_tipo_tareas } from "./funciones_tipo_tarea";
+import { cambia_tipo_controles } from "./funciones_tipo_control";
 import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
@@ -12,8 +12,9 @@ import { EquipaContext } from "../../context/EquipaContext";
 const ModalEditar = ({dato}) => {
     const [t] = useTranslation("global")
     const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-    const [id_ttarea, setId_ttarea] = useState("");
-    const [nombre_ttarea, setNombre_ttarea] = useState("");
+    const [id_tcontrol, setId_tcontrol] = useState("");
+    const [nombre_tcontrol, setNombre_tcontrol] = useState("");
+    const [unidad, setUnidad] = useState("");
     const [habilita, setHabilita] = useState(false);
     const { actualizador } = useContext(EquipaContext);
     
@@ -24,13 +25,14 @@ const ModalEditar = ({dato}) => {
         } else {
           setHabilita(false);
         }
-        setNombre_ttarea(dato.nombre_ttarea);
+        setNombre_tcontrol(dato.nombre_tcontrol);
       }
     }, [isModalEditOpen, dato]);
     
     const limpia_campos = () => {
-      setId_ttarea("");
-      setNombre_ttarea("");
+      setId_tcontrol("");
+      setNombre_tcontrol("");
+      setUnidad("");
       setHabilita(false);
     };
     const closeModalEdit = () => {
@@ -39,16 +41,17 @@ const ModalEditar = ({dato}) => {
     };
     const acepta_accion = () => {
       const datos_cambios = {
-        id_ttarea: dato.id_ttarea,
-        nombre_ttarea: nombre_ttarea,
+        id_tcontrol: dato.id_tcontrol,
+        nombre_tcontrol: nombre_tcontrol,
+        unidad: unidad,
         habilita: habilita === true ? "1" : "0",
       };
-      if (nombre_ttarea == "") {
-        toast.info(`${t("tipo_tarea.datoObligatorio")}`);
+      if (nombre_tcontrol == "") {
+        toast.info(`${t("tipo_control.datoObligatorio")}`);
         return;
       }
   
-      cambia_tipo_tareas(datos_cambios).then((respuesta_accion) => {
+      cambia_tipo_controles(datos_cambios).then((respuesta_accion) => {
         if (respuesta_accion[0].registros > 0) {
           toast.success(`${t("varios.editado")}`, {
             duration: 1500,
@@ -78,12 +81,12 @@ const ModalEditar = ({dato}) => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-          {t("tipo_tarea.editarTitulo")}
+          {t("tipo_control.editarTitulo")}
             <p
               className="pb-0 mb-0 text-body-emphasis fw-bold"
               style={{ fontSize: "0.5em" }}
             >
-              {t("tipo_tarea.datoObligatorio")}
+              {t("tipo_control.datoObligatorio")}
             </p>
           </Modal.Title>
         </Modal.Header>
@@ -92,15 +95,32 @@ const ModalEditar = ({dato}) => {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("tipo_tarea.nombre-ttarea")}: #
+                {t("tipo_control.nombre-tcontrol")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
-                    id="nombre_ttarea"
-                    value={nombre_ttarea}
-                    onChange={(e) => setNombre_ttarea(e.target.value)}
+                    id="nombre_tcontrol"
+                    value={nombre_tcontrol}
+                    onChange={(e) => setNombre_tcontrol(e.target.value)}
                     onKeyUp={(e) =>
-                      setNombre_ttarea(e.target.value.toUpperCase())
+                      setNombre_tcontrol(e.target.value.toUpperCase())
+                    }
+                    className="mb-2"
+                  />
+                </InputGroup>
+              </div>
+
+              <div className="col-6">
+                <label htmlFor="name" className="label-material mb-1">
+                {t("tipo_control.unidad")}: #
+                </label>
+                <InputGroup>
+                  <Form.Control
+                    id="unidad"
+                    value={unidad}
+                    onChange={(e) => setUnidad(e.target.value)}
+                    onKeyUp={(e) =>
+                      setUnidad(e.target.value.toUpperCase())
                     }
                     className="mb-2"
                   />
@@ -108,11 +128,11 @@ const ModalEditar = ({dato}) => {
               </div>
 
               <div className="col-6 text-start">
-                {t("tipo_tarea.habilitado")}
+                {t("tipo_control.habilitado")}
                 <Switch 
                   id={"habilita"}
                   checked={habilita}
-                  label={t("tipo_tarea.habilitado")}
+                  label={t("tipo_control.habilitado")}
                   onChange={(e) => setHabilita(e.target.checked)}
                 />
               </div>

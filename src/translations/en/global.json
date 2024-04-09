@@ -281,6 +281,24 @@
         "datoObligatorio": "Mandatory data marked with #",
         "habilitado": "Enabled"
     },
+    "tipo_control":{
+        "titulo": "Control Type",
+        "busqueda": "Search",
+        "nombre-tcontrol": "Control Type Name",
+        "unidad": "Unit",
+        "estado": "State",
+        "acciones": "Actions",
+        "registros": "Records",
+        "pagina": "Page",
+        "de": "of",
+        "agregarTitulo": "Add Event Control",
+        "ayudaTitulo": "Help",
+        "editarTitulo": "Edit Event Control",
+        "borrarTitulo": "Delete Event Control",
+        "borrarListo": "This Event Control is already disabled",
+        "datoObligatorio": "Mandatory data marked with #",
+        "habilitado": "Enabled"
+    },   
     "tipo_evento":{
         "titulo": "Event Type",
         "busqueda": "Search",

@@ -40,11 +40,11 @@ const ModalEditar = ({dato}) => {
     const acepta_accion = () => {
       const datos_cambios = {
         id_prioridad: dato.id_prioridad,
-        nombre_prioridad: dato.nombre_prioridad,
+        nombre_prioridad: nombre_prioridad,
         habilita: habilita === true ? "1" : "0",
       };
       if (nombre_prioridad == "") {
-        toast.info(`${t("tipo_archivo.datoObligatorio")}`);
+        toast.info(`${t("prioridad.datoObligatorio")}`);
         return;
       }
   
@@ -78,12 +78,12 @@ const ModalEditar = ({dato}) => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-          {t("tipo_archivo.editarTitulo")}
+          {t("prioridad.editarTitulo")}
             <p
               className="pb-0 mb-0 text-body-emphasis fw-bold"
               style={{ fontSize: "0.5em" }}
             >
-              {t("tipo_archivo.datoObligatorio")}
+              {t("prioridad.datoObligatorio")}
             </p>
           </Modal.Title>
         </Modal.Header>
@@ -92,7 +92,7 @@ const ModalEditar = ({dato}) => {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("tipo_archivo.nombre-prioridad")}: #
+                {t("prioridad.nombre-prioridad")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
@@ -108,11 +108,11 @@ const ModalEditar = ({dato}) => {
               </div>
 
               <div className="col-6 text-start">
-                {t("tipo_archivo.habilitado")}
+                {t("prioridad.habilitado")}
                 <Switch 
                   id={"habilita"}
                   checked={habilita}
-                  label={t("tipo_archivo.habilitado")}
+                  label={t("prioridad.habilitado")}
                   onChange={(e) => setHabilita(e.target.checked)}
                 />
               </div>

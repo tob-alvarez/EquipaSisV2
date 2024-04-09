@@ -20,6 +20,7 @@ import Tipo_alimentacion from "./components/tipo_alimentacion/Tipo_alimentacion"
 import Tipo_archivo from "./components/tipo_archivo/Tipo_archivo";
 import Tipo_componente from "./components/tipo_componente/Tipo_componente";
 import Tipo_comprobante from "./components/tipo_comprobante/Tipo_comprobante";
+import Tipo_control from "./components/tipo_control/Tipo_control";
 import Tipo_evento from "./components/tipo_evento/Tipo_evento";
 import Tipo_impresion from "./components/tipo_impresion/Tipo_impresion";
 import Tipo_indicador from "./components/tipo_indicador/Tipo_indicador";
@@ -172,6 +173,15 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route
+              exact
+              path="/tipo_control"
+              element={
+                <PrivateRoute>
+                  <Tipo_control />
+                </PrivateRoute>
+              }
+            />              
             <Route
               exact
               path="/tipo_evento"

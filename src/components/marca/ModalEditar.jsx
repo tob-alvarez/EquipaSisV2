@@ -40,7 +40,7 @@ const ModalEditar = ({dato}) => {
     const acepta_accion = () => {
       const datos_cambios = {
         id_marca: dato.id_marca,
-        nombre_marca: dato.nombre_marca,
+        nombre_marca: nombre_marca,
         habilita: habilita === true ? "1" : "0",
       };
       if (nombre_marca == "") {

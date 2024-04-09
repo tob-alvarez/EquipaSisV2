@@ -40,7 +40,7 @@ const ModalEditar = ({dato}) => {
     const acepta_accion = () => {
       const datos_cambios = {
         id_pais: dato.id_pais,
-        nombre_pais: dato.nombre_pais,
+        nombre_pais: nombre_pais,
         habilita: habilita === true ? "1" : "0",
       };
       if (nombre_pais == "") {

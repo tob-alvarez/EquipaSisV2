@@ -40,7 +40,7 @@ const ModalEditar = ({dato}) => {
     const acepta_accion = () => {
       const datos_cambios = {
         id_tsolicitud: dato.id_tsolicitud,
-        nombre_tsolicitud: dato.nombre_tsolicitud,
+        nombre_tsolicitud: nombre_tsolicitud,
         habilita: habilita === true ? "1" : "0",
       };
       if (nombre_tsolicitud == "") {

@@ -281,6 +281,24 @@
         "datoObligatorio": "Datos obligatorios marcados con #",
         "habilitado": "Habilitado"
     },
+    "tipo_control": {
+        "titulo": "Tipo de Control",
+        "busqueda": "Búsqueda",
+        "nombre-tcontrol": "Nombre Tipo de Control",
+        "unidad": "Unidad",
+        "estado": "Estado",
+        "acciones": "Acciones",
+        "registros": "Registros",
+        "pagina": "Página",
+        "de": "de",
+        "agregarTitulo": "Agregar Tipo de Control",
+        "ayudaTitulo": "Ayuda",
+        "editarTitulo": "Editar Tipo de Control",
+        "borrarTitulo": "Borrar Tipo de Control",
+        "borrarListo": "Este Tipo de Control ya está deshabilitado",
+        "datoObligatorio": "Datos obligatorios marcados con #",
+        "habilitado": "Habilitado"
+    },
     "tipo_evento": {
         "titulo": "Tipo de Evento",
         "busqueda": "Búsqueda",
