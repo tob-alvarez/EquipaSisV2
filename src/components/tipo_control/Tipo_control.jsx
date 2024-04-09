@@ -173,6 +173,7 @@ const Tipo_control = () => {
                 >
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_tcontrol}</TableCell>
                   <TableCell>{dato.nombre_tcontrol.toUpperCase()}</TableCell>
+                  <TableCell>{dato.unidad.toUpperCase()}</TableCell>
                   <TableCell>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
