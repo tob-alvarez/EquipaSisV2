@@ -1,17 +1,20 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
 import { borra_categorias } from "./funciones_categoria";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useTranslation } from "react-i18next";
+import { EquipaContext } from "../../context/EquipaContext";
 
 const ModalBorrar = ({dato}) => {
     const [t] = useTranslation("global")
     const [nombre_categoria, setNombre_categoria] = useState("");
     const [habilita, setHabilita] = useState(false);
     const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
+    const { actualizador } = useContext(EquipaContext);
+
     const closeModalDelete = () => {
         setIsModalDeleteOpen(false);
       };
@@ -21,15 +24,16 @@ const ModalBorrar = ({dato}) => {
         };
         borra_categorias(datos_cambios).then(() => {
             setIsModalDeleteOpen(false);
-            toast.success("Registro deshabiltado correctamente", {
-            duration: 3000,
+            toast.success(`${t("varios.borrado")}`, {
+            duration: 1000,
             className: "bg-success text-white fs-6",
           });
+          actualizador()
         });
       };
+
     return (
         <>
-            <ToastContainer position="top-center" />
             <Modal
                 show={isModalDeleteOpen}
                 onHide={closeModalDelete}
@@ -42,23 +46,17 @@ const ModalBorrar = ({dato}) => {
                     <Modal.Title> {t("categoria.borrarTitulo")}...</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {dato.habilita_3 == 'HABILITADO' ? (
+                    {dato.habilita_3 == 'SI' ? (
                         <>
                             <h6>
-                                <b>{t("categoria.titulo")}:</b>
+                                <b>{t("categoria.titulo")}:</b> {dato.nombre_categoria}
                             </h6>
-                            <p style={{ fontSize: "0.8em" }}>
-                                <b>{dato.nombre_categoria}</b>
-                            </p>
                         </>
                     ) : (
                         <>
                             <h6>
-                                <b>{t("categoria.titulo")}:</b>
+                                <b>{t("categoria.titulo")}:</b> {dato.nombre_categoria}
                             </h6>
-                            <p style={{ fontSize: "0.8em" }}>
-                                <b>{dato.nombre_categoria}</b>
-                            </p>
                             <p style={{ fontSize: "0.8em", color: "red" }}>
                             {t("categoria.borrarListo")}
                             </p>
@@ -67,7 +65,7 @@ const ModalBorrar = ({dato}) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="justify-content-center mt-2">
-                        {dato.habilita_3 == 'HABILITADO' ? (
+                        {dato.habilita_3 == 'SI' ? (
                             <button
                                 onClick={borra_categoria}
                                 className="btn btn-primary btn-sm m-2"
@@ -99,7 +97,7 @@ const ModalBorrar = ({dato}) => {
 
             <DeleteIcon
                 onClick={() => setIsModalDeleteOpen(true)}
-                sx={{ fontSize: '30px' }}
+                sx={{ fontSize: '20px' }}
                 style={{ cursor: "pointer" }} />
         </>
     )

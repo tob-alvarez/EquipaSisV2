@@ -74,8 +74,8 @@ export function tipo_usuario_pdf() {
 
 function cabecera() {
     const logo = new Image();
-    logo.src = '/imagenes/equipasis.jpg';
-    doc.addImage(logo, 'JPEG', 180, 1, 20, 15); // Agregar la imagen al PDF (X, Y, Width, Height)
+    logo.src = "public/logo.png";
+    doc.addImage(logo, "PNG", 170, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
     doc.rect(4.8, 19.8, 200.3, 7.4)
     doc.setFillColor('#EBEBEB');
     doc.rect(5, 20, 200, 7, 'F')

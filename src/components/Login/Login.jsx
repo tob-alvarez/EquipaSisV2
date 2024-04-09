@@ -10,12 +10,20 @@ import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import DraftsIcon from "@mui/icons-material/Drafts";
 import LanguageIcon from "@mui/icons-material/Language";
 import { useNavigate } from "react-router-dom";
+import axios from "../../config/axios";
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
+  let idioma = localStorage.getItem('language')
   const [loginValues, setLoginvalues ,authenticated] = useState({
     email_persona: "",
     clave:"",
+  })
+  const [datos, setDatos] = useState({
+    tarea: "recupera_clave_usuario",
+    email_usuario: "",
+    idioma: idioma
   })
   const { handleChangeLanguage, t, botonState, login} = useContext(EquipaContext);
 
@@ -68,9 +76,39 @@ const Login = () => {
       [name]: value,
     });
   };
+  
+  const handleInputChangeAcceso = (event) => {
+    const { name, value } = event.target;
+
+    setDatos({
+      ...datos,
+      [name]: value,
+    });
+  };
+
+  const olvidaAcceso = async (e) => {
+    e.preventDefault()
+    console.log(datos)
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/usuario.php`, datos);
+      console.log(data.registros[0].Mensage)
+      if(data.registros[0].Mensage == 'Usuario Inexistente'){
+        toast.error(`${t("varios.recuperacionFallida")}`, {
+          duration: 2000,
+        });
+      }else {
+        toast.success(`${t("varios.recuperacionExitosa")}`, {
+          duration: 2000,
+        });
+      }
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  }
 
   return (
     <>
+    <ToastContainer/>
       <div className="layoutHeight d-flex justify-content-center align-items-center">
         <div className=" w-75 d-flex align-items-center boxLogin">
           <div className="boxLeft d-flex flex-column justify-content-end align-items-center">
@@ -106,7 +144,7 @@ const Login = () => {
                 variant="outlined"
                 sx={{ width: 250 }}
                 onChange={handleInputChange}
-              />
+                />
               <TextField
                 id="password"
                 name="clave"
@@ -116,12 +154,6 @@ const Login = () => {
                 sx={{ width: 250 }}
                 onChange={handleInputChange}
               />
-              <p
-                onClick={handleOpen}
-                className="text-decoration-underline p-pointer"
-              >
-                {t("login.olvidaste")}
-              </p>
             <Button
               variant="contained"
               sx={{ width: 250 }}
@@ -130,6 +162,12 @@ const Login = () => {
             >
               {t("login.ingresar")}
             </Button>
+              <p
+                onClick={handleOpen}
+                className="text-decoration-underline p-pointer"
+              >
+                {t("login.olvidaste")}
+              </p>
             </form>
             <div className="d-flex align-items-center">
               <DraftsIcon />
@@ -151,9 +189,11 @@ const Login = () => {
             </Typography>
             <TextField
               placeholder={t("login.olvidaUsuario")}
+              onChange={handleInputChangeAcceso}
               label={t("login.olvidaUsuario")}
               variant="standard"
               sx={{ width: 400 }}
+              name="email_usuario"
             />
             <p className="mt-4">
             {t("login.mensajeCorreo")}
@@ -162,7 +202,7 @@ const Login = () => {
               <Button variant="contained" color="error" onClick={handleClose}>
               {t("login.cancelar")}
               </Button>
-              <Button variant="contained" color="success">
+              <Button variant="contained" color="success" onClick={()=>olvidaAcceso(event)}>
               {t("login.aceptar")}
               </Button>
             </div>

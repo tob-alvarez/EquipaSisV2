@@ -45,7 +45,7 @@ const ModalAyuda = ({ ayuda }) => {
                                 borderColor: "#990000",
                             }}
                         >
-                            Cerrar
+                            {t("login.cerrar")}
                         </button>
                     </div>
                 </Modal.Footer>

@@ -46,23 +46,17 @@ const ModalBorrar = ({dato}) => {
                     <Modal.Title> {t("accion.borrarTitulo")}...</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {dato.habilita_3 == 'HABILITADO' ? (
+                    {dato.habilita_3 == 'SI' ? (
                         <>
                             <h6>
-                                <b>{t("accion.titulo")}:</b>
+                                <b>{t("accion.titulo")}:</b> {dato.nombre_accion}
                             </h6>
-                            <p style={{ fontSize: "0.8em" }}>
-                                <b>{dato.nombre_accion}</b>
-                            </p>
                         </>
                     ) : (
                         <>
                             <h6>
-                                <b>{t("accion.titulo")}:</b>
+                                <b>{t("accion.titulo")}:</b> {dato.nombre_accion}
                             </h6>
-                            <p style={{ fontSize: "0.8em" }}>
-                                <b>{dato.nombre_accion}</b>
-                            </p>
                             <p style={{ fontSize: "0.8em", color: "red" }}>
                             {t("accion.borrarListo")}
                             </p>
@@ -71,7 +65,7 @@ const ModalBorrar = ({dato}) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="justify-content-center mt-2">
-                        {dato.habilita_3 == 'HABILITADO' ? (
+                        {dato.habilita_3 == 'SI' ? (
                             <button
                                 onClick={borra_accion}
                                 className="btn btn-primary btn-sm m-2"

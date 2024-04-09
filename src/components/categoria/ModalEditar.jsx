@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { cambia_categorias } from "./funciones_categoria";
 import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
+import { EquipaContext } from "../../context/EquipaContext";
 
 const ModalEditar = ({dato}) => {
     const [t] = useTranslation("global")
@@ -14,7 +15,8 @@ const ModalEditar = ({dato}) => {
     const [id_categoria, setId_categoria] = useState("");
     const [nombre_categoria, setNombre_categoria] = useState("");
     const [habilita, setHabilita] = useState(false);
-
+    const { actualizador } = useContext(EquipaContext);
+    
     useEffect(() => {
       if (isModalEditOpen && dato) {
         if (dato.habilita == 1) {
@@ -23,10 +25,9 @@ const ModalEditar = ({dato}) => {
           setHabilita(false);
         }
         setNombre_categoria(dato.nombre_categoria);
-        console.log(dato)
       }
     }, [isModalEditOpen, dato]);
-
+    
     const limpia_campos = () => {
       setId_categoria("");
       setNombre_categoria("");
@@ -36,36 +37,36 @@ const ModalEditar = ({dato}) => {
       limpia_campos();
       setIsModalEditOpen(false);
     };
-    const acepta_categoria = () => {
+    const acepta_accion = () => {
       const datos_cambios = {
         id_categoria: dato.id_categoria,
         nombre_categoria: nombre_categoria,
         habilita: habilita === true ? "1" : "0",
       };
-      console.log(datos_cambios)
       if (nombre_categoria == "") {
         toast.info(`${t("categoria.datoObligatorio")}`);
         return;
       }
   
-      cambia_categorias(datos_cambios).then((respuesta_categoria) => {
-        if (respuesta_categoria[0].registros > 0) {
-          toast.success(`Categoria editada correctamente`, {
-            duration: 3000,
+      cambia_categorias(datos_cambios).then((respuesta_accion) => {
+        if (respuesta_accion[0].registros > 0) {
+          toast.success(`${t("varios.editado")}`, {
+            duration: 1500,
           });
           limpia_campos()
+          actualizador()
         } else {
-          toast.error(`${respuesta_categoria[0].Mensage}`, {
-            duration: 3000,
+          toast.error(`${respuesta_accion[0].Mensage}`, {
+            duration: 1500,
             className: "bg-success text-white fs-6",
           });
         }
         setIsModalEditOpen(false);
       });
     }
+
   return (
     <>
-    <ToastContainer position="bottom-right"/>
       <Modal
         show={isModalEditOpen}
         onHide={closeModalEdit}
@@ -107,7 +108,7 @@ const ModalEditar = ({dato}) => {
               </div>
 
               <div className="col-6 text-start">
-                <p>{t("categoria.habilitado")}</p>
+                {t("categoria.habilitado")}
                 <Switch 
                   id={"habilita"}
                   checked={habilita}
@@ -121,7 +122,7 @@ const ModalEditar = ({dato}) => {
         <Modal.Footer>
           <div className="justify-content-center mt-2">
             <button
-              onClick={acepta_categoria}
+              onClick={acepta_accion}
               className="btn btn-primary btn-sm m-2"
               style={{
                 float: "right",
@@ -129,7 +130,7 @@ const ModalEditar = ({dato}) => {
                 borderColor: "green",
               }}
             >
-              Aceptar
+              {t("login.aceptar")}
             </button>
             <button
               onClick={closeModalEdit}
@@ -140,7 +141,7 @@ const ModalEditar = ({dato}) => {
                 borderColor: "#990000",
               }}
             >
-              Cerrar
+              {t("login.cancelar")}
             </button>
           </div>
         </Modal.Footer>
@@ -148,7 +149,7 @@ const ModalEditar = ({dato}) => {
       
         <EditIcon
           onClick={() => setIsModalEditOpen(true)}
-          sx={{ fontSize: '30px' }}
+          sx={{ fontSize: '20px' }}
           style={{ cursor: "pointer" }} />
     </>
   )

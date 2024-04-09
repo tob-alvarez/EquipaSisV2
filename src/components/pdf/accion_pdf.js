@@ -9,7 +9,7 @@ export function accion_pdf(filtro, idioma) {
   let reporte;
   if (idioma === 'es') {
     titulo = "Registro de Acciones";
-    nombreAcciones = "Nombre de Acciones";
+    nombreAcciones = "Nombre de Acción";
     habilitado = "Habilitada";
     page = "Página";
     reporte = "Reporte al"
@@ -27,7 +27,7 @@ export function accion_pdf(filtro, idioma) {
     reporte = "Relatório em";
   } else {
     titulo = "Registro de Acciones";
-    nombreAcciones = "Nombre de Acciones";
+    nombreAcciones = "Nombre de Acción";
     habilitado = "Habilitada";
     page = "Página";
     reporte = "Reporte al"
@@ -58,7 +58,10 @@ export function accion_pdf(filtro, idioma) {
     const result = await response.json();
     
     data = result.datos;
-    data = data.filter(item => item.nombre_accion.toLowerCase().indexOf(filtro) > -1);
+    data = data.filter(item => item.id_accion.toLowerCase().indexOf(filtro) > -1 ||
+    item.nombre_accion.toLowerCase().indexOf(filtro) > -1 ||
+    item.corto_accion.toLowerCase().indexOf(filtro) > -1 ||
+    item.habilita.toLowerCase().indexOf(filtro) > -1);
     doc.setProperties({
       title: titulo,
     });
@@ -101,9 +104,9 @@ export function accion_pdf(filtro, idioma) {
   };
   resultado();
   function cabecera() {
-    //const logo = new Image();
-    //logo.src = "../imagenes/equipasis.jpg";
-    //doc.addImage(logo, "JPEG", 170, 1, 20, 15); // Agregar la imagen al PDF (X, Y, Width, Height)
+    const logo = new Image();
+    logo.src = "public/logo.png";
+    doc.addImage(logo, "PNG", 170, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
     doc.rect(14.8, 19.8, 169.3, 7.4);
     doc.setFillColor("#EBEBEB");
     doc.rect(15, 20, 169, 7, "F");
