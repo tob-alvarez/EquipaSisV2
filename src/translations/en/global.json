@@ -40,7 +40,9 @@
     "varios":{
         "alta": "Registration completed correctly",
         "editado": "Editing done correctly",
-        "borrado": "Disabling done correctly"
+        "borrado": "Disabling done correctly",
+        "recuperacionExitosa": "Successful recovery",
+        "recuperacionFallida": "Non-existent user"
     },
     "accion":{
         "titulo": "Action",
