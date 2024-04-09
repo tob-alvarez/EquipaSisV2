@@ -12,7 +12,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import FlagIcon from '@mui/icons-material/Flag';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-const MenuLateral = ({menuItems, open}) => {
+const MenuLateral = ({menuItems, open, setOpen}) => {
     const navigate = useNavigate()
     const redirigir = (ruta) => {
         navigate(ruta);
@@ -20,16 +20,17 @@ const MenuLateral = ({menuItems, open}) => {
     const [openLists, setOpenLists] = useState({});
     
     const handleClick = (label) => {
+        setOpen(true)
         setOpenLists(prevState => ({
             ...prevState,
             [label]: !prevState[label]
         }));
     };
-    const ultimoItem = menuItems[menuItems.length - 1];
-    ultimoItem.subItems.sort((a, b) => {
-    // Comparar los subItems por su label
-    return a.label.localeCompare(b.label);
-    });
+    // const ultimoItem = menuItems[menuItems.length - 1];
+    // ultimoItem.subItems.sort((a, b) => {
+    // // Comparar los subItems por su label
+    // return a.label.localeCompare(b.label);
+    // });
 
     const mapearIcono = (nombreOpcion) => {
         switch (nombreOpcion) {

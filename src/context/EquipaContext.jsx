@@ -39,17 +39,23 @@ const EquipaProvider = ({ children }) => {
       const { data } = await axios.get(`https://v2.equipasis.com/api/usuarios.php?tarea=valida_usuario&email_persona=${loginValues.email_persona}&clave=${loginValues.clave}`);
       setAuthenticated(!!data.persona[0]);
       setUser(data.persona[0]);
-      sessionStorage.setItem("token", true);
+      sessionStorage.setItem("token", data.token[0].token);
       localStorage.setItem("nombre", data.persona[0].nombre_persona);
       localStorage.setItem("rol", data.persona[0].nombre_tusuario);
-      setPermisos(data.permisos)
       navigate('/inicio')
-      console.log(data)
-      
     } catch (error) {
       console.error(error.response?.data.message || error.message);
     }
     setBotonState(false);
+  };
+
+  const permisosMenu = async (token) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/usuario_menu.php`, token);
+      setPermisos(data.permisos)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
   };
   
   const getAuth = async () => {
@@ -74,9 +80,6 @@ const EquipaProvider = ({ children }) => {
   const logout = () => {
     setAuthenticated(false);
     sessionStorage.removeItem("token");
-    const url = new URL(`http://localhost:5173/`);
-    // url.searchParams.append("logout", true);
-    window.open(url.toString(), '_self');
   };
 
   const actualizador = () =>{
@@ -101,7 +104,8 @@ const EquipaProvider = ({ children }) => {
         botonState,
         permisos,
         refresh,
-        actualizador
+        actualizador,
+        permisosMenu
       }}
     >
       {children}

@@ -98,7 +98,7 @@ export default function Layout({ children }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { handleChangeLanguage, authenticated, logout, getAuth, permisos} = React.useContext(EquipaContext);
+  const { handleChangeLanguage, authenticated, logout, getAuth, permisos, permisosMenu} = React.useContext(EquipaContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -120,7 +120,11 @@ export default function Layout({ children }) {
   
   React.useEffect(() => {
     getAuth();
-    // Mandar el token y en el back hacer comparacion y traer de vuelta todo
+    let token = sessionStorage.getItem('token')
+    let data = {
+      "token": token
+    }
+    permisosMenu(data)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); 
 
@@ -238,7 +242,7 @@ export default function Layout({ children }) {
             </IconButton>
           </DrawerHeader>
           <Divider />
-          <MenuLateral menuItems={menuItems} open={open}/>
+          <MenuLateral menuItems={menuItems} open={open} setOpen={setOpen}/>
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <DrawerHeader />
