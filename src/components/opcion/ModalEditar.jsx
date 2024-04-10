@@ -14,6 +14,8 @@ const ModalEditar = ({dato}) => {
     const [isModalEditOpen, setIsModalEditOpen] = useState(false);
     const [id_opcion, setId_opcion] = useState("");
     const [nombre_opcion, setNombre_opcion] = useState("");
+    const [nombre_opcion_en, setNombre_opcion_en] = useState("");
+    const [nombre_opcion_por, setNombre_opcion_por] = useState("");
     const [habilita, setHabilita] = useState(false);
     const { actualizador } = useContext(EquipaContext);
     
@@ -25,12 +27,16 @@ const ModalEditar = ({dato}) => {
           setHabilita(false);
         }
         setNombre_opcion(dato.nombre_opcion);
+        setNombre_opcion_en(dato.nombre_opcion_en);
+        setNombre_opcion_por(dato.nombre_opcion_por);
       }
     }, [isModalEditOpen, dato]);
     
     const limpia_campos = () => {
       setId_opcion("");
       setNombre_opcion("");
+      setNombre_opcion_en("");
+      setNombre_opcion_por("");
       setHabilita(false);
     };
     const closeModalEdit = () => {
@@ -41,9 +47,11 @@ const ModalEditar = ({dato}) => {
       const datos_cambios = {
         id_opcion: dato.id_opcion,
         nombre_opcion: nombre_opcion,
+        nombre_opcion_en: nombre_opcion_en,
+        nombre_opcion_por: nombre_opcion_por,
         habilita: habilita === true ? "1" : "0",
       };
-      if (nombre_opcion == "") {
+      if (nombre_opcion == "" || nombre_opcion_en == "" || nombre_opcion_por == "") {
         toast.info(`${t("opcion.datoObligatorio")}`);
         return;
       }
@@ -101,6 +109,40 @@ const ModalEditar = ({dato}) => {
                     onChange={(e) => setNombre_opcion(e.target.value)}
                     onKeyUp={(e) =>
                       setNombre_opcion(e.target.value.toUpperCase())
+                    }
+                    className="mb-2"
+                  />
+                </InputGroup>
+              </div>
+
+              <div className="col-6">
+                <label htmlFor="name" className="label-material mb-1">
+                {t("opcion.nombre-opcion_en")}: #
+                </label>
+                <InputGroup>
+                  <Form.Control
+                    id="nombre_opcion_en"
+                    value={nombre_opcion_en}
+                    onChange={(e) => setNombre_opcion_en(e.target.value)}
+                    onKeyUp={(e) =>
+                      setNombre_opcion_en(e.target.value.toUpperCase())
+                    }
+                    className="mb-2"
+                  />
+                </InputGroup>
+              </div>
+
+              <div className="col-6">
+                <label htmlFor="name" className="label-material mb-1">
+                {t("opcion.nombre-opcion_por")}: #
+                </label>
+                <InputGroup>
+                  <Form.Control
+                    id="nombre_opcion_por"
+                    value={nombre_opcion_por}
+                    onChange={(e) => setNombre_opcion_por(e.target.value)}
+                    onKeyUp={(e) =>
+                      setNombre_opcion_por(e.target.value.toUpperCase())
                     }
                     className="mb-2"
                   />

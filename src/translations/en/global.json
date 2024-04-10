@@ -134,6 +134,8 @@
         "titulo": "Option",
         "busqueda": "Search",
         "nombre-opcion": "Option Name",
+        "nombre-opcion_en": "Option Name in english",
+        "nombre-opcion_por": "Option Name in portuguese",
         "estado": "State",
         "acciones": "Actions",
         "registros": "Records",

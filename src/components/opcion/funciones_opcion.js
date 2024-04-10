@@ -41,6 +41,8 @@ export async function cambia_opciones(datos){
     tarea: "cambia_opcion",
     id_opcion:datos.id_opcion ,
     nombre_opcion: datos.nombre_opcion,
+    nombre_opcion_en: datos.nombre_opcion_en,
+    nombre_opcion_por: datos.nombre_opcion_por,
     habilita: datos.habilita
   }); // Send the data to the server in JSON format.
   const endpoint = "https://v2.equipasis.com/api/opcion.php"; // API endpoint where we send form data.
@@ -81,6 +83,8 @@ export async function alta_opciones(datos){
   const JSONdata = JSON.stringify({ 
     tarea: "alta_opcion",
     nombre_opcion: datos.nombre_opcion,
+    nombre_opcion_en: datos.nombre_opcion_en,
+    nombre_opcion_por: datos.nombre_opcion_por,
     habilita: datos.habilita
   }); // Send the data to the server in JSON format.
   const endpoint = "https://v2.equipasis.com/api/opcion.php"; // API endpoint where we send form data.

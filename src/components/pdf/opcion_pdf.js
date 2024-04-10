@@ -4,24 +4,32 @@ import * as XLSX from "xlsx";
 export function opcion_pdf(filtro, idioma) {
     let titulo;
     let nombreAcciones;
+    let nombreAcciones_en;
+    let nombreAcciones_por;
     let habilitado;
     let page; 
     let reporte;
     if (idioma === 'es') {
       titulo = "Registro de Opciones";
       nombreAcciones = "Nombre de Opción";
+      nombreAcciones_en = "Opción en Inglés";
+      nombreAcciones_por = "Opción en Portugués";
       habilitado = "Habilitada";
       page = "Página";
       reporte = "Reporte al"
     } else if (idioma === 'en') {
       titulo = "Records of Options";
       nombreAcciones = "Option Name";
+      nombreAcciones_en = "Option in english";
+      nombreAcciones_por = "Option in portuguese";
       habilitado = "Enabled";
       page = "Page";
       reporte = "Report as of";
     } else if (idioma === 'por') {
       titulo = "Datas da Opção";
       nombreAcciones = "Nome da Opção";
+      nombreAcciones_en = "Opção em inglês";
+      nombreAcciones_por = "Opção em português";
       habilitado = "Habilitado";
       page = "Página";
       reporte = "Relatório em";
@@ -77,6 +85,8 @@ export function opcion_pdf(filtro, idioma) {
 
       doc.text(datos.id_opcion, 20, lineas);
       doc.text(datos.nombre_opcion, 34, lineas);
+      doc.text(datos.nombre_opcion_en, 72, lineas);
+      doc.text(datos.nombre_opcion_por, 120, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
@@ -116,8 +126,13 @@ export function opcion_pdf(filtro, idioma) {
     doc.setFontSize(9);
     doc.text("ID", 22, 25, { align: "center" });
     doc.line(30, 19.8, 30, 27.2);
-    doc.text(nombreAcciones , 80, 25, { align: "center" });
+    doc.text(nombreAcciones , 47, 25, { align: "center" });
+    doc.line(70, 19.8, 70, 27.2);
+    doc.text(nombreAcciones_en , 90, 25, { align: "center" });
+    doc.line(115, 19.8, 115, 27.2);
+    doc.text(nombreAcciones_por , 140, 25, { align: "center" });
     doc.line(160, 19.8, 160, 27.2);
+
     doc.text(habilitado, 172, 25, { align: "center" });
     let fecha = new Date();
     fecha = fecha.toLocaleString();
@@ -151,6 +166,8 @@ export function opcion_xls(filtro) {
     
     data = result.datos;
     data = data.filter(item => item.nombre_opcion.toLowerCase().indexOf(filtro) > -1 || 
+    item.nombre_opcion_en.toLowerCase().indexOf(filtro) > -1 ||
+    item.nombre_opcion_por.toLowerCase().indexOf(filtro) > -1 ||
     item.id_opcion.toLowerCase().indexOf(filtro) > -1 ||
     item.habilita.toLowerCase().indexOf(filtro) > -1);
     console.log(data.length);
