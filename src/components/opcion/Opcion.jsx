@@ -67,6 +67,8 @@ const Opcion = () => {
       (expresion) =>
         grilla.id_opcion.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.nombre_opcion.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_opcion_en.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_opcion_por.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
     );
   }
@@ -153,6 +155,8 @@ const Opcion = () => {
               <TableRow>
                 <TableCell>Id</TableCell>
                 <TableCell>{t("opcion.nombre-opcion")}</TableCell>
+                <TableCell>{t("opcion.nombre-opcion_en")}</TableCell>
+                <TableCell>{t("opcion.nombre-opcion_por")}</TableCell>
                 <TableCell>{t("opcion.estado")}</TableCell>
                 <TableCell align="center">{t("opcion.acciones")}</TableCell>
               </TableRow>
@@ -171,6 +175,8 @@ const Opcion = () => {
                 >
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_opcion}</TableCell>
                   <TableCell>{dato.nombre_opcion.toUpperCase()}</TableCell>
+                  <TableCell>{dato.nombre_opcion_en.toUpperCase()}</TableCell>
+                  <TableCell>{dato.nombre_opcion_por.toUpperCase()}</TableCell>
                   <TableCell>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}

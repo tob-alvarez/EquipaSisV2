@@ -134,6 +134,8 @@
         "titulo": "Opção",
         "busqueda": "Procurar",
         "nombre-opcion": "Nome da Opção",
+        "nombre-opcion_en": "Nome da Opção em inglês",
+        "nombre-opcion_por": "Nome da Opção em português", 
         "estado": "Estado",
         "acciones": "Ações",
         "registros": "Registros",
