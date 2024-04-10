@@ -12,7 +12,7 @@ const EquipaProvider = ({ children }) => {
   const navigate = useNavigate()
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [ t, i18n] = useTranslation("global")
+  const [t, i18n] = useTranslation("global")
   const [selected, setSelected] = useState([]);
   const [botonState, setBotonState] = useState(false);
   const [refresh, setRefresh] = useState(null);
@@ -53,6 +53,7 @@ const EquipaProvider = ({ children }) => {
     try {
       const { data } = await axios.post(`https://v2.equipasis.com/api/usuario_menu.php`, token);
       setPermisos(data.permisos)
+      console.log(data.permisos)
     } catch (error) {
       console.error(error.response?.data.message || error.message);
     }

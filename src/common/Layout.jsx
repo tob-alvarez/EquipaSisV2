@@ -128,22 +128,28 @@ export default function Layout({ children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); 
 
-    const permisosHabilitados = permisos?.filter(permiso => permiso.ver_opcion === '1');
-    const menuItems = permisosHabilitados?.reduce((menu, permiso) => {
-      const menuItemIndex = menu.findIndex(item => item.label === permiso.padre);
-      if (menuItemIndex === -1) {
-        // Si no existe un menuItem con el mismo padre, lo creamos
-        const menuItem = {
-          label: permiso.padre,
-          subItems: [{ label: permiso.hijo, path: permiso.path }]
-        };
-        menu.push(menuItem);
-      } else {
-        // Si ya existe un menuItem con el mismo padre, agregamos el subItem
-        menu[menuItemIndex].subItems.push({ label: permiso.hijo, path: permiso.path });
-      }
-      return menu;
-    }, []);
+  const language = localStorage.getItem('language');
+
+  const permisosHabilitados = permisos?.filter(permiso => permiso.ver_opcion === '1');
+  const menuItems = permisosHabilitados?.reduce((menu, permiso) => {
+    const labelKey = `padre_${language}`;
+    const subLabelKey = `hijo_${language}`;
+  
+    const menuItemIndex = menu.findIndex(item => item.label === permiso[labelKey]);
+    if (menuItemIndex === -1) {
+      // Si no existe un menuItem con el mismo padre, lo creamos
+      const menuItem = {
+        label: permiso[labelKey],
+        subItems: [{ label: permiso[subLabelKey], path: permiso.path }]
+      };
+      menu.push(menuItem);
+    } else {
+      // Si ya existe un menuItem con el mismo padre, agregamos el subItem
+      menu[menuItemIndex].subItems.push({ label: permiso[subLabelKey], path: permiso.path });
+    }
+    return menu;
+  }, []);
+  
     
   return authenticated ? (
     <>
