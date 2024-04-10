@@ -26,11 +26,18 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
             [label]: !prevState[label]
         }));
     };
-    // const ultimoItem = menuItems[menuItems.length - 1];
-    // ultimoItem.subItems.sort((a, b) => {
-    // // Comparar los subItems por su label
-    // return a.label.localeCompare(b.label);
-    // });
+    if (Array.isArray(menuItems)) {
+        // Verificar si menuItems es un array y realizar la operación
+        const ultimoItem = menuItems[menuItems.length - 1];
+        if (ultimoItem && Array.isArray(ultimoItem.subItems)) {
+          // Verificar si el último elemento tiene subItems y ordenarlos
+        ultimoItem.subItems.sort((a, b) => a.label.localeCompare(b.label));
+        } else {
+        console.log('El último elemento no tiene subItems o no es un array');
+        }
+    } else {
+        console.log('menuItems no es un array');
+    }
 
     const mapearIcono = (nombreOpcion) => {
         switch (nombreOpcion) {
