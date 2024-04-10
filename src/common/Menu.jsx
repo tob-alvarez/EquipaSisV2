@@ -43,17 +43,45 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
         switch (nombreOpcion) {
             case 'PANEL DE GESTION':
                 return <LeaderboardIcon />;
+            case 'MANAGEMENT PANEL':
+                return <LeaderboardIcon />;
+            case 'PAINEL DE GESTÃO':
+                return <LeaderboardIcon />;
             case 'ACTIVOS':
+                return <ComputerIcon />;
+            case 'ASSETS':
+                return <ComputerIcon />;
+            case 'ATIVOS':
                 return <ComputerIcon />;
             case 'SOLICITUDES':
                 return <ChecklistRtlIcon />;
+            case 'APPLICATIONS':
+                return <ChecklistRtlIcon />;
+            case 'FORMULÁRIOS':
+                return <ChecklistRtlIcon />;
             case 'CALENDARIO':
+                return <GroupsIcon />;
+            case 'CALENDAR':
+                return <GroupsIcon />;
+            case 'CALENDÁRIO':
                 return <GroupsIcon />;
             case 'GESTION TECNICA':
                 return <DescriptionIcon />;
+            case 'TECHNICAL MANAGEMENT':
+                return <DescriptionIcon />;
+            case 'GESTÃO TÉCNICA':
+                return <DescriptionIcon />;
             case 'REPORTES':
                 return <FlagIcon />;
+            case 'REPORTS':
+                return <FlagIcon />;
+            case 'RELATÓRIOS':
+                return <FlagIcon />;
             case 'CONFIGURACION':
+                return <SettingsIcon />;
+            case 'CONFIGURATION':
+                return <SettingsIcon />;
+            case 'CONFIGURAÇÃO':
                 return <SettingsIcon />;
             default:
                 return <HomeIcon />;
