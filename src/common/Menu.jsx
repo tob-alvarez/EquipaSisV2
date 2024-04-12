@@ -26,6 +26,8 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
             [label]: !prevState[label]
         }));
     };
+
+    
     if (Array.isArray(menuItems)) {
         // Verificar si menuItems es un array y realizar la operación
         const ultimoItem = menuItems[menuItems.length - 1];
