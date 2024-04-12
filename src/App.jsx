@@ -9,12 +9,16 @@ import PrivateRoute from "./routes/PrivateRoute";
 import Accion from "./components/accion/Accion";
 import Categoria from "./components/categoria/Categoria";
 import Empresa from "./components/empresa/Empresa";
+import Estado_solicitud from "./components/estado_solicitud/Estado_solicitud";
 import Marca from "./components/marca/Marca";
 import Motivo_solicitud from "./components/motivo_solicitud/Motivo_solicitud";
 import Opcion from "./components/opcion/Opcion";
+//import Organizacion_servicio from "./components/organizacion_servicio/Organizacion_servicio";
 import Pais from "./components/pais/Pais";
 import Prioridad from "./components/prioridad/Prioridad";
 import Provincia from "./components/provincia/Provincia";
+import Servicio from "./components/servicio/Servicio";
+import Software from "./components/software/Software";
 import Tipo_adjunto from "./components/tipo_adjunto/Tipo_adjunto";
 import Tipo_alimentacion from "./components/tipo_alimentacion/Tipo_alimentacion";
 import Tipo_archivo from "./components/tipo_archivo/Tipo_archivo";
@@ -28,6 +32,7 @@ import Tipo_persona from "./components/tipo_persona/Tipo_persona";
 import Tipo_pertenencia from "./components/tipo_pertenencia/Tipo_pertenencia";
 import Tipo_solicitud from "./components/tipo_solicitud/Tipo_solicitud";
 import Tipo_tarea from "./components/tipo_tarea/Tipo_tarea";
+import Tipo_usuario from "./components/tipo_usuario/Tipo_usuario";
 
 
 function App() {
@@ -71,6 +76,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <Empresa />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/estado_solicitud"
+              element={
+                <PrivateRoute>
+                  <Estado_solicitud />
                 </PrivateRoute>
               }
             />
@@ -125,6 +139,24 @@ function App() {
               element={
                 <PrivateRoute>
                   <Provincia />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/servicio"
+              element={
+                <PrivateRoute>
+                  <Servicio />
+                </PrivateRoute>
+              }
+            />  
+            <Route
+              exact
+              path="/software"
+              element={
+                <PrivateRoute>
+                  <Software />
                 </PrivateRoute>
               }
             />                                               
@@ -245,6 +277,15 @@ function App() {
                 </PrivateRoute>
               }
             /> 
+            <Route
+              exact
+              path="/tipo_usuario"
+              element={
+                <PrivateRoute>
+                  <Tipo_usuario />
+                </PrivateRoute>
+              }
+            />             
           </Routes>
         </Layout>
       </EquipaProvider>

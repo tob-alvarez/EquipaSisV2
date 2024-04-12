@@ -96,6 +96,24 @@
         "datoObligatorio": "Datos obligatorios marcados con #",
         "habilitado": "Habilitado"
     },
+    "estado_solicitud": {
+        "titulo": "Estado de Solicitud",
+        "busqueda": "Búsqueda",
+        "nombre-estado_solicitud": "Nombre Estado de Solicitud",
+        "color": "Color",
+        "estado": "Estado",
+        "acciones": "Acciones",
+        "registros": "Registros",
+        "pagina": "Página",
+        "de": "de",
+        "agregarTitulo": "Agregar Estado de Solicitud",
+        "ayudaTitulo": "Ayuda",
+        "editarTitulo": "Editar Estado de Solicitud",
+        "borrarTitulo": "Borrar Estado de Solicitud",
+        "borrarListo": "Este Estado de Solicitud ya esta deshabilitado",
+        "datoObligatorio": "Datos obligatorios marcados con #",
+        "habilitado": "Habilitado"
+    },
     "marca": {
         "titulo": "Marca",
         "busqueda": "Búsqueda",
@@ -149,6 +167,26 @@
         "datoObligatorio": "Datos obligatorios marcados con #",
         "habilitado": "Habilitado"
     },
+    "organizacion_servicio": {
+        "titulo": "Servicio por Organización",
+        "busqueda": "Búsqueda",
+        "nombre-organizacion": "Nombre Organización",
+        "nombre_servicio": "Nombre Servicio",
+        "estado": "Estado",
+        "acciones": "Acciones",
+        "registros": "Registros",
+        "pagina": "Página",
+        "de": "de",
+        "id_organizacion": "Id Organización",
+        "id_servicio": "Id Servicio",
+        "agregarTitulo": "Agregar Servicio por Organización",
+        "ayudaTitulo": "Ayuda",
+        "editarTitulo": "Editar Servicio por Organización",
+        "borrarTitulo": "Borrar Servicio por Organización",
+        "borrarListo": "Este Servicio por Organización ya esta deshabilitado",
+        "datoObligatorio": "Datos obligatorios marcados con #",
+        "habilitado": "Habilitado"
+    },
     "pais": {
         "titulo": "País",
         "busqueda": "Búsqueda",
@@ -199,7 +237,43 @@
         "borrarListo": "Esta Provincia ya esta deshabilitada",
         "datoObligatorio": "Datos obligatorios marcados con #",
         "habilitado": "Habilitada"
-    },                        
+    },   
+    "servicio": {
+        "titulo": "Servicio",
+        "busqueda": "Búsqueda",
+        "nombre-servicio": "Nombre Servicio",
+        "corto_servicio": "Nombre Corto",
+        "estado": "Estado",
+        "acciones": "Acciones",
+        "registros": "Registros",
+        "pagina": "Página",
+        "de": "de",
+        "agregarTitulo": "Agregar Servicio",
+        "ayudaTitulo": "Ayuda",
+        "editarTitulo": "Editar Servicio",
+        "borrarTitulo": "Borrar Servicio",
+        "borrarListo": "Este Servicio ya esta deshabilitado",
+        "datoObligatorio": "Datos obligatorios marcados con #",
+        "habilitado": "Habilitada"
+    }, 
+    "software": {
+        "titulo": "Software",
+        "busqueda": "Búsqueda",
+        "nombre-software": "Nombre Software",
+        "corto_software": "Nombre Corto",
+        "estado": "Estado",
+        "acciones": "Acciones",
+        "registros": "Registros",
+        "pagina": "Página",
+        "de": "de",
+        "agregarTitulo": "Agregar Software",
+        "ayudaTitulo": "Ayuda",
+        "editarTitulo": "Editar Software",
+        "borrarTitulo": "Borrar Software",
+        "borrarListo": "Este Software ya esta deshabilitado",
+        "datoObligatorio": "Datos obligatorios marcados con #",
+        "habilitado": "Habilitada"
+    },                              
     "tipo_adjunto": {
         "titulo": "Tipo de Adjunto",
         "busqueda": "Búsqueda",
@@ -421,5 +495,23 @@
         "borrarListo": "Este Tipo de Tarea ya está deshabilitado",
         "datoObligatorio": "Datos obligatorios marcados con #",
         "habilitado": "Habilitado"
-    }             
+    },
+    "tipo_usuario": {
+        "titulo": "Tipo de Usuario",
+        "busqueda": "Búsqueda",
+        "nombre-usuario": "Nombre Tipo de Usuario",
+        "observacion": "Observaciones",
+        "estado": "Estado",
+        "acciones": "Acciones",
+        "registros": "Registros",
+        "pagina": "Página",
+        "de": "de",
+        "agregarTitulo": "Agregar Tipo de Usuario",
+        "ayudaTitulo": "Ayuda",
+        "editarTitulo": "Editar Tipo de Usuario",
+        "borrarTitulo": "Borrar Tipo de Usuario",
+        "borrarListo": "Este Tipo de Usuario ya está deshabilitado",
+        "datoObligatorio": "Datos obligatorios marcados con #",
+        "habilitado": "Habilitado"
+    }                   
 }
