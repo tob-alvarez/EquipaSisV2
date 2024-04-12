@@ -1,18 +1,51 @@
 import jsPDF from "jspdf";
 import * as XLSX from "xlsx";
 
-export function servicio_pdf(filtro) {
-  const doc = new jsPDF({
-    orientation: "p",
-    unit: "mm",
-    format: "a4",
-  });
-
-  let lineas = 35;
-  let pagina = 1;
-  let data = [];
-  let habilita = "";
-
+export function servicio_pdf(filtro, idioma) {
+    let titulo;
+    let nombreservicio;
+    let corto_servicio;
+    let habilitado;
+    let page; 
+    let reporte;
+    if (idioma === 'es') {
+      titulo = "Registro de Servicios";
+      nombreservicio = "Nombre de Servicio";
+      corto_servicio = "Nombre Corto de Servicio";
+      habilitado = "Habilitada";
+      page = "Página";
+      reporte = "Reporte al"
+    } else if (idioma === 'en') {
+      titulo = "Records of Service";
+      nombreservicio = "Service Name";
+      corto_servicio = "Service Short Name";
+      habilitado = "Enabled";
+      page = "Page";
+      reporte = "Report as of";
+    } else if (idioma === 'por') {
+      titulo = "Datas do Serviço";
+      nombreservicio = "Nome do Serviço";
+      corto_servicio = "Nome Abreviado do Serviço";
+      habilitado = "Habilitado";
+      page = "Página";
+      reporte = "Relatório em";
+    } else {
+      titulo = "Registro de Servicios";
+      nombreservicio = "Nombre de Servicio";
+      corto_servicio = "Nombre Corto Servicio";
+      habilitado = "Habilitada";
+      page = "Página";
+      reporte = "Reporte al"
+    }
+    const doc = new jsPDF({
+      orientation: "p",
+      unit: "mm",
+      format: "a4",
+    });
+    let lineas = 35;
+    let pagina = 1;
+    let data = [];
+    let habilita = "";
   const resultado = async () => {
     const JSONdata = JSON.stringify({ tarea: "imprime_servicio" }); // Send the data to the server in JSON format.
     const endpoint = "https://v2.equipasis.com/api/servicio.php"; // API endpoint where we send form data.
@@ -28,11 +61,13 @@ export function servicio_pdf(filtro) {
     // Get the response data from server as JSON.
     // If server returns the name submitted, that means the form works.
     const result = await response.json();
-
     data = result.datos;
-    data = data.filter(item => item.nombre_servicio.toLowerCase().indexOf(filtro) > -1);
+    data = data.filter(item => item.nombre_servicio.toLowerCase().indexOf(filtro) > -1 || 
+    item.id_servicio.toLowerCase().indexOf(filtro) > -1 ||
+    item.corto_servicio.toLowerCase().indexOf(filtro) > -1 ||
+    item.habilita.toLowerCase().indexOf(filtro) > -1);
     doc.setProperties({
-      title: "Registro de Servicios",
+      title: titulo,
     });
     cabecera();
     data.map((datos, index) => {
@@ -48,7 +83,7 @@ export function servicio_pdf(filtro) {
 
       doc.text(datos.id_servicio, 20, lineas);
       doc.text(datos.nombre_servicio, 34, lineas);
-      doc.text(datos.corto_servicio, 100, lineas);
+      doc.text(datos.corto_servicio, 72, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
@@ -83,21 +118,22 @@ export function servicio_pdf(filtro) {
     doc.setFontSize(14);
 
     doc.setTextColor(55, 0, 0);
-    doc.text("Registro de Servicios", 15, 12);
+    doc.text(titulo, 15, 12);
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(9);
     doc.text("ID", 22, 25, { align: "center" });
     doc.line(30, 19.8, 30, 27.2);
-    doc.text("Nombre del Servicio", 50, 25, { align: "center" });
-    doc.line(95, 19.8, 95, 27.2);
-    doc.text("Nombre Corto", 109, 25, { align: "center" });
-    doc.line(160, 19.8, 160, 27.2);
-    doc.text("Habilitado", 172, 25, { align: "center" });
+    doc.text(nombreservicio , 47, 25, { align: "center" });
+    doc.line(70, 19.8, 70, 27.2);
+    doc.text(corto_servicio , 90, 25, { align: "center" });
+    doc.line(115, 19.8, 115, 27.2);
+
+    doc.text(habilitado, 172, 25, { align: "center" });
     let fecha = new Date();
     fecha = fecha.toLocaleString();
 
-    doc.text("Reporte al: " + fecha, 5, 288, { align: "left" });
-    doc.text("Página: " + pagina.toString(), 195, 288, { align: "right" });
+    doc.text(`${reporte}: ` + fecha, 5, 288, { align: "left" });
+    doc.text(`${page}: ` + pagina.toString(), 195, 288, { align: "right" });
   }
 }
 
@@ -124,14 +160,17 @@ export function servicio_xls(filtro) {
     fecha = fecha.toLocaleString();
     
     data = result.datos;
-    data = data.filter(item => item.nombre_servicio.toLowerCase().indexOf(filtro) > -1);
+    data = data.filter(item => item.nombre_servicio.toLowerCase().indexOf(filtro) > -1 || 
+    item.corto_servicio.toLowerCase().indexOf(filtro) > -1 ||
+    item.id_servicio.toLowerCase().indexOf(filtro) > -1 ||
+    item.habilita.toLowerCase().indexOf(filtro) > -1);
     console.log(data.length);
     if (data.length != 0) {
       //const wb = XLSX.utils.table_to_book(table);
       const ws = XLSX.utils.json_to_sheet(data);
 
       var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Servicios");
+      XLSX.utils.book_append_sheet(wb, ws, "servicios");
 
       /* Export to file (start a download) */
       XLSX.writeFile(wb, fecha + "_Servicio.xlsx");

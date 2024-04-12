@@ -1,109 +1,180 @@
 import jsPDF from "jspdf";
+import * as XLSX from "xlsx";
 
-const doc = new jsPDF({
-    orientation: 'p',
-    unit: 'mm',
-    format: 'a4',
-});
-
-let lineas = 35
-let pagina=1
-let data = []
-dataFetch_otro()
-
-export function organizacion_servicio_pdf() {
- 
-    doc.setProperties({
-        title: "Registro de Servicios por Organización"
+export function organizacion_servicio_pdf(filtro, idioma) {
+    let titulo;
+    let nombreorganizacion;
+    let nombre_servicio;
+    let habilitado;
+    let page; 
+    let reporte;
+    if (idioma === 'es') {
+      titulo = "Registro de Servicios por Organización";
+      nombreorganizacion = "Nombre de Organización";
+      nombre_servicio = "Nombre de Servicio";
+      habilitado = "Habilitada";
+      page = "Página";
+      reporte = "Reporte al"
+    } else if (idioma === 'en') {
+      titulo = "Records of Services by Organization";
+      nombreorganizacion = "Organization Name";
+      nombre_servicio = "Service Name";
+      habilitado = "Enabled";
+      page = "Page";
+      reporte = "Report as of";
+    } else if (idioma === 'por') {
+      titulo = "Datas do Serviços por Organização";
+      nombreorganizacion = "Nome do Organização";
+      nombre_servicio = "Nome do Serviço";
+      habilitado = "Habilitado";
+      page = "Página";
+      reporte = "Relatório em";
+    } else {
+      titulo = "Registro de Servicios por Organización";
+      nombreorganizacion = "Nombre de Organización";
+      nombre_servicio = "Nombre de Servicio";
+      habilitado = "Habilitada";
+      page = "Página";
+      reporte = "Reporte al"
+    }
+    const doc = new jsPDF({
+      orientation: "p",
+      unit: "mm",
+      format: "a4",
     });
-    cabecera()
+    let lineas = 35;
+    let pagina = 1;
+    let data = [];
+    let habilita = "";
+  const resultado = async () => {
+    const JSONdata = JSON.stringify({ tarea: "imprime_organizacion_servicio" }); // Send the data to the server in JSON format.
+    const endpoint = "https://v2.equipasis.com/api/organizacion_servicio.php"; // API endpoint where we send form data.
+
+    // Form the request for sending data to the server.
+    const options = {
+      method: "POST", // The method is POST because we are sending data.
+      headers: { "Content-Type": "application/json" }, // Tell the server we're sending JSON.
+      body: JSONdata, // Body of the request is the JSON data we created above.
+    };
+    const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
+
+    // Get the response data from server as JSON.
+    // If server returns the name submitted, that means the form works.
+    const result = await response.json();
+    data = result.datos;
+    data = data.filter(item => item.nombre_organizacion.toLowerCase().indexOf(filtro) > -1 || 
+    item.id_orga_serv.toLowerCase().indexOf(filtro) > -1 ||
+    item.nombre_servicio.toLowerCase().indexOf(filtro) > -1 ||
+    item.habilita.toLowerCase().indexOf(filtro) > -1);
+    doc.setProperties({
+      title: titulo,
+    });
+    cabecera();
     data.map((datos, index) => {
+      if (index % 2 == 0 && datos.nombre_organizacion.length > 120) {
+        doc.setFillColor("#ECECEC");
+        doc.rect(15, lineas - 4, 169, 10, "F");
+      }
 
-        if(index % 2 == 0 && datos.corto_organizacion.length > 120){
-            doc.setFillColor('#ECECEC');
-            doc.rect(5, lineas-4, 200, 10, 'F')
-        }
+      if (index % 2 == 0 && datos.nombre_organizacion.length < 120) {
+        doc.setFillColor("#ECECEC");
+        doc.rect(15, lineas - 4, 169, 5, "F");
+      }
 
-        if(index % 2 == 0 && datos.corto_organizacion.length < 120){
-            doc.setFillColor('#ECECEC');
-            doc.rect(5, lineas-4, 200, 5, 'F')
-        } 
+      doc.text(datos.id_orga_serv, 20, lineas);
+      doc.text(datos.nombre_organizacion, 34, lineas);
+      doc.text(datos.nombre_servicio, 72, lineas);
 
-        doc.text(datos.id_orga_serv, 7, lineas);
-        doc.text(datos.corto_organizacion, 20, lineas);
-        
-        console.log(datos.corto_servicio.length)
-        if (datos.corto_servicio > 24) {
-            doc.text(datos.corto_servicio, 131, lineas, { maxWidth: 23 , lineHeightFactor: 1.6 });
-        }
-        else {
-            doc.text(datos.corto_servicio, 131, lineas);
-        }
+      if (datos.habilita == 0) habilita = "NO";
+      else habilita = "SI";
+      doc.text(habilita, 168, lineas);
 
-        if(datos.habilita == 0){
-            datos.habilita = 'NO';}
-        else
-            {datos.habilita = 'SI';
-        } 
+      if (datos.nombre_organizacion.length > 100) {
+        //doc.line(5,lineas+6,200,lineas+6);
+        lineas = lineas + 5;
+      } else {
+        //doc.line(5,lineas+1,200,lineas+1);
+        lineas = lineas + 5;
+      }
 
-        doc.text(datos.habilita, 195, lineas);
-        
-        if (datos.corto_servicio.length > 27){
-            //doc.line(5,lineas+6,200,lineas+6);
-            lineas = lineas + 10;
-        }
-        
-        else{
-            //doc.line(5,lineas+1,200,lineas+1);
-            lineas = lineas + 5;
-        }
-        if(lineas>270 ){
-            pagina=pagina+1
-            lineas=35
-            doc.addPage()
-            cabecera()
-        }
+      if (lineas > 270) {
+        pagina = pagina + 1;
+        lineas = 35;
+        doc.addPage();
+        cabecera();
+      }
+    });
 
-    })
-
-
-    window.open(doc.output('bloburl'))
-
-}
-
-
-function cabecera() {
+    window.open(doc.output("bloburl"));
+  };
+  resultado();
+  function cabecera() {
     const logo = new Image();
     logo.src = "public/logo.png";
     doc.addImage(logo, "PNG", 170, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
-    doc.rect(4.8, 19.8, 200.3, 7.4)
-    doc.setFillColor('#EBEBEB');
-    doc.rect(5, 20, 200, 7, 'F')
-    doc.setFontSize(14)
+    doc.rect(14.8, 19.8, 169.3, 7.4);
+    doc.setFillColor("#EBEBEB");
+    doc.rect(15, 20, 169, 7, "F");
+    doc.setFontSize(14);
 
     doc.setTextColor(55, 0, 0);
-    doc.text('Registro de Servicios por Organización', 5, 12);
+    doc.text(titulo, 15, 12);
     doc.setTextColor(0, 0, 0);
-    doc.setFontSize(9)
-    doc.text('ID', 12, 25, { align: "center" })
-    doc.line(18, 19.8, 18, 27.2)
-    doc.text('Nombre de la Organización', 70, 25, { align: "center" })
-    doc.line(130, 19.8, 130, 27.2)
-    doc.text('Nombre del Servicio', 160, 25, { align: "center" })
-    doc.text('Habilitado', 197, 25, { align: "center" })
-    doc.line(187, 19.8, 187, 27.2)
-    let fecha = new Date()
+    doc.setFontSize(9);
+    doc.text("ID", 22, 25, { align: "center" });
+    doc.line(30, 19.8, 30, 27.2);
+    doc.text(nombreorganizacion , 47, 25, { align: "center" });
+    doc.line(70, 19.8, 70, 27.2);
+    doc.text(nombre_servicio , 90, 25, { align: "center" });
+    doc.line(115, 19.8, 115, 27.2);
+
+    doc.text(habilitado, 172, 25, { align: "center" });
+    let fecha = new Date();
     fecha = fecha.toLocaleString();
 
-    doc.text('Reporte al: ' + fecha, 5, 288, { align: "left" })
-    doc.text('Página: '+pagina.toString(), 195, 288, { align: "right" })
+    doc.text(`${reporte}: ` + fecha, 5, 288, { align: "left" });
+    doc.text(`${page}: ` + pagina.toString(), 195, 288, { align: "right" });
+  }
 }
 
-async function dataFetch_otro () {
-    const data_otro = await (
-      await fetch(
-        "https://v2.equipasis.com/api/prueba.php?tarea=imprimir_organizacion_servicio"
-      )
-    ).json();
-    data = data_otro["datos"];
+export function servicio_xls(filtro) {
+  let data = [];
+
+  const resultado = async () => {
+    const JSONdata = JSON.stringify({ tarea: "imprime_organizacion_servicio" }); // Send the data to the server in JSON format.
+    const endpoint = "https://v2.equipasis.com/api/organizacion_servicio.php"; // API endpoint where we send form data.
+
+    // Form the request for sending data to the server.
+    const options = {
+      method: "POST", // The method is POST because we are sending data.
+      headers: { "Content-Type": "application/json" }, // Tell the server we're sending JSON.
+      body: JSONdata, // Body of the request is the JSON data we created above.
+    };
+    const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
+
+    // Get the response data from server as JSON.
+    // If server returns the name submitted, that means the form works.
+    const result = await response.json();
+
+    let fecha = new Date();
+    fecha = fecha.toLocaleString();
+    
+    data = result.datos;
+    data = data.filter(item => item.nombre_organizacion.toLowerCase().indexOf(filtro) > -1 || 
+    item.nombre_servicio.toLowerCase().indexOf(filtro) > -1 ||
+    item.id_orga_serv.toLowerCase().indexOf(filtro) > -1 ||
+    item.habilita.toLowerCase().indexOf(filtro) > -1);
+    console.log(data.length);
+    if (data.length != 0) {
+      //const wb = XLSX.utils.table_to_book(table);
+      const ws = XLSX.utils.json_to_sheet(data);
+
+      var wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "servicios_por_organizacion");
+
+      /* Export to file (start a download) */
+      XLSX.writeFile(wb, fecha + "_Servicio_por_Organizacion.xlsx");
+    }
   };
+  resultado()
+}
