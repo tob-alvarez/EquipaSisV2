@@ -107,6 +107,7 @@ const ModalAgregar = () => {
                 </label>
                 <InputGroup>
                   <Form.Control
+                    type="color"
                     id="color"
                     value={color}
                     onChange={(e) => setColor(e.target.value)}
