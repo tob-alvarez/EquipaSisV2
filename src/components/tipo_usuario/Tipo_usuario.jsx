@@ -174,7 +174,7 @@ const Tipo_usuario = () => {
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_tusuario}</TableCell>
                   <TableCell>{dato.nombre_tusuario.toUpperCase()}</TableCell>
                   <TableCell>{dato.observacion.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >

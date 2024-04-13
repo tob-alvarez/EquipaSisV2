@@ -17,7 +17,17 @@ const ModalEditar = ({dato}) => {
     const [color, setColor] = useState("");
     const [habilita, setHabilita] = useState(false);
     const { actualizador } = useContext(EquipaContext);
-    
+    const limpia_campos = () => {
+      setId_estado_solicitud("");
+      setNombre_estado_solicitud("");
+      setColor("");
+      setHabilita(false);
+    };
+    const closeModalEdit = () => {
+      limpia_campos();
+      setIsModalEditOpen(false);
+    };
+
     useEffect(() => {
       if (isModalEditOpen && dato) {
         if (dato.habilita == 1) {
@@ -30,16 +40,7 @@ const ModalEditar = ({dato}) => {
       }
     }, [isModalEditOpen, dato]);
     
-    const limpia_campos = () => {
-      setId_estado_solicitud("");
-      setNombre_estado_solicitud("");
-      setColor("");
-      setHabilita(false);
-    };
-    const closeModalEdit = () => {
-      limpia_campos();
-      setIsModalEditOpen(false);
-    };
+    
     const acepta_accion = () => {
       const datos_cambios = {
         id_estado_solicitud: dato.id_estado_solicitud,
@@ -51,7 +52,8 @@ const ModalEditar = ({dato}) => {
         toast.info(`${t("estado_solicitud.datoObligatorio")}`);
         return;
       }
-  
+      
+      console.log(datos_cambios)
       cambia_estado_solicitudes(datos_cambios).then((respuesta_accion) => {
         if (respuesta_accion[0].registros > 0) {
           toast.success(`${t("varios.editado")}`, {
@@ -68,6 +70,7 @@ const ModalEditar = ({dato}) => {
         setIsModalEditOpen(false);
       });
     }
+    
 
   return (
     <>
@@ -112,11 +115,12 @@ const ModalEditar = ({dato}) => {
               </div>
 
               <div className="col-6">
-                <label htmlFor="name" className="label-material mb-1">
+                <label htmlFor="color" className="label-material mb-1">
                 {t("estado_solicitud.color")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
+                    type="color"
                     id="color"
                     value={color}
                     onChange={(e) => setColor(e.target.value)}

@@ -107,6 +107,7 @@ const ModalAgregar = () => {
                 </label>
                 <InputGroup>
                   <Form.Control
+                    as="textarea"
                     id="observacion"
                     value={observacion}
                     onChange={(e) => setObservacion(e.target.value)}

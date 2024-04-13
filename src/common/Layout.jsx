@@ -150,8 +150,6 @@ export default function Layout({ children }) {
     return menu;
   }, []);
 
-  console.log(menuItems)
-  
     
   return authenticated ? (
     <>
