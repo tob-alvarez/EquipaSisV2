@@ -53,7 +53,6 @@ const EquipaProvider = ({ children }) => {
     try {
       const { data } = await axios.post(`https://v2.equipasis.com/api/usuario_menu.php`, token);
       setPermisos(data.permisos)
-      console.log(data.permisos)
     } catch (error) {
       console.error(error.response?.data.message || error.message);
     }
