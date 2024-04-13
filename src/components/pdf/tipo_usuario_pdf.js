@@ -38,7 +38,7 @@ export function tipo_usuario_pdf(filtro, idioma) {
       reporte = "Reporte al"
     }
     const doc = new jsPDF({
-      orientation: "p",
+      orientation: "l",
       unit: "mm",
       format: "a4",
     });

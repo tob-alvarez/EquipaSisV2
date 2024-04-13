@@ -62,8 +62,8 @@ export function software_pdf(filtro, idioma) {
     // If server returns the name submitted, that means the form works.
     const result = await response.json();
     data = result.datos;
-    data = data.filter(item => item.nombre_tusuario.toLowerCase().indexOf(filtro) > -1 || 
-    item.id_tusuario.toLowerCase().indexOf(filtro) > -1 ||
+    data = data.filter(item => item.nombre_software.toLowerCase().indexOf(filtro) > -1 || 
+    item.id_software.toLowerCase().indexOf(filtro) > -1 ||
     item.corto_software.toLowerCase().indexOf(filtro) > -1 ||
     item.habilita.toLowerCase().indexOf(filtro) > -1);
     doc.setProperties({
@@ -71,25 +71,25 @@ export function software_pdf(filtro, idioma) {
     });
     cabecera();
     data.map((datos, index) => {
-      if (index % 2 == 0 && datos.nombre_tusuario.length > 120) {
+      if (index % 2 == 0 && datos.nombre_software.length > 120) {
         doc.setFillColor("#ECECEC");
         doc.rect(15, lineas - 4, 169, 10, "F");
       }
 
-      if (index % 2 == 0 && datos.nombre_tusuario.length < 120) {
+      if (index % 2 == 0 && datos.nombre_software.length < 120) {
         doc.setFillColor("#ECECEC");
         doc.rect(15, lineas - 4, 169, 5, "F");
       }
 
-      doc.text(datos.id_tusuario, 20, lineas);
-      doc.text(datos.nombre_tusuario, 34, lineas);
-      doc.text(datos.corto_software, 72, lineas);
+      doc.text(datos.id_software, 20, lineas);
+      doc.text(datos.nombre_software, 35, lineas);
+      doc.text(datos.corto_software, 110, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
       doc.text(habilita, 168, lineas);
 
-      if (datos.nombre_tusuario.length > 100) {
+      if (datos.nombre_software.length > 100) {
         //doc.line(5,lineas+6,200,lineas+6);
         lineas = lineas + 5;
       } else {
@@ -124,9 +124,9 @@ export function software_pdf(filtro, idioma) {
     doc.text("ID", 22, 25, { align: "center" });
     doc.line(30, 19.8, 30, 27.2);
     doc.text(nombresoftware , 47, 25, { align: "center" });
-    doc.line(70, 19.8, 70, 27.2);
-    doc.text(corto_software , 90, 25, { align: "center" });
-    doc.line(115, 19.8, 115, 27.2);
+    doc.line(105, 19.8, 105, 27.2);
+    doc.text(corto_software , 130, 25, { align: "center" });
+    doc.line(160, 19.8, 160, 27.2);
 
     doc.text(habilitado, 172, 25, { align: "center" });
     let fecha = new Date();
@@ -160,9 +160,9 @@ export function software_xls(filtro) {
     fecha = fecha.toLocaleString();
     
     data = result.datos;
-    data = data.filter(item => item.nombre_tusuario.toLowerCase().indexOf(filtro) > -1 || 
+    data = data.filter(item => item.nombre_software.toLowerCase().indexOf(filtro) > -1 || 
     item.corto_software.toLowerCase().indexOf(filtro) > -1 ||
-    item.id_tusuario.toLowerCase().indexOf(filtro) > -1 ||
+    item.id_software.toLowerCase().indexOf(filtro) > -1 ||
     item.habilita.toLowerCase().indexOf(filtro) > -1);
     console.log(data.length);
     if (data.length != 0) {

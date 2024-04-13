@@ -83,7 +83,7 @@ export function servicio_pdf(filtro, idioma) {
 
       doc.text(datos.id_servicio, 20, lineas);
       doc.text(datos.nombre_servicio, 34, lineas);
-      doc.text(datos.corto_servicio, 72, lineas);
+      doc.text(datos.corto_servicio, 110, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
@@ -124,9 +124,9 @@ export function servicio_pdf(filtro, idioma) {
     doc.text("ID", 22, 25, { align: "center" });
     doc.line(30, 19.8, 30, 27.2);
     doc.text(nombreservicio , 47, 25, { align: "center" });
-    doc.line(70, 19.8, 70, 27.2);
-    doc.text(corto_servicio , 90, 25, { align: "center" });
-    doc.line(115, 19.8, 115, 27.2);
+    doc.line(100, 19.8, 100, 27.2);
+    doc.text(corto_servicio , 120, 25, { align: "center" });
+    doc.line(160, 19.8, 160, 27.2);
 
     doc.text(habilitado, 172, 25, { align: "center" });
     let fecha = new Date();
