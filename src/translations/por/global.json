@@ -221,6 +221,27 @@
         "datoObligatorio": "Dados obrigatórios marcados com #",
         "habilitado": "Ativado"
     },
+    "proceso":{
+        "titulo": "Processo",
+        "busqueda": "Procurar",
+        "nombre-proceso": "Nome do Processo",
+        "descripcion": "Descrição em Espanhol",
+        "descripcion_en": "Descrição em Inglês",
+        "descripcion_por": "Descrição em português",
+        "id_opcion": "Opção",        
+        "estado": "Estado",
+        "acciones": "Ações",
+        "registros": "Registros",
+        "pagina": "Página",
+        "de": "a",
+        "agregarTitulo": "Adicionar Processo",
+        "ayudaTitulo": "Ajuda",
+        "editarTitulo": "Editar Processo",
+        "borrarTitulo": "Excluir Processo",
+        "borrarListo": "Esta Processo já está desativada",
+        "datoObligatorio": "Dados obrigatórios marcados com #",
+        "habilitado": "Ativado"
+    },
     "provincia":{
         "titulo": "Província",
         "busqueda": "Procurar",

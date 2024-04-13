@@ -1,18 +1,66 @@
 import jsPDF from "jspdf";
 import * as XLSX from "xlsx";
 
-export function proceso_pdf(filtro) {
-  const doc = new jsPDF({
-    orientation: "p",
-    unit: "mm",
-    format: "a4",
-  });
-
-  let lineas = 35;
-  let pagina = 1;
-  let data = [];
-  let habilita = "";
-
+export function proceso_pdf(filtro, idioma) {
+    let titulo;
+    let nombreAcciones;
+    let descripcion;
+    let descripcion_en;
+    let descripcion_por;
+    let opcion;
+    let habilitado;
+    let page; 
+    let reporte;
+    if (idioma === 'es') {
+      titulo = "Registro de Procesos";
+      nombreAcciones = "Nombre de Proceso";
+      descripcion = "Descripción en Español";
+      descripcion_en = "Descripción en Inglés";
+      descripcion_por = "Descripción en Portugués";
+      opcion = "Opción";
+      habilitado = "Habilitada";
+      page = "Página";
+      reporte = "Reporte al"
+    } else if (idioma === 'en') {
+      titulo = "Records of Process";
+      nombreAcciones = "Process Name";
+      descripcion = "Description in Spanish";
+      descripcion_en = "Description in English";
+      descripcion_por = "Description in Portuguese";
+      opcion = "Option";
+      habilitado = "Enabled";
+      page = "Page";
+      reporte = "Report as of";
+    } else if (idioma === 'por') {
+      titulo = "Datas da Processo";
+      nombreAcciones = "Nome do Processo";
+      descripcion = "Descrição em Espanhol";
+      descripcion_en = "Descrição em Inglês";
+      descripcion_por = "Descrição em Português";
+      opcion = "Opção";
+      habilitado = "Habilitado";
+      page = "Página";
+      reporte = "Relatório em";
+    } else {
+      titulo = "Registro de Procesos";
+      nombreAcciones = "Nombre de Proceso";
+      descripcion = "Descripción en Español";
+      descripcion_en = "Descripción en Inglés";
+      descripcion_por = "Descripción en Portugués";
+      opcion = "Opción";
+      habilitado = "Habilitada";
+      page = "Página";
+      reporte = "Reporte al"
+    }
+    const doc = new jsPDF({
+      orientation: "p",
+      unit: "mm",
+      format: "a4",
+    });
+    let lineas = 35;
+    let pagina = 1;
+    let data = [];
+    let habilita = "";
   const resultado = async () => {
     const JSONdata = JSON.stringify({ tarea: "imprime_proceso" }); // Send the data to the server in JSON format.
     const endpoint = "https://v2.equipasis.com/api/proceso.php"; // API endpoint where we send form data.
@@ -28,11 +76,16 @@ export function proceso_pdf(filtro) {
     // Get the response data from server as JSON.
     // If server returns the name submitted, that means the form works.
     const result = await response.json();
-
     data = result.datos;
-    data = data.filter(item => item.nombre_proceso.toLowerCase().indexOf(filtro) > -1);
+    data = data.filter(item => item.nombre_proceso.toLowerCase().indexOf(filtro) > -1 || 
+    item.id_proceso.toLowerCase().indexOf(filtro) > -1 ||
+    item.descripcion.toLowerCase().indexOf(filtro) > -1 ||
+    item.descripcion_en.toLowerCase().indexOf(filtro) > -1 ||
+    item.descripcion_por.toLowerCase().indexOf(filtro) > -1 ||
+    item.opcion.toLowerCase().indexOf(filtro) > -1 ||
+    item.habilita.toLowerCase().indexOf(filtro) > -1);
     doc.setProperties({
-      title: "Registro de Procesos",
+      title: titulo,
     });
     cabecera();
     data.map((datos, index) => {
@@ -48,7 +101,10 @@ export function proceso_pdf(filtro) {
 
       doc.text(datos.id_proceso, 20, lineas);
       doc.text(datos.nombre_proceso, 34, lineas);
-      doc.text(datos.descripcion, 80, lineas);
+      doc.text(datos.descripcion, 72, lineas);
+      doc.text(datos.descripcion_en, 72, lineas);
+      doc.text(datos.decripcion_por, 120, lineas);
+      doc.text(datos.opcion, 120, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
@@ -83,21 +139,27 @@ export function proceso_pdf(filtro) {
     doc.setFontSize(14);
 
     doc.setTextColor(55, 0, 0);
-    doc.text("Registro de Procesos", 15, 12);
+    doc.text(titulo, 15, 12);
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(9);
     doc.text("ID", 22, 25, { align: "center" });
     doc.line(30, 19.8, 30, 27.2);
-    doc.text("Nombre de Proceso", 50, 25, { align: "center" });
-    doc.line(75, 19.8, 75, 27.2);
-    doc.text("Descripción", 89, 25, { align: "center" });
+    doc.text(nombreAcciones , 47, 25, { align: "center" });
+    doc.line(70, 19.8, 70, 27.2);
+    doc.text(descripcion , 90, 25, { align: "center" });
+    doc.line(115, 19.8, 115, 27.2);
+    doc.text(descripcion_en , 140, 25, { align: "center" });
     doc.line(160, 19.8, 160, 27.2);
-    doc.text("Habilitado", 172, 25, { align: "center" });
+    doc.text(descripcion_por , 140, 25, { align: "center" });
+    doc.line(160, 19.8, 160, 27.2);
+    doc.text(opcion , 140, 25, { align: "center" });
+    doc.line(160, 19.8, 160, 27.2);
+    doc.text(habilitado, 172, 25, { align: "center" });
     let fecha = new Date();
     fecha = fecha.toLocaleString();
 
-    doc.text("Reporte al: " + fecha, 5, 288, { align: "left" });
-    doc.text("Página: " + pagina.toString(), 195, 288, { align: "right" });
+    doc.text(`${reporte}: ` + fecha, 5, 288, { align: "left" });
+    doc.text(`${page}: ` + pagina.toString(), 195, 288, { align: "right" });
   }
 }
 
@@ -120,8 +182,17 @@ export function proceso_xls(filtro) {
     // If server returns the name submitted, that means the form works.
     const result = await response.json();
 
+    let fecha = new Date();
+    fecha = fecha.toLocaleString();
+    
     data = result.datos;
-    data = data.filter(item => item.nombre_proceso.toLowerCase().indexOf(filtro) > -1);
+    data = data.filter(item => item.nombre_proceso.toLowerCase().indexOf(filtro) > -1 || 
+    item.descripcion.toLowerCase().indexOf(filtro) > -1 ||
+    item.descripcion_en.toLowerCase().indexOf(filtro) > -1 ||
+    item.descripcion_por.toLowerCase().indexOf(filtro) > -1 ||
+    item.opcion.toLowerCase().indexOf(filtro) > -1 ||
+    item.id_proceso.toLowerCase().indexOf(filtro) > -1 ||
+    item.habilita.toLowerCase().indexOf(filtro) > -1);
     console.log(data.length);
     if (data.length != 0) {
       //const wb = XLSX.utils.table_to_book(table);
@@ -131,7 +202,7 @@ export function proceso_xls(filtro) {
       XLSX.utils.book_append_sheet(wb, ws, "procesos");
 
       /* Export to file (start a download) */
-      XLSX.writeFile(wb, "2024-01-20_" + "Proceso.xlsx");
+      XLSX.writeFile(wb, fecha + "_Proceso.xlsx");
     }
   };
   resultado()
