@@ -82,8 +82,8 @@ export function estado_solicitud_pdf(filtro, idioma) {
       }
 
       doc.text(datos.id_estado_solicitud, 20, lineas);
-      doc.text(datos.nombre_estado_solicitud, 34, lineas);
-      doc.text(datos.color, 72, lineas);
+      doc.text(datos.nombre_estado_solicitud, 40, lineas);
+      doc.text(datos.color, 110, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
@@ -123,11 +123,10 @@ export function estado_solicitud_pdf(filtro, idioma) {
     doc.setFontSize(9);
     doc.text("ID", 22, 25, { align: "center" });
     doc.line(30, 19.8, 30, 27.2);
-    doc.text(nombreestado_solicitud , 47, 25, { align: "center" });
-    doc.line(70, 19.8, 70, 27.2);
-    doc.text(color , 90, 25, { align: "center" });
-    doc.line(115, 19.8, 115, 27.2);
-
+    doc.text(nombreestado_solicitud , 53, 25, { align: "center" });
+    doc.line(100, 19.8, 100, 27.2);
+    doc.text(color , 120, 25, { align: "center" });
+    doc.line(150, 19.8, 150, 27.2);
     doc.text(habilitado, 172, 25, { align: "center" });
     let fecha = new Date();
     fecha = fecha.toLocaleString();

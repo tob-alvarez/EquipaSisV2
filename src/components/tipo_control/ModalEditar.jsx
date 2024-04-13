@@ -46,7 +46,7 @@ const ModalEditar = ({dato}) => {
         unidad: unidad,
         habilita: habilita === true ? "1" : "0",
       };
-      if (nombre_tcontrol == "") {
+      if (nombre_tcontrol == "" || unidad == "") {
         toast.info(`${t("tipo_control.datoObligatorio")}`);
         return;
       }

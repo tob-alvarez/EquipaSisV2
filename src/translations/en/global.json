@@ -499,7 +499,7 @@
     "tipo_usuario":{
         "titulo": "User Type",
         "busqueda": "Search",
-        "nombre-usuario": "User Type Name",
+        "nombre-tusuario": "User Type Name",
         "observacion": "Observation",
         "estado": "State",
         "acciones": "Actions",
