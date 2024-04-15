@@ -16,6 +16,7 @@ import Opcion from "./components/opcion/Opcion";
 //import Organizacion_servicio from "./components/organizacion_servicio/Organizacion_servicio";
 import Pais from "./components/pais/Pais";
 import Prioridad from "./components/prioridad/Prioridad";
+import Proceso from "./components/proceso/Proceso";
 import Provincia from "./components/provincia/Provincia";
 import Servicio from "./components/servicio/Servicio";
 import Software from "./components/software/Software";
@@ -130,6 +131,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <Prioridad />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/proceso"
+              element={
+                <PrivateRoute>
+                  <Proceso />
                 </PrivateRoute>
               }
             />

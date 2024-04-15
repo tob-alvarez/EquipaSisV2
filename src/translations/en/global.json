@@ -238,6 +238,27 @@
         "datoObligatorio": "Mandatory data marked with #",
         "habilitado": "Enabled"
     },
+    "proceso":{
+        "titulo": "Process",
+        "busqueda": "Search",
+        "nombre-proceso": "Process Name",
+        "descripcion": "Description in Spanish",
+        "descripcion_en": "Description in English",
+        "descripcion_por": "Description in Portuguese",
+        "id_opcion": "Option",
+        "estado": "State",
+        "acciones": "Actions",
+        "registros": "Records",
+        "pagina": "Page",
+        "de": "of",
+        "agregarTitulo": "Add Process",
+        "ayudaTitulo": "Help",
+        "editarTitulo": "Edit Process",
+        "borrarTitulo": "Delete Process",
+        "borrarListo": "This Process is already disabled",
+        "datoObligatorio": "Mandatory data marked with #",
+        "habilitado": "Enabled"
+    },
     "servicio":{
         "titulo": "Service",
         "busqueda": "Search",
