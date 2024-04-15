@@ -24,6 +24,7 @@ const EquipaProvider = ({ children }) => {
     }
   }, [i18n]);
 
+  
   const handleChangeLanguage = async (lang) => {
     try {
       localStorage.setItem('language', lang);
