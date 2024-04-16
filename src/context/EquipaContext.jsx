@@ -16,6 +16,7 @@ const EquipaProvider = ({ children }) => {
   const [selected, setSelected] = useState([]);
   const [botonState, setBotonState] = useState(false);
   const [refresh, setRefresh] = useState(null);
+  const [opciones, setOpciones] = useState(null);
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem('language');
@@ -44,6 +45,7 @@ const EquipaProvider = ({ children }) => {
       localStorage.setItem("nombre", data.persona[0].nombre_persona);
       localStorage.setItem("rol", data.persona[0].nombre_tusuario);
       navigate('/inicio')
+      window.location.reload()
     } catch (error) {
       console.error(error.response?.data.message || error.message);
     }
@@ -54,6 +56,15 @@ const EquipaProvider = ({ children }) => {
     try {
       const { data } = await axios.post(`https://v2.equipasis.com/api/usuario_menu.php`, token);
       setPermisos(data.permisos)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
+  const traerOpciones = async (token) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/usuario_menu.php`, token);
+      setOpciones(data.permisos)
     } catch (error) {
       console.error(error.response?.data.message || error.message);
     }
@@ -106,7 +117,9 @@ const EquipaProvider = ({ children }) => {
         permisos,
         refresh,
         actualizador,
-        permisosMenu
+        permisosMenu,
+        traerOpciones,
+        opciones
       }}
     >
       {children}

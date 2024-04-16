@@ -26,6 +26,7 @@ import {
 import Footer from "./Footer";
 import Reloj from "./Reloj";
 import MenuLateral from "./Menu";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 260;
 
@@ -99,7 +100,7 @@ export default function Layout({ children }) {
   const [open, setOpen] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { handleChangeLanguage, authenticated, logout, getAuth, permisos, permisosMenu} = React.useContext(EquipaContext);
-
+  const navigate = useNavigate()
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -230,6 +231,9 @@ export default function Layout({ children }) {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
+                <MenuItem onClick={() => navigate('/perfil')}>
+                  <Typography textAlign="center">Perfil</Typography>
+                </MenuItem>
                 <MenuItem onClick={handleLogout}>
                   <Typography textAlign="center">Lougout</Typography>
                 </MenuItem>

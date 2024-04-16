@@ -34,6 +34,7 @@ import Tipo_pertenencia from "./components/tipo_pertenencia/Tipo_pertenencia";
 import Tipo_solicitud from "./components/tipo_solicitud/Tipo_solicitud";
 import Tipo_tarea from "./components/tipo_tarea/Tipo_tarea";
 import Tipo_usuario from "./components/tipo_usuario/Tipo_usuario";
+import Perfil from "./common/Perfil";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
           <Routes>
             <Route exact path="/*" element={<Login />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/perfil" element={<Perfil />} />
             <Route
               exact
               path="/inicio"
