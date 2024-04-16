@@ -19,7 +19,7 @@ const ModalEditar = ({dato}) => {
     const [descripcion_por, setDescripcion_por] = useState("");
     const [id_opcion, setId_opcion] = useState("");
     const [habilita, setHabilita] = useState(false);
-    const { actualizador } = useContext(EquipaContext);
+    const { actualizador, traerOpciones, opciones } = useContext(EquipaContext);
     
     useEffect(() => {
       if (isModalEditOpen && dato) {
@@ -35,7 +35,11 @@ const ModalEditar = ({dato}) => {
         setId_opcion(dato.id_opcion);
       }
     }, [isModalEditOpen, dato]);
-    
+
+    useEffect(() => {
+      traerOpciones({tarea: "combo_opcion"})
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     const limpia_campos = () => {
       setId_proceso("");
       setNombre_proceso("");
@@ -179,15 +183,21 @@ const ModalEditar = ({dato}) => {
                 {t("proceso.id_opcion")}: #
                 </label>
                 <InputGroup>
-                  <Form.Control
+                <Form.Select
                     id="id_opcion"
                     value={id_opcion}
                     onChange={(e) => setId_opcion(e.target.value)}
-                    onKeyUp={(e) =>
-                      setId_opcion(e.target.value.toUpperCase())
-                    }
+                    onKeyUp={(e) => setId_opcion(e.target.value.toUpperCase())}
                     className="mb-2"
-                  />
+                  >
+                    <option value="">Seleccione una opción</option>
+
+                    {opciones?.map((o) => (
+                      <option key={o.id_opcion} value={o.id_opcion}>
+                        {o.nombre_opcion}
+                      </option>
+                    ))}
+                  </Form.Select>
                 </InputGroup>
               </div>
 

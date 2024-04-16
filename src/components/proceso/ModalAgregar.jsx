@@ -18,7 +18,6 @@ const ModalAgregar = () => {
   const [descripcion_por, setDescripcion_por] = useState("");
   const [id_opcion, setId_opcion] = useState("");
   const [habilita, setHabilita] = useState(false);
-  const [opcion, setOpcion] = useState(null);
   const { actualizador, traerOpciones, opciones } = useContext(EquipaContext);
   const limpia_campos = () => {
     setId_proceso("");
@@ -67,26 +66,21 @@ const ModalAgregar = () => {
     });
   }
   useEffect(() => {
-    let token = sessionStorage.getItem('token')
-    let data = {
-      "token": token
-    }
-    traerOpciones(data)
+    traerOpciones({tarea: "combo_opcion"})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
-  const op = opciones; // Supongo que `opciones` es tu array original
-if (Array.isArray(op) && !opcion) {
-  const padresUnicos = op.reduce((unicos, item, index) => {
-    const valorNumerico = index + 1; // Comenzando desde 1
-    if (!unicos.some(unico => unico.value === valorNumerico)) {
-      unicos.push({ label: item.padre_es, value: valorNumerico });
-    }
-    return unicos;
-  }, []);
-  console.log(padresUnicos);
-  setOpcion(padresUnicos);
-}
+//   const op = opciones; // Supongo que `opciones` es tu array original
+// if (Array.isArray(op) && !opcion) {
+//   const padresUnicos = op.reduce((unicos, item) => {
+//     if (!unicos.includes(item.padre_es)) {
+//       unicos.push(item.padre_es);
+//     }
+//     return unicos;
+//   }, []);
+//   console.log(padresUnicos);
+//   setOpcion(padresUnicos);
+// }
 
   return (
     <>
@@ -195,10 +189,10 @@ if (Array.isArray(op) && !opcion) {
                     className="mb-2"
                   >
                     <option value="">Seleccione una opción</option>
-
-                    {opcion && opcion.map((opcion, index) => (
-                      <option key={index} value={opcion}>
-                        {opcion}
+                    
+                    {opciones?.map((o) => (
+                      <option key={o.id_opcion} value={o.id_opcion}>
+                        {o.nombre_opcion}
                       </option>
                     ))}
                   </Form.Select>
