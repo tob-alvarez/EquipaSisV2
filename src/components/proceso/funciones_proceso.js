@@ -36,10 +36,9 @@ export async function trae_permisos(datos){
 }
 
 export async function cambia_procesos(datos){
-  console.log(datos)
   const JSONdata = JSON.stringify({ 
     tarea: "cambia_proceso",
-    id_proceso:datos.id_proceso ,
+    id_proceso: datos.id_proceso ,
     nombre_proceso: datos.nombre_proceso,
     descripcion: datos.descripcion,
     descripcion_en: datos.descripcion_en,
@@ -47,6 +46,7 @@ export async function cambia_procesos(datos){
     id_opcion: datos.id_opcion,    
     habilita: datos.habilita
   }); // Send the data to the server in JSON format.
+  console.log(JSONdata)
   const endpoint = "https://v2.equipasis.com/api/proceso.php"; // API endpoint where we send form data.
 
   // Form the request for sending data to the server.

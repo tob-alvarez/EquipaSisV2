@@ -61,10 +61,10 @@ const EquipaProvider = ({ children }) => {
     }
   };
 
-  const traerOpciones = async (token) => {
+  const traerOpciones = async (tarea) => {
     try {
-      const { data } = await axios.post(`https://v2.equipasis.com/api/usuario_menu.php`, token);
-      setOpciones(data.permisos)
+      const { data } = await axios.post(`https://v2.equipasis.com/api/opcion.php`, tarea);
+      setOpciones(data.opcion)
     } catch (error) {
       console.error(error.response?.data.message || error.message);
     }
