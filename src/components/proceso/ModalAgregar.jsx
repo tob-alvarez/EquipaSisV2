@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
 import { alta_procesos } from "./funciones_proceso";
@@ -18,7 +18,8 @@ const ModalAgregar = () => {
   const [descripcion_por, setDescripcion_por] = useState("");
   const [id_opcion, setId_opcion] = useState("");
   const [habilita, setHabilita] = useState(false);
-  const { actualizador } = useContext(EquipaContext);
+  const [opcion, setOpcion] = useState(null);
+  const { actualizador, traerOpciones, opciones } = useContext(EquipaContext);
   const limpia_campos = () => {
     setId_proceso("");
     setNombre_proceso("");
@@ -43,11 +44,11 @@ const ModalAgregar = () => {
       habilita: habilita === true ? "1" : "0",
     };
 
-    if (nombre_proceso === "" || descripcion === "" || descripcion_en === "" || descripcion_por === ""|| id_opcion === "") {
+    if (nombre_proceso === "" || descripcion === "" || descripcion_en === "" || descripcion_por === "" || id_opcion === "") {
       toast.error(`${t("proceso.datoObligatorio")}`);
       return;
     }
-    
+
 
     alta_procesos(datos_cambios).then((respuesta_accion) => {
       if (respuesta_accion[0].registros > 0) {
@@ -65,11 +66,31 @@ const ModalAgregar = () => {
       setIsModalAttachOpen(false);
     });
   }
-
+  useEffect(() => {
+    let token = sessionStorage.getItem('token')
+    let data = {
+      "token": token
+    }
+    traerOpciones(data)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
+  const op = opciones; // Supongo que `opciones` es tu array original
+if (Array.isArray(op) && !opcion) {
+  const padresUnicos = op.reduce((unicos, item, index) => {
+    const valorNumerico = index + 1; // Comenzando desde 1
+    if (!unicos.some(unico => unico.value === valorNumerico)) {
+      unicos.push({ label: item.padre_es, value: valorNumerico });
+    }
+    return unicos;
+  }, []);
+  console.log(padresUnicos);
+  setOpcion(padresUnicos);
+}
 
   return (
     <>
-      <ToastContainer/>
+      <ToastContainer />
       <Modal
         show={isModalAttachOpen}
         onHide={closeModalAttach}
@@ -81,7 +102,7 @@ const ModalAgregar = () => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-          {t("proceso.agregarTitulo")}
+            {t("proceso.agregarTitulo")}
             <p
               className="pb-0 mb-0 text-body-emphasis fw-bold"
               style={{ fontSize: "0.5em" }}
@@ -95,7 +116,7 @@ const ModalAgregar = () => {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("proceso.nombre-proceso")}: #
+                  {t("proceso.nombre-proceso")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
@@ -112,7 +133,7 @@ const ModalAgregar = () => {
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("proceso.descripcion")}: #
+                  {t("proceso.descripcion")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
@@ -129,7 +150,7 @@ const ModalAgregar = () => {
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("proceso.descripcion_en")}: #
+                  {t("proceso.descripcion_en")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
@@ -146,7 +167,7 @@ const ModalAgregar = () => {
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("proceso.descripcion_por")}: #
+                  {t("proceso.descripcion_por")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
@@ -163,24 +184,31 @@ const ModalAgregar = () => {
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("proceso.id_opcion")}: #
+                  {t("proceso.id_opcion")}: #
                 </label>
                 <InputGroup>
-                  <Form.Control
+                  <Form.Select
                     id="id_opcion"
                     value={id_opcion}
                     onChange={(e) => setId_opcion(e.target.value)}
-                    onKeyUp={(e) =>
-                      setId_opcion(e.target.value.toUpperCase())
-                    }
+                    onKeyUp={(e) => setId_opcion(e.target.value.toUpperCase())}
                     className="mb-2"
-                  />
+                  >
+                    <option value="">Seleccione una opción</option>
+
+                    {opcion && opcion.map((opcion, index) => (
+                      <option key={index} value={opcion}>
+                        {opcion}
+                      </option>
+                    ))}
+                  </Form.Select>
                 </InputGroup>
+
               </div>
 
               <div className="col-6 text-start">
                 {t("proceso.habilitado")}
-                <Switch 
+                <Switch
                   id={"habilita"}
                   checked={habilita}
                   label={t("proceso.habilitado")}
@@ -218,11 +246,11 @@ const ModalAgregar = () => {
           </div>
         </Modal.Footer>
       </Modal>
-      
-        <AddCircleOutlineOutlinedIcon
-          onClick={() => setIsModalAttachOpen(true)}
-          sx={{ fontSize: '40px' }}
-          style={{ cursor: "pointer" }} />
+
+      <AddCircleOutlineOutlinedIcon
+        onClick={() => setIsModalAttachOpen(true)}
+        sx={{ fontSize: '40px' }}
+        style={{ cursor: "pointer" }} />
     </>
 
   )

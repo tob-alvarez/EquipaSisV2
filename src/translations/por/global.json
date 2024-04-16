@@ -34,6 +34,18 @@
     "footer":{
         "derechosReservados": "Todos os direitos reservados"
     },
+    "perfil":{
+        "titulo": "Perfil",
+        "nombre" : "Nome",
+        "telefono" : "Telefone",
+        "email" : "Email",
+        "domicilio" : "Adress",
+        "localidad" : "Localização",
+        "pais" : "País",
+        "provincia" : "Província",
+        "contraseña" : "Senha",
+        "editarPerfil" : "Editar perfil"
+    },
     "inicio":{
         "bienvenida": "Bemvindo"
     },

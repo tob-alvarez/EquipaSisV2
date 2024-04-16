@@ -34,6 +34,18 @@
     "footer":{
         "derechosReservados": "Todos los derechos reservados"
     },
+    "perfil":{
+        "titulo": "Perfil",
+        "nombre" : "Nombre",
+        "telefono" : "Telefono",
+        "email" : "Email",
+        "domicilio" : "Domicilio",
+        "localidad" : "Localidad",
+        "pais" : "País",
+        "provincia" : "Provincia",
+        "contraseña" : "Contraseña",
+        "editarPerfil" : "Editar perfil"
+    },
     "inicio": {
         "bienvenida": "Bienvenido"
     },
@@ -251,11 +263,11 @@
         "registros": "Registros",
         "pagina": "Página",
         "de": "de",
-        "agregarTitulo": "Agregar Provincia",
+        "agregarTitulo": "Agregar Proceso",
         "ayudaTitulo": "Ayuda",
-        "editarTitulo": "Editar Provincia",
-        "borrarTitulo": "Borrar Provincia",
-        "borrarListo": "Esta Provincia ya esta deshabilitada",
+        "editarTitulo": "Editar Proceso",
+        "borrarTitulo": "Borrar Proceso",
+        "borrarListo": "Esta Proceso ya esta deshabilitada",
         "datoObligatorio": "Datos obligatorios marcados con #",
         "habilitado": "Habilitada"
     },  
