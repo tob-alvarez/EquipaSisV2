@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import './table.css'
 import {
-  trae_procesos,
-  ayuda_procesos,
+  trae_organizaciones,
+  ayuda_organizaciones,
   trae_permisos
-} from "./funciones_proceso";
-import { proceso_pdf, proceso_xls } from '../pdf/proceso_pdf';
+} from "./funciones_organizacion";
+import { organizacion_pdf, organizacion_xls } from "../pdf/organizacion_pdf";
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -20,9 +20,9 @@ import ModalEditar from "./ModalEditar";
 import ModalBorrar from "./ModalBorrar";
 import { EquipaContext } from "../../context/EquipaContext";
 
-const Proceso = () => {
+const Organizacion = () => {
   const [t] = useTranslation("global")
-  const [datos_procesos, setDatosprocesos] = useState([]);
+  const [datos_organizaciones, setDatosorganizaciones] = useState([]);
   const [permisos_usuario, setPermisos_usuario] = useState([]);
   const [ayuda, setAyuda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,26 +32,26 @@ const Proceso = () => {
   // eslint-disable-next-line no-unused-vars
   const [datos, setDatos] = useState({
     tarea: "permiso_usuario",
-    proceso: "proceso",
+    organizacion: "organizacion",
     id_usuario: "1"
   });
   
   let idioma = localStorage.getItem('language')
   
   useEffect(() => {
-      trae_procesos().then((result) => setDatosprocesos(result));
+      trae_organizaciones().then((result) => setDatosorganizaciones(result));
       switch (idioma) {
         case "es":
-          ayuda_procesos().then((ayuda) => setAyuda(ayuda[0].texto));
+          ayuda_organizaciones().then((ayuda) => setAyuda(ayuda[0].texto));
           break;
         case "en":
-          ayuda_procesos().then((ayuda) => setAyuda(ayuda[0].texto_en));
+          ayuda_organizaciones().then((ayuda) => setAyuda(ayuda[0].texto_en));
           break;
         case "por":
-          ayuda_procesos().then((ayuda) => setAyuda(ayuda[0].texto_por));
+          ayuda_organizaciones().then((ayuda) => setAyuda(ayuda[0].texto_por));
           break;
         default:
-          ayuda_procesos().then((ayuda) => setAyuda(ayuda[0].texto));
+          ayuda_organizaciones().then((ayuda) => setAyuda(ayuda[0].texto));
       }
       trae_permisos(datos).then((result) =>setPermisos_usuario(result[0]))
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,18 +65,17 @@ const Proceso = () => {
       .map((expresion) => expresion.trim());
     return expresionesArray.some(
       (expresion) =>
-        grilla.id_proceso.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.nombre_proceso.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.descripcion.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.descripcion_en.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.descripcion_por.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.nombre_opcion.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.id_organizacion.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_organizacion.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.corto_organizacion.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.domicilio.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.telefono.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
     );
   }
 
   function buscarEnGrilla(expresiones) {
-    return datos_procesos?.filter((grilla) => buscarPorExpresiones(grilla, expresiones));
+    return datos_organizaciones?.filter((grilla) => buscarPorExpresiones(grilla, expresiones));
   }
   const filteredItems = buscarEnGrilla(searchTerm);
   const currentItems = filteredItems?.slice(
@@ -89,27 +88,27 @@ const Proceso = () => {
   };
 
   const handlePageChange = (page) => {
-    if (page >= 1 && page <= Math.ceil(datos_procesos.length / itemsPerPage)) {
+    if (page >= 1 && page <= Math.ceil(datos_organizaciones.length / itemsPerPage)) {
       setCurrentPage(page);
     }
   };
   const printInfoProcess = () => {
     let idioma = localStorage.getItem("language")
     console.log(idioma)
-    proceso_pdf(searchTerm, idioma);
+    organizacion_pdf(searchTerm, idioma);
   };
   const downloadInfo = () => {
-    proceso_xls(searchTerm);
+    organizacion_xls(searchTerm);
   };
 
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-2 container">
         {/* Funciones agregar, descargar, imprimir y ayuda */}
-        <h1 className="m-0">{t("proceso.titulo")}</h1>
+        <h1 className="m-0">{t("organizacion.titulo")}</h1>
         <div className="inputContainer d-flex">
           <label htmlFor="search" className="form-label mb-0 p-2">
-            {t("proceso.busqueda")}
+            {t("organizacion.busqueda")}
           </label>
           <input
             type="text"
@@ -156,13 +155,12 @@ const Proceso = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell>{t("proceso.nombre-proceso")}</TableCell>
-                <TableCell>{t("proceso.descripcion")}</TableCell>
-                <TableCell>{t("proceso.descripcion_en")}</TableCell>
-                <TableCell>{t("proceso.descripcion_por")}</TableCell>
-                <TableCell>{t("proceso.nombre_opcion")}</TableCell>
-                <TableCell>{t("proceso.estado")}</TableCell>
-                <TableCell align="center">{t("proceso.acciones")}</TableCell>
+                <TableCell>{t("organizacion.nombre-organizacion")}</TableCell>
+                <TableCell>{t("organizacion.corto_organizacion")}</TableCell>
+                <TableCell align="center">{t("organizacion.domicilio")}</TableCell>
+                <TableCell align="center">{t("organizacion.telefono")}</TableCell>
+                <TableCell align="center">{t("organizacion.estado")}</TableCell>
+                <TableCell align="center">{t("organizacion.acciones")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -170,22 +168,21 @@ const Proceso = () => {
                 <TableRow
                   key={index}
                   sx={{
-                    backgroundColor: index % 2 === 0 ? '#f0f0f0' : '#e0e0e0',
+                    backgroundcolor: index % 2 === 0 ? '#f0f0f0' : '#e0e0e0',
                     '& .MuiTableCell-root': {
                       padding: '0px', // Ajusta el relleno de las celdas para reducir la altura
                     },
                     height: '5px', // Ajusta la altura de la fila
                   }}
                 >
-                  <TableCell sx={{textAlign: 'center'}}>{dato.id_proceso}</TableCell>
-                  <TableCell>{dato.nombre_proceso.toUpperCase()}</TableCell>
-                  <TableCell>{dato.descripcion.toUpperCase()}</TableCell>
-                  <TableCell>{dato.descripcion_en.toUpperCase()}</TableCell>
-                  <TableCell>{dato.descripcion_por.toUpperCase()}</TableCell>
-                  <TableCell>{dato.nombre_opcion.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>{dato.id_organizacion}</TableCell>
+                  <TableCell >{dato.nombre_organizacion.toUpperCase()}</TableCell>
+                  <TableCell >{dato.corto_organizacion.toUpperCase()}</TableCell>
+                  <TableCell >{dato.domicilio.toUpperCase()}</TableCell>
+                  <TableCell >{dato.telefono.toUpperCase()}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
-                      style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
+                      style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, domicilio: "#ff0000"}}
                     >
                       {dato.habilita_3}
                     </p>
@@ -241,10 +238,10 @@ const Proceso = () => {
             </Button>
 
             <Typography variant="p" className="col-3 align-self-center">
-            {t("proceso.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
+            {t("organizacion.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
             </Typography>
             <Typography variant="p" className="align-self-center">
-            {t("proceso.registros")} {filteredItems.length}
+            {t("organizacion.registros")} {filteredItems.length}
             </Typography>
           </div>
         </TableContainer>
@@ -253,4 +250,4 @@ const Proceso = () => {
   )
 }
 
-export default Proceso
+export default Organizacion

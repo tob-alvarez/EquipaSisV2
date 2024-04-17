@@ -1,18 +1,56 @@
 import jsPDF from "jspdf";
 import * as XLSX from "xlsx";
 
-export function estado_equipo_pdf(filtro) {
-  const doc = new jsPDF({
-    orientation: "p",
-    unit: "mm",
-    format: "a4",
-  });
-
-  let lineas = 35;
-  let pagina = 1;
-  let data = [];
-  let habilita = "";
-
+export function estado_equipo_pdf(filtro, idioma) {
+    let titulo;
+    let nombreestado;
+    let corto_estado;
+    let color;
+    let habilitado;
+    let page; 
+    let reporte;
+    if (idioma === 'es') {
+      titulo = "Registro de Estado de Equipos";
+      nombreestado = "Nombre de Estado Equipo";
+      corto_estado = "Nombre Corto";
+      color = "Color";
+      habilitado = "Habilitado";
+      page = "Página";
+      reporte = "Reporte al"
+    } else if (idioma === 'en') {
+      titulo = "Records of Equipment Status";
+      nombreestado = "Equipment Status Name";
+      corto_estado = "Short Name";
+      color = "Color";
+      habilitado = "Enabled";
+      page = "Page";
+      reporte = "Report as of";
+    } else if (idioma === 'por') {
+      titulo = "Datas do Status do Equipamento";
+      nombreestado = "Nome do Status do Equipamento";
+      corto_estado = "Nome Abreviado";
+      color = "Cor";
+      habilitado = "Habilitado";
+      page = "Página";
+      reporte = "Relatório em";
+    } else {
+      titulo = "Registro de Estado de Equipos";
+      nombreestado = "Nombre de Estado equipo";
+      corto_estado = "Nombre de Estado equipo";
+      color = "Color";
+      habilitado = "Habilitada";
+      page = "Página";
+      reporte = "Reporte al"
+    }
+    const doc = new jsPDF({
+      orientation: "p",
+      unit: "mm",
+      format: "a4",
+    });
+    let lineas = 35;
+    let pagina = 1;
+    let data = [];
+    let habilita = "";
   const resultado = async () => {
     const JSONdata = JSON.stringify({ tarea: "imprime_estado_equipo" }); // Send the data to the server in JSON format.
     const endpoint = "https://v2.equipasis.com/api/estado_equipo.php"; // API endpoint where we send form data.
@@ -28,11 +66,14 @@ export function estado_equipo_pdf(filtro) {
     // Get the response data from server as JSON.
     // If server returns the name submitted, that means the form works.
     const result = await response.json();
-
     data = result.datos;
-    data = data.filter(item => item.nombre_estado.toLowerCase().indexOf(filtro) > -1);
+    data = data.filter(item => item.nombre_estado.toLowerCase().indexOf(filtro) > -1 || 
+    item.corto_estado.toLowerCase().indexOf(filtro) > -1 ||
+    item.id_estado.toLowerCase().indexOf(filtro) > -1 ||
+    item.color.toLowerCase().indexOf(filtro) > -1 ||
+    item.habilita.toLowerCase().indexOf(filtro) > -1);
     doc.setProperties({
-      title: "Registro de Estados de Equipos",
+      title: titulo,
     });
     cabecera();
     data.map((datos, index) => {
@@ -47,12 +88,13 @@ export function estado_equipo_pdf(filtro) {
       }
 
       doc.text(datos.id_estado, 20, lineas);
-      doc.text(datos.nombre_estado, 34, lineas);
-      doc.text(datos.corto_estado, 100, lineas);
+      doc.text(datos.nombre_estado, 33, lineas);
+      doc.text(datos.corto_estado, 98, lineas);
+      doc.text(datos.color, 145, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
-      doc.text(habilita, 168, lineas);
+      doc.text(habilita, 172, lineas);
 
       if (datos.nombre_estado.length > 100) {
         //doc.line(5,lineas+6,200,lineas+6);
@@ -83,21 +125,23 @@ export function estado_equipo_pdf(filtro) {
     doc.setFontSize(14);
 
     doc.setTextColor(55, 0, 0);
-    doc.text("Registro de Estados de Equipos", 15, 12);
+    doc.text(titulo, 15, 12);
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(9);
     doc.text("ID", 22, 25, { align: "center" });
     doc.line(30, 19.8, 30, 27.2);
-    doc.text("Nombre del Estado", 50, 25, { align: "center" });
-    doc.line(95, 19.8, 95, 27.2);
-    doc.text("Nombre Corto", 109, 25, { align: "center" });
-    doc.line(160, 19.8, 160, 27.2);
-    doc.text("Habilitado", 172, 25, { align: "center" });
+    doc.text(nombreestado , 53, 25, { align: "center" });
+    doc.line(90, 19.8, 90, 27.2);
+    doc.text(corto_estado , 117, 25, { align: "center" });
+    doc.line(142, 19.8, 142, 27.2);
+    doc.text(color , 152, 25, { align: "center" });
+    doc.line(165, 19.8, 165, 27.2);
+    doc.text(habilitado, 175, 25, { align: "center" });
     let fecha = new Date();
     fecha = fecha.toLocaleString();
 
-    doc.text("Reporte al: " + fecha, 5, 288, { align: "left" });
-    doc.text("Página: " + pagina.toString(), 195, 288, { align: "right" });
+    doc.text(`${reporte}: ` + fecha, 5, 288, { align: "left" });
+    doc.text(`${page}: ` + pagina.toString(), 195, 288, { align: "right" });
   }
 }
 
@@ -124,14 +168,18 @@ export function estado_equipo_xls(filtro) {
     fecha = fecha.toLocaleString();
     
     data = result.datos;
-    data = data.filter(item => item.nombre_estado.toLowerCase().indexOf(filtro) > -1);
+    data = data.filter(item => item.nombre_estado.toLowerCase().indexOf(filtro) > -1 || 
+    item.corto_estado.toLowerCase().indexOf(filtro) > -1 ||
+    item.color.toLowerCase().indexOf(filtro) > -1 ||
+    item.id_estado.toLowerCase().indexOf(filtro) > -1 ||
+    item.habilita.toLowerCase().indexOf(filtro) > -1);
     console.log(data.length);
     if (data.length != 0) {
       //const wb = XLSX.utils.table_to_book(table);
       const ws = XLSX.utils.json_to_sheet(data);
 
       var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "estado_equipos");
+      XLSX.utils.book_append_sheet(wb, ws, "Estado de Equipos");
 
       /* Export to file (start a download) */
       XLSX.writeFile(wb, fecha + "_Estado_equipo.xlsx");

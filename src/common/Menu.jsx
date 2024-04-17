@@ -123,7 +123,7 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
                         {/* Elemento del menú */}
                         <ListItemButton sx={{
                             minHeight: 48,
-                            px: 2.5
+                            px: 2
                         }} onClick={() => handleClick(item.label)}>
                             <ListItemIcon sx={{
                                 minWidth: 0,
