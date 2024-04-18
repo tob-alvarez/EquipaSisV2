@@ -126,7 +126,7 @@ export function tipo_control_pdf(filtro, idioma) {
     doc.line(30, 19.8, 30, 27.2);
     doc.text(nombreAcciones , 55, 25, { align: "center" });
     doc.line(95, 19.8, 95, 27.2);
-    doc.text("Unidad", 109, 25, { align: "center" });    
+    doc.text(unidad, 109, 25, { align: "center" });    
     doc.line(160, 19.8, 160, 27.2);
     doc.text(habilitado, 172, 25, { align: "center" });
     let fecha = new Date();

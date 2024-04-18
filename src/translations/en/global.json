@@ -91,6 +91,27 @@
         "datoObligatorio": "Mandatory data marked with #",
         "habilitado": "Enabled"
     },
+    "cliente":{
+        "titulo": "Customer",
+        "busqueda": "Search",
+        "nombre-cliente": "Customer Name",
+        "base_datos": "Database",
+        "host": "Server",
+        "user": "User Name",
+        "pass": "Password",
+        "estado": "State",
+        "acciones": "Actions",
+        "registros": "Records",
+        "pagina": "Page",
+        "de": "of",
+        "agregarTitulo": "Add Customer",
+        "ayudaTitulo": "Help",
+        "editarTitulo": "Edit Customer",
+        "borrarTitulo": "Delete Customer",
+        "borrarListo": "This Customer is already disabled",
+        "datoObligatorio": "Mandatory data marked with #",
+        "habilitado": "Enabled"
+    },
     "empresa":{
         "titulo": "Company",
         "busqueda": "Search",

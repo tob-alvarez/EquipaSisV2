@@ -91,6 +91,27 @@
         "datoObligatorio": "Dados obrigatórios marcados com #",
         "habilitado": "Ativado"
     },
+    "cliente":{
+        "titulo": "Cliente",
+        "busqueda": "Procurar",
+        "nombre-cliente": "Nome do Cliente",
+        "base_datos": "Base de Dados",
+        "host": "Servidor",
+        "user": "Usuário",
+        "pass": "Senha",
+        "estado": "Estado",
+        "acciones": "Ações",
+        "registros": "Registros",
+        "pagina": "Página",
+        "de": "a",
+        "agregarTitulo": "Adicionar Cliente",
+        "ayudaTitulo": "Ajuda",
+        "editarTitulo": "Editar Cliente",
+        "borrarTitulo": "Excluir Cliente",
+        "borrarListo": "Este Cliente já está desativado",
+        "datoObligatorio": "Dados obrigatórios marcados com #",
+        "habilitado": "Ativado"
+    },
     "empresa":{
         "titulo": "Empresa",
         "busqueda": "Procurar",
