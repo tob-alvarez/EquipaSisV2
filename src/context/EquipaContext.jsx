@@ -17,6 +17,7 @@ const EquipaProvider = ({ children }) => {
   const [botonState, setBotonState] = useState(false);
   const [refresh, setRefresh] = useState(null);
   const [opciones, setOpciones] = useState(null);
+  const [tarchivos, setTarchivos] = useState(null);
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem('language');
@@ -70,6 +71,15 @@ const EquipaProvider = ({ children }) => {
     }
   };
   
+  const traerTarchivos = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/tipo_archivo.php`, tarea);
+      setTarchivos(data.tarchivo)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
   const getAuth = async () => {
     try {
       const token = sessionStorage.getItem("token");
@@ -119,7 +129,9 @@ const EquipaProvider = ({ children }) => {
         actualizador,
         permisosMenu,
         traerOpciones,
-        opciones
+        opciones,
+        traerTarchivos,
+        tarchivos
       }}
     >
       {children}

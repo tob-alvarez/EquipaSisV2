@@ -9,6 +9,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import Accion from "./components/accion/Accion";
 import Categoria from "./components/categoria/Categoria";
 import Cliente from "./components/cliente/Cliente";
+import Documentacion from "./components/documentacion/Documentacion";
 import Empresa from "./components/empresa/Empresa";
 import Estado_equipo from "./components/estado_equipo/Estado_equipo";
 import Estado_solicitud from "./components/estado_solicitud/Estado_solicitud";
@@ -82,6 +83,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <Cliente />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/documentacion"
+              element={
+                <PrivateRoute>
+                  <Documentacion />
                 </PrivateRoute>
               }
             />

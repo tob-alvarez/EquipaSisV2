@@ -112,6 +112,26 @@
         "datoObligatorio": "Datos obligatorios marcados con #",
         "habilitado": "Habilitado"
     },
+    "documentacion": {
+        "titulo": "Documentación",
+        "busqueda": "Búsqueda",
+        "nombre-documentacion": "Nombre Documentación",
+        "corto_documentacion": "Nombre Corto",
+        "id_tarchivo": "ID Tipo Archivo",
+        "nombre_tarchivo": "Nombre Tipo Archivo",
+        "estado": "Estado",
+        "acciones": "Acciones",
+        "registros": "Registros",
+        "pagina": "Página",
+        "de": "de",
+        "agregarTitulo": "Agregar Documentación",
+        "ayudaTitulo": "Ayuda",
+        "editarTitulo": "Editar Documentación",
+        "borrarTitulo": "Borrar Documentación",
+        "borrarListo": "Esta Documentación ya esta deshabilitada",
+        "datoObligatorio": "Datos obligatorios marcados con #",
+        "habilitado": "Habilitado"
+    },
     "empresa": {
         "titulo": "Empresa",
         "busqueda": "Búsqueda",
