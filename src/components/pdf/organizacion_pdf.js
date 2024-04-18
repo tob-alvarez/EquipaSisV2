@@ -84,24 +84,24 @@ export function organizacion_pdf(filtro, idioma) {
     cabecera();
     data.map((datos, index) => {
       if (index % 2 == 0 && datos.nombre_organizacion.length > 120) {
-        doc.setFilldomicilio("#ECECEC");
-        doc.rect(15, lineas - 4, 169, 10, "F");
+        doc.setFillColor("#ECECEC");
+        doc.rect(15, lineas - 4, 180, 10, "F");
       }
 
       if (index % 2 == 0 && datos.nombre_organizacion.length < 120) {
-        doc.setFilldomicilio("#ECECEC");
-        doc.rect(15, lineas - 4, 169, 5, "F");
+        doc.setFillColor("#ECECEC");
+        doc.rect(15, lineas - 4, 180, 5, "F");
       }
 
-      doc.text(datos.id_organizacion, 20, lineas);
-      doc.text(datos.nombre_organizacion, 33, lineas);
-      doc.text(datos.corto_organizacion, 98, lineas);
-      doc.text(datos.domicilio, 145, lineas);
-      doc.text(datos.telefono, 160, lineas);
+      doc.text(datos.id_organizacion, 17, lineas);
+      doc.text(datos.nombre_organizacion, 27, lineas);
+      doc.text(datos.corto_organizacion, 77, lineas);
+      doc.text(datos.domicilio, 112, lineas);
+      doc.text(datos.telefono, 148, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
-      doc.text(habilita, 172, lineas);
+      doc.text(habilita, 180, lineas);
 
       if (datos.nombre_organizacion.length > 100) {
         //doc.line(5,lineas+6,200,lineas+6);
@@ -124,28 +124,28 @@ export function organizacion_pdf(filtro, idioma) {
   resultado();
   function cabecera() {
     const logo = new Image();
-    logo.src = "public/logo.png";
+    logo.src = "/logo.png";
     doc.addImage(logo, "PNG", 170, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
-    doc.rect(14.8, 19.8, 169.3, 7.4);
-    doc.setFillcolor("#EBEBEB");
-    doc.rect(15, 20, 169, 7, "F");
+    doc.rect(14.8, 19.8, 179.3, 7.4);
+    doc.setFillColor("#EBEBEB");
+    doc.rect(15, 20, 179, 7, "F");
     doc.setFontSize(14);
 
     doc.setTextColor(55, 0, 0);
     doc.text(titulo, 15, 12);
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(9);
-    doc.text("ID", 22, 25, { align: "center" });
-    doc.line(30, 19.8, 30, 27.2);
-    doc.text(nombreorganizacion , 53, 25, { align: "center" });
-    doc.line(90, 19.8, 90, 27.2);
-    doc.text(corto_organizacion , 117, 25, { align: "center" });
-    doc.line(142, 19.8, 142, 27.2);
-    doc.text(domicilio , 152, 25, { align: "center" });
-    doc.line(165, 19.8, 165, 27.2);
-    doc.text(telefono , 160, 25, { align: "center" });
-    doc.line(165, 19.8, 165, 27.2);
-    doc.text(habilitado, 175, 25, { align: "center" });
+    doc.text("ID", 18, 25, { align: "center" });
+    doc.line(21, 19.8, 21, 27.2);
+    doc.text(nombreorganizacion , 45, 25, { align: "center" });
+    doc.line(72, 19.8, 72, 27.2);
+    doc.text(corto_organizacion , 87, 25, { align: "center" });
+    doc.line(105, 19.8, 105, 27.2);
+    doc.text(domicilio , 120, 25, { align: "center" });
+    doc.line(145, 19.8, 145, 27.2);
+    doc.text(telefono , 157, 25, { align: "center" });
+    doc.line(172, 19.8, 172, 27.2);
+    doc.text(habilitado, 183, 25, { align: "center" });
     let fecha = new Date();
     fecha = fecha.toLocaleString();
 
