@@ -111,7 +111,7 @@ export function tipo_control_pdf(filtro, idioma) {
   resultado();
   function cabecera() {
     const logo = new Image();
-    logo.src = "public/logo.png";
+    logo.src = "/logo.png";
     doc.addImage(logo, "PNG", 170, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
     doc.rect(14.8, 19.8, 169.3, 7.4);
     doc.setFillColor("#EBEBEB");

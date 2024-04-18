@@ -1,6 +1,8 @@
 export async function trae_organizaciones() {
 
-    const JSONdata = JSON.stringify({ tarea: "consulta_organizacion" }); // Send the data to the server in JSON format.
+  let token = sessionStorage.getItem('token'); 
+
+    const JSONdata = JSON.stringify({ tarea: "consulta_organizacion", token: token }); // Send the data to the server in JSON format.
     const endpoint = "https://v2.equipasis.com/api/organizacion.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
