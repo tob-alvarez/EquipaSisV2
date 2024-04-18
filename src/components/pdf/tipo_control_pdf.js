@@ -111,7 +111,7 @@ export function tipo_control_pdf(filtro, idioma) {
   resultado();
   function cabecera() {
     const logo = new Image();
-    logo.src = "public/logo.png";
+    logo.src = "/logo.png";
     doc.addImage(logo, "PNG", 170, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
     doc.rect(14.8, 19.8, 169.3, 7.4);
     doc.setFillColor("#EBEBEB");
@@ -126,7 +126,7 @@ export function tipo_control_pdf(filtro, idioma) {
     doc.line(30, 19.8, 30, 27.2);
     doc.text(nombreAcciones , 55, 25, { align: "center" });
     doc.line(95, 19.8, 95, 27.2);
-    doc.text("Unidad", 109, 25, { align: "center" });    
+    doc.text(unidad, 109, 25, { align: "center" });    
     doc.line(160, 19.8, 160, 27.2);
     doc.text(habilitado, 172, 25, { align: "center" });
     let fecha = new Date();

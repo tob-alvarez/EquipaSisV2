@@ -1,18 +1,66 @@
 import jsPDF from "jspdf";
 import * as XLSX from "xlsx";
 
-export function cliente_pdf(filtro) {
-  const doc = new jsPDF({
-    orientation: "p",
-    unit: "mm",
-    format: "a4",
-  });
-
-  let lineas = 35;
-  let pagina = 1;
-  let data = [];
-  let habilita = "";
-
+export function cliente_pdf(filtro, idioma) {
+    let titulo;
+    let nombrecliente;
+    let base_datos;
+    let host;
+    let user;
+    let pass;
+    let habilitado;
+    let page; 
+    let reporte;
+    if (idioma === 'es') {
+      titulo = "Registro de Clientes";
+      nombrecliente = "Nombre del Cliente";
+      base_datos = "Base de Datos";
+      host = "Servidor";
+      user = "Usuario";
+      pass = "Clave";
+      habilitado = "Hab.";
+      page = "Página";
+      reporte = "Reporte al"
+    } else if (idioma === 'en') {
+      titulo = "Record of Customer";
+      nombrecliente = "Customer Name";
+      base_datos = "Database";
+      host = "Server";
+      user = "User";
+      pass = "Password";
+      habilitado = "Enab.";
+      page = "Page";
+      reporte = "Report as of";
+    } else if (idioma === 'por') {
+      titulo = "Datas de Clientes";
+      nombrecliente = "Nombre del Cliente";
+      base_datos = "Base de Datos";
+      host = "Servidor";
+      user = "Usuario";
+      pass = "Clave";
+      habilitado = "Hab.";
+      page = "Página";
+      reporte = "Relatório em";
+    } else {
+      titulo = "Registro de Clientes";
+      nombrecliente = "Nome do Cliente";
+      base_datos = "Base de Dados";
+      host = "Servidor";
+      user = "Usuário";
+      pass = "Senha";
+      habilitado = "Hab.";
+      page = "Página";
+      reporte = "Reporte al"
+    }
+    const doc = new jsPDF({
+      orientation: "p",
+      unit: "mm",
+      format: "a4",
+    });
+    let lineas = 35;
+    let pagina = 1;
+    let data = [];
+    let habilita = "";
   const resultado = async () => {
     const JSONdata = JSON.stringify({ tarea: "imprime_cliente" }); // Send the data to the server in JSON format.
     const endpoint = "https://v2.equipasis.com/api/cliente.php"; // API endpoint where we send form data.
@@ -28,31 +76,39 @@ export function cliente_pdf(filtro) {
     // Get the response data from server as JSON.
     // If server returns the name submitted, that means the form works.
     const result = await response.json();
-
     data = result.datos;
-    data = data.filter(item => item.nombre_cliente.toLowerCase().indexOf(filtro) > -1);
+    data = data.filter(item => item.nombre_cliente.toLowerCase().indexOf(filtro) > -1 || 
+    item.base_datos.toLowerCase().indexOf(filtro) > -1 ||
+    item.id_cliente.toLowerCase().indexOf(filtro) > -1 ||
+    item.host.toLowerCase().indexOf(filtro) > -1 ||
+    item.user.toLowerCase().indexOf(filtro) > -1 ||
+    item.pass.toLowerCase().indexOf(filtro) > -1 ||
+    item.habilita.toLowerCase().indexOf(filtro) > -1);
     doc.setProperties({
-      title: "Registro de Clientes",
+      title: titulo,
     });
     cabecera();
     data.map((datos, index) => {
       if (index % 2 == 0 && datos.nombre_cliente.length > 120) {
         doc.setFillColor("#ECECEC");
-        doc.rect(15, lineas - 4, 169, 10, "F");
+        doc.rect(12, lineas - 4, 185, 10, "F");
       }
 
       if (index % 2 == 0 && datos.nombre_cliente.length < 120) {
         doc.setFillColor("#ECECEC");
-        doc.rect(15, lineas - 4, 169, 5, "F");
+        doc.rect(12, lineas - 4, 185, 5, "F");
       }
 
-      doc.text(datos.id_estado, 20, lineas);
-      doc.text(datos.nombre_cliente, 34, lineas);
-      doc.text(datos.base_datos, 100, lineas);
+      doc.text(datos.id_cliente, 15, lineas);
+      doc.text(datos.nombre_cliente, 22, lineas);
+      doc.text(datos.base_datos, 79, lineas);
+      doc.text(datos.host, 124, lineas);
+      doc.text(datos.user, 150, lineas);
+      doc.text(datos.pass, 170, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
-      doc.text(habilita, 168, lineas);
+      doc.text(habilita, 190, lineas);
 
       if (datos.nombre_cliente.length > 100) {
         //doc.line(5,lineas+6,200,lineas+6);
@@ -75,29 +131,35 @@ export function cliente_pdf(filtro) {
   resultado();
   function cabecera() {
     const logo = new Image();
-    logo.src = "public/logo.png";
+    logo.src = "/logo.png";
     doc.addImage(logo, "PNG", 170, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
-    doc.rect(14.8, 19.8, 169.3, 7.4);
+    doc.rect(11.8, 19.8, 186.3, 7.4);
     doc.setFillColor("#EBEBEB");
-    doc.rect(15, 20, 169, 7, "F");
+    doc.rect(12, 20, 186, 7, "F");
     doc.setFontSize(14);
 
     doc.setTextColor(55, 0, 0);
-    doc.text("Registro de Clientes", 15, 12);
+    doc.text(titulo, 15, 12);
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(9);
-    doc.text("ID", 22, 25, { align: "center" });
-    doc.line(30, 19.8, 30, 27.2);
-    doc.text("Nombre del Cliente", 50, 25, { align: "center" });
-    doc.line(95, 19.8, 95, 27.2);
-    doc.text("Base de Datos", 109, 25, { align: "center" });
-    doc.line(160, 19.8, 160, 27.2);
-    doc.text("Habilitado", 172, 25, { align: "center" });
+    doc.text("ID", 16, 25, { align: "center" });
+    doc.line(21, 19.8, 21, 27.2);
+    doc.text(nombrecliente , 47, 25, { align: "center" });
+    doc.line(75, 19.8, 75, 27.2);
+    doc.text(base_datos , 95, 25, { align: "center" });
+    doc.line(120, 19.8, 120, 27.2);
+    doc.text(host , 133, 25, { align: "center" });
+    doc.line(148, 19.8, 148, 27.2);
+    doc.text(user , 158, 25, { align: "center" });
+    doc.line(167, 19.8, 167, 27.2);
+    doc.text(pass , 178, 25, { align: "center" });
+    doc.line(188, 19.8, 188, 27.2);
+    doc.text(habilitado, 193, 25, { align: "center" });
     let fecha = new Date();
     fecha = fecha.toLocaleString();
 
-    doc.text("Reporte al: " + fecha, 5, 288, { align: "left" });
-    doc.text("Página: " + pagina.toString(), 195, 288, { align: "right" });
+    doc.text(`${reporte}: ` + fecha, 5, 288, { align: "left" });
+    doc.text(`${page}: ` + pagina.toString(), 195, 288, { align: "right" });
   }
 }
 
@@ -124,17 +186,23 @@ export function cliente_xls(filtro) {
     fecha = fecha.toLocaleString();
     
     data = result.datos;
-    data = data.filter(item => item.nombre_cliente.toLowerCase().indexOf(filtro) > -1);
+    data = data.filter(item => item.nombre_cliente.toLowerCase().indexOf(filtro) > -1 || 
+    item.base_datos.toLowerCase().indexOf(filtro) > -1 ||
+    item.user.toLowerCase().indexOf(filtro) > -1 ||
+    item.pass.toLowerCase().indexOf(filtro) > -1 ||
+    item.id_cliente.toLowerCase().indexOf(filtro) > -1 ||
+    item.host.toLowerCase().indexOf(filtro) > -1 ||
+    item.habilita.toLowerCase().indexOf(filtro) > -1);
     console.log(data.length);
     if (data.length != 0) {
       //const wb = XLSX.utils.table_to_book(table);
       const ws = XLSX.utils.json_to_sheet(data);
 
       var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "clientes");
+      XLSX.utils.book_append_sheet(wb, ws, "Clientes");
 
       /* Export to file (start a download) */
-      XLSX.writeFile(wb, fecha + "_cliente.xlsx");
+      XLSX.writeFile(wb, fecha + "_Cliente.xlsx");
     }
   };
   resultado()

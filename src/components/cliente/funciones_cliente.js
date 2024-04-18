@@ -1,9 +1,7 @@
-export async function trae_organizaciones() {
+export async function trae_clientes() {
 
-  let token = sessionStorage.getItem('token'); 
-
-    const JSONdata = JSON.stringify({ tarea: "consulta_organizacion", token: token }); // Send the data to the server in JSON format.
-    const endpoint = "https://v2.equipasis.com/api/organizacion.php"; // API endpoint where we send form data.
+    const JSONdata = JSON.stringify({ tarea: "consulta_cliente" }); // Send the data to the server in JSON format.
+    const endpoint = "https://v2.equipasis.com/api/cliente.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
     const options = {
@@ -14,16 +12,16 @@ export async function trae_organizaciones() {
     const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
 
     const result = await response.json();
-   return result.organizacion;
+   return result.cliente;
 }
 
 export async function trae_permisos(datos){
   const JSONdata = JSON.stringify({ 
     tarea: datos.tarea,
-    organizacion: datos.organizacion ,
+    cliente: datos.cliente ,
     id_usuario: datos.id_usuario
   }); // Send the data to the server in JSON format.
-  const endpoint = "https://v2.equipasis.com/api/organizacion.php"; // API endpoint where we send form data.
+  const endpoint = "https://v2.equipasis.com/api/cliente.php"; // API endpoint where we send form data.
 
   // Form the request for sending data to the server.
   const options = {
@@ -34,21 +32,22 @@ export async function trae_permisos(datos){
   const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
   const result = await response.json();
   
-  return result.organizacion;
+  return result.cliente;
 }
 
-export async function cambia_organizaciones(datos){
+export async function cambia_clientes(datos){
   console.log(datos)
   const JSONdata = JSON.stringify({ 
-    tarea: "cambia_organizacion",
-    id_organizacion: datos.id_organizacion ,
-    nombre_organizacion: datos.nombre_organizacion,
-    corto_organizacion: datos.corto_organizacion,
-    domicilio: datos.domicilio,
-    telefono: datos.telefono,
+    tarea: "cambia_cliente",
+    id_cliente:datos.id_cliente ,
+    nombre_cliente: datos.nombre_cliente,
+    base_datos: datos.base_datos,
+    host: datos.host,
+    user: datos.user,
+    pass: datos.pass,
     habilita: datos.habilita
   }); // Send the data to the server in JSON format.
-  const endpoint = "https://v2.equipasis.com/api/organizacion.php"; // API endpoint where we send form data.
+  const endpoint = "https://v2.equipasis.com/api/cliente.php"; // API endpoint where we send form data.
 
   // Form the request for sending data to the server.
   const options = {
@@ -61,13 +60,13 @@ export async function cambia_organizaciones(datos){
   const result = await response.json();
  return result.registros;
 }
-export async function borra_organizaciones(datos){
+export async function borra_clientes(datos){
   console.log(datos)
   const JSONdata = JSON.stringify({ 
-    tarea: "borra_organizacion",
-    id_organizacion:datos.id_organizacion ,
+    tarea: "borra_cliente",
+    id_cliente:datos.id_cliente ,
   }); // Send the data to the server in JSON format.
-  const endpoint = "https://v2.equipasis.com/api/organizacion.php"; // API endpoint where we send form data.
+  const endpoint = "https://v2.equipasis.com/api/cliente.php"; // API endpoint where we send form data.
 
   // Form the request for sending data to the server.
   const options = {
@@ -81,17 +80,18 @@ export async function borra_organizaciones(datos){
  return result.registros;
 }
 
-export async function alta_organizaciones(datos){
+export async function alta_clientes(datos){
 
   const JSONdata = JSON.stringify({ 
-    tarea: "alta_organizacion",
-    nombre_organizacion: datos.nombre_organizacion,
-    corto_organizacion: datos.corto_organizacion,
-    domicilio: datos.domicilio,
-    telefono: datos.telefono,
+    tarea: "alta_cliente",
+    nombre_cliente: datos.nombre_cliente,
+    base_datos: datos.base_datos,
+    host: datos.host,
+    user: datos.user,
+    pass: datos.pass,
     habilita: datos.habilita
   }); // Send the data to the server in JSON format.
-  const endpoint = "https://v2.equipasis.com/api/organizacion.php"; // API endpoint where we send form data.
+  const endpoint = "https://v2.equipasis.com/api/cliente.php"; // API endpoint where we send form data.
 
   // Form the request for sending data to the server.
   const options = {
@@ -107,12 +107,12 @@ export async function alta_organizaciones(datos){
  return result.registros;
 }
 
-export async function ayuda_organizaciones(){
+export async function ayuda_clientes(){
 
   const JSONdata = JSON.stringify({ 
-    tarea: "ayuda_organizacion"
+    tarea: "ayuda_cliente"
   }); // Send the data to the server in JSON format.
-  const endpoint = "https://v2.equipasis.com/api/organizacion.php"; // API endpoint where we send form data.
+  const endpoint = "https://v2.equipasis.com/api/cliente.php"; // API endpoint where we send form data.
 
   // Form the request for sending data to the server.
   const options = {
@@ -125,7 +125,7 @@ export async function ayuda_organizaciones(){
   // Get the response data from server as JSON.
   // If server returns the name submitted, that means the form works.
   const result = await response.json();
- return result.organizacion;
+ return result.cliente;
 }
 
 // export async function trae_permiso_acciones(id_usuario){
@@ -134,7 +134,7 @@ export async function ayuda_organizaciones(){
 //     tarea: "permiso_usuario",
 //     id_usuario: id_usuario
 //   }); // Send the data to the server in JSON format.
-//   const endpoint = "https://v2.equipasis.com/api/organizacion.php"; // API endpoint where we send form data.
+//   const endpoint = "https://v2.equipasis.com/api/cliente.php"; // API endpoint where we send form data.
 
 //   // Form the request for sending data to the server.
 //   const options = {
