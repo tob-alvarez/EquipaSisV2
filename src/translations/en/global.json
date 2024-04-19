@@ -112,6 +112,26 @@
         "datoObligatorio": "Mandatory data marked with #",
         "habilitado": "Enabled"
     },
+    "documentacion":{
+        "titulo": "Documentation",
+        "busqueda": "Search",
+        "nombre-documentacion": "Documentation Name",
+        "corto_documentacion": "Documentation Short Name",
+        "id_tarchivo": "ID File Type",
+        "nombre_tarchivo": "File Type Name",
+        "estado": "State",
+        "acciones": "Actions",
+        "registros": "Records",
+        "pagina": "Page",
+        "de": "of",
+        "agregarTitulo": "Add Documentation",
+        "ayudaTitulo": "Help",
+        "editarTitulo": "Edit Documentation",
+        "borrarTitulo": "Delete Documentation",
+        "borrarListo": "This Documentation is already disabled",
+        "datoObligatorio": "Mandatory data marked with #",
+        "habilitado": "Enabled"
+    },
     "empresa":{
         "titulo": "Company",
         "busqueda": "Search",

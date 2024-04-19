@@ -1,18 +1,56 @@
 import jsPDF from "jspdf";
 import * as XLSX from "xlsx";
 
-export function documentacion_pdf(filtro) {
-  const doc = new jsPDF({
-    orientation: "p",
-    unit: "mm",
-    format: "a4",
-  });
-
-  let lineas = 35;
-  let pagina = 1;
-  let data = [];
-  let habilita = "";
-
+export function documentacion_pdf(filtro, idioma) {
+    let titulo;
+    let nombredocumentacion;
+    let corto_documentacion;
+    let nombre_tarchivo;
+    let habilitado;
+    let page; 
+    let reporte;
+    if (idioma === 'es') {
+      titulo = "Registro de Documentaciones";
+      nombredocumentacion = "Nombre de Documentación";
+      corto_documentacion = "Nombre Corto";
+      nombre_tarchivo = "Tipo Archivo";
+      habilitado = "Habilitado";
+      page = "Página";
+      reporte = "Reporte al"
+    } else if (idioma === 'en') {
+      titulo = "Records of Documentation";
+      nombredocumentacion = "Documentation Name";
+      corto_documentacion = "Short Name";
+      nombre_tarchivo = "File Type";
+      habilitado = "Enabled";
+      page = "Page";
+      reporte = "Report as of";
+    } else if (idioma === 'por') {
+      titulo = "Datas da Documentação";
+      nombredocumentacion = "Nome da Documentação";
+      corto_documentacion = "Nome Abreviado";
+      nombre_tarchivo = "Tipo Arquivo";
+      habilitado = "Habilitado";
+      page = "Página";
+      reporte = "Relatório em";
+    } else {
+      titulo = "Registro de Documentaciones";
+      nombredocumentacion = "Nombre Documentación";
+      corto_documentacion = "Nombre Corto";
+      nombre_tarchivo = "Tipo Archivo";
+      habilitado = "Habilitada";
+      page = "Página";
+      reporte = "Reporte al"
+    }
+    const doc = new jsPDF({
+      orientation: "p",
+      unit: "mm",
+      format: "a4",
+    });
+    let lineas = 35;
+    let pagina = 1;
+    let data = [];
+    let habilita = "";
   const resultado = async () => {
     const JSONdata = JSON.stringify({ tarea: "imprime_documentacion" }); // Send the data to the server in JSON format.
     const endpoint = "https://v2.equipasis.com/api/documentacion.php"; // API endpoint where we send form data.
@@ -28,11 +66,14 @@ export function documentacion_pdf(filtro) {
     // Get the response data from server as JSON.
     // If server returns the name submitted, that means the form works.
     const result = await response.json();
-
     data = result.datos;
-    data = data.filter(item => item.nombre_documentacion.toLowerCase().indexOf(filtro) > -1);
+    data = data.filter(item => item.nombre_documentacion.toLowerCase().indexOf(filtro) > -1 || 
+    item.corto_documentacion.toLowerCase().indexOf(filtro) > -1 ||
+    item.id_documentacion.toLowerCase().indexOf(filtro) > -1 ||
+    item.nombre_tarchivo.toLowerCase().indexOf(filtro) > -1 ||
+    item.habilita.toLowerCase().indexOf(filtro) > -1);
     doc.setProperties({
-      title: "Registro de Documentaciones",
+      title: titulo,
     });
     cabecera();
     data.map((datos, index) => {
@@ -47,12 +88,13 @@ export function documentacion_pdf(filtro) {
       }
 
       doc.text(datos.id_documentacion, 20, lineas);
-      doc.text(datos.nombre_documentacion, 34, lineas);
-      doc.text(datos.color, 100, lineas);
+      doc.text(datos.nombre_documentacion, 33, lineas);
+      doc.text(datos.corto_documentacion, 98, lineas);
+      doc.text(datos.nombre_tarchivo, 145, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
-      doc.text(habilita, 168, lineas);
+      doc.text(habilita, 172, lineas);
 
       if (datos.nombre_documentacion.length > 100) {
         //doc.line(5,lineas+6,200,lineas+6);
@@ -83,21 +125,23 @@ export function documentacion_pdf(filtro) {
     doc.setFontSize(14);
 
     doc.setTextColor(55, 0, 0);
-    doc.text("Registro de Documentaciones", 15, 12);
+    doc.text(titulo, 15, 12);
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(9);
     doc.text("ID", 22, 25, { align: "center" });
     doc.line(30, 19.8, 30, 27.2);
-    doc.text("Nombre Documentación", 50, 25, { align: "center" });
-    doc.line(95, 19.8, 95, 27.2);
-    doc.text("Tipo Archivo", 109, 25, { align: "center" });
-    doc.line(160, 19.8, 160, 27.2);
-    doc.text("Habilitado", 172, 25, { align: "center" });
+    doc.text(nombredocumentacion , 53, 25, { align: "center" });
+    doc.line(90, 19.8, 90, 27.2);
+    doc.text(corto_documentacion , 117, 25, { align: "center" });
+    doc.line(142, 19.8, 142, 27.2);
+    doc.text(nombre_tarchivo , 152, 25, { align: "center" });
+    doc.line(165, 19.8, 165, 27.2);
+    doc.text(habilitado, 175, 25, { align: "center" });
     let fecha = new Date();
     fecha = fecha.toLocaleString();
 
-    doc.text("Reporte al: " + fecha, 5, 288, { align: "left" });
-    doc.text("Página: " + pagina.toString(), 195, 288, { align: "right" });
+    doc.text(`${reporte}: ` + fecha, 5, 288, { align: "left" });
+    doc.text(`${page}: ` + pagina.toString(), 195, 288, { align: "right" });
   }
 }
 
@@ -124,17 +168,21 @@ export function documentacion_xls(filtro) {
     fecha = fecha.toLocaleString();
     
     data = result.datos;
-    data = data.filter(item => item.nombre_documentacion.toLowerCase().indexOf(filtro) > -1);
+    data = data.filter(item => item.nombre_documentacion.toLowerCase().indexOf(filtro) > -1 || 
+    item.corto_documentacion.toLowerCase().indexOf(filtro) > -1 ||
+    item.nombre_tarchivo.toLowerCase().indexOf(filtro) > -1 ||
+    item.id_documentacion.toLowerCase().indexOf(filtro) > -1 ||
+    item.habilita.toLowerCase().indexOf(filtro) > -1);
     console.log(data.length);
     if (data.length != 0) {
       //const wb = XLSX.utils.table_to_book(table);
       const ws = XLSX.utils.json_to_sheet(data);
 
       var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "documentaciones");
+      XLSX.utils.book_append_sheet(wb, ws, "Documentaciones");
 
       /* Export to file (start a download) */
-      XLSX.writeFile(wb, fecha + "_documentacion.xlsx");
+      XLSX.writeFile(wb, fecha + "_Documentacion.xlsx");
     }
   };
   resultado()

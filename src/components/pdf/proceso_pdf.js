@@ -102,9 +102,9 @@ export function proceso_pdf(filtro, idioma) {
       doc.text(datos.id_proceso, 20, lineas);
       doc.text(datos.nombre_proceso, 34, lineas);
       doc.text(datos.descripcion, 72, lineas);
-      doc.text(datos.descripcion_en, 72, lineas);
+      doc.text(datos.descripcion_en, 80, lineas);
       doc.text(datos.decripcion_por, 120, lineas);
-      doc.text(datos.opcion, 120, lineas);
+      doc.text(datos.opcion, 150, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
