@@ -68,7 +68,7 @@ const Documentacion = () => {
         grilla.id_documentacion.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.nombre_documentacion.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.corto_documentacion.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.id_tarchivo.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_tarchivo.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
     );
   }
@@ -156,7 +156,7 @@ const Documentacion = () => {
                 <TableCell>Id</TableCell>
                 <TableCell>{t("documentacion.nombre-documentacion")}</TableCell>
                 <TableCell>{t("documentacion.corto_documentacion")}</TableCell>
-                <TableCell align="center">{t("documentacion.id_tachivo")}</TableCell>
+                <TableCell align="center">{t("documentacion.nombre_tarchivo")}</TableCell>
                 <TableCell align="center">{t("documentacion.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -175,8 +175,8 @@ const Documentacion = () => {
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_documentacion}</TableCell>
                   <TableCell >{dato.nombre_documentacion.toUpperCase()}</TableCell>
                   <TableCell >{dato.corto_documentacion.toUpperCase()}</TableCell>
-                  <TableCell >{dato.id_tarchivo.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>
+                  <TableCell >{dato.nombre_tarchivo.toUpperCase()}</TableCell>
+                  <TableCell>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >

@@ -12,28 +12,28 @@ export function tipo_usuario_pdf(filtro, idioma) {
       titulo = "Registro de Tipo de Usuarios";
       nombretusuario = "Nombre de Tipo de Usuario";
       observacion = "Observación";
-      habilitado = "Habilitada";
+      habilitado = "Habil.";
       page = "Página";
       reporte = "Reporte al"
     } else if (idioma === 'en') {
       titulo = "Records of User Type";
       nombretusuario = "User Type Name";
       observacion = "Observation";
-      habilitado = "Enabled";
+      habilitado = "Enab.";
       page = "Page";
       reporte = "Report as of";
     } else if (idioma === 'por') {
       titulo = "Datas do Tipo de Usuário";
       nombretusuario = "Nome do Tipo de Usuário";
       observacion = "Observação";
-      habilitado = "Habilitado";
+      habilitado = "Habil.";
       page = "Página";
       reporte = "Relatório em";
     } else {
       titulo = "Registro de Tipo de Usuarios";
       nombretusuario = "Nombre de Tipo de Usuario";
       observacion = "Observación";
-      habilitado = "Habilitada";
+      habilitado = "Habil.";
       page = "Página";
       reporte = "Reporte al"
     }
@@ -73,23 +73,23 @@ export function tipo_usuario_pdf(filtro, idioma) {
     data.map((datos, index) => {
       if (index % 2 == 0 && datos.nombre_tusuario.length > 120) {
         doc.setFillColor("#ECECEC");
-        doc.rect(15, lineas - 4, 169, 10, "F");
+        doc.rect(11, lineas - 4, 279, 10, "F");
       }
 
       if (index % 2 == 0 && datos.nombre_tusuario.length < 120) {
         doc.setFillColor("#ECECEC");
-        doc.rect(15, lineas - 4, 169, 5, "F");
+        doc.rect(11, lineas - 4, 279, 5, "F");
       }
 
-      doc.text(datos.id_tusuario, 20, lineas);
-      doc.text(datos.nombre_tusuario, 34, lineas);
-      doc.text(datos.observacion, 72, lineas);
+      doc.text(datos.id_tusuario, 14, lineas);
+      doc.text(datos.nombre_tusuario, 20, lineas);
+      doc.text(datos.observacion, 65, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
-      doc.text(habilita, 168, lineas);
+      doc.text(habilita, 284, lineas);
 
-      if (datos.nombre_tusuario.length > 100) {
+      if (datos.observacion.length > 150) {
         //doc.line(5,lineas+6,200,lineas+6);
         lineas = lineas + 5;
       } else {
@@ -97,7 +97,7 @@ export function tipo_usuario_pdf(filtro, idioma) {
         lineas = lineas + 5;
       }
 
-      if (lineas > 270) {
+      if (lineas > 210) {
         pagina = pagina + 1;
         lineas = 35;
         doc.addPage();
@@ -111,29 +111,29 @@ export function tipo_usuario_pdf(filtro, idioma) {
   function cabecera() {
     const logo = new Image();
     logo.src = "/logo.png";
-    doc.addImage(logo, "PNG", 170, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
-    doc.rect(14.8, 19.8, 169.3, 7.4);
+    doc.addImage(logo, "PNG", 270, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
+    doc.rect(10.8, 19.8, 279.3, 7.4);
     doc.setFillColor("#EBEBEB");
-    doc.rect(15, 20, 169, 7, "F");
+    doc.rect(11, 20, 279, 7, "F");
     doc.setFontSize(14);
 
     doc.setTextColor(55, 0, 0);
-    doc.text(titulo, 15, 12);
+    doc.text(titulo, 11, 12);
     doc.setTextColor(0, 0, 0);
-    doc.setFontSize(9);
-    doc.text("ID", 22, 25, { align: "center" });
-    doc.line(30, 19.8, 30, 27.2);
-    doc.text(nombretusuario , 47, 25, { align: "center" });
-    doc.line(70, 19.8, 70, 27.2);
-    doc.text(observacion , 90, 25, { align: "center" });
-    doc.line(115, 19.8, 115, 27.2);
+    doc.setFontSize(8);
+    doc.text("ID", 14, 25, { align: "center" });
+    doc.line(17, 19.8, 17, 27.2);
+    doc.text(nombretusuario , 40, 25, { align: "center" });
+    doc.line(62, 19.8, 62, 27.2);
+    doc.text(observacion , 150, 25, { align: "center" });
+    doc.line(278, 19.8, 278, 27.2);
 
-    doc.text(habilitado, 172, 25, { align: "center" });
+    doc.text(habilitado, 284, 25, { align: "center" });
     let fecha = new Date();
     fecha = fecha.toLocaleString();
-
-    doc.text(`${reporte}: ` + fecha, 5, 288, { align: "left" });
-    doc.text(`${page}: ` + pagina.toString(), 195, 288, { align: "right" });
+8
+    doc.text(`${reporte}: ` + fecha, 5, 198, { align: "left" });
+    doc.text(`${page}: ` + pagina.toString(), 195, 198, { align: "right" });
   }
 }
 

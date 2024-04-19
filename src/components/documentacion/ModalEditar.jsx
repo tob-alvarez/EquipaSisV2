@@ -16,21 +16,9 @@ const ModalEditar = ({dato}) => {
     const [id_documentacion, setId_documentacion] = useState("");
     const [nombre_documentacion, setNombre_documentacion] = useState("");
     const [corto_documentacion, setCorto_documentacion] = useState("");
-    const [habilita, setHabilita] = useState(false);
     const [id_tarchivo, setId_tarchivo] = useState("");
+    const [habilita, setHabilita] = useState(false);
     const { actualizador, traerTarchivos, tarchivos } = useContext(EquipaContext);
-
-    const limpia_campos = () => {
-      setId_documentacion("");
-      setNombre_documentacion("");
-      setCorto_documentacion("");
-      setId_tarchivo("");
-      setHabilita(false);
-    };
-    const closeModalEdit = () => {
-      limpia_campos();
-      setIsModalEditOpen(false);
-    };
 
     useEffect(() => {
       if (isModalEditOpen && dato) {
@@ -45,6 +33,21 @@ const ModalEditar = ({dato}) => {
       }
     }, [isModalEditOpen, dato]);
     
+    useEffect(() => {
+      traerTarchivos({tarea: "combo_tipo_archivo"})
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    const limpia_campos = () => {
+      setId_documentacion("");
+      setNombre_documentacion("");
+      setCorto_documentacion("");
+      setId_tarchivo("");
+      setHabilita(false);
+    };
+    const closeModalEdit = () => {
+      limpia_campos();
+      setIsModalEditOpen(false);
+    };
     
     const acepta_accion = () => {
       const datos_cambios = {
@@ -59,7 +62,6 @@ const ModalEditar = ({dato}) => {
         return;
       }
       
-      console.log(datos_cambios)
       cambia_documentaciones(datos_cambios).then((respuesta_accion) => {
         if (respuesta_accion[0].registros > 0) {
           toast.success(`${t("varios.editado")}`, {
