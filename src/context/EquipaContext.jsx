@@ -74,7 +74,7 @@ const EquipaProvider = ({ children }) => {
   const traerTarchivos = async (tarea) => {
     try {
       const { data } = await axios.post(`https://v2.equipasis.com/api/tipo_archivo.php`, tarea);
-      setTarchivos(data.tarchivos)
+      setTarchivos(data.tipo_archivo)
     } catch (error) {
       console.error(error.response?.data.message || error.message);
     }

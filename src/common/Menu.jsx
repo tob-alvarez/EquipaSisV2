@@ -93,7 +93,7 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
     return (
         <>
             <List>
-                <ListItem disablePadding sx={{ display: "block" }}>
+                <ListItem disablePadding sx={{ display: "block", padding: 0 }}>
                     <ListItemButton
                         sx={{
                             minHeight: 48,
@@ -123,7 +123,7 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
                         {/* Elemento del menú */}
                         <ListItemButton sx={{
                             minHeight: 48,
-                            px: 2
+                            px: 2.5
                         }} onClick={() => handleClick(item.label)}>
                             <ListItemIcon sx={{
                                 minWidth: 0,
@@ -147,11 +147,12 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
                                             key={subIndex}
                                             component="a"
                                             className="w-100"
+                                            sx={{paddingY: 0}}
                                             >
                                             <ListItemText
                                                 primary={subItem.label}
                                                 onClick={() => redirigir(`/${subItem.path}`)}
-                                                sx={{opacity: open ? 1 : 0}}
+                                                sx={{opacity: open ? 1 : 0, paddingLeft: 5}}
                                             />
                                         </ListItemButton>
                                     ))}

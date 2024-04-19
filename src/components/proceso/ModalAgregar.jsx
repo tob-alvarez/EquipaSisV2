@@ -70,17 +70,6 @@ const ModalAgregar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
-//   const op = opciones; // Supongo que `opciones` es tu array original
-// if (Array.isArray(op) && !opcion) {
-//   const padresUnicos = op.reduce((unicos, item) => {
-//     if (!unicos.includes(item.padre_es)) {
-//       unicos.push(item.padre_es);
-//     }
-//     return unicos;
-//   }, []);
-//   console.log(padresUnicos);
-//   setOpcion(padresUnicos);
-// }
 
   return (
     <>
