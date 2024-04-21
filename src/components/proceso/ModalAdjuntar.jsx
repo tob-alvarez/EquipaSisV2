@@ -1,76 +1,106 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
-import { Form, InputGroup, Modal } from "react-bootstrap"
+import { Form, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
-import { alta_procesos } from "./funciones_proceso";
 import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
 import { useTranslation } from "react-i18next";
 import { EquipaContext } from "../../context/EquipaContext";
+import { trae_permisos_procesos } from "./funciones_proceso";
 
 // eslint-disable-next-line react/prop-types
 const ModalAdjuntar = ({dato}) => {
 
   const [isModalAttachOpen, setIsModalAttachOpen] = useState(false);
   const [t] = useTranslation("global")
-  const [id_proceso, setId_proceso] = useState("");
-  const [nombre_proceso, setNombre_proceso] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [descripcion_en, setDescripcion_en] = useState("");
-  const [descripcion_por, setDescripcion_por] = useState("");
-  const [id_opcion, setId_opcion] = useState("");
-  const [habilita, setHabilita] = useState(false);
-  const { actualizador, traerOpciones } = useContext(EquipaContext);
+  const { actualizador } = useContext(EquipaContext);
+  const [checkboxState, setCheckboxState] = useState({});
+  const [permisosPorUsuario, setPermisosPorUsuario] = useState([]);
+  const [datos, setDatos] = useState({});
+
   const limpia_campos = () => {
-    setId_proceso("");
-    setNombre_proceso("");
-    setDescripcion("");
-    setDescripcion_en("");
-    setDescripcion_por("");
-    setId_opcion("");
-    setHabilita(false);
+    setCheckboxState([])
+    setDatos({})
   };
   const closeModalAttach = () => {
     limpia_campos();
     setIsModalAttachOpen(false);
   };
-  const acepta_accion = () => {
-    const datos_cambios = {
-      id_proceso: id_proceso,
-      nombre_proceso: nombre_proceso,
-      descripcion: descripcion,
-      descripcion_en: descripcion_en,
-      descripcion_por: descripcion_por,
-      id_opcion: id_opcion,
-      habilita: habilita === true ? "1" : "0",
-    };
+   
+  // const acepta_accion = () => {
+  //   const datos_cambios = {
+  //     id_proceso: id_proceso,
+  //     id_opcion: id_opcion,
+  //     permisos: checkboxState,
+  //   };
 
-    if (nombre_proceso === "" || descripcion === "" || descripcion_en === "" || descripcion_por === "" || id_opcion === "") {
-      toast.error(`${t("proceso.datoObligatorio")}`);
-      return;
-    }
+  //   alta_procesos(datos_cambios).then((respuesta_accion) => {
+  //     if (respuesta_accion[0].registros > 0) {
+  //       toast.success(`${t("varios.alta")}`, {
+  //         duration: 2000,
+  //       });
+  //       limpia_campos()
+  //       actualizador()
+  //     } else {
+  //       toast.error(`${respuesta_accion[0].Mensage}`, {
+  //         duration: 2000,
+  //         className: "bg-success text-white fs-6",
+  //       });
+  //     }
+  //     setIsModalAttachOpen(false);
+  //   });
+  // }
 
-
-    alta_procesos(datos_cambios).then((respuesta_accion) => {
-      if (respuesta_accion[0].registros > 0) {
-        toast.success(`${t("varios.alta")}`, {
-          duration: 2000,
-        });
-        limpia_campos()
-        actualizador()
-      } else {
-        toast.error(`${respuesta_accion[0].Mensage}`, {
-          duration: 2000,
-          className: "bg-success text-white fs-6",
-        });
-      }
-      setIsModalAttachOpen(false);
-    });
-  }
-  useEffect(() => {
-    traerOpciones({tarea: "combo_opcion"})
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   
+  const handleCheckboxChange = (event, index, fieldName) => {
+    const { checked } = event.target;
+    const updatedCheckboxState = { ...checkboxState };
+  
+    // Actualizar el estado del campo específico del tipo de usuario correspondiente
+    updatedCheckboxState[index] = {
+      ...updatedCheckboxState[index],
+      [fieldName]: checked ? true : false,
+    };
+    setCheckboxState(updatedCheckboxState);
+  
+    // Crear una copia del estado actual de datos
+    const updatedDatos = { ...datos };
+  
+    // Actualizar el objeto de permisos en el estado de datos
+    updatedDatos.permisos = Object.values(updatedCheckboxState);
+    updatedDatos.id_proceso = dato.id_proceso
+    updatedDatos.id_tusuario = "1"
+  
+    // Establecer el estado actualizado de datos
+    setDatos(updatedDatos);
+  };
+  
+  
+  useEffect(() => {
+    trae_permisos_procesos(dato).then((result) => {
+      setPermisosPorUsuario(result);
+      // Inicializa el estado de los checkboxes aquí
+      const initialCheckboxState = {};
+      permisosPorUsuario.forEach((tipo, index) => {
+        initialCheckboxState[index] = {
+          ver_opcion: tipo.ver_opcion === "1",
+          agregar: tipo.agregar === "1",
+          modificar: tipo.modificar === "1",
+          eliminar: tipo.eliminar === "1",
+          imprimir: tipo.imprimir === "1",
+          exportar: tipo.exportar === "1",
+          adjuntar: tipo.adjuntar === "1",
+          habilita: tipo.habilita === "1",
+          // Agrega otros permisos aquí según sea necesario
+        };
+      });
+      setCheckboxState(initialCheckboxState);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isModalAttachOpen]);
+  
+  // console.log(permisosPorUsuario)
+  // console.log(checkboxState)
+  console.log(datos)
 
   return (
     <>
@@ -78,7 +108,7 @@ const ModalAdjuntar = ({dato}) => {
       <Modal
         show={isModalAttachOpen}
         onHide={closeModalAttach}
-        size="lg"
+        size="xl"
         backdrop="static"
         centered
         keyboard={false}
@@ -90,37 +120,107 @@ const ModalAdjuntar = ({dato}) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="p-1">
-          <div className="d-flex">
-            <p className="m-0 py-2 px-1" style={{width: 200}}></p>
-            <p className="m-0 py-2 px-1">VER</p>
-            <p className="m-0 py-2 px-1">AGREGAR</p>
-            <p className="m-0 py-2 px-1">MODIFICAR</p>
-            <p className="m-0 py-2 px-1">ELIMINAR</p>
-            <p className="m-0 py-2 px-1">IMPRIMIR</p>
-            <p className="m-0 py-2 px-1">EXPORTAR</p>
-            <p className="m-0 py-2 px-1">ADJUNTAR</p>
-            <p className="m-0 py-2 px-1">HABILITA</p>
-          </div>
-          <div className="d-flex" style={{width: 200}}> 
-            <p className="m-0 py-3 px-3">Administrador</p>
-          </div>
-          <div className="d-flex" style={{width: 200}}> 
-            <p className="m-0 py-3 px-3">Supervisor</p>
-          </div>
-          <div className="d-flex" style={{width: 200}}> 
-            <p className="m-0 py-3 px-3">Tecnico</p>
-          </div>
-          <div className="d-flex" style={{width: 200}}> 
-            <p className="m-0 py-3 px-3">Operador de Carga</p>
-          </div>
-          <div className="d-flex" style={{width: 200}}> 
-            <p className="m-0 py-3 px-3">Solo Lectura</p>
-          </div>
-        </Modal.Body>
+      <div className="table-responsive">
+        <table className="table table-borderless">
+          <thead>
+            <tr>
+              <th></th>
+              <th style={{ textAlign: "center" }}>VER</th>
+              <th style={{ textAlign: "center" }}>AGREGAR</th>
+              <th style={{ textAlign: "center" }}>MODIFICAR</th>
+              <th style={{ textAlign: "center" }}>ELIMINAR</th>
+              <th style={{ textAlign: "center" }}>IMPRIMIR</th>
+              <th style={{ textAlign: "center" }}>EXPORTAR</th>
+              <th style={{ textAlign: "center" }}>ADJUNTAR</th>
+              <th style={{ textAlign: "center" }}>HABILITA</th>
+            </tr>
+          </thead>
+          <tbody>
+            {permisosPorUsuario?.map((tipo, index) => (
+              <tr key={index}>
+                <td >{tipo.nombre_tusuario}</td>
+                <td>
+                <Form.Check
+                  type="checkbox"
+                  name="ver_opcion"
+                  style={{ textAlign: "center" }}
+                  checked={checkboxState[index]?.ver_opcion === true}
+                  onChange={(event) => handleCheckboxChange(event, index, 'ver_opcion')}
+                />
+                </td>
+                <td>
+                  <Form.Check
+                    type="checkbox"
+                    name="agregar"
+                    style={{ textAlign: "center" }}
+                    checked={checkboxState[index]?.agregar === true}
+                    onChange={(event) => handleCheckboxChange(event, index, 'agregar')}
+                  />
+                </td>
+                <td>
+                  <Form.Check
+                    type="checkbox"
+                    name="modificar"
+                    style={{ textAlign: "center" }}
+                    checked={checkboxState[index]?.modificar === true}
+                    onChange={(event) => handleCheckboxChange(event, index, 'modificar')}
+                  />
+                </td>
+                <td>
+                  <Form.Check
+                    type="checkbox"
+                    name="eliminar"
+                    style={{ textAlign: "center" }}
+                    checked={checkboxState[index]?.eliminar === true}
+                    onChange={(event) => handleCheckboxChange(event, index, 'eliminar')}
+                  />
+                </td>
+                <td>
+                  <Form.Check
+                    type="checkbox"
+                    name="imprimir"
+                    style={{ textAlign: "center" }}
+                    checked={checkboxState[index]?.imprimir === true}
+                    onChange={(event) => handleCheckboxChange(event, index, 'imprimir')}
+                  />
+                </td>
+                <td>
+                  <Form.Check
+                    type="checkbox"
+                    name="exportar"
+                    style={{ textAlign: "center" }}
+                    checked={checkboxState[index]?.exportar === true}
+                    onChange={(event) => handleCheckboxChange(event, index, 'exportar')}
+                  />
+                </td>
+                <td>
+                  <Form.Check
+                    type="checkbox"
+                    name="adjuntar"
+                    style={{ textAlign: "center" }}
+                    checked={checkboxState[index]?.adjuntar === true}
+                    onChange={(event) => handleCheckboxChange(event, index, 'adjuntar')}
+                  />
+                </td>
+                <td>
+                  <Form.Check
+                    type="checkbox"
+                    name="habilita"
+                    style={{ textAlign: "center" }}
+                    checked={checkboxState[index]?.habilita === true}
+                    onChange={(event) => handleCheckboxChange(event, index, 'habilita')}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Modal.Body>
         <Modal.Footer>
           <div className="justify-content-center mt-2">
             <button
-              onClick={acepta_accion}
+              // onClick={acepta_accion}
               className="btn btn-primary btn-sm m-2"
               style={{
                 float: "right",

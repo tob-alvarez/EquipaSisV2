@@ -35,6 +35,25 @@ export async function trae_permisos(datos){
   return result.proceso;
 }
 
+export async function trae_permisos_procesos(datos){
+  const JSONdata = JSON.stringify({ 
+    tarea: "consulta_permisos_procesos",
+    id_proceso: datos.id_proceso,
+  }); // Send the data to the server in JSON format.
+  const endpoint = "https://v2.equipasis.com/api/proceso.php"; // API endpoint where we send form data.
+
+  // Form the request for sending data to the server.
+  const options = {
+    method: "POST", // The method is POST because we are sending data.
+    headers: { "Content-Type": "application/json" }, // Tell the server we're sending JSON.
+    body: JSONdata, // Body of the request is the JSON data we created above.
+  };
+  const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
+
+  const result = await response.json();
+  return result.permisos;
+}
+
 export async function cambia_procesos(datos){
   const JSONdata = JSON.stringify({ 
     tarea: "cambia_proceso",
