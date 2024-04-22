@@ -28,7 +28,7 @@ import Reloj from "./Reloj";
 import MenuLateral from "./Menu";
 import { useNavigate } from "react-router-dom";
 
-const drawerWidth = 260;
+const drawerWidth = 280;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,

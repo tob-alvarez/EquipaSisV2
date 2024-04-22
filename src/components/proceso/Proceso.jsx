@@ -19,6 +19,7 @@ import ModalAyuda from "./ModalAyuda";
 import ModalEditar from "./ModalEditar";
 import ModalBorrar from "./ModalBorrar";
 import { EquipaContext } from "../../context/EquipaContext";
+import ModalAdjuntar from "./ModalAdjuntar";
 
 const Proceso = () => {
   const [t] = useTranslation("global")
@@ -185,7 +186,7 @@ const Proceso = () => {
                   <TableCell>{dato.nombre_opcion.toUpperCase()}</TableCell>
                   <TableCell>
                     <p
-                      style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
+                      style={dato.habilita_3 === 'SI' ? {margin: 0, textAlign: "center"}:{margin:0, color: "#ff0000", textAlign: "center"}}
                     >
                       {dato.habilita_3}
                     </p>
@@ -199,6 +200,11 @@ const Proceso = () => {
                     {permisos_usuario.eliminar === "1" && (
                       <IconButton>
                         <ModalBorrar dato={dato} />
+                      </IconButton>
+                    )}
+                    {permisos_usuario.adjuntar === "1" && (
+                      <IconButton>
+                        <ModalAdjuntar dato={dato} />
                       </IconButton>
                     )}
                   </TableCell>

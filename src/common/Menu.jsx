@@ -32,14 +32,20 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
         // Verificar si menuItems es un array y realizar la operación
         const ultimoItem = menuItems[menuItems.length - 1];
         if (ultimoItem && Array.isArray(ultimoItem.subItems)) {
-          // Verificar si el último elemento tiene subItems y ordenarlos
-        ultimoItem.subItems.sort((a, b) => a.label.localeCompare(b.label));
+            // Verificar si el último elemento tiene subItems y ordenarlos
+            if (ultimoItem.subItems.length > 0) {
+                // Verificar si subItems no está vacío antes de intentar ordenar
+                ultimoItem.subItems.sort((a, b) => a.label.localeCompare(b.label));
+            } else {
+                console.log('El último elemento tiene subItems, pero está vacío');
+            }
         } else {
-        console.log('El último elemento no tiene subItems o no es un array');
+            console.log('El último elemento no tiene subItems o no es un array');
         }
     } else {
         console.log('menuItems no es un array');
     }
+    
 
     const mapearIcono = (nombreOpcion) => {
         switch (nombreOpcion) {
@@ -93,7 +99,7 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
     return (
         <>
             <List>
-                <ListItem disablePadding sx={{ display: "block" }}>
+                <ListItem disablePadding sx={{ display: "block", padding: 0 }}>
                     <ListItemButton
                         sx={{
                             minHeight: 48,
@@ -123,7 +129,7 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
                         {/* Elemento del menú */}
                         <ListItemButton sx={{
                             minHeight: 48,
-                            px: 2
+                            px: 2.5
                         }} onClick={() => handleClick(item.label)}>
                             <ListItemIcon sx={{
                                 minWidth: 0,
@@ -147,11 +153,12 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
                                             key={subIndex}
                                             component="a"
                                             className="w-100"
+                                            sx={{paddingY: 0}}
                                             >
                                             <ListItemText
                                                 primary={subItem.label}
                                                 onClick={() => redirigir(`/${subItem.path}`)}
-                                                sx={{opacity: open ? 1 : 0}}
+                                                sx={{opacity: open ? 1 : 0, paddingLeft: 5}}
                                             />
                                         </ListItemButton>
                                     ))}
