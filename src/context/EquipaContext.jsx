@@ -53,6 +53,7 @@ const EquipaProvider = ({ children }) => {
       sessionStorage.setItem("token", data.token[0].token);
       localStorage.setItem("nombre", data.persona[0].nombre_persona);
       localStorage.setItem("rol", data.persona[0].nombre_tusuario);
+      localStorage.setItem("language", "es");
       navigate('/inicio')
       window.location.reload()
     } catch (error) {
