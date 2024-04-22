@@ -1,0 +1,48 @@
+.boxLogin{
+    min-height: 80vh;
+    box-shadow: #00000050 2px 2px 2px 1px;
+    border-radius: 10px;
+}
+@media (max-width: 900px) {
+    .boxLogin{
+        display: none;
+    }
+    .boxLeft{
+        width: 0 !important;
+        display: none !important;
+    }
+    .boxRight{
+        width: 100% !important;
+        border-radius: 10px !important;
+        border-left: 1px solid #ccc;
+    }
+    img{
+        display: none;
+    }
+  }
+
+.boxLeft{
+    width: 40%;
+    background-color: #990000;
+    height: 80vh;
+    border-radius: 10px 0 0 10px;
+}
+.boxRight{
+    height: 80vh;
+    width: 60%;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0 10px 10px 0;
+    background-color: #ffffff;
+}
+.p-pointer{
+    cursor: pointer;
+}
+.icono-lang{
+    height: 20px;
+}
+.imgLogin{
+    height: 100px;
+}
