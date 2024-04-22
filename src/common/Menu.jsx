@@ -32,14 +32,20 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
         // Verificar si menuItems es un array y realizar la operación
         const ultimoItem = menuItems[menuItems.length - 1];
         if (ultimoItem && Array.isArray(ultimoItem.subItems)) {
-          // Verificar si el último elemento tiene subItems y ordenarlos
-        ultimoItem.subItems.sort((a, b) => a.label.localeCompare(b.label));
+            // Verificar si el último elemento tiene subItems y ordenarlos
+            if (ultimoItem.subItems.length > 0) {
+                // Verificar si subItems no está vacío antes de intentar ordenar
+                ultimoItem.subItems.sort((a, b) => a.label.localeCompare(b.label));
+            } else {
+                console.log('El último elemento tiene subItems, pero está vacío');
+            }
         } else {
-        console.log('El último elemento no tiene subItems o no es un array');
+            console.log('El último elemento no tiene subItems o no es un array');
         }
     } else {
         console.log('menuItems no es un array');
     }
+    
 
     const mapearIcono = (nombreOpcion) => {
         switch (nombreOpcion) {

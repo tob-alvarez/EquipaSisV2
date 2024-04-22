@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
-import { alta_procesos } from "./funciones_proceso";
+import { alta_tipo_equipos } from "./funciones_tipo_equipo";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
@@ -11,21 +11,20 @@ const ModalAgregar = () => {
 
   const [isModalAttachOpen, setIsModalAttachOpen] = useState(false);
   const [t] = useTranslation("global")
-  const [id_proceso, setId_proceso] = useState("");
-  const [nombre_proceso, setNombre_proceso] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [descripcion_en, setDescripcion_en] = useState("");
-  const [descripcion_por, setDescripcion_por] = useState("");
-  const [id_opcion, setId_opcion] = useState("");
+  const [id_tequipo, setId_tequipo] = useState("");
+  const [nombre_tequipo, setNombre_tequipo] = useState("");
+  const [id_categoria, setId_categoria] = useState("");
+  const [id_prioridad, setId_prioridad] = useState("");
+  const [id_tcontrol, setId_tcontrol] = useState("");
   const [habilita, setHabilita] = useState(false);
-  const { actualizador, traerOpciones, opciones } = useContext(EquipaContext);
+  const { actualizador, traerCategorias, categorias, traerPrioridades, prioridades, traerTcontroles, tcontroles } = useContext(EquipaContext);
+  
   const limpia_campos = () => {
-    setId_proceso("");
-    setNombre_proceso("");
-    setDescripcion("");
-    setDescripcion_en("");
-    setDescripcion_por("");
-    setId_opcion("");
+    setId_tequipo("");
+    setNombre_tequipo("");
+    setId_categoria("");
+    setId_prioridad("");
+    setId_tcontrol("");
     setHabilita(false);
   };
   const closeModalAttach = () => {
@@ -34,22 +33,21 @@ const ModalAgregar = () => {
   };
   const acepta_accion = () => {
     const datos_cambios = {
-      id_proceso: id_proceso,
-      nombre_proceso: nombre_proceso,
-      descripcion: descripcion,
-      descripcion_en: descripcion_en,
-      descripcion_por: descripcion_por,
-      id_opcion: id_opcion,
+      id_tequipo: id_tequipo,
+      nombre_tequipo: nombre_tequipo,
+      id_categoria: id_categoria,
+      id_prioridad: id_prioridad,
+      id_tcontrol: id_tcontrol,
       habilita: habilita === true ? "1" : "0",
     };
 
-    if (nombre_proceso === "" || descripcion === "" || descripcion_en === "" || descripcion_por === "" || id_opcion === "") {
-      toast.error(`${t("proceso.datoObligatorio")}`);
+    if (nombre_tequipo === "" || id_categoria === "" || id_prioridad === "" || id_tcontrol === "") {
+      toast.error(`${t("tipo_equipo.datoObligatorio")}`);
       return;
     }
+    
 
-
-    alta_procesos(datos_cambios).then((respuesta_accion) => {
+    alta_tipo_equipos(datos_cambios).then((respuesta_accion) => {
       if (respuesta_accion[0].registros > 0) {
         toast.success(`${t("varios.alta")}`, {
           duration: 2000,
@@ -66,14 +64,16 @@ const ModalAgregar = () => {
     });
   }
   useEffect(() => {
-    traerOpciones({tarea: "combo_opcion"})
+    traerCategorias({tarea: "combo_categoria"})
+    traerPrioridades({tarea: "combo_prioridad"})
+    traerTcontroles({tarea: "combo_tipo_control"})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer/>
       <Modal
         show={isModalAttachOpen}
         onHide={closeModalAttach}
@@ -85,12 +85,12 @@ const ModalAgregar = () => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            {t("proceso.agregarTitulo")}
+          {t("tipo_equipo.agregarTitulo")}
             <p
               className="pb-0 mb-0 text-body-emphasis fw-bold"
               style={{ fontSize: "0.5em" }}
             >
-              {t("proceso.datoObligatorio")}
+              {t("tipo_equipo.datoObligatorio")}
             </p>
           </Modal.Title>
         </Modal.Header>
@@ -99,15 +99,15 @@ const ModalAgregar = () => {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                  {t("proceso.nombre-proceso")}: #
+                {t("tipo_equipo.nombre-tequipo")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
-                    id="nombre_proceso"
-                    value={nombre_proceso}
-                    onChange={(e) => setNombre_proceso(e.target.value)}
+                    id="nombre_tequipo"
+                    value={nombre_tequipo}
+                    onChange={(e) => setNombre_tequipo(e.target.value)}
                     onKeyUp={(e) =>
-                      setNombre_proceso(e.target.value.toUpperCase())
+                      setNombre_tequipo(e.target.value.toUpperCase())
                     }
                     className="mb-2"
                   />
@@ -116,85 +116,79 @@ const ModalAgregar = () => {
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                  {t("proceso.descripcion")}: #
-                </label>
-                <InputGroup>
-                  <Form.Control
-                    id="descripcion"
-                    value={descripcion}
-                    onChange={(e) => setDescripcion(e.target.value)}
-                    onKeyUp={(e) =>
-                      setDescripcion(e.target.value.toUpperCase())
-                    }
-                    className="mb-2"
-                  />
-                </InputGroup>
-              </div>
-
-              <div className="col-6">
-                <label htmlFor="name" className="label-material mb-1">
-                  {t("proceso.descripcion_en")}: #
-                </label>
-                <InputGroup>
-                  <Form.Control
-                    id="descripcion_en"
-                    value={descripcion_en}
-                    onChange={(e) => setDescripcion_en(e.target.value)}
-                    onKeyUp={(e) =>
-                      setDescripcion_en(e.target.value.toUpperCase())
-                    }
-                    className="mb-2"
-                  />
-                </InputGroup>
-              </div>
-
-              <div className="col-6">
-                <label htmlFor="name" className="label-material mb-1">
-                  {t("proceso.descripcion_por")}: #
-                </label>
-                <InputGroup>
-                  <Form.Control
-                    id="descripcion_por"
-                    value={descripcion_por}
-                    onChange={(e) => setDescripcion_por(e.target.value)}
-                    onKeyUp={(e) =>
-                      setDescripcion_por(e.target.value.toUpperCase())
-                    }
-                    className="mb-2"
-                  />
-                </InputGroup>
-              </div>
-
-              <div className="col-6">
-                <label htmlFor="name" className="label-material mb-1">
-                  {t("proceso.id_opcion")}: #
+                  {t("tipo_equipo.nombre_categoria")}: #
                 </label>
                 <InputGroup>
                   <Form.Select
-                    id="id_opcion"
-                    value={id_opcion}
-                    onChange={(e) => setId_opcion(e.target.value)}
-                    onKeyUp={(e) => setId_opcion(e.target.value.toUpperCase())}
+                    id="id_categoria"
+                    value={id_categoria}
+                    onChange={(e) => setId_categoria(e.target.value)}
+                    onKeyUp={(e) => setId_categoria(e.target.value.toUpperCase())}
                     className="mb-2"
                   >
-                    <option value="">{t("proceso.seleccione_opcion")}</option>
+                    <option value="">{t("tipo_equipo.seleccione_categoria")}</option>
                     
-                    {opciones?.map((o) => (
-                      <option key={o.id_opcion} value={o.id_opcion}>
-                        {o.nombre_opcion}
+                    {categorias?.map((o) => (
+                      <option key={o.id_categoria} value={o.id_categoria}>
+                        {o.nombre_categoria}
                       </option>
                     ))}
                   </Form.Select>
                 </InputGroup>
+              </div>
 
+              <div className="col-6">
+                <label htmlFor="name" className="label-material mb-1">
+                  {t("tipo_equipo.nombre_prioridad")}: #
+                </label>
+                <InputGroup>
+                  <Form.Select
+                    id="id_prioridad"
+                    value={id_prioridad}
+                    onChange={(e) => setId_prioridad(e.target.value)}
+                    onKeyUp={(e) => setId_prioridad(e.target.value.toUpperCase())}
+                    className="mb-2"
+                  >
+                    <option value="">{t("tipo_equipo.seleccione_prioridad")}</option>
+                    
+                    {prioridades?.map((o) => (
+                      <option key={o.id_prioridad} value={o.id_prioridad}>
+                        {o.nombre_prioridad}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </InputGroup>
+              </div>
+
+              <div className="col-6">
+                <label htmlFor="name" className="label-material mb-1">
+                  {t("tipo_equipo.nombre_tcontrol")}: #
+                </label>
+                <InputGroup>
+                  <Form.Select
+                    id="id_tcontrol"
+                    value={id_tcontrol}
+                    onChange={(e) => setId_tcontrol(e.target.value)}
+                    onKeyUp={(e) => setId_tcontrol(e.target.value.toUpperCase())}
+                    className="mb-2"
+                  >
+                    <option value="">{t("tipo_equipo.seleccione_tcontrol")}</option>
+                    
+                    {tcontroles?.map((o) => (
+                      <option key={o.id_tcontrol} value={o.id_tcontrol}>
+                        {o.nombre_tcontrol}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </InputGroup>
               </div>
 
               <div className="col-6 text-start">
-                {t("proceso.habilitado")}
-                <Switch
+                {t("tipo_equipo.habilitado")}
+                <Switch 
                   id={"habilita"}
                   checked={habilita}
-                  label={t("proceso.habilitado")}
+                  label={t("tipo_equipo.habilitado")}
                   onChange={(e) => setHabilita(e.target.checked)}
                 />
               </div>
@@ -229,11 +223,11 @@ const ModalAgregar = () => {
           </div>
         </Modal.Footer>
       </Modal>
-
-      <AddCircleOutlineOutlinedIcon
-        onClick={() => setIsModalAttachOpen(true)}
-        sx={{ fontSize: '40px' }}
-        style={{ cursor: "pointer" }} />
+      
+        <AddCircleOutlineOutlinedIcon
+          onClick={() => setIsModalAttachOpen(true)}
+          sx={{ fontSize: '40px' }}
+          style={{ cursor: "pointer" }} />
     </>
 
   )
