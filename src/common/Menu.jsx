@@ -27,31 +27,31 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
         }));
     };
 
-    if (Array.isArray(menuItems)) {
-        // Verificar si menuItems es un array
-        const ultimoItem = menuItems[menuItems.length - 1];
-        if (ultimoItem && Array.isArray(ultimoItem.subItems) && ultimoItem.subItems.length > 0) {
-            // Verificar si el último elemento tiene subItems y no está vacío
-            ultimoItem.subItems.sort((a, b) => {
-                // Comparar las etiquetas de los elementos a y b
-                const labelA = a.label.toUpperCase(); // Convertir las etiquetas a mayúsculas para una comparación sin distinción entre mayúsculas y minúsculas
-                const labelB = b.label.toUpperCase();
-                if (labelA < labelB) {
-                    return -1;
-                }
-                if (labelA > labelB) {
-                    return 1;
-                }
-                return 0; // Los elementos son iguales
-            });
-        } else {
-            console.log('El último elemento no tiene subItems o está vacío');
-        }
-    } else {
-        console.log('menuItems no es un array');
-    }
+    // if (Array.isArray(menuItems)) {
+    //     // Verificar si menuItems es un array
+    //     const ultimoItem = menuItems[menuItems.length - 1];
+    //     if (ultimoItem && Array.isArray(ultimoItem.subItems) && ultimoItem.subItems.length > 0) {
+    //         // Verificar si el último elemento tiene subItems y no está vacío
+    //         ultimoItem.subItems.sort((a, b) => {
+    //             // Comparar las etiquetas de los elementos a y b
+    //             const labelA = a.label.toUpperCase(); // Convertir las etiquetas a mayúsculas para una comparación sin distinción entre mayúsculas y minúsculas
+    //             const labelB = b.label.toUpperCase();
+    //             if (labelA < labelB) {
+    //                 return -1;
+    //             }
+    //             if (labelA > labelB) {
+    //                 return 1;
+    //             }
+    //             return 0; // Los elementos son iguales
+    //         });
+    //     } else {
+    //         console.log('El último elemento no tiene subItems o está vacío');
+    //     }
+    // } else {
+    //     console.log('menuItems no es un array');
+    // }
     
-    
+    console.log(menuItems)
 
     const mapearIcono = (nombreOpcion) => {
         switch (nombreOpcion) {
