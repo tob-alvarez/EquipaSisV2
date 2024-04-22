@@ -12,13 +12,13 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import FlagIcon from '@mui/icons-material/Flag';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-const MenuLateral = ({menuItems, open, setOpen}) => {
+const MenuLateral = ({ menuItems, open, setOpen }) => {
     const navigate = useNavigate()
     const redirigir = (ruta) => {
         navigate(ruta);
     };
     const [openLists, setOpenLists] = useState({});
-    
+
     const handleClick = (label) => {
         setOpen(true)
         setOpenLists(prevState => ({
@@ -50,8 +50,6 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
     // } else {
     //     console.log('menuItems no es un array');
     // }
-    
-    console.log(menuItems)
 
     const mapearIcono = (nombreOpcion) => {
         switch (nombreOpcion) {
@@ -123,49 +121,45 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
                         <ListItemText
                             primary={"INICIO"}
                             onClick={() => redirigir(`/inicio`)}
-                            sx={{opacity: open ? 1 : 0}}
+                            sx={{ opacity: open ? 1 : 0 }}
                         />
                     </ListItemButton>
                 </ListItem>
                 {menuItems?.map((item, index) => (
-                    <div
-                        key={index}
-                        className="d-flex justify-content-between w-100 flex-column m-0"
-                    >
+                    <div key={index}>
                         {/* Elemento del menú */}
-                        <ListItemButton sx={{
-                            minHeight: 48,
-                            px: 2.5
-                        }} onClick={() => handleClick(item.label)}>
-                            <ListItemIcon sx={{
-                                minWidth: 0,
-                                justifyContent: "left",
-                            }}>{mapearIcono(item.label)}</ListItemIcon>
-                            <ListItemText primary={item.label} sx={{opacity: open ? 1 : 0}}/>
-                            {item.subItems &&
-                                (openLists[item.label] ? <ExpandLess sx={{opacity: open ? 1 : 0}}/> : <ExpandMore sx={{opacity: open ? 1 : 0}}/>)}
+                        <ListItemButton
+                            sx={{
+                                minHeight: 48,
+                                px: 2.5
+                            }}
+                            onClick={() => handleClick(item.label)}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    justifyContent: "left",
+                                }}
+                            >
+                                {mapearIcono(item.label)}
+                            </ListItemIcon>
+                            <ListItemText primary={item.label} sx={{ opacity: open ? 1 : 0 }} />
+                            {item.subItems && (openLists[item.label] ? <ExpandLess sx={{ opacity: open ? 1 : 0 }} /> : <ExpandMore sx={{ opacity: open ? 1 : 0 }} />)}
                         </ListItemButton>
 
                         {/* Sub-elementos del menú si existen */}
                         {item.subItems && (
-                            <Collapse
-                                in={openLists[item.label]}
-                                timeout="auto"
-                                unmountOnExit
-                            >
+                            <Collapse in={openLists[item.label]} timeout="auto" unmountOnExit>
                                 <List component="div">
                                     {item.subItems.map((subItem, subIndex) => (
                                         <ListItemButton
                                             key={subIndex}
                                             component="a"
                                             className="w-100"
-                                            sx={{paddingY: 0}}
-                                            >
-                                            <ListItemText
-                                                primary={subItem.label}
-                                                onClick={() => redirigir(`/${subItem.path}`)}
-                                                sx={{opacity: open ? 1 : 0, paddingLeft: 5}}
-                                            />
+                                            sx={{ paddingY: 0 }}
+                                            onClick={() => redirigir(`/${subItem.path}`)}
+                                        >
+                                            <ListItemText primary={subItem.label} sx={{ opacity: open ? 1 : 0, paddingLeft: 5 }} />
                                         </ListItemButton>
                                     ))}
                                 </List>
@@ -174,6 +168,7 @@ const MenuLateral = ({menuItems, open, setOpen}) => {
                     </div>
                 ))}
             </List>
+
         </>
     )
 }
