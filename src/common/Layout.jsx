@@ -16,6 +16,7 @@ import ingles from '../assets/united-kingdom.svg'
 import spain from '../assets/spain.svg'
 import portugal from '../assets/portugal.svg'
 import { EquipaContext } from "../context/EquipaContext";
+import './Layout.css'
 import {
   Avatar,
   Menu,
