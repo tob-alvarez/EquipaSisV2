@@ -19,6 +19,7 @@ import Opcion from "./components/opcion/Opcion";
 import Organizacion from "./components/organizacion/Organizacion";
 //import Organizacion_servicio from "./components/organizacion_servicio/Organizacion_servicio";
 import Pais from "./components/pais/Pais";
+import Persona from "./components/persona/Persona";
 import Prioridad from "./components/prioridad/Prioridad";
 import Proceso from "./components/proceso/Proceso";
 import Provincia from "./components/provincia/Provincia";
@@ -30,6 +31,7 @@ import Tipo_archivo from "./components/tipo_archivo/Tipo_archivo";
 import Tipo_componente from "./components/tipo_componente/Tipo_componente";
 import Tipo_comprobante from "./components/tipo_comprobante/Tipo_comprobante";
 import Tipo_control from "./components/tipo_control/Tipo_control";
+import Tipo_equipo from "./components/tipo_equipo/Tipo_equipo";
 import Tipo_evento from "./components/tipo_evento/Tipo_evento";
 import Tipo_impresion from "./components/tipo_impresion/Tipo_impresion";
 import Tipo_indicador from "./components/tipo_indicador/Tipo_indicador";
@@ -169,6 +171,15 @@ function App() {
             />
             <Route
               exact
+              path="/persona"
+              element={
+                <PrivateRoute>
+                  <Persona />
+                </PrivateRoute>
+              }
+            />            
+            <Route
+              exact
               path="/prioridad"
               element={
                 <PrivateRoute>
@@ -266,6 +277,15 @@ function App() {
                 </PrivateRoute>
               }
             />              
+            <Route
+              exact
+              path="/tipo_equipo"
+              element={
+                <PrivateRoute>
+                  <Tipo_equipo />
+                </PrivateRoute>
+              }
+            /> 
             <Route
               exact
               path="/tipo_evento"

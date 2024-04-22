@@ -18,6 +18,14 @@ const EquipaProvider = ({ children }) => {
   const [refresh, setRefresh] = useState(null);
   const [opciones, setOpciones] = useState(null);
   const [tarchivos, setTarchivos] = useState(null);
+  const [categorias, setCategorias] = useState(null);
+  const [prioridades, setPrioridades] = useState(null);
+  const [tcontroles, setTcontroles] = useState(null);
+  const [paises, setPaises] = useState(null);
+  const [provincias, setProvincias] = useState(null);
+  const [empresas, setEmpresas] = useState(null);
+  const [tpersonas, setTpersonas] = useState(null);
+
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem('language');
@@ -74,7 +82,70 @@ const EquipaProvider = ({ children }) => {
   const traerTarchivos = async (tarea) => {
     try {
       const { data } = await axios.post(`https://v2.equipasis.com/api/tipo_archivo.php`, tarea);
-      setTarchivos(data.tarchivos)
+      setTarchivos(data.tipo_archivo)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
+  const traerCategorias = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/categoria.php`, tarea);
+      setCategorias(data.categoria)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+  
+  const traerPrioridades = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/prioridad.php`, tarea);
+      setPrioridades(data.prioridad)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+  
+  const traerTcontroles = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/tipo_control.php`, tarea);
+      setTcontroles(data.tipo_control)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
+  const traerPaises = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/pais.php`, tarea);
+      setPaises(data.pais)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
+  const traerProvincias = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/provincia.php`, tarea);
+      setProvincias(data.provincia)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+  
+  const traerEmpresas = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/empresa.php`, tarea);
+      setEmpresas(data.empresa)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
+  const traerTpersonas = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/tipo_persona.php`, tarea);
+      setTpersonas(data.tipo_persona)
     } catch (error) {
       console.error(error.response?.data.message || error.message);
     }
@@ -131,7 +202,21 @@ const EquipaProvider = ({ children }) => {
         traerOpciones,
         opciones,
         traerTarchivos,
-        tarchivos
+        tarchivos,
+        traerCategorias,
+        categorias,
+        traerPrioridades,
+        prioridades,
+        traerTcontroles,
+        tcontroles,
+        traerPaises,
+        paises,
+        traerProvincias,
+        provincias,
+        traerEmpresas,
+        empresas,
+        traerTpersonas,
+        tpersonas
       }}
     >
       {children}
