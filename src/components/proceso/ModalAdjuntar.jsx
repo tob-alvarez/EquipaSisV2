@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
 import { useTranslation } from "react-i18next";
 import { EquipaContext } from "../../context/EquipaContext";
-import { trae_permisos_procesos } from "./funciones_proceso";
+import { cambia_permisos_procesos, trae_permisos_procesos } from "./funciones_proceso";
 
 // eslint-disable-next-line react/prop-types
 const ModalAdjuntar = ({dato}) => {
@@ -26,29 +26,24 @@ const ModalAdjuntar = ({dato}) => {
     setIsModalAttachOpen(false);
   };
    
-  // const acepta_accion = () => {
-  //   const datos_cambios = {
-  //     id_proceso: id_proceso,
-  //     id_opcion: id_opcion,
-  //     permisos: checkboxState,
-  //   };
+  const acepta_accion = () => {
 
-  //   alta_procesos(datos_cambios).then((respuesta_accion) => {
-  //     if (respuesta_accion[0].registros > 0) {
-  //       toast.success(`${t("varios.alta")}`, {
-  //         duration: 2000,
-  //       });
-  //       limpia_campos()
-  //       actualizador()
-  //     } else {
-  //       toast.error(`${respuesta_accion[0].Mensage}`, {
-  //         duration: 2000,
-  //         className: "bg-success text-white fs-6",
-  //       });
-  //     }
-  //     setIsModalAttachOpen(false);
-  //   });
-  // }
+    cambia_permisos_procesos(datos).then((respuesta_accion) => {
+      if (respuesta_accion[0].registros > 0) {
+        toast.success(`${t("varios.alta")}`, {
+          duration: 2000,
+        });
+        limpia_campos()
+        actualizador()
+      } else {
+        toast.error(`${respuesta_accion[0].Mensage}`, {
+          duration: 2000,
+          className: "bg-success text-white fs-6",
+        });
+      }
+      setIsModalAttachOpen(false);
+    });
+  }
 
   
   const handleCheckboxChange = (event, index, fieldName) => {
@@ -220,7 +215,7 @@ const ModalAdjuntar = ({dato}) => {
         <Modal.Footer>
           <div className="justify-content-center mt-2">
             <button
-              // onClick={acepta_accion}
+              onClick={acepta_accion}
               className="btn btn-primary btn-sm m-2"
               style={{
                 float: "right",

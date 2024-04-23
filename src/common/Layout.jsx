@@ -16,7 +16,6 @@ import ingles from '../assets/united-kingdom.svg'
 import spain from '../assets/spain.svg'
 import portugal from '../assets/portugal.svg'
 import { EquipaContext } from "../context/EquipaContext";
-import './Layout.css'
 import {
   Avatar,
   Menu,
@@ -160,7 +159,7 @@ export default function Layout({ children }) {
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="fixed" open={open}>
-          <Toolbar>
+          <Toolbar style={{backgroundColor: '#990000'}}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
