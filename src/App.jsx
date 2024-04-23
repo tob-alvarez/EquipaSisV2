@@ -25,6 +25,7 @@ import Proceso from "./components/proceso/Proceso";
 import Provincia from "./components/provincia/Provincia";
 import Servicio from "./components/servicio/Servicio";
 import Software from "./components/software/Software";
+import Tareas from "./components/tareas/Tareas";
 import Tipo_adjunto from "./components/tipo_adjunto/Tipo_adjunto";
 import Tipo_alimentacion from "./components/tipo_alimentacion/Tipo_alimentacion";
 import Tipo_archivo from "./components/tipo_archivo/Tipo_archivo";
@@ -222,7 +223,16 @@ function App() {
                   <Software />
                 </PrivateRoute>
               }
-            />                                               
+            />
+            <Route
+              exact
+              path="/tareas"
+              element={
+                <PrivateRoute>
+                  <Tareas />
+                </PrivateRoute>
+              }
+            />                                                
             <Route
               exact
               path="/tipo_adjunto"
