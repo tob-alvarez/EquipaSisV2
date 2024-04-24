@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Collapse, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
+import { Collapse, List, ListItem, ListItemButton, ListItemIcon } from "@mui/material"
 import { useNavigate } from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 import { useState } from "react";
@@ -18,10 +18,24 @@ const MenuLateral = ({ menuItems, open, setOpen }) => {
         navigate(ruta);
     };
     const [openLists, setOpenLists] = useState({});
+    // eslint-disable-next-line no-unused-vars
+    const [openSubMenu, setOpenSubMenu] = useState(null);
 
     const handleClick = (label) => {
-        setOpen(true)
-        setOpenLists(prevState => ({
+        setOpen(true);
+        setOpenSubMenu(label); // Actualiza el submenú abierto actualmente
+
+        // Cierra cualquier otro submenú que esté abierto
+        Object.keys(openLists).forEach((key) => {
+            if (key !== label) {
+                setOpenLists((prevState) => ({
+                    ...prevState,
+                    [key]: false,
+                }));
+            }
+        });
+
+        setOpenLists((prevState) => ({
             ...prevState,
             [label]: !prevState[label]
         }));
@@ -114,15 +128,22 @@ const MenuLateral = ({ menuItems, open, setOpen }) => {
                             sx={{
                                 minWidth: 0,
                                 justifyContent: "center",
+                                paddingRight: 2
                             }}
                         >
                             <HomeIcon />
                         </ListItemIcon>
-                        <ListItemText
+                        {/* <ListItemText
                             primary={"INICIO"}
                             onClick={() => redirigir(`/inicio`)}
                             sx={{ opacity: open ? 1 : 0 }}
-                        />
+                        /> */}
+                        <span
+                            onClick={() => redirigir(`/inicio`)}
+                            style={{ opacity: open ? 1 : 0, fontSize: '0.8rem' }}
+                        >
+                            INICIO
+                        </span>
                     </ListItemButton>
                 </ListItem>
                 {menuItems?.map((item, index) => (
@@ -139,11 +160,17 @@ const MenuLateral = ({ menuItems, open, setOpen }) => {
                                 sx={{
                                     minWidth: 0,
                                     justifyContent: "left",
+                                    paddingRight: 2
                                 }}
                             >
                                 {mapearIcono(item.label)}
                             </ListItemIcon>
-                            <ListItemText primary={item.label} sx={{ opacity: open ? 1 : 0 }} />
+                            {/* <ListItemText primary={item.label} sx={{ opacity: open ? 1 : 0 }} /> */}
+                            <span
+                            style={{ opacity: open ? 1 : 0, fontSize: '0.8rem' }}
+                        >
+                            {item.label}
+                        </span>
                             {item.subItems && (openLists[item.label] ? <ExpandLess sx={{ opacity: open ? 1 : 0 }} /> : <ExpandMore sx={{ opacity: open ? 1 : 0 }} />)}
                         </ListItemButton>
 
@@ -159,7 +186,8 @@ const MenuLateral = ({ menuItems, open, setOpen }) => {
                                             sx={{ paddingY: 0 }}
                                             onClick={() => redirigir(`/${subItem.path}`)}
                                         >
-                                            <ListItemText primary={subItem.label} sx={{ opacity: open ? 1 : 0, paddingLeft: 5 }} />
+                                            {/* <ListItemText primary={subItem.label} sx={{ opacity: open ? 1 : 0, paddingLeft: 5, }} /> */}
+                                            <span  style={{ opacity: open ? 1 : 0, paddingLeft: 50, paddingTop: 5, fontSize: '0.8rem'}}>{subItem.label}</span>
                                         </ListItemButton>
                                     ))}
                                 </List>
