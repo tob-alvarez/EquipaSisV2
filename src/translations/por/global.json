@@ -119,6 +119,7 @@
         "corto_documentacion": "Nome Abreviado da Documentação",
         "id_tarchivo": "ID Tipo de Arquivo",
         "nombre_tarchivo": "Nome do Tipo de Arquivo",
+        "seleccione_tarchivo": "Selecione Tipo de Arquivo",
         "estado": "Estado",
         "acciones": "Ações",
         "registros": "Registros",

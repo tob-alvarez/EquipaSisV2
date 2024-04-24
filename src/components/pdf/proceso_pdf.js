@@ -7,7 +7,7 @@ export function proceso_pdf(filtro, idioma) {
     let descripcion;
     let descripcion_en;
     let descripcion_por;
-    let opcion;
+    let nombre_opcion;
     let habilitado;
     let page; 
     let reporte;
@@ -17,7 +17,7 @@ export function proceso_pdf(filtro, idioma) {
       descripcion = "Descripción en Español";
       descripcion_en = "Descripción en Inglés";
       descripcion_por = "Descripción en Portugués";
-      opcion = "Opción";
+      nombre_opcion = "Opción";
       habilitado = "Habilitada";
       page = "Página";
       reporte = "Reporte al"
@@ -27,7 +27,7 @@ export function proceso_pdf(filtro, idioma) {
       descripcion = "Description in Spanish";
       descripcion_en = "Description in English";
       descripcion_por = "Description in Portuguese";
-      opcion = "Option";
+      nombre_opcion = "Option";
       habilitado = "Enabled";
       page = "Page";
       reporte = "Report as of";
@@ -37,7 +37,7 @@ export function proceso_pdf(filtro, idioma) {
       descripcion = "Descrição em Espanhol";
       descripcion_en = "Descrição em Inglês";
       descripcion_por = "Descrição em Português";
-      opcion = "Opção";
+      nombre_opcion = "Opção";
       habilitado = "Habilitado";
       page = "Página";
       reporte = "Relatório em";
@@ -47,7 +47,7 @@ export function proceso_pdf(filtro, idioma) {
       descripcion = "Descripción en Español";
       descripcion_en = "Descripción en Inglés";
       descripcion_por = "Descripción en Portugués";
-      opcion = "Opción";
+      nombre_opcion = "Opción";
       habilitado = "Habilitada";
       page = "Página";
       reporte = "Reporte al"
@@ -82,7 +82,7 @@ export function proceso_pdf(filtro, idioma) {
     item.descripcion.toLowerCase().indexOf(filtro) > -1 ||
     item.descripcion_en.toLowerCase().indexOf(filtro) > -1 ||
     item.descripcion_por.toLowerCase().indexOf(filtro) > -1 ||
-    item.opcion.toLowerCase().indexOf(filtro) > -1 ||
+    item.nombre_opcion.toLowerCase().indexOf(filtro) > -1 ||
     item.habilita.toLowerCase().indexOf(filtro) > -1);
     doc.setProperties({
       title: titulo,
@@ -104,7 +104,7 @@ export function proceso_pdf(filtro, idioma) {
       doc.text(datos.descripcion, 72, lineas);
       doc.text(datos.descripcion_en, 80, lineas);
       doc.text(datos.decripcion_por, 120, lineas);
-      doc.text(datos.opcion, 150, lineas);
+      doc.text(datos.nombre_opcion, 150, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
@@ -152,7 +152,7 @@ export function proceso_pdf(filtro, idioma) {
     doc.line(160, 19.8, 160, 27.2);
     doc.text(descripcion_por , 140, 25, { align: "center" });
     doc.line(160, 19.8, 160, 27.2);
-    doc.text(opcion , 140, 25, { align: "center" });
+    doc.text(nombre_opcion , 140, 25, { align: "center" });
     doc.line(160, 19.8, 160, 27.2);
     doc.text(habilitado, 172, 25, { align: "center" });
     let fecha = new Date();
@@ -190,7 +190,7 @@ export function proceso_xls(filtro) {
     item.descripcion.toLowerCase().indexOf(filtro) > -1 ||
     item.descripcion_en.toLowerCase().indexOf(filtro) > -1 ||
     item.descripcion_por.toLowerCase().indexOf(filtro) > -1 ||
-    item.opcion.toLowerCase().indexOf(filtro) > -1 ||
+    item.nombre_opcion.toLowerCase().indexOf(filtro) > -1 ||
     item.id_proceso.toLowerCase().indexOf(filtro) > -1 ||
     item.habilita.toLowerCase().indexOf(filtro) > -1);
     console.log(data.length);

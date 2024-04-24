@@ -118,6 +118,7 @@
         "nombre-documentacion": "Documentation Name",
         "corto_documentacion": "Documentation Short Name",
         "id_tarchivo": "ID File Type",
+        "seleccione_tarchivo": "Select File Type",
         "nombre_tarchivo": "File Type Name",
         "estado": "State",
         "acciones": "Actions",

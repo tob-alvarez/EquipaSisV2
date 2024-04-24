@@ -14,7 +14,7 @@ export function documentacion_pdf(filtro, idioma) {
       nombredocumentacion = "Nombre de Documentación";
       corto_documentacion = "Nombre Corto";
       nombre_tarchivo = "Tipo Archivo";
-      habilitado = "Habilitado";
+      habilitado = "Habil.";
       page = "Página";
       reporte = "Reporte al"
     } else if (idioma === 'en') {
@@ -22,7 +22,7 @@ export function documentacion_pdf(filtro, idioma) {
       nombredocumentacion = "Documentation Name";
       corto_documentacion = "Short Name";
       nombre_tarchivo = "File Type";
-      habilitado = "Enabled";
+      habilitado = "Enab.";
       page = "Page";
       reporte = "Report as of";
     } else if (idioma === 'por') {
@@ -30,7 +30,7 @@ export function documentacion_pdf(filtro, idioma) {
       nombredocumentacion = "Nome da Documentação";
       corto_documentacion = "Nome Abreviado";
       nombre_tarchivo = "Tipo Arquivo";
-      habilitado = "Habilitado";
+      habilitado = "Habil.";
       page = "Página";
       reporte = "Relatório em";
     } else {
@@ -38,7 +38,7 @@ export function documentacion_pdf(filtro, idioma) {
       nombredocumentacion = "Nombre Documentación";
       corto_documentacion = "Nombre Corto";
       nombre_tarchivo = "Tipo Archivo";
-      habilitado = "Habilitada";
+      habilitado = "Habil.";
       page = "Página";
       reporte = "Reporte al"
     }
@@ -79,22 +79,22 @@ export function documentacion_pdf(filtro, idioma) {
     data.map((datos, index) => {
       if (index % 2 == 0 && datos.nombre_documentacion.length > 120) {
         doc.setFillColor("#ECECEC");
-        doc.rect(15, lineas - 4, 169, 10, "F");
+        doc.rect(10, lineas - 4, 182, 10, "F");
       }
 
       if (index % 2 == 0 && datos.nombre_documentacion.length < 120) {
         doc.setFillColor("#ECECEC");
-        doc.rect(15, lineas - 4, 169, 5, "F");
+        doc.rect(10, lineas - 4, 182, 5, "F");
       }
 
-      doc.text(datos.id_documentacion, 20, lineas);
-      doc.text(datos.nombre_documentacion, 33, lineas);
-      doc.text(datos.corto_documentacion, 98, lineas);
-      doc.text(datos.nombre_tarchivo, 145, lineas);
+      doc.text(datos.id_documentacion, 14, lineas);
+      doc.text(datos.nombre_documentacion, 20, lineas);
+      doc.text(datos.corto_documentacion, 95, lineas);
+      doc.text(datos.nombre_tarchivo, 157, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
-      doc.text(habilita, 172, lineas);
+      doc.text(habilita, 184, lineas);
 
       if (datos.nombre_documentacion.length > 100) {
         //doc.line(5,lineas+6,200,lineas+6);
@@ -119,24 +119,24 @@ export function documentacion_pdf(filtro, idioma) {
     const logo = new Image();
     logo.src = "/logo.png";
     doc.addImage(logo, "PNG", 170, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
-    doc.rect(14.8, 19.8, 169.3, 7.4);
+    doc.rect(9.8, 19.8, 182.3, 7.4);
     doc.setFillColor("#EBEBEB");
-    doc.rect(15, 20, 169, 7, "F");
+    doc.rect(10, 20, 182, 7, "F");
     doc.setFontSize(14);
 
     doc.setTextColor(55, 0, 0);
-    doc.text(titulo, 15, 12);
+    doc.text(titulo, 10, 12);
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(9);
-    doc.text("ID", 22, 25, { align: "center" });
-    doc.line(30, 19.8, 30, 27.2);
+    doc.text("ID", 15, 25, { align: "center" });
+    doc.line(20, 19.8, 20, 27.2);
     doc.text(nombredocumentacion , 53, 25, { align: "center" });
-    doc.line(90, 19.8, 90, 27.2);
+    doc.line(95, 19.8, 95, 27.2);
     doc.text(corto_documentacion , 117, 25, { align: "center" });
-    doc.line(142, 19.8, 142, 27.2);
-    doc.text(nombre_tarchivo , 152, 25, { align: "center" });
-    doc.line(165, 19.8, 165, 27.2);
-    doc.text(habilitado, 175, 25, { align: "center" });
+    doc.line(155, 19.8, 155, 27.2);
+    doc.text(nombre_tarchivo , 167, 25, { align: "center" });
+    doc.line(180, 19.8, 180, 27.2);
+    doc.text(habilitado, 182, 25, { align: "left" });
     let fecha = new Date();
     fecha = fecha.toLocaleString();
 
