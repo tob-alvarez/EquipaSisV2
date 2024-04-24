@@ -147,6 +147,7 @@ export default function Layout({ children }) {
     } else {
       // Si ya existe un menuItem con el mismo padre, agregamos el subItem
       menu[menuItemIndex].subItems.push({ label: permiso[subLabelKey], path: permiso.path });
+      menu[menuItemIndex].subItems.sort((a, b) => a.label.localeCompare(b.label));
     }
     return menu;
   }, []);

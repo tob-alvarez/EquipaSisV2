@@ -61,6 +61,7 @@ export function proceso_pdf(filtro, idioma) {
     let pagina = 1;
     let data = [];
     let habilita = "";
+
   const resultado = async () => {
     const JSONdata = JSON.stringify({ tarea: "imprime_proceso" }); // Send the data to the server in JSON format.
     const endpoint = "https://v2.equipasis.com/api/proceso.php"; // API endpoint where we send form data.
@@ -77,6 +78,7 @@ export function proceso_pdf(filtro, idioma) {
     // If server returns the name submitted, that means the form works.
     const result = await response.json();
     data = result.datos;
+    console.log(data)
     data = data.filter(item => item.nombre_proceso.toLowerCase().indexOf(filtro) > -1 || 
     item.id_proceso.toLowerCase().indexOf(filtro) > -1 ||
     item.descripcion.toLowerCase().indexOf(filtro) > -1 ||
@@ -88,7 +90,7 @@ export function proceso_pdf(filtro, idioma) {
       title: titulo,
     });
     cabecera();
-    data.map((datos, index) => {
+    data?.map((datos, index) => {
       if (index % 2 == 0 && datos.nombre_proceso.length > 120) {
         doc.setFillColor("#ECECEC");
         doc.rect(15, lineas - 4, 169, 10, "F");
@@ -103,8 +105,8 @@ export function proceso_pdf(filtro, idioma) {
       doc.text(datos.nombre_proceso, 34, lineas);
       doc.text(datos.descripcion, 72, lineas);
       doc.text(datos.descripcion_en, 80, lineas);
-      doc.text(datos.decripcion_por, 120, lineas);
-      doc.text(datos.opcion, 150, lineas);
+      doc.text(datos.descripcion_por, 120, lineas);
+      doc.text(datos.nombre_opcion, 150, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
