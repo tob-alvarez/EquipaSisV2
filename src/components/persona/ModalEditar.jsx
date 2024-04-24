@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { toast } from "react-toastify";
@@ -8,6 +9,7 @@ import { Switch } from "@mui/material";
 import { EquipaContext } from "../../context/EquipaContext";
 
 
+// eslint-disable-next-line react/prop-types
 const ModalEditar = ({dato}) => {
     const [t] = useTranslation("global")
     const [isModalEditOpen, setIsModalEditOpen] = useState(false);
@@ -27,7 +29,6 @@ const ModalEditar = ({dato}) => {
     const [habilita, setHabilita] = useState(false);
     const { actualizador, traerPaises, paises, traerProvincias, provincias, traerEmpresas, empresas, traerTpersonas, tpersonas } = useContext(EquipaContext);
       
-
     useEffect(() => {
       if (isModalEditOpen && dato) {
         if (dato.habilita == 1) {
@@ -55,6 +56,7 @@ const ModalEditar = ({dato}) => {
         setEmail_persona(dato.email_persona);
         setId_empresa(dato.id_empresa);
         setId_tpersona(dato.id_tpersona);
+        setId_persona(dato.id_persona);
 
       }
     }, [isModalEditOpen, dato]);
@@ -64,6 +66,7 @@ const ModalEditar = ({dato}) => {
       traerProvincias({tarea: "combo_provincia"})
       traerEmpresas({tarea: "combo_empresa"})
       traerTpersonas({tarea: "combo_tipo_persona"})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const limpia_campos = () => {
@@ -105,7 +108,6 @@ const ModalEditar = ({dato}) => {
         es_usuario: es_usuario === true ? "1" : "0",
         habilita: habilita === true ? "1" : "0",
       };
-
       if (nombre_persona === "" || email_persona === "" || id_pais === "" || id_provincia === "" || id_empresa === "" || id_tpersona === "") {
         toast.error(`${t("persona.datoObligatorio")}`);
         return;
@@ -275,6 +277,7 @@ const ModalEditar = ({dato}) => {
                 <InputGroup>
                   <Form.Control
                     id="telefono_persona"
+                    name="telefono_persona"
                     value={telefono_persona}
                     onChange={(e) => setTelefono_persona(e.target.value)}
                     onKeyUp={(e) =>
