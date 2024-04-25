@@ -74,6 +74,27 @@
         "datoObligatorio": "Mandatory data marked with #",
         "habilitado": "Enabled"
     },
+    "ayuda":{
+        "titulo": "Help",
+        "busqueda": "Search",
+        "nombre-ayuda": "Help Name",
+        "texto": "Text in Spanish",
+        "texto_en": "Text in English",
+        "texto_por": "Text in Portuguese",
+        "proceso": "Process",
+        "estado": "State",
+        "acciones": "Actions",
+        "registros": "Records",
+        "pagina": "Page",
+        "de": "of",
+        "agregarTitulo": "Add Help",
+        "ayudaTitulo": "Help",
+        "editarTitulo": "Edit Help",
+        "borrarTitulo": "Delete Help",
+        "borrarListo": "This Help is already disabled",
+        "datoObligatorio": "Mandatory data marked with #",
+        "habilitado": "Enabled"
+    },
     "categoria":{
         "titulo": "Attachment Type",
         "busqueda": "Search",

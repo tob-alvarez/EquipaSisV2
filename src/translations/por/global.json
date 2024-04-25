@@ -74,6 +74,27 @@
         "datoObligatorio": "Dados obrigatórios marcados com #",
         "habilitado": "Ativado"
     },
+    "ayuda":{
+        "titulo": "Ajuda",
+        "busqueda": "Procurar",
+        "nombre-ayuda": "Nome da Ajuda",
+        "texto": "Texto em Espanhol",
+        "texto_en": "Texto em Inglês",
+        "texto_por": "Texto em Português",
+        "proceso": "Processo",
+        "estado": "Estado",
+        "acciones": "Ações",
+        "registros": "Registros",
+        "pagina": "Página",
+        "de": "a",
+        "agregarTitulo": "Adicionar Ajuda",
+        "ayudaTitulo": "Ajuda",
+        "editarTitulo": "Editar Ajuda",
+        "borrarTitulo": "Excluir Ajuda",
+        "borrarListo": "Esta Ajuda já está desativada",
+        "datoObligatorio": "Dados obrigatórios marcados com #",
+        "habilitado": "Ativado"
+    },
     "categoria":{
         "titulo": "Categoria",
         "busqueda": "Procurar",
