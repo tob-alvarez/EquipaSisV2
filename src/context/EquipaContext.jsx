@@ -25,6 +25,7 @@ const EquipaProvider = ({ children }) => {
   const [provincias, setProvincias] = useState(null);
   const [empresas, setEmpresas] = useState(null);
   const [tpersonas, setTpersonas] = useState(null);
+  const [ttareas, setTtareas] = useState(null);
 
 
   useEffect(() => {
@@ -152,6 +153,15 @@ const EquipaProvider = ({ children }) => {
     }
   };
 
+  const traerTtareas = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/tipo_tarea.php`, tarea);
+      setTtareas(data.tipo_tarea)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
   const getAuth = async () => {
     try {
       const token = sessionStorage.getItem("token");
@@ -217,7 +227,9 @@ const EquipaProvider = ({ children }) => {
         traerEmpresas,
         empresas,
         traerTpersonas,
-        tpersonas
+        tpersonas,
+        traerTtareas,
+        ttareas
       }}
     >
       {children}

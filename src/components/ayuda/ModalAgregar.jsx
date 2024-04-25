@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
-import { alta_documentaciones } from "./funciones_documentacion";
+import { alta_ayudas } from "./funciones_ayuda";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
@@ -11,18 +11,22 @@ const ModalAgregar = () => {
 
   const [isModalAttachOpen, setIsModalAttachOpen] = useState(false);
   const [t] = useTranslation("global")
-  const [id_documentacion, setId_documentacion] = useState("");
-  const [nombre_documentacion, setNombre_documentacion] = useState("");
-  const [corto_documentacion, setCorto_documentacion] = useState("");
-  const [id_tarchivo, setId_tarchivo] = useState("");
+  const [id_ayuda, setId_ayuda] = useState("");
+  const [nombre_ayuda, setNombre_ayuda] = useState("");
+  const [texto, setTexto] = useState("");
+  const [texto_en, setTexto_en] = useState("");
+  const [texto_por, setTexto_por] = useState("");
+  const [proceso, setProceso] = useState("");
   const [habilita, setHabilita] = useState(false);
-  const { actualizador, traerTarchivos, tarchivos } = useContext(EquipaContext);
+  const { actualizador } = useContext(EquipaContext);
   
   const limpia_campos = () => {
-    setId_documentacion("");
-    setNombre_documentacion("");
-    setCorto_documentacion("");
-    setId_tarchivo("");
+    setId_ayuda("");
+    setNombre_ayuda("");
+    setTexto("");
+    setTexto_en("");
+    setTexto_por("");
+    setProceso("");
     setHabilita(false);
   };
   const closeModalAttach = () => {
@@ -31,20 +35,22 @@ const ModalAgregar = () => {
   };
   const acepta_accion = () => {
     const datos_cambios = {
-      id_documentacion: id_documentacion,
-      nombre_documentacion: nombre_documentacion,
-      corto_documentacion: corto_documentacion,
-      id_tarchivo: id_tarchivo,
+      id_ayuda: id_ayuda,
+      nombre_ayuda: nombre_ayuda,
+      texto: texto,
+      texto_en: texto_en,
+      texto_por: texto_por,
+      proceso: proceso,
       habilita: habilita === true ? "1" : "0",
     };
 
-    if (nombre_documentacion === "" || corto_documentacion === "" || id_tarchivo === "") {
-      toast.error(`${t("documentacion.datoObligatorio")}`);
+    if (nombre_ayuda === "" || texto === "" || texto_en === "" || texto_por === "" || proceso === "") {
+      toast.error(`${t("ayuda.datoObligatorio")}`);
       return;
     }
     
 
-    alta_documentaciones(datos_cambios).then((respuesta_accion) => {
+    alta_ayudas(datos_cambios).then((respuesta_accion) => {
       if (respuesta_accion[0].registros > 0) {
         toast.success(`${t("varios.alta")}`, {
           duration: 2000,
@@ -60,10 +66,6 @@ const ModalAgregar = () => {
       setIsModalAttachOpen(false);
     });
   }
-  useEffect(() => {
-    traerTarchivos({tarea: "combo_tipo_archivo"})
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <>
@@ -79,12 +81,12 @@ const ModalAgregar = () => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-          {t("documentacion.agregarTitulo")}
+          {t("ayuda.agregarTitulo")}
             <p
               className="pb-0 mb-0 text-body-emphasis fw-bold"
               style={{ fontSize: "0.5em" }}
             >
-              {t("documentacion.datoObligatorio")}
+              {t("ayuda.datoObligatorio")}
             </p>
           </Modal.Title>
         </Modal.Header>
@@ -93,16 +95,13 @@ const ModalAgregar = () => {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("documentacion.nombre-documentacion")}: #
+                {t("ayuda.nombre-ayuda")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
-                    id="nombre_documentacion"
-                    value={nombre_documentacion}
-                    onChange={(e) => setNombre_documentacion(e.target.value)}
-                    onKeyUp={(e) =>
-                      setNombre_documentacion(e.target.value.toUpperCase())
-                    }
+                    id="nombre_ayuda"
+                    value={nombre_ayuda}
+                    onChange={(e) => setNombre_ayuda(e.target.value)}
                     className="mb-2"
                   />
                 </InputGroup>
@@ -110,16 +109,14 @@ const ModalAgregar = () => {
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("documentacion.corto_documentacion")}: #
+                {t("ayuda.texto")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
-                    id="corto_documentacion"
-                    value={corto_documentacion}
-                    onChange={(e) => setCorto_documentacion(e.target.value)}
-                    onKeyUp={(e) =>
-                      setCorto_documentacion(e.target.value.toUpperCase())
-                    }
+                    as="textarea"
+                    id="texto"
+                    value={texto}
+                    onChange={(e) => setTexto(e.target.value)}
                     className="mb-2"
                   />
                 </InputGroup>
@@ -127,33 +124,54 @@ const ModalAgregar = () => {
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                  {t("documentacion.id_tarchivo")}: #
+                {t("ayuda.texto_en")}: #
                 </label>
                 <InputGroup>
-                  <Form.Select
-                    id="id_tarchivo"
-                    value={id_tarchivo}
-                    onChange={(e) => setId_tarchivo(e.target.value)}
-                    onKeyUp={(e) => setId_tarchivo(e.target.value.toUpperCase())}
+                  <Form.Control
+                    as="textarea"
+                    id="texto_en"
+                    value={texto_en}
+                    onChange={(e) => setTexto_en(e.target.value)}
                     className="mb-2"
-                  >
-                    <option value="">{t("documentacion.seleccione_tarchivo")}</option>
-                    
-                    {tarchivos?.map((o) => (
-                      <option key={o.id_tarchivo} value={o.id_tarchivo}>
-                        {o.nombre_tarchivo}
-                      </option>
-                    ))}
-                  </Form.Select>
+                  />
+                </InputGroup>
+              </div>
+
+              <div className="col-6">
+                <label htmlFor="name" className="label-material mb-1">
+                {t("ayuda.texto_por")}: #
+                </label>
+                <InputGroup>
+                  <Form.Control
+                    as="textarea"
+                    id="texto_por"
+                    value={texto_por}
+                    onChange={(e) => setTexto_por(e.target.value)}
+                    className="mb-2"
+                  />
+                </InputGroup>
+              </div>
+
+              <div className="col-6">
+                <label htmlFor="name" className="label-material mb-1">
+                {t("ayuda.proceso")}: #
+                </label>
+                <InputGroup>
+                  <Form.Control
+                    id="proceso"
+                    value={proceso}
+                    onChange={(e) => setProceso(e.target.value)}
+                    className="mb-2"
+                  />
                 </InputGroup>
               </div>
 
               <div className="col-6 text-start">
-                {t("documentacion.habilitado")}
+                {t("ayuda.habilitado")}
                 <Switch 
                   id={"habilita"}
                   checked={habilita}
-                  label={t("documentacion.habilitado")}
+                  label={t("ayuda.habilitado")}
                   onChange={(e) => setHabilita(e.target.checked)}
                 />
               </div>

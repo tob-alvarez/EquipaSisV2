@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
-import { alta_documentaciones } from "./funciones_documentacion";
+import { alta_tareas } from "./funciones_tareas";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
@@ -11,18 +11,26 @@ const ModalAgregar = () => {
 
   const [isModalAttachOpen, setIsModalAttachOpen] = useState(false);
   const [t] = useTranslation("global")
-  const [id_documentacion, setId_documentacion] = useState("");
-  const [nombre_documentacion, setNombre_documentacion] = useState("");
-  const [corto_documentacion, setCorto_documentacion] = useState("");
-  const [id_tarchivo, setId_tarchivo] = useState("");
+  const [id_tarea, setId_tarea] = useState("");
+  const [nombre_tarea, setNombre_tarea] = useState("");
+  const [id_ttarea, setId_ttarea] = useState("");
+  const [repara, setRepara] = useState(false);
+  const [down, setDown] = useState(false);
+  const [restringido, setRestringido] = useState(false);
+  const [preventivo, setPreventivo] = useState(false);
+  const [externo, setExterno] = useState(false);
   const [habilita, setHabilita] = useState(false);
-  const { actualizador, traerTarchivos, tarchivos } = useContext(EquipaContext);
+  const { actualizador, traerTtareas, ttareas } = useContext(EquipaContext);
   
   const limpia_campos = () => {
-    setId_documentacion("");
-    setNombre_documentacion("");
-    setCorto_documentacion("");
-    setId_tarchivo("");
+    setId_tarea("");
+    setNombre_tarea("");
+    setId_ttarea("");
+    setRepara(false);
+    setDown(false);
+    setRestringido(false);
+    setPreventivo(false);
+    setExterno(false);
     setHabilita(false);
   };
   const closeModalAttach = () => {
@@ -31,20 +39,24 @@ const ModalAgregar = () => {
   };
   const acepta_accion = () => {
     const datos_cambios = {
-      id_documentacion: id_documentacion,
-      nombre_documentacion: nombre_documentacion,
-      corto_documentacion: corto_documentacion,
-      id_tarchivo: id_tarchivo,
+      id_tarea: id_tarea,
+      nombre_tarea: nombre_tarea,
+      id_ttarea: id_ttarea,
+      repara: repara === true ? "1" : "0",
+      down: down === true ? "1" : "0",
+      restringido: restringido === true ? "1" : "0",
+      preventivo: preventivo === true ? "1" : "0",
+      externo: externo === true ? "1" : "0",
       habilita: habilita === true ? "1" : "0",
     };
 
-    if (nombre_documentacion === "" || corto_documentacion === "" || id_tarchivo === "") {
-      toast.error(`${t("documentacion.datoObligatorio")}`);
+    if (nombre_tarea === "" || id_ttarea === "") {
+      toast.error(`${t("tareas.datoObligatorio")}`);
       return;
     }
     
 
-    alta_documentaciones(datos_cambios).then((respuesta_accion) => {
+    alta_tareas(datos_cambios).then((respuesta_accion) => {
       if (respuesta_accion[0].registros > 0) {
         toast.success(`${t("varios.alta")}`, {
           duration: 2000,
@@ -61,7 +73,7 @@ const ModalAgregar = () => {
     });
   }
   useEffect(() => {
-    traerTarchivos({tarea: "combo_tipo_archivo"})
+    traerTtareas({tarea: "combo_tipo_tarea"})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -79,12 +91,12 @@ const ModalAgregar = () => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-          {t("documentacion.agregarTitulo")}
+          {t("tareas.agregarTitulo")}
             <p
               className="pb-0 mb-0 text-body-emphasis fw-bold"
               style={{ fontSize: "0.5em" }}
             >
-              {t("documentacion.datoObligatorio")}
+              {t("tareas.datoObligatorio")}
             </p>
           </Modal.Title>
         </Modal.Header>
@@ -93,15 +105,15 @@ const ModalAgregar = () => {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("documentacion.nombre-documentacion")}: #
+                {t("tareas.nombre-tarea")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
-                    id="nombre_documentacion"
-                    value={nombre_documentacion}
-                    onChange={(e) => setNombre_documentacion(e.target.value)}
+                    id="nombre_tarea"
+                    value={nombre_tarea}
+                    onChange={(e) => setNombre_tarea(e.target.value)}
                     onKeyUp={(e) =>
-                      setNombre_documentacion(e.target.value.toUpperCase())
+                      setNombre_tarea(e.target.value.toUpperCase())
                     }
                     className="mb-2"
                   />
@@ -110,38 +122,21 @@ const ModalAgregar = () => {
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("documentacion.corto_documentacion")}: #
-                </label>
-                <InputGroup>
-                  <Form.Control
-                    id="corto_documentacion"
-                    value={corto_documentacion}
-                    onChange={(e) => setCorto_documentacion(e.target.value)}
-                    onKeyUp={(e) =>
-                      setCorto_documentacion(e.target.value.toUpperCase())
-                    }
-                    className="mb-2"
-                  />
-                </InputGroup>
-              </div>
-
-              <div className="col-6">
-                <label htmlFor="name" className="label-material mb-1">
-                  {t("documentacion.id_tarchivo")}: #
+                  {t("tareas.id_ttarea")}: #
                 </label>
                 <InputGroup>
                   <Form.Select
-                    id="id_tarchivo"
-                    value={id_tarchivo}
-                    onChange={(e) => setId_tarchivo(e.target.value)}
-                    onKeyUp={(e) => setId_tarchivo(e.target.value.toUpperCase())}
+                    id="id_ttarea"
+                    value={id_ttarea}
+                    onChange={(e) => setId_ttarea(e.target.value)}
+                    onKeyUp={(e) => setId_ttarea(e.target.value.toUpperCase())}
                     className="mb-2"
                   >
-                    <option value="">{t("documentacion.seleccione_tarchivo")}</option>
+                    <option value="">{t("tareas.seleccione_ttarea")}</option>
                     
-                    {tarchivos?.map((o) => (
-                      <option key={o.id_tarchivo} value={o.id_tarchivo}>
-                        {o.nombre_tarchivo}
+                    {ttareas?.map((o) => (
+                      <option key={o.id_ttarea} value={o.id_ttarea}>
+                        {o.nombre_ttarea}
                       </option>
                     ))}
                   </Form.Select>
@@ -149,11 +144,61 @@ const ModalAgregar = () => {
               </div>
 
               <div className="col-6 text-start">
-                {t("documentacion.habilitado")}
+                {t("tareas.repara")}
+                <Switch 
+                  id={"repara"}
+                  checked={repara}
+                  label={t("tareas.repara")}
+                  onChange={(e) => setRepara(e.target.checked)}
+                />
+              </div>
+
+              <div className="col-6 text-start">
+                {t("tareas.down")}
+                <Switch 
+                  id={"down"}
+                  checked={down}
+                  label={t("tareas.down")}
+                  onChange={(e) => setDown(e.target.checked)}
+                />
+              </div>
+
+              <div className="col-6 text-start">
+                {t("tareas.restringido")}
+                <Switch 
+                  id={"restringido"}
+                  checked={restringido}
+                  label={t("tareas.restringido")}
+                  onChange={(e) => setRestringido(e.target.checked)}
+                />
+              </div>
+
+              <div className="col-6 text-start">
+                {t("tareas.preventivo")}
+                <Switch 
+                  id={"preventivo"}
+                  checked={preventivo}
+                  label={t("tareas.preventivo")}
+                  onChange={(e) => setPreventivo(e.target.checked)}
+                />
+              </div>
+
+              <div className="col-6 text-start">
+                {t("tareas.externo")}
+                <Switch 
+                  id={"externo"}
+                  checked={externo}
+                  label={t("tareas.externo")}
+                  onChange={(e) => setExterno(e.target.checked)}
+                />
+              </div>
+
+              <div className="col-6 text-start">
+                {t("tareas.habilitado")}
                 <Switch 
                   id={"habilita"}
                   checked={habilita}
-                  label={t("documentacion.habilitado")}
+                  label={t("tareas.habilitado")}
                   onChange={(e) => setHabilita(e.target.checked)}
                 />
               </div>

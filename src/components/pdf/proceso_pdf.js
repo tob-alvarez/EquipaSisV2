@@ -18,7 +18,7 @@ export function proceso_pdf(filtro, idioma) {
       descripcion_en = "Descripción en Inglés";
       descripcion_por = "Descripción en Portugués";
       opcion = "Opción";
-      habilitado = "Habilitada";
+      habilitado = "Habil.";
       page = "Página";
       reporte = "Reporte al"
     } else if (idioma === 'en') {
@@ -38,7 +38,7 @@ export function proceso_pdf(filtro, idioma) {
       descripcion_en = "Descrição em Inglês";
       descripcion_por = "Descrição em Português";
       opcion = "Opção";
-      habilitado = "Habilitado";
+      habilitado = "Habil.";
       page = "Página";
       reporte = "Relatório em";
     } else {
@@ -48,12 +48,12 @@ export function proceso_pdf(filtro, idioma) {
       descripcion_en = "Descripción en Inglés";
       descripcion_por = "Descripción en Portugués";
       opcion = "Opción";
-      habilitado = "Habilitada";
+      habilitado = "Habil.";
       page = "Página";
       reporte = "Reporte al"
     }
     const doc = new jsPDF({
-      orientation: "p",
+      orientation: "l",
       unit: "mm",
       format: "a4",
     });
@@ -93,24 +93,24 @@ export function proceso_pdf(filtro, idioma) {
     data?.map((datos, index) => {
       if (index % 2 == 0 && datos.nombre_proceso.length > 120) {
         doc.setFillColor("#ECECEC");
-        doc.rect(15, lineas - 4, 169, 10, "F");
+        doc.rect(15, lineas - 4, 269, 10, "F");
       }
 
       if (index % 2 == 0 && datos.nombre_proceso.length < 120) {
         doc.setFillColor("#ECECEC");
-        doc.rect(15, lineas - 4, 169, 5, "F");
+        doc.rect(15, lineas - 4, 269, 5, "F");
       }
 
       doc.text(datos.id_proceso, 20, lineas);
       doc.text(datos.nombre_proceso, 34, lineas);
       doc.text(datos.descripcion, 72, lineas);
-      doc.text(datos.descripcion_en, 80, lineas);
-      doc.text(datos.descripcion_por, 120, lineas);
-      doc.text(datos.nombre_opcion, 150, lineas);
+      doc.text(datos.descripcion_en, 122, lineas);
+      doc.text(datos.descripcion_por, 180, lineas);
+      doc.text(datos.nombre_opcion, 235, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
-      doc.text(habilita, 168, lineas);
+      doc.text(habilita, 275, lineas);
 
       if (datos.nombre_proceso.length > 100) {
         //doc.line(5,lineas+6,200,lineas+6);
@@ -120,7 +120,7 @@ export function proceso_pdf(filtro, idioma) {
         lineas = lineas + 5;
       }
 
-      if (lineas > 270) {
+      if (lineas > 200) {
         pagina = pagina + 1;
         lineas = 35;
         doc.addPage();
@@ -134,10 +134,10 @@ export function proceso_pdf(filtro, idioma) {
   function cabecera() {
     const logo = new Image();
     logo.src = "/logo.png";
-    doc.addImage(logo, "PNG", 170, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
-    doc.rect(14.8, 19.8, 169.3, 7.4);
+    doc.addImage(logo, "PNG", 250, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
+    doc.rect(14.8, 19.8, 269.3, 7.4);
     doc.setFillColor("#EBEBEB");
-    doc.rect(15, 20, 169, 7, "F");
+    doc.rect(15, 20, 269, 7, "F");
     doc.setFontSize(14);
 
     doc.setTextColor(55, 0, 0);
@@ -148,15 +148,15 @@ export function proceso_pdf(filtro, idioma) {
     doc.line(30, 19.8, 30, 27.2);
     doc.text(nombreAcciones , 47, 25, { align: "center" });
     doc.line(70, 19.8, 70, 27.2);
-    doc.text(descripcion , 90, 25, { align: "center" });
-    doc.line(115, 19.8, 115, 27.2);
-    doc.text(descripcion_en , 140, 25, { align: "center" });
-    doc.line(160, 19.8, 160, 27.2);
-    doc.text(descripcion_por , 140, 25, { align: "center" });
-    doc.line(160, 19.8, 160, 27.2);
-    doc.text(opcion , 140, 25, { align: "center" });
-    doc.line(160, 19.8, 160, 27.2);
-    doc.text(habilitado, 172, 25, { align: "center" });
+    doc.text(descripcion , 95, 25, { align: "center" });
+    doc.line(120, 19.8, 120, 27.2);
+    doc.text(descripcion_en , 145, 25, { align: "center" });
+    doc.line(170, 19.8, 170, 27.2);
+    doc.text(descripcion_por , 195, 25, { align: "center" });
+    doc.line(230, 19.8, 230, 27.2);
+    doc.text(opcion , 250, 25, { align: "center" });
+    doc.line(270, 19.8, 270, 27.2);
+    doc.text(habilitado, 272, 25, { align: "left" });
     let fecha = new Date();
     fecha = fecha.toLocaleString();
 

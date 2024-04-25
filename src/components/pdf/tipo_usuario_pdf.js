@@ -7,7 +7,7 @@ export function tipo_usuario_pdf(filtro, idioma) {
     let observacion;
     let habilitado;
     let page; 
-    let reporte;
+    let reporte; 
     if (idioma === 'es') {
       titulo = "Registro de Tipo de Usuarios";
       nombretusuario = "Nombre de Tipo de Usuario";
