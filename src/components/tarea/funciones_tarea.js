@@ -12,7 +12,7 @@ export async function trae_tareas() {
     const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
 
     const result = await response.json();
-   return result.tareas;
+   return result.tarea;
 }
 
 export async function trae_permisos(datos){

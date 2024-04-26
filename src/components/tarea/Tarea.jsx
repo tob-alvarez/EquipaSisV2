@@ -169,7 +169,7 @@ const Tarea = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentItems.map((dato, index) => (
+              {currentItems?.map((dato, index) => (
                 <TableRow
                   key={index}
                   sx={{
@@ -182,12 +182,12 @@ const Tarea = () => {
                 >
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_tarea}</TableCell>
                   <TableCell >{dato.nombre_tarea.toUpperCase()}</TableCell>
-                  <TableCell >{dato.nombre_ttarea.toUpperCase()}</TableCell>
-                  <TableCell >{dato.repara3.toUpperCase()}</TableCell>
-                  <TableCell >{dato.down3.toUpperCase()}</TableCell>
-                  <TableCell >{dato.restringido3.toUpperCase()}</TableCell>
-                  <TableCell >{dato.preventivo3.toUpperCase()}</TableCell>
-                  <TableCell >{dato.externo3.toUpperCase()}</TableCell>
+                  <TableCell >{dato.id_ttarea.toUpperCase()}</TableCell>
+                  <TableCell >{dato.repara.toUpperCase()}</TableCell>
+                  <TableCell >{dato.down.toUpperCase()}</TableCell>
+                  <TableCell >{dato.restringido.toUpperCase()}</TableCell>
+                  <TableCell >{dato.preventivo.toUpperCase()}</TableCell>
+                  <TableCell >{dato.externo.toUpperCase()}</TableCell>
                   <TableCell>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
@@ -229,27 +229,27 @@ const Tarea = () => {
             <Button
               className="mx-2 icons-contact"
               onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === Math.ceil(filteredItems.length / itemsPerPage)}
+              disabled={currentPage === Math.ceil(filteredItems?.length / itemsPerPage)}
             >
               <KeyboardArrowRightIcon/>
             </Button>
             <Button
               className="icons-contact me-3"
               onClick={() =>
-                handlePageChange(Math.ceil(filteredItems.length / itemsPerPage))
+                handlePageChange(Math.ceil(filteredItems?.length / itemsPerPage))
               }
               disabled={
-                currentPage === Math.ceil(filteredItems.length / itemsPerPage)
+                currentPage === Math.ceil(filteredItems?.length / itemsPerPage)
               }
             >
               <KeyboardDoubleArrowRightIcon/>
             </Button>
 
             <Typography variant="p" className="col-3 align-self-center">
-            {t("tarea.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
+            {t("tarea.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems?.length / itemsPerPage)}
             </Typography>
             <Typography variant="p" className="align-self-center">
-            {t("tarea.registros")} {filteredItems.length}
+            {t("tarea.registros")} {filteredItems?.length}
             </Typography>
           </div>
         </TableContainer>
