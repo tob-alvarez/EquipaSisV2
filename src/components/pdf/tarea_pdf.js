@@ -1,7 +1,7 @@
 import jsPDF from "jspdf";
 import * as XLSX from "xlsx";
 
-export function tareas_pdf(filtro, idioma) {
+export function tarea_pdf(filtro, idioma) {
     let titulo;
     let nombretarea;
     let nombre_ttarea;
@@ -196,7 +196,7 @@ export function tareas_pdf(filtro, idioma) {
   }
 }
 
-export function tareas_xls(filtro) {
+export function tarea_xls(filtro) {
   let data = [];
 
   const resultado = async () => {

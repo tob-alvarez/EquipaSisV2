@@ -3,7 +3,7 @@
 import { useContext, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
-import { borra_tareas } from "./funciones_tareas";
+import { borra_tareas } from "./funciones_tarea";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useTranslation } from "react-i18next";
 import { EquipaContext } from "../../context/EquipaContext";
@@ -43,22 +43,22 @@ const ModalBorrar = ({dato}) => {
                 centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title> {t("tareas.borrarTitulo")}...</Modal.Title>
+                    <Modal.Title> {t("tarea.borrarTitulo")}...</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {dato.habilita_3 == 'SI' ? (
                         <>
                             <h6>
-                                <b>{t("tareas.titulo")}:</b> {dato.nombre_tarea}
+                                <b>{t("tarea.titulo")}:</b> {dato.nombre_tarea}
                             </h6>
                         </>
                     ) : (
                         <>
                             <h6>
-                                <b>{t("tareas.titulo")}:</b> {dato.nombre_tarea}
+                                <b>{t("tarea.titulo")}:</b> {dato.nombre_tarea}
                             </h6>
                             <p style={{ fontSize: "0.8em", color: "red" }}>
-                            {t("tareas.borrarListo")}
+                            {t("tarea.borrarListo")}
                             </p>
                         </>
                     )}

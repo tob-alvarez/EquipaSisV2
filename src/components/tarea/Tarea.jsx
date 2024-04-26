@@ -4,8 +4,8 @@ import {
   trae_tareas,
   ayuda_tareas,
   trae_permisos
-} from "./funciones_tareas";
-import { tareas_pdf, tareas_xls } from "../pdf/tareas_pdf";
+} from "./funciones_tarea";
+import { tarea_pdf, tarea_xls } from "../pdf/tarea_pdf";
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -20,7 +20,7 @@ import ModalEditar from "./ModalEditar";
 import ModalBorrar from "./ModalBorrar";
 import { EquipaContext } from "../../context/EquipaContext";
 
-const Tareas = () => {
+const Tarea = () => {
   const [t] = useTranslation("global")
   const [datos_tareas, setDatostareas] = useState([]);
   const [permisos_usuario, setPermisos_usuario] = useState([]);
@@ -32,7 +32,7 @@ const Tareas = () => {
   // eslint-disable-next-line no-unused-vars
   const [datos, setDatos] = useState({
     tarea: "permiso_usuario",
-    tareas: "tareas",
+    tareas: "tarea",
     id_usuario: "1"
   });
   
@@ -98,20 +98,20 @@ const Tareas = () => {
   const printInfoProcess = () => {
     let idioma = localStorage.getItem("language")
     console.log(idioma)
-    tareas_pdf(searchTerm, idioma);
+    tarea_pdf(searchTerm, idioma);
   };
   const downloadInfo = () => {
-    tareas_xls(searchTerm);
+    tarea_xls(searchTerm);
   };
 
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-2 container">
         {/* Funciones agregar, descargar, imprimir y ayuda */}
-        <h1 className="m-0">{t("tareas.titulo")}</h1>
+        <h1 className="m-0">{t("tarea.titulo")}</h1>
         <div className="inputContainer d-flex">
           <label htmlFor="search" className="form-label mb-0 p-2">
-            {t("tareas.busqueda")}
+            {t("tarea.busqueda")}
           </label>
           <input
             type="text"
@@ -158,14 +158,14 @@ const Tareas = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell>{t("tareas.nombre-tarea")}</TableCell>
-                <TableCell>{t("tareas.nombre_ttarea")}</TableCell>
-                <TableCell align="center">{t("tareas.repara")}</TableCell>
-                <TableCell align="center">{t("tareas.down")}</TableCell>
-                <TableCell align="center">{t("tareas.restringido")}</TableCell>
-                <TableCell align="center">{t("tareas.preventivo")}</TableCell>
-                <TableCell align="center">{t("tareas.externo")}</TableCell>
-                <TableCell align="center">{t("tareas.acciones")}</TableCell>
+                <TableCell>{t("tarea.nombre-tarea")}</TableCell>
+                <TableCell>{t("tarea.nombre_ttarea")}</TableCell>
+                <TableCell align="center">{t("tarea.repara")}</TableCell>
+                <TableCell align="center">{t("tarea.down")}</TableCell>
+                <TableCell align="center">{t("tarea.restringido")}</TableCell>
+                <TableCell align="center">{t("tarea.preventivo")}</TableCell>
+                <TableCell align="center">{t("tarea.externo")}</TableCell>
+                <TableCell align="center">{t("tarea.acciones")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -246,10 +246,10 @@ const Tareas = () => {
             </Button>
 
             <Typography variant="p" className="col-3 align-self-center">
-            {t("tareas.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
+            {t("tarea.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
             </Typography>
             <Typography variant="p" className="align-self-center">
-            {t("tareas.registros")} {filteredItems.length}
+            {t("tarea.registros")} {filteredItems.length}
             </Typography>
           </div>
         </TableContainer>
@@ -258,4 +258,4 @@ const Tareas = () => {
   )
 }
 
-export default Tareas
+export default Tarea

@@ -443,7 +443,7 @@
         "datoObligatorio": "Mandatory data marked with #",
         "habilitado": "Enabled"
     }, 
-    "tareas":{
+    "tarea":{
         "titulo": "Task",
         "busqueda": "Search",
         "nombre-tarea": "Task Name",
