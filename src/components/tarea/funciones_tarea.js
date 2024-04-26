@@ -18,7 +18,7 @@ export async function trae_tareas() {
 export async function trae_permisos(datos){
   const JSONdata = JSON.stringify({ 
     tarea: datos.tarea,
-    tareas: datos.tareas ,
+    tareas: datos.tarea ,
     id_usuario: datos.id_usuario
   }); // Send the data to the server in JSON format.
   const endpoint = "https://v2.equipasis.com/api/tarea.php"; // API endpoint where we send form data.
@@ -32,7 +32,7 @@ export async function trae_permisos(datos){
   const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
   const result = await response.json();
   
-  return result.tareas;
+  return result.tarea;
 }
 
 export async function cambia_tareas(datos){

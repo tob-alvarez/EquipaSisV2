@@ -443,7 +443,7 @@
         "datoObligatorio": "Dados obrigatórios marcados com #",
         "habilitado": "Ativado"
     },
-    "tareas":{
+    "tarea":{
         "titulo": "Tarefa",
         "busqueda": "Procurar",
         "nombre-tarea": "Nome da Tarefa",
