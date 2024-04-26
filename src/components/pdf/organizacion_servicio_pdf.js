@@ -16,15 +16,15 @@ export function organizacion_servicio_pdf(filtro, idioma) {
       page = "Página";
       reporte = "Reporte al"
     } else if (idioma === 'en') {
-      titulo = "Records of Services by Organization";
+      titulo = "Records of Service by Organization";
       nombreorganizacion = "Organization Name";
       nombre_servicio = "Service Name";
       habilitado = "Enabled";
       page = "Page";
       reporte = "Report as of";
     } else if (idioma === 'por') {
-      titulo = "Datas do Serviços por Organização";
-      nombreorganizacion = "Nome do Organização";
+      titulo = "Datas de Serviços por Organização";
+      nombreorganizacion = "Nome da Organização";
       nombre_servicio = "Nome do Serviço";
       habilitado = "Habilitado";
       page = "Página";
@@ -82,8 +82,8 @@ export function organizacion_servicio_pdf(filtro, idioma) {
       }
 
       doc.text(datos.id_orga_serv, 20, lineas);
-      doc.text(datos.nombre_organizacion, 34, lineas);
-      doc.text(datos.nombre_servicio, 72, lineas);
+      doc.text(datos.nombre_software, 35, lineas);
+      doc.text(datos.nombre_servicio, 110, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
@@ -124,9 +124,9 @@ export function organizacion_servicio_pdf(filtro, idioma) {
     doc.text("ID", 22, 25, { align: "center" });
     doc.line(30, 19.8, 30, 27.2);
     doc.text(nombreorganizacion , 47, 25, { align: "center" });
-    doc.line(70, 19.8, 70, 27.2);
-    doc.text(nombre_servicio , 90, 25, { align: "center" });
-    doc.line(115, 19.8, 115, 27.2);
+    doc.line(105, 19.8, 105, 27.2);
+    doc.text(nombre_servicio , 130, 25, { align: "center" });
+    doc.line(160, 19.8, 160, 27.2);
 
     doc.text(habilitado, 172, 25, { align: "center" });
     let fecha = new Date();
@@ -137,7 +137,7 @@ export function organizacion_servicio_pdf(filtro, idioma) {
   }
 }
 
-export function servicio_xls(filtro) {
+export function organizacion_servicio_xls(filtro) {
   let data = [];
 
   const resultado = async () => {
@@ -170,10 +170,10 @@ export function servicio_xls(filtro) {
       const ws = XLSX.utils.json_to_sheet(data);
 
       var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "servicios_por_organizacion");
+      XLSX.utils.book_append_sheet(wb, ws, "Organizacion_servicios");
 
       /* Export to file (start a download) */
-      XLSX.writeFile(wb, fecha + "_Servicio_por_Organizacion.xlsx");
+      XLSX.writeFile(wb, fecha + "_Organizacion_servicio.xlsx");
     }
   };
   resultado()

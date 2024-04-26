@@ -66,8 +66,8 @@ const Organizacion_servicio = () => {
     return expresionesArray.some(
       (expresion) =>
         grilla.id_orga_serv.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.id_organizacion.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.id_servicio.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_organizacion.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_servicio.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
     );
   }

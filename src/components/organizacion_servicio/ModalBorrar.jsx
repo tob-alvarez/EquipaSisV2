@@ -49,13 +49,13 @@ const ModalBorrar = ({dato}) => {
                     {dato.habilita_3 == 'SI' ? (
                         <>
                             <h6>
-                                <b>{t("organizacion_servicio.titulo")}:</b> {dato.id_organizacion}
+                                <b>{t("organizacion_servicio.titulo")}:</b> {dato.nombre_organizacion}
                             </h6>
                         </>
                     ) : (
                         <>
                             <h6>
-                                <b>{t("organizacion_servicio.titulo")}:</b> {dato.id_organizacion}
+                                <b>{t("organizacion_servicio.titulo")}:</b> {dato.nombre_organizacion}
                             </h6>
                             <p style={{ fontSize: "0.8em", color: "red" }}>
                             {t("organizacion_servicio.borrarListo")}

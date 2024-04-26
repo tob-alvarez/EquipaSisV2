@@ -18,7 +18,7 @@ import Marca from "./components/marca/Marca";
 import Motivo_solicitud from "./components/motivo_solicitud/Motivo_solicitud";
 import Opcion from "./components/opcion/Opcion";
 import Organizacion from "./components/organizacion/Organizacion";
-//import Organizacion_servicio from "./components/organizacion_servicio/Organizacion_servicio";
+import Organizacion_servicio from "./components/organizacion_servicio/Organizacion_servicio";
 import Pais from "./components/pais/Pais";
 import Persona from "./components/persona/Persona";
 import Prioridad from "./components/prioridad/Prioridad";
@@ -171,6 +171,15 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route
+              exact
+              path="/organizacion_servicio"
+              element={
+                <PrivateRoute>
+                  <Organizacion_servicio />
+                </PrivateRoute>
+              }
+            />            
             <Route
               exact
               path="/pais"
