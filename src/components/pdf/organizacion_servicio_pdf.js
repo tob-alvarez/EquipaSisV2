@@ -82,7 +82,7 @@ export function organizacion_servicio_pdf(filtro, idioma) {
       }
 
       doc.text(datos.id_orga_serv, 20, lineas);
-      doc.text(datos.nombre_software, 35, lineas);
+      doc.text(datos.nombre_organizacion, 35, lineas);
       doc.text(datos.nombre_servicio, 110, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
@@ -123,7 +123,7 @@ export function organizacion_servicio_pdf(filtro, idioma) {
     doc.setFontSize(9);
     doc.text("ID", 22, 25, { align: "center" });
     doc.line(30, 19.8, 30, 27.2);
-    doc.text(nombreorganizacion , 47, 25, { align: "center" });
+    doc.text(nombreorganizacion , 55, 25, { align: "center" });
     doc.line(105, 19.8, 105, 27.2);
     doc.text(nombre_servicio , 130, 25, { align: "center" });
     doc.line(160, 19.8, 160, 27.2);

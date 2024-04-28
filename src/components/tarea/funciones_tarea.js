@@ -62,6 +62,7 @@ export async function cambia_tareas(datos){
   const result = await response.json();
  return result.registros;
 }
+
 export async function borra_tareas(datos){
   console.log(datos)
   const JSONdata = JSON.stringify({ 
@@ -129,7 +130,7 @@ export async function ayuda_tareas(){
   // Get the response data from server as JSON.
   // If server returns the name submitted, that means the form works.
   const result = await response.json();
- return result.tareas;
+ return result.tarea;
 }
 
 // export async function trae_permiso_acciones(id_usuario){

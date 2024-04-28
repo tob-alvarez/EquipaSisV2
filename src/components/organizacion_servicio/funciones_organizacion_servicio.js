@@ -39,7 +39,7 @@ export async function cambia_organizacion_servicios(datos){
   console.log(datos)
   const JSONdata = JSON.stringify({ 
     tarea: "cambia_organizacion_servicio",
-    id_orga_serv:datos.id_orga_serv ,
+    id_orga_serv: datos.id_orga_serv ,
     id_organizacion: datos.id_organizacion,
     id_servicio: datos.id_servicio,
     habilita: datos.habilita

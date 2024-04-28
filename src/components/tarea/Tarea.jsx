@@ -68,11 +68,11 @@ const Tarea = () => {
         grilla.id_tarea.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.nombre_tarea.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.nombre_ttarea.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.repara3.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.down3.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.restringido3.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.preventivo3.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.externo3.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.repara_3.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.down_3.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.restringido_3.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.preventivo_3.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.externo_3.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
     );
   }
@@ -181,14 +181,14 @@ const Tarea = () => {
                   }}
                 >
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_tarea}</TableCell>
-                  <TableCell >{dato.nombre_tarea.toUpperCase()}</TableCell>
-                  <TableCell >{dato.id_ttarea.toUpperCase()}</TableCell>
-                  <TableCell >{dato.repara.toUpperCase()}</TableCell>
-                  <TableCell >{dato.down.toUpperCase()}</TableCell>
-                  <TableCell >{dato.restringido.toUpperCase()}</TableCell>
-                  <TableCell >{dato.preventivo.toUpperCase()}</TableCell>
-                  <TableCell >{dato.externo.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell>{dato.nombre_tarea.toUpperCase()}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>{dato.nombre_ttarea.toUpperCase()}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}} >{dato.repara_3.toUpperCase()}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}} >{dato.down_3.toUpperCase()}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>{dato.restringido_3.toUpperCase()}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}} >{dato.preventivo_3.toUpperCase()}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}} >{dato.externo_3.toUpperCase()}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >
