@@ -10,7 +10,7 @@ import { EquipaContext } from "../../context/EquipaContext";
 
 const ModalBorrar = ({dato}) => {
     const [t] = useTranslation("global")
-    const [id_organizacion, setId_organizacion] = useState("");
+    const [nombre_organizacion, setNombre_organizacion] = useState("");
     const [habilita, setHabilita] = useState(false);
     const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
     const { actualizador } = useContext(EquipaContext);
@@ -20,7 +20,7 @@ const ModalBorrar = ({dato}) => {
       };
     const borra_organizacion_servicio = () => {
         const datos_cambios = {
-            id_orga_serv: dato.id_orga_serv,
+            id_organizacion: dato.id_organizacion,
         };
         borra_organizacion_servicios(datos_cambios).then(() => {
             setIsModalDeleteOpen(false);
@@ -49,13 +49,13 @@ const ModalBorrar = ({dato}) => {
                     {dato.habilita_3 == 'SI' ? (
                         <>
                             <h6>
-                                <b>{t("organizacion_servicio.titulo")}:</b> {dato.id_organizacion}
+                                <b>{t("organizacion_servicio.titulo")}:</b> {dato.nombre_organizacion}
                             </h6>
                         </>
                     ) : (
                         <>
                             <h6>
-                                <b>{t("organizacion_servicio.titulo")}:</b> {dato.id_organizacion}
+                                <b>{t("organizacion_servicio.titulo")}:</b> {dato.nombre_organizacion}
                             </h6>
                             <p style={{ fontSize: "0.8em", color: "red" }}>
                             {t("organizacion_servicio.borrarListo")}

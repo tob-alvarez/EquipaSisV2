@@ -122,7 +122,7 @@ const ModalAgregar = () => {
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                  {t("tarea.id_ttarea")}: #
+                  {t("tarea.nombre_ttarea")}: #
                 </label>
                 <InputGroup>
                   <Form.Select

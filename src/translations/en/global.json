@@ -286,6 +286,8 @@
         "busqueda": "Search",
         "nombre-organizacion": "Organization Name",
         "nombre_servicio": "Service Name",
+        "seleccione_organizacion": "Select Organization",
+        "seleccione_servicio": "Select Service",
         "estado": "State",
         "acciones": "Actions",
         "registros": "Records",

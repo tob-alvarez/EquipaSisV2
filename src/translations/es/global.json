@@ -286,6 +286,8 @@
         "busqueda": "Búsqueda",
         "nombre-organizacion": "Nombre Organización",
         "nombre_servicio": "Nombre Servicio",
+        "seleccione_organizacion": "Seleccione Organización",
+        "seleccione_servicio": "Seleccione Servicio",
         "estado": "Estado",
         "acciones": "Acciones",
         "registros": "Registros",

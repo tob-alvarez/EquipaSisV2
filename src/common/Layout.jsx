@@ -153,8 +153,6 @@ export default function Layout({ children }) {
   }, []);
 
 
-  console.log(menuItems)
-    
   return authenticated ? (
     <>
       <Box sx={{ display: "flex" }}>
