@@ -42,6 +42,7 @@ import Tipo_pertenencia from "./components/tipo_pertenencia/Tipo_pertenencia";
 import Tipo_solicitud from "./components/tipo_solicitud/Tipo_solicitud";
 import Tipo_tarea from "./components/tipo_tarea/Tipo_tarea";
 import Tipo_usuario from "./components/tipo_usuario/Tipo_usuario";
+import Usuario from "./components/usuario/Usuario";
 import Perfil from "./common/Perfil";
 
 
@@ -386,7 +387,16 @@ function App() {
                   <Tipo_usuario />
                 </PrivateRoute>
               }
-            />             
+            />
+            <Route
+              exact
+              path="/usuario"
+              element={
+                <PrivateRoute>
+                  <Usuario />
+                </PrivateRoute>
+              }
+            />                       
           </Routes>
         </Layout>
       </EquipaProvider>
