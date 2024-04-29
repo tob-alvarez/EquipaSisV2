@@ -731,6 +731,27 @@
         "borrarListo": "This User Type is already disabled",
         "datoObligatorio": "Mandatory data marked with #",
         "habilitado": "Enabled"
+    },
+    "usuario":{
+        "titulo": "User",
+        "busqueda": "Search",
+        "nombre-persona": "Person Name",
+        "nombre_tusuario": "User Type Name",
+        "seleccione_persona": "Select Person",
+        "seleccione_tusuario": "Select User Type",
+        "clave": "Password",
+        "estado": "State",
+        "acciones": "Actions",
+        "registros": "Records",
+        "pagina": "Page",
+        "de": "of",
+        "agregarTitulo": "Add User",
+        "ayudaTitulo": "Help",
+        "editarTitulo": "Edit User",
+        "borrarTitulo": "Delete User",
+        "borrarListo": "This User is already disabled",
+        "datoObligatorio": "Mandatory data marked with #",
+        "habilitado": "Enabled"
     }
 
 }

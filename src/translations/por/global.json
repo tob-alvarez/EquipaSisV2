@@ -731,5 +731,26 @@
         "borrarListo": "Este Tipo de Usuário já está desativada",
         "datoObligatorio": "Dados obrigatórios marcados com #",
         "habilitado": "Ativada"
+    },
+    "usuario":{
+        "titulo": "Usuário",
+        "busqueda": "Procurar",
+        "nombre-persona": "Nome da Pessoa",
+        "nombre_tusuario": "Nome do Tipo de Usuário",
+        "seleccione_persona": "Selecione Pessoa",
+        "seleccione_tusuario": "Selecione Tipo de Usuário",
+        "clave": "Dica",
+        "estado": "Estado",
+        "acciones": "Ações",
+        "registros": "Registros",
+        "pagina": "Página",
+        "de": "a",
+        "agregarTitulo": "Adicionar Usuário",
+        "ayudaTitulo": "Ajuda",
+        "editarTitulo": "Editar Usuário",
+        "borrarTitulo": "Excluir Usuário",
+        "borrarListo": "Este Usuário já está desativada",
+        "datoObligatorio": "Dados obrigatórios marcados com #",
+        "habilitado": "Ativada"
     }
 }

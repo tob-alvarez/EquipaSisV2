@@ -3,14 +3,14 @@
 import { useContext, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
-import { borra_organizacion_servicios } from "./funciones_organizacion_servicio";
+import { borra_usuarios } from "./funciones_usuario";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useTranslation } from "react-i18next";
 import { EquipaContext } from "../../context/EquipaContext";
 
 const ModalBorrar = ({dato}) => {
     const [t] = useTranslation("global")
-    const [nombre_organizacion, setNombre_organizacion] = useState("");
+    const [nombre_persona, setNombre_persona] = useState("");
     const [habilita, setHabilita] = useState(false);
     const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
     const { actualizador } = useContext(EquipaContext);
@@ -18,11 +18,11 @@ const ModalBorrar = ({dato}) => {
     const closeModalDelete = () => {
         setIsModalDeleteOpen(false);
       };
-    const borra_organizacion_servicio = () => {
+    const borra_usuario = () => {
         const datos_cambios = {
-            id_orga_serv: dato.id_orga_serv,
+            id_usuario: dato.id_usuario,
         };
-        borra_organizacion_servicios(datos_cambios).then(() => {
+        borra_usuarios(datos_cambios).then(() => {
             setIsModalDeleteOpen(false);
             toast.success(`${t("varios.borrado")}`, {
             duration: 1000,
@@ -43,22 +43,22 @@ const ModalBorrar = ({dato}) => {
                 centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title> {t("organizacion_servicio.borrarTitulo")}...</Modal.Title>
+                    <Modal.Title> {t("usuario.borrarTitulo")}...</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {dato.habilita_3 == 'SI' ? (
                         <>
                             <h6>
-                                <b>{t("organizacion_servicio.titulo")}:</b> {dato.nombre_organizacion}
+                                <b>{t("usuario.titulo")}:</b> {dato.nombre_persona}
                             </h6>
                         </>
                     ) : (
                         <>
                             <h6>
-                                <b>{t("organizacion_servicio.titulo")}:</b> {dato.nombre_organizacion}
+                                <b>{t("usuario.titulo")}:</b> {dato.nombre_persona}
                             </h6>
                             <p style={{ fontSize: "0.8em", color: "red" }}>
-                            {t("organizacion_servicio.borrarListo")}
+                            {t("usuario.borrarListo")}
                             </p>
                         </>
                     )}
@@ -67,7 +67,7 @@ const ModalBorrar = ({dato}) => {
                     <div className="justify-content-center mt-2">
                         {dato.habilita_3 == 'SI' ? (
                             <button
-                                onClick={borra_organizacion_servicio}
+                                onClick={borra_usuario}
                                 className="btn btn-primary btn-sm m-2"
                                 style={{
                                     float: "right",

@@ -28,6 +28,8 @@ const EquipaProvider = ({ children }) => {
   const [ttareas, setTtareas] = useState(null);
   const [organizaciones, setOrganizaciones] = useState(null);
   const [servicios, setServicios] = useState(null);
+  const [personas, setPersonas] = useState(null);
+  const [tusuarios, setTusuarios] = useState(null);  
 
 
   useEffect(() => {
@@ -182,6 +184,24 @@ const EquipaProvider = ({ children }) => {
     }
   };
 
+  const traerPersonas = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/persona.php`, tarea);
+      setPersonas(data.persona)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
+  const traerTusuarios = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/tipo_usuario.php`, tarea);
+      setTusuarios(data.servicio)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
   const getAuth = async () => {
     try {
       const token = sessionStorage.getItem("token");
@@ -253,7 +273,11 @@ const EquipaProvider = ({ children }) => {
         traerOrganizaciones,
         organizaciones,
         traerServicios,
-        servicios
+        servicios,
+        traerPersonas,
+        personas,
+        traerTusuarios,
+        tusuarios
       }}
     >
       {children}
