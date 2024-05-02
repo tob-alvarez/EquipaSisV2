@@ -1,38 +1,38 @@
 import jsPDF from "jspdf";
 import * as XLSX from "xlsx";
 
-export function organizacion_servicio_pdf(filtro, idioma) {
+export function usuario_pdf(filtro, idioma) {
     let titulo;
-    let nombreorganizacion;
-    let nombre_servicio;
+    let nombrepersona;
+    let nombre_tusuario;
     let habilitado;
     let page; 
     let reporte;
     if (idioma === 'es') {
-      titulo = "Registro de Servicios por Organización";
-      nombreorganizacion = "Nombre de Organización";
-      nombre_servicio = "Nombre de Servicio";
-      habilitado = "Habilitada";
+      titulo = "Registro de Usuarios";
+      nombrepersona = "Nombre de Persona";
+      nombre_tusuario = "Nombre de Tipo de Usuario";
+      habilitado = "Habilitado";
       page = "Página";
       reporte = "Reporte al"
     } else if (idioma === 'en') {
-      titulo = "Records of Service by Organization";
-      nombreorganizacion = "Organization Name";
-      nombre_servicio = "Service Name";
+      titulo = "Records of User";
+      nombrepersona = "Person Name";
+      nombre_tusuario = "User Type Name";
       habilitado = "Enabled";
       page = "Page";
       reporte = "Report as of";
     } else if (idioma === 'por') {
-      titulo = "Datas de Serviços por Organização";
-      nombreorganizacion = "Nome da Organização";
-      nombre_servicio = "Nome do Serviço";
+      titulo = "Datas de Usuários";
+      nombrepersona = "Nome da Person";
+      nombre_tusuario = "Nome do Tipo de Usuário";
       habilitado = "Habilitado";
       page = "Página";
       reporte = "Relatório em";
     } else {
-      titulo = "Registro de Servicios por Organización";
-      nombreorganizacion = "Nombre de Organización";
-      nombre_servicio = "Nombre de Servicio";
+      titulo = "Registro de Usuarios";
+      nombrepersona = "Nombre de Persona";
+      nombre_tusuario = "Nombre de Tipo de Usuario";
       habilitado = "Habilitada";
       page = "Página";
       reporte = "Reporte al"
@@ -47,8 +47,8 @@ export function organizacion_servicio_pdf(filtro, idioma) {
     let data = [];
     let habilita = "";
   const resultado = async () => {
-    const JSONdata = JSON.stringify({ tarea: "imprime_organizacion_servicio" }); // Send the data to the server in JSON format.
-    const endpoint = "https://v2.equipasis.com/api/organizacion_servicio.php"; // API endpoint where we send form data.
+    const JSONdata = JSON.stringify({ tarea: "imprime_usuario" }); // Send the data to the server in JSON format.
+    const endpoint = "https://v2.equipasis.com/api/usuario.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
     const options = {
@@ -62,34 +62,34 @@ export function organizacion_servicio_pdf(filtro, idioma) {
     // If server returns the name submitted, that means the form works.
     const result = await response.json();
     data = result.datos;
-    data = data.filter(item => item.nombre_organizacion.toLowerCase().indexOf(filtro) > -1 || 
-    item.id_orga_serv.toLowerCase().indexOf(filtro) > -1 ||
-    item.nombre_servicio.toLowerCase().indexOf(filtro) > -1 ||
+    data = data.filter(item => item.nombre_persona.toLowerCase().indexOf(filtro) > -1 || 
+    item.id_usuario.toLowerCase().indexOf(filtro) > -1 ||
+    item.nombre_tusuario.toLowerCase().indexOf(filtro) > -1 ||
     item.habilita.toLowerCase().indexOf(filtro) > -1);
     doc.setProperties({
       title: titulo,
     });
     cabecera();
     data.map((datos, index) => {
-      if (index % 2 == 0 && datos.nombre_organizacion.length > 120) {
+      if (index % 2 == 0 && datos.nombre_persona.length > 120) {
         doc.setFillColor("#ECECEC");
         doc.rect(15, lineas - 4, 169, 10, "F");
       }
 
-      if (index % 2 == 0 && datos.nombre_organizacion.length < 120) {
+      if (index % 2 == 0 && datos.nombre_persona.length < 120) {
         doc.setFillColor("#ECECEC");
         doc.rect(15, lineas - 4, 169, 5, "F");
       }
 
-      doc.text(datos.id_orga_serv, 20, lineas);
-      doc.text(datos.nombre_organizacion, 35, lineas);
-      doc.text(datos.nombre_servicio, 110, lineas);
+      doc.text(datos.id_usuario, 20, lineas);
+      doc.text(datos.nombre_persona, 35, lineas);
+      doc.text(datos.nombre_tusuario, 110, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
       doc.text(habilita, 168, lineas);
 
-      if (datos.nombre_organizacion.length > 100) {
+      if (datos.nombre_persona.length > 100) {
         //doc.line(5,lineas+6,200,lineas+6);
         lineas = lineas + 5;
       } else {
@@ -123,9 +123,9 @@ export function organizacion_servicio_pdf(filtro, idioma) {
     doc.setFontSize(9);
     doc.text("ID", 22, 25, { align: "center" });
     doc.line(30, 19.8, 30, 27.2);
-    doc.text(nombreorganizacion , 55, 25, { align: "center" });
+    doc.text(nombrepersona , 55, 25, { align: "center" });
     doc.line(105, 19.8, 105, 27.2);
-    doc.text(nombre_servicio , 130, 25, { align: "center" });
+    doc.text(nombre_tusuario , 130, 25, { align: "center" });
     doc.line(160, 19.8, 160, 27.2);
 
     doc.text(habilitado, 172, 25, { align: "center" });
@@ -137,12 +137,12 @@ export function organizacion_servicio_pdf(filtro, idioma) {
   }
 }
 
-export function organizacion_servicio_xls(filtro) {
+export function usuario_xls(filtro) {
   let data = [];
 
   const resultado = async () => {
-    const JSONdata = JSON.stringify({ tarea: "imprime_organizacion_servicio" }); // Send the data to the server in JSON format.
-    const endpoint = "https://v2.equipasis.com/api/organizacion_servicio.php"; // API endpoint where we send form data.
+    const JSONdata = JSON.stringify({ tarea: "imprime_usuario" }); // Send the data to the server in JSON format.
+    const endpoint = "https://v2.equipasis.com/api/usuario.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
     const options = {
@@ -160,9 +160,9 @@ export function organizacion_servicio_xls(filtro) {
     fecha = fecha.toLocaleString();
     
     data = result.datos;
-    data = data.filter(item => item.nombre_organizacion.toLowerCase().indexOf(filtro) > -1 || 
-    item.nombre_servicio.toLowerCase().indexOf(filtro) > -1 ||
-    item.id_orga_serv.toLowerCase().indexOf(filtro) > -1 ||
+    data = data.filter(item => item.nombre_persona.toLowerCase().indexOf(filtro) > -1 || 
+    item.nombre_tusuario.toLowerCase().indexOf(filtro) > -1 ||
+    item.id_usuario.toLowerCase().indexOf(filtro) > -1 ||
     item.habilita.toLowerCase().indexOf(filtro) > -1);
     console.log(data.length);
     if (data.length != 0) {
@@ -170,10 +170,10 @@ export function organizacion_servicio_xls(filtro) {
       const ws = XLSX.utils.json_to_sheet(data);
 
       var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Organizacion_servicios");
+      XLSX.utils.book_append_sheet(wb, ws, "usuarios");
 
       /* Export to file (start a download) */
-      XLSX.writeFile(wb, fecha + "_Organizacion_servicio.xlsx");
+      XLSX.writeFile(wb, fecha + "_usuario.xlsx");
     }
   };
   resultado()

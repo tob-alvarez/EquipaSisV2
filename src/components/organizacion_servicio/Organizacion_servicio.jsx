@@ -35,28 +35,28 @@ const Organizacion_servicio = () => {
     organizacion_servicio: "organizacion_servicio",
     id_usuario: "1"
   });
-  
+
   let idioma = localStorage.getItem('language')
-  
+
   useEffect(() => {
-      trae_organizacion_servicios().then((result) => setDatosorganizacion_servicios(result));
-      switch (idioma) {
-        case "es":
-          ayuda_organizacion_servicios().then((ayuda) => setAyuda(ayuda[0].texto));
-          break;
-        case "en":
-          ayuda_organizacion_servicios().then((ayuda) => setAyuda(ayuda[0].texto_en));
-          break;
-        case "por":
-          ayuda_organizacion_servicios().then((ayuda) => setAyuda(ayuda[0].texto_por));
-          break;
-        default:
-          ayuda_organizacion_servicios().then((ayuda) => setAyuda(ayuda[0].texto));
-      }
-      trae_permisos(datos).then((result) =>setPermisos_usuario(result[0]))
+    trae_organizacion_servicios().then((result) => setDatosorganizacion_servicios(result));
+    switch (idioma) {
+      case "es":
+        ayuda_organizacion_servicios().then((ayuda) => setAyuda(ayuda[0].texto));
+        break;
+      case "en":
+        ayuda_organizacion_servicios().then((ayuda) => setAyuda(ayuda[0].texto_en));
+        break;
+      case "por":
+        ayuda_organizacion_servicios().then((ayuda) => setAyuda(ayuda[0].texto_por));
+        break;
+      default:
+        ayuda_organizacion_servicios().then((ayuda) => setAyuda(ayuda[0].texto));
+    }
+    trae_permisos(datos).then((result) => setPermisos_usuario(result[0]))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [idioma, refresh]);
-  
+  }, [idioma, refresh]);
+
   ////////////////// majeador de busqueda////////////////////////
 
   function buscarPorExpresiones(grilla, expresiones) {
@@ -66,8 +66,8 @@ const Organizacion_servicio = () => {
     return expresionesArray.some(
       (expresion) =>
         grilla.id_orga_serv.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.id_organizacion.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.id_servicio.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_organizacion.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_servicio.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
     );
   }
@@ -171,12 +171,12 @@ const Organizacion_servicio = () => {
                     height: '5px', // Ajusta la altura de la fila
                   }}
                 >
-                  <TableCell sx={{textAlign: 'center'}}>{dato.id_orga_serv}</TableCell>
-                  <TableCell>{dato.nombre_organizacion.toUpperCase()}</TableCell>
-                  <TableCell>{dato.nombre_servicio.toUpperCase()}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{dato.id_orga_serv}</TableCell>
+                  <TableCell >{dato.nombre_organizacion.toUpperCase()}</TableCell>
+                  <TableCell >{dato.nombre_servicio.toUpperCase()}</TableCell>
                   <TableCell>
                     <p
-                      style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
+                      style={dato.habilita_3 === 'SI' ? { margin: 0 } : { margin: 0, color: "#ff0000" }}
                     >
                       {dato.habilita_3}
                     </p>
@@ -184,7 +184,7 @@ const Organizacion_servicio = () => {
                   <TableCell align="center">
                     {permisos_usuario.modificar === "1" && (
                       <IconButton>
-                        <ModalEditar dato={dato}/>
+                        <ModalEditar dato={dato} />
                       </IconButton>
                     )}
                     {permisos_usuario.eliminar === "1" && (
@@ -203,21 +203,21 @@ const Organizacion_servicio = () => {
               onClick={() => handlePageChange(1)}
               disabled={currentPage === 1}
             >
-              <KeyboardDoubleArrowLeftIcon/>
+              <KeyboardDoubleArrowLeftIcon />
             </Button>
             <Button
               className="mx-2 icons-contact"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
-              <KeyboardArrowLeftIcon/>
+              <KeyboardArrowLeftIcon />
             </Button>
             <Button
               className="mx-2 icons-contact"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === Math.ceil(filteredItems.length / itemsPerPage)}
             >
-              <KeyboardArrowRightIcon/>
+              <KeyboardArrowRightIcon />
             </Button>
             <Button
               className="icons-contact me-3"
@@ -228,14 +228,14 @@ const Organizacion_servicio = () => {
                 currentPage === Math.ceil(filteredItems.length / itemsPerPage)
               }
             >
-              <KeyboardDoubleArrowRightIcon/>
+              <KeyboardDoubleArrowRightIcon />
             </Button>
 
             <Typography variant="p" className="col-3 align-self-center">
-            {t("organizacion_servicio.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
+              {t("organizacion_servicio.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
             </Typography>
             <Typography variant="p" className="align-self-center">
-            {t("organizacion_servicio.registros")} {filteredItems.length}
+              {t("organizacion_servicio.registros")} {filteredItems.length}
             </Typography>
           </div>
         </TableContainer>

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { toast } from "react-toastify";
-import { cambia_organizacion_servicios } from "./funciones_organizacion_servicio";
+import { cambia_usuarios } from "./funciones_usuario";
 import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
@@ -11,11 +11,12 @@ import { EquipaContext } from "../../context/EquipaContext";
 const ModalEditar = ({dato}) => {
     const [t] = useTranslation("global")
     const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-    const [id_orga_serv, setId_orga_serv] = useState("");
-    const [id_organizacion, setId_organizacion] = useState("");
-    const [id_servicio, setId_servicio] = useState("");
+    const [id_usuario, setId_usuario] = useState("");
+    const [id_persona, setId_persona] = useState("");
+    const [id_tusuario, setId_tusuario] = useState("");
+    const [clave, setClave] = useState("");
     const [habilita, setHabilita] = useState(false);
-    const { actualizador, traerOrganizaciones, organizaciones, traerServicios, servicios } = useContext(EquipaContext);
+    const { actualizador, traerPersonas, personas, traerTusuarios, usuarios } = useContext(EquipaContext);
   
 
     useEffect(() => {
@@ -25,21 +26,23 @@ const ModalEditar = ({dato}) => {
         } else {
           setHabilita(false);
         }
-        setId_organizacion(dato.id_organizacion);
-        setId_servicio(dato.id_servicio);
+        setId_persona(dato.id_persona);
+        setId_tusuario(dato.id_tusuario);
+        setClave(dato.clave);
       }
     }, [isModalEditOpen, dato]);
     
     useEffect(() => {
-      traerOrganizaciones({tarea: "combo_organizacion"})
-      traerServicios({tarea: "combo_servicio"})
+      traerPersonas({tarea: "combo_persona"})
+      traerTusuarios({tarea: "combo_tusuario"})
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
     const limpia_campos = () => {
-      setId_orga_serv("");
-      setId_organizacion("");
-      setId_servicio("");
+      setId_usuario("");
+      setId_persona("");
+      setId_tusuario("");
+      setClave("");
       setHabilita(false);
     };
     const closeModalEdit = () => {
@@ -49,17 +52,18 @@ const ModalEditar = ({dato}) => {
     
     const acepta_accion = () => {
       const datos_cambios = {
-        id_orga_serv: dato.id_orga_serv,
-        id_organizacion: id_organizacion,
-        id_servicio: id_servicio,
+        id_usuario: dato.id_usuario,
+        id_persona: id_persona,
+        id_tusuario: id_tusuario,
+        clave: clave,
         habilita: habilita === true ? "1" : "0",
       };
-      if (id_organizacion == "" || id_servicio == "") {
-        toast.info(`${t("organizacion_servicio.datoObligatorio")}`);
+      if (id_persona == "" || id_tusuario == "" || clave == "") {
+        toast.info(`${t("usuario.datoObligatorio")}`);
         return;
       }
       
-      cambia_organizacion_servicios(datos_cambios).then((respuesta_accion) => {
+      cambia_usuarios(datos_cambios).then((respuesta_accion) => {
         if (respuesta_accion[0].registros > 0) {
           toast.success(`${t("varios.editado")}`, {
             duration: 1500,
@@ -90,12 +94,12 @@ const ModalEditar = ({dato}) => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-          {t("organizacion_servicio.editarTitulo")}
+          {t("usuario.editarTitulo")}
             <p
               className="pb-0 mb-0 text-body-emphasis fw-bold"
               style={{ fontSize: "0.5em" }}
             >
-              {t("organizacion_servicio.datoObligatorio")}
+              {t("usuario.datoObligatorio")}
             </p>
           </Modal.Title>
         </Modal.Header>
@@ -104,21 +108,21 @@ const ModalEditar = ({dato}) => {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                  {t("organizacion_servicio.nombre-organizacion")}: #
+                  {t("usuario.nombre-persona")}: #
                 </label>
                 <InputGroup>
                   <Form.Select
-                    id="id_organizacion"
-                    value={id_organizacion}
-                    onChange={(e) => setId_organizacion(e.target.value)}
-                    onKeyUp={(e) => setId_organizacion(e.target.value.toUpperCase())}
+                    id="id_persona"
+                    value={id_persona}
+                    onChange={(e) => setId_persona(e.target.value)}
+                    onKeyUp={(e) => setId_persona(e.target.value.toUpperCase())}
                     className="mb-2"
                   >
-                    <option value="">{t("organizacion_servicio.seleccione_organizacion")}</option>
+                    <option value="">{t("usuario.seleccione_persona")}</option>
                     
-                    {organizaciones?.map((o) => (
-                      <option key={o.id_organizacion} value={o.id_organizacion}>
-                        {o.nombre_organizacion}
+                    {personas?.map((o) => (
+                      <option key={o.id_persona} value={o.id_persona}>
+                        {o.nombre_persona}
                       </option>
                     ))}
                   </Form.Select>
@@ -127,33 +131,50 @@ const ModalEditar = ({dato}) => {
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                  {t("organizacion_servicio.nombre_servicio")}: #
+                  {t("usuario.nombre_tusuario")}: #
                 </label>
                 <InputGroup>
                   <Form.Select
-                    id="id_servicio"
-                    value={id_servicio}
-                    onChange={(e) => setId_servicio(e.target.value)}
-                    onKeyUp={(e) => setId_servicio(e.target.value.toUpperCase())}
+                    id="id_tusuario"
+                    value={id_tusuario}
+                    onChange={(e) => setId_tusuario(e.target.value)}
+                    onKeyUp={(e) => setId_tusuario(e.target.value.toUpperCase())}
                     className="mb-2"
                   >
-                    <option value="">{t("organizacion_servicio.seleccione_servicio")}</option>
+                    <option value="">{t("usuario.seleccione_tusuario")}</option>
                     
-                    {servicios?.map((o) => (
-                      <option key={o.id_servicio} value={o.id_servicio}>
-                        {o.nombre_servicio}
+                    {usuarios?.map((o) => (
+                      <option key={o.id_tusuario} value={o.id_tusuario}>
+                        {o.nombre_tusuario}
                       </option>
                     ))}
                   </Form.Select>
                 </InputGroup>
               </div>
 
+              <div className="col-6">
+                <label htmlFor="name" className="label-material mb-1">
+                {t("usuario.clave")}: #
+                </label>
+                <InputGroup>
+                  <Form.Control
+                    id="clave"
+                    value={clave}
+                    onChange={(e) => setClave(e.target.value)}
+                    onKeyUp={(e) =>
+                      setClave(e.target.value.toUpperCase())
+                    }
+                    className="mb-2"
+                  />
+                </InputGroup>
+              </div>
+
               <div className="col-6 text-start">
-                {t("organizacion_servicio.habilitado")}
+                {t("usuario.habilitado")}
                 <Switch 
                   id={"habilita"}
                   checked={habilita}
-                  label={t("organizacion_servicio.habilitado")}
+                  label={t("usuario.habilitado")}
                   onChange={(e) => setHabilita(e.target.checked)}
                 />
               </div>

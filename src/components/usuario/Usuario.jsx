@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import './table.css'
 import {
-  trae_tareas,
-  ayuda_tareas,
+  trae_usuarios,
+  ayuda_usuarios,
   trae_permisos
-} from "./funciones_tarea";
-import { tarea_pdf, tarea_xls } from "../pdf/tarea_pdf";
+} from "./funciones_usuario";
+import { usuario_pdf, usuario_xls } from "../pdf/usuario_pdf";
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -20,9 +20,9 @@ import ModalEditar from "./ModalEditar";
 import ModalBorrar from "./ModalBorrar";
 import { EquipaContext } from "../../context/EquipaContext";
 
-const Tarea = () => {
+const Usuario = () => {
   const [t] = useTranslation("global")
-  const [datos_tareas, setDatostareas] = useState([]);
+  const [datos_usuarios, setDatosusuarios] = useState([]);
   const [permisos_usuario, setPermisos_usuario] = useState([]);
   const [ayuda, setAyuda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,31 +32,31 @@ const Tarea = () => {
   // eslint-disable-next-line no-unused-vars
   const [datos, setDatos] = useState({
     tarea: "permiso_usuario",
-    tareas: "tarea",
+    usuario: "usuario",
     id_usuario: "1"
   });
-  
+
   let idioma = localStorage.getItem('language')
-  
+
   useEffect(() => {
-      trae_tareas().then((result) => setDatostareas(result));
-      switch (idioma) {
-        case "es":
-          ayuda_tareas().then((ayuda) => setAyuda(ayuda[0].texto));
-          break;
-        case "en":
-          ayuda_tareas().then((ayuda) => setAyuda(ayuda[0].texto_en));
-          break;
-        case "por":
-          ayuda_tareas().then((ayuda) => setAyuda(ayuda[0].texto_por));
-          break;
-        default:
-          ayuda_tareas().then((ayuda) => setAyuda(ayuda[0].texto));
-      }
-      trae_permisos(datos).then((result) =>setPermisos_usuario(result[0]))
+    trae_usuarios().then((result) => setDatosusuarios(result));
+    switch (idioma) {
+      case "es":
+        ayuda_usuarios().then((ayuda) => setAyuda(ayuda[0].texto));
+        break;
+      case "en":
+        ayuda_usuarios().then((ayuda) => setAyuda(ayuda[0].texto_en));
+        break;
+      case "por":
+        ayuda_usuarios().then((ayuda) => setAyuda(ayuda[0].texto_por));
+        break;
+      default:
+        ayuda_usuarios().then((ayuda) => setAyuda(ayuda[0].texto));
+    }
+    trae_permisos(datos).then((result) => setPermisos_usuario(result[0]))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [idioma, refresh]);
-  
+  }, [idioma, refresh]);
+
   ////////////////// majeador de busqueda////////////////////////
 
   function buscarPorExpresiones(grilla, expresiones) {
@@ -65,20 +65,15 @@ const Tarea = () => {
       .map((expresion) => expresion.trim());
     return expresionesArray.some(
       (expresion) =>
-        grilla.id_tarea.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.nombre_tarea.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.nombre_ttarea.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.repara_3.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.down_3.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.restringido_3.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.preventivo_3.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.externo_3.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.id_usuario.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_persona.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_tusuario.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
     );
   }
 
   function buscarEnGrilla(expresiones) {
-    return datos_tareas?.filter((grilla) => buscarPorExpresiones(grilla, expresiones));
+    return datos_usuarios?.filter((grilla) => buscarPorExpresiones(grilla, expresiones));
   }
   const filteredItems = buscarEnGrilla(searchTerm);
   const currentItems = filteredItems?.slice(
@@ -91,27 +86,27 @@ const Tarea = () => {
   };
 
   const handlePageChange = (page) => {
-    if (page >= 1 && page <= Math.ceil(datos_tareas.length / itemsPerPage)) {
+    if (page >= 1 && page <= Math.ceil(datos_usuarios.length / itemsPerPage)) {
       setCurrentPage(page);
     }
   };
   const printInfoProcess = () => {
     let idioma = localStorage.getItem("language")
     console.log(idioma)
-    tarea_pdf(searchTerm, idioma);
+    usuario_pdf(searchTerm, idioma);
   };
   const downloadInfo = () => {
-    tarea_xls(searchTerm);
+    usuario_xls(searchTerm);
   };
 
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-2 container">
         {/* Funciones agregar, descargar, imprimir y ayuda */}
-        <h1 className="m-0">{t("tarea.titulo")}</h1>
+        <h1 className="m-0">{t("usuario.titulo")}</h1>
         <div className="inputContainer d-flex">
           <label htmlFor="search" className="form-label mb-0 p-2">
-            {t("tarea.busqueda")}
+            {t("usuario.busqueda")}
           </label>
           <input
             type="text"
@@ -158,18 +153,14 @@ const Tarea = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell>{t("tarea.nombre-tarea")}</TableCell>
-                <TableCell>{t("tarea.nombre_ttarea")}</TableCell>
-                <TableCell align="center">{t("tarea.repara")}</TableCell>
-                <TableCell align="center">{t("tarea.down")}</TableCell>
-                <TableCell align="center">{t("tarea.restringido")}</TableCell>
-                <TableCell align="center">{t("tarea.preventivo")}</TableCell>
-                <TableCell align="center">{t("tarea.externo")}</TableCell>
-                <TableCell align="center">{t("tarea.acciones")}</TableCell>
+                <TableCell>{t("usuario.nombre-persona")}</TableCell>
+                <TableCell>{t("usuario.nombre_tusuario")}</TableCell>
+                <TableCell>{t("usuario.estado")}</TableCell>
+                <TableCell align="center">{t("usuario.acciones")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentItems?.map((dato, index) => (
+              {currentItems.map((dato, index) => (
                 <TableRow
                   key={index}
                   sx={{
@@ -180,17 +171,12 @@ const Tarea = () => {
                     height: '5px', // Ajusta la altura de la fila
                   }}
                 >
-                  <TableCell sx={{textAlign: 'center'}}>{dato.id_tarea}</TableCell>
-                  <TableCell>{dato.nombre_tarea.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.nombre_ttarea.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}} >{dato.repara_3.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}} >{dato.down_3.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.restringido_3.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}} >{dato.preventivo_3.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}} >{dato.externo_3.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>
+                  <TableCell sx={{ textAlign: 'center' }}>{dato.id_usuario}</TableCell>
+                  <TableCell >{dato.nombre_persona.toUpperCase()}</TableCell>
+                  <TableCell >{dato.nombre_tusuario.toUpperCase()}</TableCell>
+                  <TableCell>
                     <p
-                      style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
+                      style={dato.habilita_3 === 'SI' ? { margin: 0 } : { margin: 0, color: "#ff0000" }}
                     >
                       {dato.habilita_3}
                     </p>
@@ -198,7 +184,7 @@ const Tarea = () => {
                   <TableCell align="center">
                     {permisos_usuario.modificar === "1" && (
                       <IconButton>
-                        <ModalEditar dato={dato}/>
+                        <ModalEditar dato={dato} />
                       </IconButton>
                     )}
                     {permisos_usuario.eliminar === "1" && (
@@ -217,39 +203,39 @@ const Tarea = () => {
               onClick={() => handlePageChange(1)}
               disabled={currentPage === 1}
             >
-              <KeyboardDoubleArrowLeftIcon/>
+              <KeyboardDoubleArrowLeftIcon />
             </Button>
             <Button
               className="mx-2 icons-contact"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
-              <KeyboardArrowLeftIcon/>
+              <KeyboardArrowLeftIcon />
             </Button>
             <Button
               className="mx-2 icons-contact"
               onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === Math.ceil(filteredItems?.length / itemsPerPage)}
+              disabled={currentPage === Math.ceil(filteredItems.length / itemsPerPage)}
             >
-              <KeyboardArrowRightIcon/>
+              <KeyboardArrowRightIcon />
             </Button>
             <Button
               className="icons-contact me-3"
               onClick={() =>
-                handlePageChange(Math.ceil(filteredItems?.length / itemsPerPage))
+                handlePageChange(Math.ceil(filteredItems.length / itemsPerPage))
               }
               disabled={
-                currentPage === Math.ceil(filteredItems?.length / itemsPerPage)
+                currentPage === Math.ceil(filteredItems.length / itemsPerPage)
               }
             >
-              <KeyboardDoubleArrowRightIcon/>
+              <KeyboardDoubleArrowRightIcon />
             </Button>
 
             <Typography variant="p" className="col-3 align-self-center">
-            {t("tarea.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems?.length / itemsPerPage)}
+              {t("usuario.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
             </Typography>
             <Typography variant="p" className="align-self-center">
-            {t("tarea.registros")} {filteredItems?.length}
+              {t("usuario.registros")} {filteredItems.length}
             </Typography>
           </div>
         </TableContainer>
@@ -258,4 +244,4 @@ const Tarea = () => {
   )
 }
 
-export default Tarea
+export default Usuario

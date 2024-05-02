@@ -286,6 +286,8 @@
         "busqueda": "Búsqueda",
         "nombre-organizacion": "Nombre Organización",
         "nombre_servicio": "Nombre Servicio",
+        "seleccione_organizacion": "Seleccione Organización",
+        "seleccione_servicio": "Seleccione Servicio",
         "estado": "Estado",
         "acciones": "Acciones",
         "registros": "Registros",
@@ -729,5 +731,26 @@
         "borrarListo": "Este Tipo de Usuario ya está deshabilitado",
         "datoObligatorio": "Datos obligatorios marcados con #",
         "habilitado": "Habilitado"
-    }                   
+    },
+    "usuario": {
+        "titulo": "Usuario",
+        "busqueda": "Búsqueda",
+        "nombre-persona": "Nombre Persona",
+        "nombre_tusuario": "Nombre Tipo de Usuario",
+        "seleccione_persona": "Seleccione Persona",
+        "seleccione_tusuario": "Seleccione Tipo de Usuario",
+        "clave": "Clave",
+        "estado": "Estado",
+        "acciones": "Acciones",
+        "registros": "Registros",
+        "pagina": "Página",
+        "de": "de",
+        "agregarTitulo": "Agregar Usuario",
+        "ayudaTitulo": "Ayuda",
+        "editarTitulo": "Editar Usuario",
+        "borrarTitulo": "Borrar Usuario",
+        "borrarListo": "Este Usuario ya está deshabilitado",
+        "datoObligatorio": "Datos obligatorios marcados con #",
+        "habilitado": "Habilitado"
+    }                    
 }

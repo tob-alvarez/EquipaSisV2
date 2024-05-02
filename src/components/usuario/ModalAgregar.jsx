@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
-import { alta_tareas } from "./funciones_tarea";
+import { alta_usuarios } from "./funciones_usuario";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
@@ -11,26 +11,18 @@ const ModalAgregar = () => {
 
   const [isModalAttachOpen, setIsModalAttachOpen] = useState(false);
   const [t] = useTranslation("global")
-  const [id_tarea, setId_tarea] = useState("");
-  const [nombre_tarea, setNombre_tarea] = useState("");
-  const [id_ttarea, setId_ttarea] = useState("");
-  const [repara, setRepara] = useState(false);
-  const [down, setDown] = useState(false);
-  const [restringido, setRestringido] = useState(false);
-  const [preventivo, setPreventivo] = useState(false);
-  const [externo, setExterno] = useState(false);
+  const [id_usuario, setId_usuario] = useState("");
+  const [id_persona, setId_persona] = useState("");
+  const [id_tusuario, setId_tusuario] = useState("");
+  const [clave, setClave] = useState("");
   const [habilita, setHabilita] = useState(false);
-  const { actualizador, traerTtareas, ttareas } = useContext(EquipaContext);
+  const { actualizador, traerPersonas, personas, traerTusuarios, tusuarios } = useContext(EquipaContext);
   
   const limpia_campos = () => {
-    setId_tarea("");
-    setNombre_tarea("");
-    setId_ttarea("");
-    setRepara(false);
-    setDown(false);
-    setRestringido(false);
-    setPreventivo(false);
-    setExterno(false);
+    setId_usuario("");
+    setId_persona("");
+    setId_tusuario("");
+    setClave("");
     setHabilita(false);
   };
   const closeModalAttach = () => {
@@ -39,24 +31,20 @@ const ModalAgregar = () => {
   };
   const acepta_accion = () => {
     const datos_cambios = {
-      id_tarea: id_tarea,
-      nombre_tarea: nombre_tarea,
-      id_ttarea: id_ttarea,
-      repara: repara === true ? "1" : "0",
-      down: down === true ? "1" : "0",
-      restringido: restringido === true ? "1" : "0",
-      preventivo: preventivo === true ? "1" : "0",
-      externo: externo === true ? "1" : "0",
+      id_usuario: id_usuario,
+      id_persona: id_persona,
+      id_tusuario: id_tusuario,
+      clave: clave,
       habilita: habilita === true ? "1" : "0",
     };
 
-    if (nombre_tarea === "" || id_ttarea === "") {
-      toast.error(`${t("tarea.datoObligatorio")}`);
+    if (id_persona === "" || id_tusuario === "" || clave === "") {
+      toast.error(`${t("usuario.datoObligatorio")}`);
       return;
     }
     
 
-    alta_tareas(datos_cambios).then((respuesta_accion) => {
+    alta_usuarios(datos_cambios).then((respuesta_accion) => {
       if (respuesta_accion[0].registros > 0) {
         toast.success(`${t("varios.alta")}`, {
           duration: 2000,
@@ -73,9 +61,11 @@ const ModalAgregar = () => {
     });
   }
   useEffect(() => {
-    traerTtareas({tarea: "combo_tipo_tarea"})
+    traerPersonas({tarea: "combo_persona"})
+    traerTusuarios({tarea: "combo_tusuario"})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   return (
     <>
@@ -91,114 +81,88 @@ const ModalAgregar = () => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-          {t("tarea.agregarTitulo")}
+          {t("usuario.agregarTitulo")}
             <p
               className="pb-0 mb-0 text-body-emphasis fw-bold"
               style={{ fontSize: "0.5em" }}
             >
-              {t("tarea.datoObligatorio")}
+              {t("usuario.datoObligatorio")}
             </p>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="p-0">
           <div className="p-3" style={{ backgroundColor: "#f6f5fa" }}>
             <div className="row">
-              <div className="col-6">
-                <label htmlFor="name" className="label-material mb-1">
-                {t("tarea.nombre-tarea")}: #
-                </label>
-                <InputGroup>
-                  <Form.Control
-                    id="nombre_tarea"
-                    value={nombre_tarea}
-                    onChange={(e) => setNombre_tarea(e.target.value)}
-                    onKeyUp={(e) =>
-                      setNombre_tarea(e.target.value.toUpperCase())
-                    }
-                    className="mb-2"
-                  />
-                </InputGroup>
-              </div>
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                  {t("tarea.nombre_ttarea")}: #
+                  {t("usuario.nombre-persona")}: #
                 </label>
                 <InputGroup>
                   <Form.Select
-                    id="id_ttarea"
-                    value={id_ttarea}
-                    onChange={(e) => setId_ttarea(e.target.value)}
-                    onKeyUp={(e) => setId_ttarea(e.target.value.toUpperCase())}
+                    id="id_persona"
+                    value={id_persona}
+                    onChange={(e) => setId_persona(e.target.value)}
+                    onKeyUp={(e) => setId_persona(e.target.value.toUpperCase())}
                     className="mb-2"
                   >
-                    <option value="">{t("tarea.seleccione_ttarea")}</option>
+                    <option value="">{t("usuario.seleccione_persona")}</option>
                     
-                    {ttareas?.map((o) => (
-                      <option key={o.id_ttarea} value={o.id_ttarea}>
-                        {o.nombre_ttarea}
+                    {personas?.map((o) => (
+                      <option key={o.id_persona} value={o.id_persona}>
+                        {o.nombre_persona}
                       </option>
                     ))}
                   </Form.Select>
                 </InputGroup>
               </div>
 
-              <div className="col-6 text-start">
-                {t("tarea.repara")}
-                <Switch 
-                  id={"repara"}
-                  checked={repara}
-                  label={t("tarea.repara")}
-                  onChange={(e) => setRepara(e.target.checked)}
-                />
+              <div className="col-6">
+                <label htmlFor="name" className="label-material mb-1">
+                  {t("usuario.nombre_tusuario")}: #
+                </label>
+                <InputGroup>
+                  <Form.Select
+                    id="id_tusuario"
+                    value={id_tusuario}
+                    onChange={(e) => setId_tusuario(e.target.value)}
+                    onKeyUp={(e) => setId_tusuario(e.target.value.toUpperCase())}
+                    className="mb-2"
+                  >
+                    <option value="">{t("usuario.seleccione_tusuario")}</option>
+                    
+                    {tusuarios?.map((o) => (
+                      <option key={o.id_tusuario} value={o.id_tusuario}>
+                        {o.nombre_tusuario}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </InputGroup>
+              </div>
+
+              <div className="col-6">
+                <label htmlFor="name" className="label-material mb-1">
+                {t("usuario.clave")}: #
+                </label>
+                <InputGroup>
+                  <Form.Control
+                    id="clave"
+                    value={clave}
+                    onChange={(e) => setClave(e.target.value)}
+                    onKeyUp={(e) =>
+                      setClave(e.target.value.toUpperCase())
+                    }
+                    className="mb-2"
+                  />
+                </InputGroup>
               </div>
 
               <div className="col-6 text-start">
-                {t("tarea.down")}
-                <Switch 
-                  id={"down"}
-                  checked={down}
-                  label={t("tarea.down")}
-                  onChange={(e) => setDown(e.target.checked)}
-                />
-              </div>
-
-              <div className="col-6 text-start">
-                {t("tarea.restringido")}
-                <Switch 
-                  id={"restringido"}
-                  checked={restringido}
-                  label={t("tarea.restringido")}
-                  onChange={(e) => setRestringido(e.target.checked)}
-                />
-              </div>
-
-              <div className="col-6 text-start">
-                {t("tarea.preventivo")}
-                <Switch 
-                  id={"preventivo"}
-                  checked={preventivo}
-                  label={t("tarea.preventivo")}
-                  onChange={(e) => setPreventivo(e.target.checked)}
-                />
-              </div>
-
-              <div className="col-6 text-start">
-                {t("tarea.externo")}
-                <Switch 
-                  id={"externo"}
-                  checked={externo}
-                  label={t("tarea.externo")}
-                  onChange={(e) => setExterno(e.target.checked)}
-                />
-              </div>
-
-              <div className="col-6 text-start">
-                {t("tarea.habilitado")}
+                {t("usuario.habilitado")}
                 <Switch 
                   id={"habilita"}
                   checked={habilita}
-                  label={t("tarea.habilitado")}
+                  label={t("usuario.habilitado")}
                   onChange={(e) => setHabilita(e.target.checked)}
                 />
               </div>
