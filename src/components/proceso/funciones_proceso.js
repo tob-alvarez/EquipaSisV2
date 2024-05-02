@@ -77,7 +77,7 @@ console.log(objetoModificado);
 
   const JSONdata = JSON.stringify({ 
     tarea: "cambia_permisos_procesos",
-    objetoModificado
+    objetoModificado: objetoModificado
   }); // Send the data to the server in JSON format.
   const endpoint = "https://v2.equipasis.com/api/proceso.php"; // API endpoint where we send form data.
 
