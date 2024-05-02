@@ -53,7 +53,7 @@ function App() {
           <Routes>
             <Route exact path="/*" element={<Login />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/perfil" element={<Perfil />} />
+            <Route path="/perfil" element={<PrivateRoute><Perfil /></PrivateRoute>} />
             <Route
               exact
               path="/inicio"
