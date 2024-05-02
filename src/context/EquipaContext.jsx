@@ -57,7 +57,14 @@ const EquipaProvider = ({ children }) => {
       setUser(data.persona[0]);
       sessionStorage.setItem("token", data.token[0].token);
       localStorage.setItem("nombre", data.persona[0].nombre_persona);
+      sessionStorage.setItem("telefono", data.persona[0].telefono_persona);
+      sessionStorage.setItem("localidad", data.persona[0].localidad_persona);
+      sessionStorage.setItem("domicilio", data.persona[0].domicilio_persona);
+      sessionStorage.setItem("email", data.persona[0].email_persona);
+      sessionStorage.setItem("pais", data.persona[0].nombre_pais);
+      sessionStorage.setItem("provincia", data.persona[0].nombre_provincia);
       localStorage.setItem("rol", data.persona[0].nombre_tusuario);
+      localStorage.setItem("id", data.persona[0].id_persona);
       localStorage.setItem("language", "es");
       navigate('/inicio')
       window.location.reload()
