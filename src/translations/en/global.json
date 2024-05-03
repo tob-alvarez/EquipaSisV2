@@ -53,6 +53,7 @@
         "alta": "Registration completed correctly",
         "editado": "Editing done correctly",
         "borrado": "Disabling done correctly",
+        "error": "Something went wrong",
         "recuperacionExitosa": "Successful recovery",
         "recuperacionFallida": "Non-existent user"
     },

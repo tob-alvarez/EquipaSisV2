@@ -53,6 +53,7 @@
         "alta": "Registro bem-sucedido",
         "editado": "Edição feita corretamente",
         "borrado": "Desativação feita corretamente",
+        "error": "Algo deu errado",
         "recuperacionExitosa": "Recuperação bem sucedida",
         "recuperacionFallida": "Usuário inexistente"
     },

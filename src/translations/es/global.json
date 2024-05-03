@@ -53,6 +53,7 @@
         "alta": "Alta realizada correctamente",
         "editado": "Edición realizada correctamente",
         "borrado": "Deshabilitación realizada correctamente",
+        "error": "Algo salió mal",
         "recuperacionExitosa": "Recuperación exitosa",
         "recuperacionFallida": "Usuario Inexistente"
     },
