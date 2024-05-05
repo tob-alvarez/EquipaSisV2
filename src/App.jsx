@@ -23,6 +23,7 @@ import Pais from "./components/pais/Pais";
 import Persona from "./components/persona/Persona";
 import Prioridad from "./components/prioridad/Prioridad";
 import Proceso from "./components/proceso/Proceso";
+import Producto from "./components/producto/Producto";
 import Provincia from "./components/provincia/Provincia";
 import Servicio from "./components/servicio/Servicio";
 import Software from "./components/software/Software";
@@ -214,6 +215,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <Proceso />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/producto"
+              element={
+                <PrivateRoute>
+                  <Producto />
                 </PrivateRoute>
               }
             />
