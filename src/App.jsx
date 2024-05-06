@@ -40,6 +40,7 @@ import Tipo_impresion from "./components/tipo_impresion/Tipo_impresion";
 import Tipo_indicador from "./components/tipo_indicador/Tipo_indicador";
 import Tipo_persona from "./components/tipo_persona/Tipo_persona";
 import Tipo_pertenencia from "./components/tipo_pertenencia/Tipo_pertenencia";
+import Tipo_producto from "./components/tipo_producto/Tipo_producto";
 import Tipo_solicitud from "./components/tipo_solicitud/Tipo_solicitud";
 import Tipo_tarea from "./components/tipo_tarea/Tipo_tarea";
 import Tipo_usuario from "./components/tipo_usuario/Tipo_usuario";
@@ -362,6 +363,15 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route
+              exact
+              path="/tipo_producto"
+              element={
+                <PrivateRoute>
+                  <Tipo_producto />
+                </PrivateRoute>
+              }
+            /> 
             <Route
               exact
               path="/tipo_pertenencia"

@@ -19,9 +19,9 @@ const ModalEditar = ({dato}) => {
     const [detalle, setDetalle] = useState("");
     const [id_organizacion, setId_organizacion] = useState("");
     const [id_servicio, setId_servicio] = useState("");
-    const [id_categoria, setId_categoria] = useState("");
+    const [id_tproducto, setId_tproducto] = useState("");
     const [habilita, setHabilita] = useState(false);
-    const { actualizador, traerOrganizaciones, organizaciones, traerServicios, servicios, traerCategorias, categorias } = useContext(EquipaContext);
+    const { actualizador, traerOrganizaciones, organizaciones, traerServicios, servicios, traerTproductos, tproductos } = useContext(EquipaContext);
 
     useEffect(() => {
       if (isModalEditOpen && dato) {
@@ -35,14 +35,14 @@ const ModalEditar = ({dato}) => {
         setDetalle(dato.detalle);
         setId_organizacion(dato.id_organizacion);
         setId_servicio(dato.id_servicio);
-        setId_categoria(dato.id_categoria);
+        setId_tproducto(dato.id_tproducto);
       }
     }, [isModalEditOpen, dato]);
     
     useEffect(() => {
       traerOrganizaciones({tarea: "combo_organizacion"})
       traerServicios({tarea: "combo_servicio"})
-      traerCategorias({tarea: "combo_categoria"})
+      traerTproductos({tarea: "combo_tproducto"})
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -53,7 +53,7 @@ const ModalEditar = ({dato}) => {
       setDetalle("");
       setId_organizacion("");
       setId_servicio("");
-      setId_categoria("");
+      setId_tproducto("");
       setHabilita(false);
     };
     const closeModalEdit = () => {
@@ -69,10 +69,10 @@ const ModalEditar = ({dato}) => {
         detalle: detalle,
         id_organizacion: id_organizacion,
         id_servicio: id_servicio,
-        id_categoria: id_categoria,
+        id_tproducto: id_tproducto,
         habilita: habilita === true ? "1" : "0",
       };
-      if (nombre_producto == "" || id_organizacion == "" || id_servicio == "" || id_categoria == "") {
+      if (nombre_producto == "" || id_organizacion == "" || id_servicio == "" || id_tproducto == "") {
         toast.info(`${t("producto.datoObligatorio")}`);
         return;
       }
@@ -214,21 +214,21 @@ const ModalEditar = ({dato}) => {
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                  {t("producto.id_categoria")}: #
+                  {t("producto.id_tproducto")}: #
                 </label>
                 <InputGroup>
                   <Form.Select
-                    id="id_categoria"
-                    value={id_categoria}
-                    onChange={(e) => setId_categoria(e.target.value)}
-                    onKeyUp={(e) => setId_categoria(e.target.value.toUpperCase())}
+                    id="id_tproducto"
+                    value={id_tproducto}
+                    onChange={(e) => setId_tproducto(e.target.value)}
+                    onKeyUp={(e) => setId_tproducto(e.target.value.toUpperCase())}
                     className="mb-2"
                   >
-                    <option value="">{t("producto.seleccione_categoria")}</option>
+                    <option value="">{t("producto.seleccione_tproducto")}</option>
                     
-                    {categorias?.map((o) => (
-                      <option key={o.id_categoria} value={o.id_categoria}>
-                        {o.nombre_categoria}
+                    {tproductos?.map((o) => (
+                      <option key={o.id_tproducto} value={o.id_tproducto}>
+                        {o.nombre_tproducto}
                       </option>
                     ))}
                   </Form.Select>

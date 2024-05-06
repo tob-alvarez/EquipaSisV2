@@ -7,7 +7,7 @@ export function producto_pdf(filtro, idioma) {
     let serie_producto;
     let corto_organizacion;
     let corto_servicio;
-    let nombre_categoria;
+    let nombre_tproducto;
     let habilitado;
     let page; 
     let reporte;
@@ -17,7 +17,7 @@ export function producto_pdf(filtro, idioma) {
       serie_producto = "Serie Producto";
       corto_organizacion = "Organización";
       corto_servicio = "Servicio";
-      nombre_categoria = "Categoría";
+      nombre_tproducto = "Tipo de Producto";
       habilitado = "Habil.";
       page = "Página";
       reporte = "Reporte al"
@@ -27,7 +27,7 @@ export function producto_pdf(filtro, idioma) {
       serie_producto = "Serial Number";
       corto_organizacion = "Organization";
       corto_servicio = "Service";
-      nombre_categoria = "Category";
+      nombre_tproducto = "Product Type";
       habilitado = "Enab.";
       page = "Page";
       reporte = "Report as of";
@@ -37,7 +37,7 @@ export function producto_pdf(filtro, idioma) {
       serie_producto = "Número de Série";
       corto_organizacion = "Organização";
       corto_servicio = "Serviço";
-      nombre_categoria = "Categoria";
+      nombre_tproducto = "Tipo de Produto";
       habilitado = "Habil.";
       page = "Página";
       reporte = "Relatório em";
@@ -47,7 +47,7 @@ export function producto_pdf(filtro, idioma) {
       serie_producto = "Serie Producto";
       corto_organizacion = "Organización";
       corto_servicio = "Servicio";
-      nombre_categoria = "Categoría";
+      nombre_tproducto = "Tipo de Producto";
       habilitado = "Habil.";
       page = "Página";
       reporte = "Reporte al"
@@ -82,7 +82,7 @@ export function producto_pdf(filtro, idioma) {
     item.id_producto.toLowerCase().indexOf(filtro) > -1 ||
     item.corto_organizacion.toLowerCase().indexOf(filtro) > -1 ||
     item.corto_servicio.toLowerCase().indexOf(filtro) > -1 ||
-    item.nombre_categoria.toLowerCase().indexOf(filtro) > -1 ||
+    item.nombre_tproducto.toLowerCase().indexOf(filtro) > -1 ||
     item.habilita.toLowerCase().indexOf(filtro) > -1);
     doc.setProperties({
       title: titulo,
@@ -104,7 +104,7 @@ export function producto_pdf(filtro, idioma) {
       doc.text(datos.serie_producto, 155, lineas);
       doc.text(datos.corto_organizacion, 180, lineas);
       doc.text(datos.corto_servicio, 212, lineas);
-      doc.text(datos.nombre_categoria, 242, lineas);
+      doc.text(datos.nombre_tproducto, 242, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
@@ -152,7 +152,7 @@ export function producto_pdf(filtro, idioma) {
     doc.line(210, 19.8, 210, 27.2);
     doc.text(corto_servicio , 225, 25, { align: "center" });
     doc.line(240, 19.8, 240, 27.2);
-    doc.text(nombre_categoria , 260, 25, { align: "center" });
+    doc.text(nombre_tproducto , 260, 25, { align: "center" });
     doc.line(280, 19.8, 280, 27.2);
     doc.text(habilitado, 282, 25, { align: "left" });
     let fecha = new Date();
@@ -190,7 +190,7 @@ export function producto_xls(filtro) {
     item.serie_producto.toLowerCase().indexOf(filtro) > -1 ||
     item.corto_organizacion.toLowerCase().indexOf(filtro) > -1 ||
     item.corto_servicio.toLowerCase().indexOf(filtro) > -1 ||
-    item.nombre_categoria.toLowerCase().indexOf(filtro) > -1 ||
+    item.nombre_tproducto.toLowerCase().indexOf(filtro) > -1 ||
     item.id_producto.toLowerCase().indexOf(filtro) > -1 ||
     item.habilita.toLowerCase().indexOf(filtro) > -1);
     console.log(data.length);
