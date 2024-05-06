@@ -1,7 +1,7 @@
-export async function trae_productos() {
+export async function trae_tipo_productos() {
 
-    const JSONdata = JSON.stringify({ tarea: "consulta_producto" }); // Send the data to the server in JSON format.
-    const endpoint = "https://v2.equipasis.com/api/producto.php"; // API endpoint where we send form data.
+    const JSONdata = JSON.stringify({ tarea: "consulta_tipo_producto" }); // Send the data to the server in JSON format.
+    const endpoint = "https://v2.equipasis.com/api/tipo_producto.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
     const options = {
@@ -12,16 +12,16 @@ export async function trae_productos() {
     const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
 
     const result = await response.json();
-   return result.producto;
+   return result.tipo_producto;
 }
 
 export async function trae_permisos(datos){
   const JSONdata = JSON.stringify({ 
     tarea: datos.tarea,
-    producto: datos.producto ,
+    tipo_producto: datos.tipo_producto ,
     id_usuario: datos.id_usuario
   }); // Send the data to the server in JSON format.
-  const endpoint = "https://v2.equipasis.com/api/producto.php"; // API endpoint where we send form data.
+  const endpoint = "https://v2.equipasis.com/api/tipo_producto.php"; // API endpoint where we send form data.
 
   // Form the request for sending data to the server.
   const options = {
@@ -32,23 +32,38 @@ export async function trae_permisos(datos){
   const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
   const result = await response.json();
   
-  return result.producto;
+  return result.tipo_producto;
 }
 
-export async function cambia_productos(datos){
+export async function cambia_tipo_productos(datos){
   console.log(datos)
   const JSONdata = JSON.stringify({ 
-    tarea: "cambia_producto",
-    id_producto: datos.id_producto ,
-    nombre_producto: datos.nombre_producto,
-    serie_producto: datos.serie_producto,
-    detalle: datos.detalle,
-    id_organizacion: datos.id_organizacion,
-    id_servicio: datos.id_servicio,
-    id_tproducto: datos.id_tproducto,
+    tarea: "cambia_tipo_producto",
+    id_tproducto: datos.id_tproducto ,
+    nombre_tproducto: datos.nombre_tproducto,
+    id_categoria: datos.id_categoria,
     habilita: datos.habilita
   }); // Send the data to the server in JSON format.
-  const endpoint = "https://v2.equipasis.com/api/producto.php"; // API endpoint where we send form data.
+  const endpoint = "https://v2.equipasis.com/api/tipo_producto.php"; // API endpoint where we send form data.
+
+  // Form the request for sending data to the server.
+  const options = {
+    method: "POST", // The method is POST because we are sending data.
+    headers: { "Content-Type": "application/json" }, // Tell the server we're sending JSON.
+    body: JSONdata, // Body of the request is the JSON data we created above.
+  };
+  const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
+
+  const result = await response.json();
+ return result.registros;
+}
+export async function borra_tipo_productos(datos){
+  console.log(datos)
+  const JSONdata = JSON.stringify({ 
+    tarea: "borra_tipo_producto",
+    id_tproducto:datos.id_tproducto ,
+  }); // Send the data to the server in JSON format.
+  const endpoint = "https://v2.equipasis.com/api/tipo_producto.php"; // API endpoint where we send form data.
 
   // Form the request for sending data to the server.
   const options = {
@@ -62,39 +77,15 @@ export async function cambia_productos(datos){
  return result.registros;
 }
 
-export async function borra_productos(datos){
-  console.log(datos)
-  const JSONdata = JSON.stringify({ 
-    tarea: "borra_producto",
-    id_producto:datos.id_producto ,
-  }); // Send the data to the server in JSON format.
-  const endpoint = "https://v2.equipasis.com/api/producto.php"; // API endpoint where we send form data.
-
-  // Form the request for sending data to the server.
-  const options = {
-    method: "POST", // The method is POST because we are sending data.
-    headers: { "Content-Type": "application/json" }, // Tell the server we're sending JSON.
-    body: JSONdata, // Body of the request is the JSON data we created above.
-  };
-  const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
-
-  const result = await response.json();
- return result.registros;
-}
-
-export async function alta_productos(datos){
+export async function alta_tipo_productos(datos){
 
   const JSONdata = JSON.stringify({ 
-    tarea: "alta_producto",
-    nombre_producto: datos.nombre_producto,
-    serie_producto: datos.serie_producto,
-    detalle: datos.detalle,
-    id_organizacion: datos.id_organizacion,
-    id_servicio: datos.id_servicio,
-    id_tproducto: datos.id_tproducto,
+    tarea: "alta_tipo_producto",
+    nombre_tproducto: datos.nombre_tproducto,
+    id_categoria: datos.id_categoria,
     habilita: datos.habilita
   }); // Send the data to the server in JSON format.
-  const endpoint = "https://v2.equipasis.com/api/producto.php"; // API endpoint where we send form data.
+  const endpoint = "https://v2.equipasis.com/api/tipo_producto.php"; // API endpoint where we send form data.
 
   // Form the request for sending data to the server.
   const options = {
@@ -110,12 +101,12 @@ export async function alta_productos(datos){
  return result.registros;
 }
 
-export async function ayuda_productos(){
+export async function ayuda_tipo_productos(){
 
   const JSONdata = JSON.stringify({ 
-    tarea: "ayuda_producto"
+    tarea: "ayuda_tipo_producto"
   }); // Send the data to the server in JSON format.
-  const endpoint = "https://v2.equipasis.com/api/producto.php"; // API endpoint where we send form data.
+  const endpoint = "https://v2.equipasis.com/api/tipo_producto.php"; // API endpoint where we send form data.
 
   // Form the request for sending data to the server.
   const options = {
@@ -128,7 +119,7 @@ export async function ayuda_productos(){
   // Get the response data from server as JSON.
   // If server returns the name submitted, that means the form works.
   const result = await response.json();
- return result.producto;
+ return result.tipo_producto;
 }
 
 // export async function trae_permiso_acciones(id_usuario){
@@ -137,7 +128,7 @@ export async function ayuda_productos(){
 //     tarea: "permiso_usuario",
 //     id_usuario: id_usuario
 //   }); // Send the data to the server in JSON format.
-//   const endpoint = "https://v2.equipasis.com/api/producto.php"; // API endpoint where we send form data.
+//   const endpoint = "https://v2.equipasis.com/api/tipo_producto.php"; // API endpoint where we send form data.
 
 //   // Form the request for sending data to the server.
 //   const options = {

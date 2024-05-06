@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import './table.css'
 import {
-  trae_productos,
-  ayuda_productos,
+  trae_tipo_productos,
+  ayuda_tipo_productos,
   trae_permisos
-} from "./funciones_producto";
-import { producto_pdf, producto_xls } from "../pdf/producto_pdf";
+} from "./funciones_tipo_producto";
+import { tipo_producto_pdf, tipo_producto_xls } from "../pdf/tipo_producto_pdf";
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -20,9 +20,9 @@ import ModalEditar from "./ModalEditar";
 import ModalBorrar from "./ModalBorrar";
 import { EquipaContext } from "../../context/EquipaContext";
 
-const Producto = () => {
+const Tipo_producto = () => {
   const [t] = useTranslation("global")
-  const [datos_productos, setDatosproductos] = useState([]);
+  const [datos_tipo_productos, setDatostipo_productos] = useState([]);
   const [permisos_usuario, setPermisos_usuario] = useState([]);
   const [ayuda, setAyuda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,31 +32,31 @@ const Producto = () => {
   // eslint-disable-next-line no-unused-vars
   const [datos, setDatos] = useState({
     tarea: "permiso_usuario",
-    producto: "producto",
+    tipo_producto: "tipo_producto",
     id_usuario: "1"
   });
-  
+
   let idioma = localStorage.getItem('language')
-  
+
   useEffect(() => {
-      trae_productos().then((result) => setDatosproductos(result));
-      switch (idioma) {
-        case "es":
-          ayuda_productos().then((ayuda) => setAyuda(ayuda[0].texto));
-          break;
-        case "en":
-          ayuda_productos().then((ayuda) => setAyuda(ayuda[0].texto_en));
-          break;
-        case "por":
-          ayuda_productos().then((ayuda) => setAyuda(ayuda[0].texto_por));
-          break;
-        default:
-          ayuda_productos().then((ayuda) => setAyuda(ayuda[0].texto));
-      }
-      trae_permisos(datos).then((result) =>setPermisos_usuario(result[0]))
+    trae_tipo_productos().then((result) => setDatostipo_productos(result));
+    switch (idioma) {
+      case "es":
+        ayuda_tipo_productos().then((ayuda) => setAyuda(ayuda[0].texto));
+        break;
+      case "en":
+        ayuda_tipo_productos().then((ayuda) => setAyuda(ayuda[0].texto_en));
+        break;
+      case "por":
+        ayuda_tipo_productos().then((ayuda) => setAyuda(ayuda[0].texto_por));
+        break;
+      default:
+        ayuda_tipo_productos().then((ayuda) => setAyuda(ayuda[0].texto));
+    }
+    trae_permisos(datos).then((result) => setPermisos_usuario(result[0]))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [idioma, refresh]);
-  
+  }, [idioma, refresh]);
+
   ////////////////// majeador de busqueda////////////////////////
 
   function buscarPorExpresiones(grilla, expresiones) {
@@ -65,18 +65,15 @@ const Producto = () => {
       .map((expresion) => expresion.trim());
     return expresionesArray.some(
       (expresion) =>
-        grilla.id_producto.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.nombre_producto.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.serie_producto.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.corto_organizacion.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.corto_servicio.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.id_tproducto.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.nombre_tproducto.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_categoria.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
     );
   }
 
   function buscarEnGrilla(expresiones) {
-    return datos_productos?.filter((grilla) => buscarPorExpresiones(grilla, expresiones));
+    return datos_tipo_productos?.filter((grilla) => buscarPorExpresiones(grilla, expresiones));
   }
   const filteredItems = buscarEnGrilla(searchTerm);
   const currentItems = filteredItems?.slice(
@@ -89,27 +86,27 @@ const Producto = () => {
   };
 
   const handlePageChange = (page) => {
-    if (page >= 1 && page <= Math.ceil(datos_productos.length / itemsPerPage)) {
+    if (page >= 1 && page <= Math.ceil(datos_tipo_productos.length / itemsPerPage)) {
       setCurrentPage(page);
     }
   };
   const printInfoProcess = () => {
     let idioma = localStorage.getItem("language")
     console.log(idioma)
-    producto_pdf(searchTerm, idioma);
+    tipo_producto_pdf(searchTerm, idioma);
   };
   const downloadInfo = () => {
-    producto_xls(searchTerm);
+    tipo_producto_xls(searchTerm);
   };
 
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-2 container">
         {/* Funciones agregar, descargar, imprimir y ayuda */}
-        <h1 className="m-0">{t("producto.titulo")}</h1>
+        <h1 className="m-0">{t("tipo_producto.titulo")}</h1>
         <div className="inputContainer d-flex">
           <label htmlFor="search" className="form-label mb-0 p-2">
-            {t("producto.busqueda")}
+            {t("tipo_producto.busqueda")}
           </label>
           <input
             type="text"
@@ -156,13 +153,10 @@ const Producto = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell align="center">{t("producto.nombre-producto")}</TableCell>
-                <TableCell align="center">{t("producto.serie_producto")}</TableCell>
-                <TableCell align="center">{t("producto.corto_organizacion")}</TableCell>
-                <TableCell align="center">{t("producto.corto_servicio")}</TableCell>
-                <TableCell align="center">{t("producto.nombre_tproducto")}</TableCell>
-                <TableCell align="center">{t("producto.estado")}</TableCell>
-                <TableCell align="center">{t("producto.acciones")}</TableCell>
+                <TableCell>{t("tipo_producto.nombre-tproducto")}</TableCell>
+                <TableCell>{t("tipo_producto.nombre_categoria")}</TableCell>
+                <TableCell>{t("tipo_producto.estado")}</TableCell>
+                <TableCell align="center">{t("tipo_producto.acciones")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -177,15 +171,12 @@ const Producto = () => {
                     height: '5px', // Ajusta la altura de la fila
                   }}
                 >
-                  <TableCell sx={{textAlign: 'center'}}>{dato.id_producto}</TableCell>
-                  <TableCell >{dato.nombre_producto.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.serie_producto.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.corto_organizacion.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.corto_servicio.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.nombre_tproducto.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>
+                  <TableCell sx={{ textAlign: 'center' }}>{dato.id_tproducto}</TableCell>
+                  <TableCell >{dato.nombre_tproducto.toUpperCase()}</TableCell>
+                  <TableCell >{dato.nombre_categoria.toUpperCase()}</TableCell>
+                  <TableCell>
                     <p
-                      style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
+                      style={dato.habilita_3 === 'SI' ? { margin: 0 } : { margin: 0, color: "#ff0000" }}
                     >
                       {dato.habilita_3}
                     </p>
@@ -193,7 +184,7 @@ const Producto = () => {
                   <TableCell align="center">
                     {permisos_usuario.modificar === "1" && (
                       <IconButton>
-                        <ModalEditar dato={dato}/>
+                        <ModalEditar dato={dato} />
                       </IconButton>
                     )}
                     {permisos_usuario.eliminar === "1" && (
@@ -212,21 +203,21 @@ const Producto = () => {
               onClick={() => handlePageChange(1)}
               disabled={currentPage === 1}
             >
-              <KeyboardDoubleArrowLeftIcon/>
+              <KeyboardDoubleArrowLeftIcon />
             </Button>
             <Button
               className="mx-2 icons-contact"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
-              <KeyboardArrowLeftIcon/>
+              <KeyboardArrowLeftIcon />
             </Button>
             <Button
               className="mx-2 icons-contact"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === Math.ceil(filteredItems.length / itemsPerPage)}
             >
-              <KeyboardArrowRightIcon/>
+              <KeyboardArrowRightIcon />
             </Button>
             <Button
               className="icons-contact me-3"
@@ -237,14 +228,14 @@ const Producto = () => {
                 currentPage === Math.ceil(filteredItems.length / itemsPerPage)
               }
             >
-              <KeyboardDoubleArrowRightIcon/>
+              <KeyboardDoubleArrowRightIcon />
             </Button>
 
             <Typography variant="p" className="col-3 align-self-center">
-            {t("producto.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
+              {t("tipo_producto.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
             </Typography>
             <Typography variant="p" className="align-self-center">
-            {t("producto.registros")} {filteredItems.length}
+              {t("tipo_producto.registros")} {filteredItems.length}
             </Typography>
           </div>
         </TableContainer>
@@ -253,4 +244,4 @@ const Producto = () => {
   )
 }
 
-export default Producto
+export default Tipo_producto
