@@ -55,7 +55,6 @@ const EquipaProvider = ({ children }) => {
     try {
       const { data } = await axios.get(`https://v2.equipasis.com/api/usuarios.php?tarea=valida_usuario&email_persona=${loginValues.email_persona}&clave=${loginValues.clave}`);
       setAuthenticated(!!data.persona[0]);
-      setUser(data.persona[0]);
       sessionStorage.setItem("token", data.token[0].token);
       localStorage.setItem("nombre", data.persona[0].nombre_persona);
       localStorage.setItem("rol", data.persona[0].nombre_tusuario);
@@ -72,6 +71,19 @@ const EquipaProvider = ({ children }) => {
     try {
       const { data } = await axios.post(`https://v2.equipasis.com/api/usuario_menu.php`, token);
       setPermisos(data.permisos)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
+  const consultaPerfil = async (token) => {
+    let datos = {
+      tarea: "consulta_perfil",
+      token : token
+    }
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/perfil.php`, datos);
+      setUser(data.perfil[0])
     } catch (error) {
       console.error(error.response?.data.message || error.message);
     }
@@ -288,6 +300,7 @@ const EquipaProvider = ({ children }) => {
         personas,
         traerTusuarios,
         tusuarios,
+        consultaPerfil,
         traerTproductos,
         tproductos
       }}
