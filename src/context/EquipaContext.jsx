@@ -30,6 +30,7 @@ const EquipaProvider = ({ children }) => {
   const [servicios, setServicios] = useState(null);
   const [personas, setPersonas] = useState(null);
   const [tusuarios, setTusuarios] = useState(null);  
+  const [tproductos, setTproductos] = useState(null);  
 
 
   useEffect(() => {
@@ -214,6 +215,15 @@ const EquipaProvider = ({ children }) => {
     }
   };
 
+  const traerTproductos = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/tipo_producto.php`, tarea);
+      setTproductos(data.servicio)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
   const getAuth = async () => {
     try {
       const token = sessionStorage.getItem("token");
@@ -290,7 +300,9 @@ const EquipaProvider = ({ children }) => {
         personas,
         traerTusuarios,
         tusuarios,
-        consultaPerfil
+        consultaPerfil,
+        traerTproductos,
+        tproductos
       }}
     >
       {children}
