@@ -49,6 +49,10 @@
     "inicio":{
         "bienvenida": "Welcome"
     },
+    "layout":{
+        "perfil": "Profile",
+        "cerrarSesion": "Sign off"
+    },
     "varios":{
         "alta": "Registration completed correctly",
         "editado": "Editing done correctly",
