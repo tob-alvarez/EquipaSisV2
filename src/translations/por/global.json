@@ -49,6 +49,10 @@
     "inicio":{
         "bienvenida": "Bemvindo"
     },
+    "layout":{
+        "perfil": "Perfil",
+        "cerrarSesion": "Fechar Sessão"
+    },
     "varios":{
         "alta": "Registro bem-sucedido",
         "editado": "Edição feita corretamente",

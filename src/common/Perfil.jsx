@@ -8,6 +8,8 @@ import { EquipaContext } from "../context/EquipaContext";
 import { Form } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "../config/axios";
+import eye from '../assets/eye.svg'
+import eyeOff from '../assets/eye-password-hide.svg'
 
 const Perfil = () => {
     const { traerPaises, paises, traerProvincias, provincias, consultaPerfil, user } = useContext(EquipaContext);
@@ -20,6 +22,7 @@ const Perfil = () => {
     const [email_persona, setEmail_persona] = useState("");
     const [clave, setClave] = useState("");
     const [isEdit, setIsEdit] = useState(true);
+    const [verPass, setVerPass] = useState(true);
     const [t] = useTranslation("global")
 
     async function cambia_perfil(datos) {
@@ -134,14 +137,19 @@ const Perfil = () => {
                     </div>
                     <div className="d-flex flex-column gap-3">
                         <InputLabel>{t("perfil.contraseña")}</InputLabel>
-                        <TextField 
-                            type="password" 
-                            id="clave"
-                            value={clave}
-                            onChange={(e) => setClave(e.target.value)}
-                            sx={{width: 400}}
-                            autoComplete="off"
-                        />
+                        <div>
+                            <TextField
+                                type={verPass? "password" : "text"}
+                                id="clave"
+                                value={clave}
+                                onChange={(e) => setClave(e.target.value)}
+                                sx={{ width: 400 }}
+                                autoComplete="off"
+                            />
+                            <button style={{ position: 'absolute', marginLeft: 10, marginTop: 10 }} className="btn" onClick={() => setVerPass(!verPass)}>
+                                {verPass ? <> <img src={eyeOff} /></>: <> <img src={eye}/></>}
+                            </button>
+                        </div>
                         <InputLabel>{t("perfil.email")}</InputLabel>
                         <TextField
                             id="email_persona"

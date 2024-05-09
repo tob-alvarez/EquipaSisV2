@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { EquipaContext } from "../../context/EquipaContext";
 import "./Login.css";
 import ingles from '../../assets/united-kingdom.svg'
-import spain from '../../assets/spain.svg'
+import argentina from '../../assets/argentina.svg'
 import portugal from '../../assets/portugal.svg'
 import logo from "../../assets/logoEquipasis.png";
 import { Box, Button, MenuItem, Modal, Select, TextField, Typography} from "@mui/material";
@@ -131,7 +131,7 @@ const Login = () => {
                   onChange={(e) => handleChangeLanguage(e.target.value)}
                 >
                   <MenuItem value={"en"}>EN <img src={ingles} className="icono-lang ps-2"/></MenuItem>
-                  <MenuItem value={"es"}>ES <img src={spain} className="icono-lang ps-2"/></MenuItem>
+                  <MenuItem value={"es"}>ES <img src={argentina} className="icono-lang ps-3"/></MenuItem>
                   <MenuItem value={"por"}>POR <img src={portugal} className="icono-lang ps-2"/></MenuItem>
                 </Select>
               </div>
