@@ -152,10 +152,10 @@ const Tipo_producto = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
+                <TableCell align="center">Id</TableCell>
                 <TableCell>{t("tipo_producto.nombre-tproducto")}</TableCell>
                 <TableCell>{t("tipo_producto.nombre_categoria")}</TableCell>
-                <TableCell>{t("tipo_producto.estado")}</TableCell>
+                <TableCell align="center">{t("tipo_producto.estado")}</TableCell>
                 <TableCell align="center">{t("tipo_producto.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -174,7 +174,7 @@ const Tipo_producto = () => {
                   <TableCell sx={{ textAlign: 'center' }}>{dato.id_tproducto}</TableCell>
                   <TableCell >{dato.nombre_tproducto.toUpperCase()}</TableCell>
                   <TableCell >{dato.nombre_categoria.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? { margin: 0 } : { margin: 0, color: "#ff0000" }}
                     >

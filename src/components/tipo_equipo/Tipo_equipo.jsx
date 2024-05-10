@@ -154,12 +154,12 @@ const Tipo_equipo = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
+                <TableCell align="center">Id</TableCell>
                 <TableCell>{t("tipo_equipo.nombre-tequipo")}</TableCell>
                 <TableCell>{t("tipo_equipo.nombre_categoria")}</TableCell>
                 <TableCell align="center">{t("tipo_equipo.nombre_prioridad")}</TableCell>
                 <TableCell align="center">{t("tipo_equipo.nombre_tcontrol")}</TableCell>
-                <TableCell>{t("tipo_equipo.estado")}</TableCell>
+                <TableCell align="center">{t("tipo_equipo.estado")}</TableCell>
                 <TableCell align="center">{t("tipo_equipo.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -180,7 +180,7 @@ const Tipo_equipo = () => {
                   <TableCell >{dato.nombre_categoria.toUpperCase()}</TableCell>
                   <TableCell >{dato.nombre_prioridad.toUpperCase()}</TableCell>
                   <TableCell >{dato.nombre_tcontrol.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? { margin: 0 } : { margin: 0, color: "#ff0000" }}
                     >

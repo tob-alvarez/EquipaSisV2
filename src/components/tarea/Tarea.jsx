@@ -165,6 +165,7 @@ const Tarea = () => {
                 <TableCell align="center">{t("tarea.restringido")}</TableCell>
                 <TableCell align="center">{t("tarea.preventivo")}</TableCell>
                 <TableCell align="center">{t("tarea.externo")}</TableCell>
+                <TableCell align="center">{t("tarea.estado")}</TableCell>
                 <TableCell align="center">{t("tarea.acciones")}</TableCell>
               </TableRow>
             </TableHead>

@@ -183,7 +183,7 @@ const Persona = () => {
                   <TableCell >{dato.email_persona}</TableCell>
                   <TableCell >{dato.nombre_empresa.toUpperCase()}</TableCell>
                   <TableCell >{dato.nombre_tpersona.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? { margin: 0 } : { margin: 0, color: "#ff0000" }}
                     >
