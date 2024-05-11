@@ -12,6 +12,7 @@ import Categoria from "./components/categoria/Categoria";
 import Cliente from "./components/cliente/Cliente";
 import Documentacion from "./components/documentacion/Documentacion";
 import Empresa from "./components/empresa/Empresa";
+import Equipamiento from "./components/equipamiento/Equipamiento";
 import Estado_equipo from "./components/estado_equipo/Estado_equipo";
 import Estado_solicitud from "./components/estado_solicitud/Estado_solicitud";
 import Marca from "./components/marca/Marca";
@@ -27,6 +28,7 @@ import Producto from "./components/producto/Producto";
 import Provincia from "./components/provincia/Provincia";
 import Servicio from "./components/servicio/Servicio";
 import Software from "./components/software/Software";
+import Stock_producto from "./components/stock_producto/Stock_producto";
 import Tarea from "./components/tarea/Tarea";
 import Tipo_adjunto from "./components/tipo_adjunto/Tipo_adjunto";
 import Tipo_alimentacion from "./components/tipo_alimentacion/Tipo_alimentacion";
@@ -120,6 +122,15 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route
+              exact
+              path="/equipamiento"
+              element={
+                <PrivateRoute>
+                  <Equipamiento />
+                </PrivateRoute>
+              }
+            />            
             <Route
               exact
               path="/estado_equipo"
@@ -245,13 +256,22 @@ function App() {
                   <Servicio />
                 </PrivateRoute>
               }
-            />  
+            /> 
             <Route
               exact
               path="/software"
               element={
                 <PrivateRoute>
                   <Software />
+                </PrivateRoute>
+              }
+            />             
+            <Route
+              exact
+              path="/stock_producto"
+              element={
+                <PrivateRoute>
+                  <Stock_producto />
                 </PrivateRoute>
               }
             />
