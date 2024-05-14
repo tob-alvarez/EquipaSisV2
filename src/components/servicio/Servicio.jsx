@@ -152,10 +152,10 @@ const Servicio = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
+                <TableCell align="center">Id</TableCell>
                 <TableCell>{t("servicio.nombre-servicio")}</TableCell>
                 <TableCell>{t("servicio.corto_servicio")}</TableCell>
-                <TableCell>{t("servicio.estado")}</TableCell>
+                <TableCell align="center">{t("servicio.estado")}</TableCell>
                 <TableCell align="center">{t("servicio.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -174,7 +174,7 @@ const Servicio = () => {
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_servicio}</TableCell>
                   <TableCell>{dato.nombre_servicio.toUpperCase()}</TableCell>
                   <TableCell>{dato.corto_servicio.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >

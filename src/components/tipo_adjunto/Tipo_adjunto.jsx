@@ -151,9 +151,9 @@ const Tipo_adjunto = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
+                <TableCell align="center">Id</TableCell>
                 <TableCell>{t("tipo_adjunto.nombre-tadjunto")}</TableCell>
-                <TableCell>{t("tipo_adjunto.estado")}</TableCell>
+                <TableCell align="center">{t("tipo_adjunto.estado")}</TableCell>
                 <TableCell align="center">{t("tipo_adjunto.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -171,7 +171,7 @@ const Tipo_adjunto = () => {
                 >
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_tadjunto}</TableCell>
                   <TableCell>{dato.nombre_tadjunto.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >

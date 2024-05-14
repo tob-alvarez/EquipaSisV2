@@ -153,7 +153,7 @@ const Empresa = () => {
               <TableRow>
                 <TableCell>Id</TableCell>
                 <TableCell>{t("empresa.nombre-empresa")}</TableCell>
-                <TableCell>{t("empresa.estado")}</TableCell>
+                <TableCell align="center">{t("empresa.estado")}</TableCell>
                 <TableCell align="center">{t("empresa.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -171,7 +171,7 @@ const Empresa = () => {
                 >
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_empresa}</TableCell>
                   <TableCell>{dato.nombre_empresa.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >

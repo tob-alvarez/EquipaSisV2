@@ -161,7 +161,7 @@ const Cliente = () => {
                 <TableCell>{t("cliente.host")}</TableCell>
                 <TableCell>{t("cliente.user")}</TableCell>
                 <TableCell>{t("cliente.pass")}</TableCell>
-                <TableCell>{t("cliente.estado")}</TableCell>
+                <TableCell align="center">{t("cliente.estado")}</TableCell>
                 <TableCell align="center">{t("cliente.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -183,7 +183,7 @@ const Cliente = () => {
                   <TableCell>{dato.host.toUpperCase()}</TableCell>
                   <TableCell>{dato.user.toUpperCase()}</TableCell>
                   <TableCell>{dato.pass.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >

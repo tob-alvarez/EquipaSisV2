@@ -157,6 +157,7 @@ const Documentacion = () => {
                 <TableCell>{t("documentacion.nombre-documentacion")}</TableCell>
                 <TableCell>{t("documentacion.corto_documentacion")}</TableCell>
                 <TableCell align="center">{t("documentacion.nombre_tarchivo")}</TableCell>
+                <TableCell align="center">{t("documentacion.estado")}</TableCell>
                 <TableCell align="center">{t("documentacion.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -176,7 +177,7 @@ const Documentacion = () => {
                   <TableCell >{dato.nombre_documentacion.toUpperCase()}</TableCell>
                   <TableCell >{dato.corto_documentacion.toUpperCase()}</TableCell>
                   <TableCell >{dato.nombre_tarchivo.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >

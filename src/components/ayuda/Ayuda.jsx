@@ -155,6 +155,7 @@ const Ayuda = () => {
                 <TableCell>Id</TableCell>
                 <TableCell>{t("ayuda.nombre-ayuda")}</TableCell>
                 <TableCell>{t("ayuda.proceso")}</TableCell>
+                <TableCell>{t("ayuda.estado")}</TableCell>
                 <TableCell align="center">{t("ayuda.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -173,7 +174,7 @@ const Ayuda = () => {
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_ayuda}</TableCell>
                   <TableCell >{dato.nombre_ayuda.toUpperCase()}</TableCell>
                   <TableCell >{dato.proceso.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >

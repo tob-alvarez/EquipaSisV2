@@ -151,9 +151,9 @@ const Tipo_comprobante = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
+                <TableCell align="center">Id</TableCell>
                 <TableCell>{t("tipo_comprobante.nombre-tcomprobante")}</TableCell>
-                <TableCell>{t("tipo_comprobante.estado")}</TableCell>
+                <TableCell align="center">{t("tipo_comprobante.estado")}</TableCell>
                 <TableCell align="center">{t("tipo_comprobante.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -171,7 +171,7 @@ const Tipo_comprobante = () => {
                 >
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_tcomprobante}</TableCell>
                   <TableCell>{dato.nombre_tcomprobante.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >

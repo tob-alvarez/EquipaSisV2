@@ -151,9 +151,9 @@ const Tipo_solicitud = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
+                <TableCell align="center">Id</TableCell>
                 <TableCell>{t("tipo_solicitud.nombre-tsolicitud")}</TableCell>
-                <TableCell>{t("tipo_solicitud.estado")}</TableCell>
+                <TableCell align="center">{t("tipo_solicitud.estado")}</TableCell>
                 <TableCell align="center">{t("tipo_solicitud.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -171,7 +171,7 @@ const Tipo_solicitud = () => {
                 >
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_tsolicitud}</TableCell>
                   <TableCell>{dato.nombre_tsolicitud.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >
