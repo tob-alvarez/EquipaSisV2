@@ -9,7 +9,7 @@ import {
   trae_permisos,
   trae_combos,
 } from "./funciones_equipamiento";
-import { accion_pdf, accion_xls } from "../pdf/accion_pdf";
+import { equipamiento_pdf, equipamiento_xls } from "../pdf/equipamiento_pdf";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
@@ -139,10 +139,10 @@ const Equipamiento = () => {
   };
   const printInfoProcess = () => {
     let idioma = localStorage.getItem("language");
-    accion_pdf(searchTerm, idioma);
+    equipamiento_pdf(searchTerm, idioma);
   };
   const downloadInfo = () => {
-    accion_xls(searchTerm);
+    equipamiento_xls(searchTerm);
   };
 
   function abircerrar(paso) {
