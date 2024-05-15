@@ -18,7 +18,7 @@ const ModalAgregar = () => {
   const [cantidad, setCantidad] = useState("");
   const [cantidad_minima, setCantidad_minima] = useState("");
   const [habilita, setHabilita] = useState(false);
-  const { actualizador, traerOrganizaciones, organizaciones, traerServicios, servicios, traertproductos, tproductos } = useContext(EquipaContext);
+  const { actualizador, traerOrganizaciones, organizaciones, traerServicios, servicios, traerTproductos, tproductos } = useContext(EquipaContext);
   
   const limpia_campos = () => {
     setId_stock("");
@@ -69,7 +69,7 @@ const ModalAgregar = () => {
   useEffect(() => {
     traerOrganizaciones({tarea: "combo_organizacion"})
     traerServicios({tarea: "combo_servicio"})
-    traertproductos({tarea: "combo_tproducto"})
+    traerTproductos({tarea: "combo_tproducto"})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

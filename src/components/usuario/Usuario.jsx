@@ -19,6 +19,7 @@ import ModalAyuda from "./ModalAyuda";
 import ModalEditar from "./ModalEditar";
 import ModalBorrar from "./ModalBorrar";
 import { EquipaContext } from "../../context/EquipaContext";
+import ModalAdjuntar from "./ModalAdjuntar";
 
 const Usuario = () => {
   const [t] = useTranslation("global")
@@ -98,6 +99,8 @@ const Usuario = () => {
   const downloadInfo = () => {
     usuario_xls(searchTerm);
   };
+
+  console.log(permisos_usuario)
 
   return (
     <>
@@ -190,6 +193,11 @@ const Usuario = () => {
                     {permisos_usuario.eliminar === "1" && (
                       <IconButton>
                         <ModalBorrar dato={dato} />
+                      </IconButton>
+                    )}
+                    {permisos_usuario.adjuntar === "1" && (
+                      <IconButton>
+                        <ModalAdjuntar dato={dato} />
                       </IconButton>
                     )}
                   </TableCell>
