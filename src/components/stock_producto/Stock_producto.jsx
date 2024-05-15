@@ -102,6 +102,8 @@ const Stock_producto = () => {
     stock_producto_xls(searchTerm);
   };
 
+  console.log(datos_stock_productos)
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-2 container">
@@ -166,7 +168,7 @@ const Stock_producto = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentItems.map((dato, index) => (
+              {currentItems?.map((dato, index) => (
                 <TableRow
                   key={index}
                   sx={{
@@ -224,27 +226,27 @@ const Stock_producto = () => {
             <Button
               className="mx-2 icons-contact"
               onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === Math.ceil(filteredItems.length / itemsPerPage)}
+              disabled={currentPage === Math.ceil(filteredItems?.length / itemsPerPage)}
             >
               <KeyboardArrowRightIcon/>
             </Button>
             <Button
               className="icons-contact me-3"
               onClick={() =>
-                handlePageChange(Math.ceil(filteredItems.length / itemsPerPage))
+                handlePageChange(Math.ceil(filteredItems?.length / itemsPerPage))
               }
               disabled={
-                currentPage === Math.ceil(filteredItems.length / itemsPerPage)
+                currentPage === Math.ceil(filteredItems?.length / itemsPerPage)
               }
             >
               <KeyboardDoubleArrowRightIcon/>
             </Button>
 
             <Typography variant="p" className="col-3 align-self-center">
-            {t("producto.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
+            {t("producto.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems?.length / itemsPerPage)}
             </Typography>
             <Typography variant="p" className="align-self-center">
-            {t("producto.registros")} {filteredItems.length}
+            {t("producto.registros")} {filteredItems?.length}
             </Typography>
           </div>
         </TableContainer>
