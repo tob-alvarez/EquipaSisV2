@@ -53,7 +53,7 @@ export function persona_pdf(filtro, idioma) {
       reporte = "Reporte al"
     }
     const doc = new jsPDF({
-      orientation: "p",
+      orientation: "l",
       unit: "mm",
       format: "a4",
     });
@@ -91,24 +91,24 @@ export function persona_pdf(filtro, idioma) {
     data.map((datos, index) => {
       if (index % 2 == 0 && datos.nombre_persona.length > 120) {
         doc.setFillColor("#ECECEC");
-        doc.rect(10, lineas - 4, 192, 10, "F");
+        doc.rect(10, lineas - 4, 274, 10, "F");
       }
 
       if (index % 2 == 0 && datos.nombre_persona.length < 120) {
         doc.setFillColor("#ECECEC");
-        doc.rect(10, lineas - 4, 192, 5, "F");
+        doc.rect(10, lineas - 4, 274, 5, "F");
       }
 
       doc.text(datos.id_persona, 12, lineas);
       doc.text(datos.nombre_persona, 22, lineas);
-      doc.text(datos.telefono_persona, 120, lineas);
-      doc.text(datos.email_persona, 150, lineas);
+      doc.text(datos.telefono_persona, 80, lineas);
+      doc.text(datos.email_persona, 112, lineas);
       doc.text(datos.nombre_empresa, 170, lineas);
-      doc.text(datos.nombre_tpersona, 172, lineas);
+      doc.text(datos.nombre_tpersona, 220, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
-      doc.text(habilita, 194, lineas);
+      doc.text(habilita, 275, lineas);
 
       if (datos.nombre_persona.length > 100) {
         //doc.line(5,lineas+6,200,lineas+6);
@@ -132,10 +132,10 @@ export function persona_pdf(filtro, idioma) {
   function cabecera() {
     const logo = new Image();
     logo.src = "/logo.png";
-    doc.addImage(logo, "PNG", 175, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
-    doc.rect(9.8, 19.8, 194.3, 7.4);
+    doc.addImage(logo, "PNG", 260, 1, 14, 14); // Agregar la imagen al PDF (X, Y, Width, Height)
+    doc.rect(9.8, 19.8, 274.3, 7.4);
     doc.setFillColor("#EBEBEB");
-    doc.rect(10, 20, 193.8, 7, "F");
+    doc.rect(10, 20, 273.8, 7, "F");
     doc.setFontSize(14);
 
     doc.setTextColor(55, 0, 0);
@@ -144,22 +144,22 @@ export function persona_pdf(filtro, idioma) {
     doc.setFontSize(9);
     doc.text("ID", 14, 25, { align: "center" });
     doc.line(18, 19.8, 18, 27.2);
-    doc.text(nombreAcciones , 60, 25, { align: "center" });
-    doc.line(118, 19.8, 118, 27.2);
-    doc.text(telefono_persona , 132, 25, { align: "center" });
-    doc.line(147, 19.8, 147, 27.2);
-    doc.text(email_persona , 157, 25, { align: "center" });
-    doc.line(170, 19.8, 170, 27.2);
-    doc.text(nombre_empresa , 181, 25, { align: "center" });
-    doc.line(193, 19.8, 193, 27.2);
-    doc.text(nombre_tpersona , 181, 25, { align: "center" });
-    doc.line(193, 19.8, 193, 27.2);
-    doc.text(habilitado, 194, 25, { align: "left" });
+    doc.text(nombreAcciones , 50, 25, { align: "center" });
+    doc.line(78, 19.8, 78, 27.2);
+    doc.text(telefono_persona , 94, 25, { align: "center" });
+    doc.line(110, 19.8, 110, 27.2);
+    doc.text(email_persona , 138, 25, { align: "center" });
+    doc.line(168, 19.8, 168, 27.2);
+    doc.text(nombre_empresa , 190, 25, { align: "center" });
+    doc.line(213, 19.8, 213, 27.2);
+    doc.text(nombre_tpersona , 240, 25, { align: "center" });
+    doc.line(270, 19.8, 270, 27.2);
+    doc.text(habilitado, 272, 25, { align: "left" });
     let fecha = new Date();
     fecha = fecha.toLocaleString();
 
-    doc.text(`${reporte}: ` + fecha, 5, 288, { align: "left" });
-    doc.text(`${page}: ` + pagina.toString(), 195, 288, { align: "right" });
+    doc.text(`${reporte}: ` + fecha, 5, 198, { align: "left" });
+    doc.text(`${page}: ` + pagina.toString(), 195, 198, { align: "right" });
   }
 }
 

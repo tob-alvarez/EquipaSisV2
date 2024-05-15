@@ -174,7 +174,7 @@ const Accion = () => {
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_accion}</TableCell>
                   <TableCell>{dato.nombre_accion.toUpperCase()}</TableCell>
                   <TableCell>{dato.corto_accion}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >

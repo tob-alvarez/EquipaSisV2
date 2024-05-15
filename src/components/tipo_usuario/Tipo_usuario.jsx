@@ -152,10 +152,10 @@ const Tipo_usuario = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
+                <TableCell align="center">Id</TableCell>
                 <TableCell>{t("tipo_usuario.nombre-tusuario")}</TableCell>
                 <TableCell>{t("tipo_usuario.observacion")}</TableCell>
-                <TableCell>{t("tipo_usuario.estado")}</TableCell>
+                <TableCell align="center">{t("tipo_usuario.estado")}</TableCell>
                 <TableCell align="center">{t("tipo_usuario.acciones")}</TableCell>
               </TableRow>
             </TableHead>

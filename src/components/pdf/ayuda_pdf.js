@@ -1,18 +1,51 @@
 import jsPDF from "jspdf";
 import * as XLSX from "xlsx";
 
-export function ayuda_pdf(filtro) {
-  const doc = new jsPDF({
-    orientation: "p",
-    unit: "mm",
-    format: "a4",
-  });
-
-  let lineas = 35;
-  let pagina = 1;
-  let data = [];
-  let habilita = "";
-
+export function ayuda_pdf(filtro, idioma) {
+    let titulo;
+    let nombreayuda;
+    let proceso;
+    let habilitado;
+    let page; 
+    let reporte;
+    if (idioma === 'es') {
+      titulo = "Registro de Ayudas";
+      nombreayuda = "Nombre de Ayuda";
+      proceso = "Nombre Proceso";
+      habilitado = "Habilitada";
+      page = "Página";
+      reporte = "Reporte al"
+    } else if (idioma === 'en') {
+      titulo = "Aid Registration";
+      nombreayuda = "Help Name";
+      proceso = "Process Name";
+      habilitado = "Enabled";
+      page = "Page";
+      reporte = "Report as of";
+    } else if (idioma === 'por') {
+      titulo = "Registro de Auxílio";
+      nombreayuda = "Nome da Ajuda";
+      proceso = "Nome do Processo";
+      habilitado = "Habilitado";
+      page = "Página";
+      reporte = "Relatório em";
+    } else {
+      titulo = "Registro de Ayudas";
+      nombreayuda = "Nombre de Ayuda";
+      proceso = "Proceso";
+      habilitado = "Habilitada";
+      page = "Página";
+      reporte = "Reporte al"
+    }
+    const doc = new jsPDF({
+      orientation: "p",
+      unit: "mm",
+      format: "a4",
+    });
+    let lineas = 35;
+    let pagina = 1;
+    let data = [];
+    let habilita = "";
   const resultado = async () => {
     const JSONdata = JSON.stringify({ tarea: "imprime_ayuda" }); // Send the data to the server in JSON format.
     const endpoint = "https://v2.equipasis.com/api/ayuda.php"; // API endpoint where we send form data.
@@ -28,11 +61,13 @@ export function ayuda_pdf(filtro) {
     // Get the response data from server as JSON.
     // If server returns the name submitted, that means the form works.
     const result = await response.json();
-
     data = result.datos;
-    data = data.filter(item => item.nombre_ayuda.toLowerCase().indexOf(filtro) > -1);
+    data = data.filter(item => item.nombre_ayuda.toLowerCase().indexOf(filtro) > -1 || 
+    item.id_ayuda.toLowerCase().indexOf(filtro) > -1 ||
+    item.proceso.toLowerCase().indexOf(filtro) > -1 ||
+    item.habilita.toLowerCase().indexOf(filtro) > -1);
     doc.setProperties({
-      title: "Registro de Ayudas",
+      title: titulo,
     });
     cabecera();
     data.map((datos, index) => {
@@ -48,7 +83,7 @@ export function ayuda_pdf(filtro) {
 
       doc.text(datos.id_ayuda, 20, lineas);
       doc.text(datos.nombre_ayuda, 34, lineas);
-      doc.text(datos.proceso, 100, lineas);
+      doc.text(datos.proceso, 110, lineas);
 
       if (datos.habilita == 0) habilita = "NO";
       else habilita = "SI";
@@ -83,21 +118,22 @@ export function ayuda_pdf(filtro) {
     doc.setFontSize(14);
 
     doc.setTextColor(55, 0, 0);
-    doc.text("Registro de Ayudas", 15, 12);
+    doc.text(titulo, 15, 12);
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(9);
     doc.text("ID", 22, 25, { align: "center" });
     doc.line(30, 19.8, 30, 27.2);
-    doc.text("Nombre de la ayuda", 50, 25, { align: "center" });
-    doc.line(95, 19.8, 95, 27.2);
-    doc.text("Proceso", 109, 25, { align: "center" });
+    doc.text(nombreayuda , 47, 25, { align: "center" });
+    doc.line(100, 19.8, 100, 27.2);
+    doc.text(proceso , 120, 25, { align: "center" });
     doc.line(160, 19.8, 160, 27.2);
-    doc.text("Habilitada", 172, 25, { align: "center" });
+
+    doc.text(habilitado, 172, 25, { align: "center" });
     let fecha = new Date();
     fecha = fecha.toLocaleString();
 
-    doc.text("Reporte al: " + fecha, 5, 288, { align: "left" });
-    doc.text("Página: " + pagina.toString(), 195, 288, { align: "right" });
+    doc.text(`${reporte}: ` + fecha, 5, 288, { align: "left" });
+    doc.text(`${page}: ` + pagina.toString(), 195, 288, { align: "right" });
   }
 }
 
@@ -124,7 +160,10 @@ export function ayuda_xls(filtro) {
     fecha = fecha.toLocaleString();
     
     data = result.datos;
-    data = data.filter(item => item.nombre_ayuda.toLowerCase().indexOf(filtro) > -1);
+    data = data.filter(item => item.nombre_ayuda.toLowerCase().indexOf(filtro) > -1 || 
+    item.proceso.toLowerCase().indexOf(filtro) > -1 ||
+    item.id_ayuda.toLowerCase().indexOf(filtro) > -1 ||
+    item.habilita.toLowerCase().indexOf(filtro) > -1);
     console.log(data.length);
     if (data.length != 0) {
       //const wb = XLSX.utils.table_to_book(table);
@@ -134,7 +173,7 @@ export function ayuda_xls(filtro) {
       XLSX.utils.book_append_sheet(wb, ws, "ayudas");
 
       /* Export to file (start a download) */
-      XLSX.writeFile(wb, fecha + "_ayuda.xlsx");
+      XLSX.writeFile(wb, fecha + "_Ayuda.xlsx");
     }
   };
   resultado()

@@ -151,9 +151,9 @@ const Pais = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
+                <TableCell align="center">Id</TableCell>
                 <TableCell>{t("pais.nombre-pais")}</TableCell>
-                <TableCell>{t("pais.estado")}</TableCell>
+                <TableCell align="center">{t("pais.estado")}</TableCell>
                 <TableCell align="center">{t("pais.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -171,7 +171,7 @@ const Pais = () => {
                 >
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_pais}</TableCell>
                   <TableCell>{dato.nombre_pais.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >

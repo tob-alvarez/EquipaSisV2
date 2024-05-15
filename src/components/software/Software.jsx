@@ -152,10 +152,10 @@ const Software = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
+                <TableCell align="center">Id</TableCell>
                 <TableCell>{t("software.nombre-software")}</TableCell>
                 <TableCell>{t("software.corto_software")}</TableCell>
-                <TableCell>{t("software.estado")}</TableCell>
+                <TableCell align="center">{t("software.estado")}</TableCell>
                 <TableCell align="center">{t("software.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -174,7 +174,7 @@ const Software = () => {
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_software}</TableCell>
                   <TableCell>{dato.nombre_software.toUpperCase()}</TableCell>
                   <TableCell>{dato.corto_software.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >

@@ -151,9 +151,9 @@ const Tipo_indicador = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
+                <TableCell align="center">Id</TableCell>
                 <TableCell>{t("tipo_indicador.nombre-tindicador")}</TableCell>
-                <TableCell>{t("tipo_indicador.estado")}</TableCell>
+                <TableCell align="center">{t("tipo_indicador.estado")}</TableCell>
                 <TableCell align="center">{t("tipo_indicador.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -171,7 +171,7 @@ const Tipo_indicador = () => {
                 >
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_tindicador}</TableCell>
                   <TableCell>{dato.nombre_tindicador.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >

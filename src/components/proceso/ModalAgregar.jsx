@@ -106,9 +106,6 @@ const ModalAgregar = () => {
                     id="nombre_proceso"
                     value={nombre_proceso}
                     onChange={(e) => setNombre_proceso(e.target.value)}
-                    onKeyUp={(e) =>
-                      setNombre_proceso(e.target.value.toUpperCase())
-                    }
                     className="mb-2"
                   />
                 </InputGroup>

@@ -137,7 +137,7 @@ const ModalAgregar = () => {
                     onKeyUp={(e) => setId_tarchivo(e.target.value.toUpperCase())}
                     className="mb-2"
                   >
-                    <option value="">Seleccione Tipo de Archivo</option>
+                    <option value="">{t("documentacion.seleccione_tarchivo")}</option>
                     
                     {tarchivos?.map((o) => (
                       <option key={o.id_tarchivo} value={o.id_tarchivo}>

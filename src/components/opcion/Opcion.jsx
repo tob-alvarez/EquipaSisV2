@@ -153,7 +153,7 @@ const Opcion = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
+                <TableCell align="center">Id</TableCell>
                 <TableCell>{t("opcion.nombre-opcion")}</TableCell>
                 <TableCell>{t("opcion.nombre-opcion_en")}</TableCell>
                 <TableCell>{t("opcion.nombre-opcion_por")}</TableCell>
@@ -177,7 +177,7 @@ const Opcion = () => {
                   <TableCell>{dato.nombre_opcion.toUpperCase()}</TableCell>
                   <TableCell>{dato.nombre_opcion_en.toUpperCase()}</TableCell>
                   <TableCell>{dato.nombre_opcion_por.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >

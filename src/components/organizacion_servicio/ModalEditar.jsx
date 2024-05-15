@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { toast } from "react-toastify";
@@ -9,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
 import { EquipaContext } from "../../context/EquipaContext";
 
+
 const ModalEditar = ({dato}) => {
     const [t] = useTranslation("global")
     const [isModalEditOpen, setIsModalEditOpen] = useState(false);
@@ -16,8 +15,9 @@ const ModalEditar = ({dato}) => {
     const [id_organizacion, setId_organizacion] = useState("");
     const [id_servicio, setId_servicio] = useState("");
     const [habilita, setHabilita] = useState(false);
-    const { actualizador } = useContext(EquipaContext);
-    
+    const { actualizador, traerOrganizaciones, organizaciones, traerServicios, servicios } = useContext(EquipaContext);
+  
+
     useEffect(() => {
       if (isModalEditOpen && dato) {
         if (dato.habilita == 1) {
@@ -30,6 +30,12 @@ const ModalEditar = ({dato}) => {
       }
     }, [isModalEditOpen, dato]);
     
+    useEffect(() => {
+      traerOrganizaciones({tarea: "combo_organizacion"})
+      traerServicios({tarea: "combo_servicio"})
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    
     const limpia_campos = () => {
       setId_orga_serv("");
       setId_organizacion("");
@@ -40,6 +46,7 @@ const ModalEditar = ({dato}) => {
       limpia_campos();
       setIsModalEditOpen(false);
     };
+    
     const acepta_accion = () => {
       const datos_cambios = {
         id_orga_serv: dato.id_orga_serv,
@@ -51,7 +58,7 @@ const ModalEditar = ({dato}) => {
         toast.info(`${t("organizacion_servicio.datoObligatorio")}`);
         return;
       }
-  
+      
       cambia_organizacion_servicios(datos_cambios).then((respuesta_accion) => {
         if (respuesta_accion[0].registros > 0) {
           toast.success(`${t("varios.editado")}`, {
@@ -68,6 +75,7 @@ const ModalEditar = ({dato}) => {
         setIsModalEditOpen(false);
       });
     }
+    
 
   return (
     <>
@@ -96,35 +104,47 @@ const ModalEditar = ({dato}) => {
             <div className="row">
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("organizacion_servicio.id_organizacion")}: #
+                  {t("organizacion_servicio.nombre-organizacion")}: #
                 </label>
                 <InputGroup>
-                  <Form.Control
+                  <Form.Select
                     id="id_organizacion"
                     value={id_organizacion}
                     onChange={(e) => setId_organizacion(e.target.value)}
-                    onKeyUp={(e) =>
-                      setId_organizacion(e.target.value.toUpperCase())
-                    }
+                    onKeyUp={(e) => setId_organizacion(e.target.value.toUpperCase())}
                     className="mb-2"
-                  />
+                  >
+                    <option value="">{t("organizacion_servicio.seleccione_organizacion")}</option>
+                    
+                    {organizaciones?.map((o) => (
+                      <option key={o.id_organizacion} value={o.id_organizacion}>
+                        {o.nombre_organizacion}
+                      </option>
+                    ))}
+                  </Form.Select>
                 </InputGroup>
               </div>
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("organizacion_servicio.id_servicio")}: #
+                  {t("organizacion_servicio.nombre_servicio")}: #
                 </label>
                 <InputGroup>
-                  <Form.Control
+                  <Form.Select
                     id="id_servicio"
                     value={id_servicio}
                     onChange={(e) => setId_servicio(e.target.value)}
-                    onKeyUp={(e) =>
-                      setId_servicio(e.target.value.toUpperCase())
-                    }
+                    onKeyUp={(e) => setId_servicio(e.target.value.toUpperCase())}
                     className="mb-2"
-                  />
+                  >
+                    <option value="">{t("organizacion_servicio.seleccione_servicio")}</option>
+                    
+                    {servicios?.map((o) => (
+                      <option key={o.id_servicio} value={o.id_servicio}>
+                        {o.nombre_servicio}
+                      </option>
+                    ))}
+                  </Form.Select>
                 </InputGroup>
               </div>
 

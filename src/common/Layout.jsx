@@ -13,10 +13,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ingles from '../assets/united-kingdom.svg'
-import spain from '../assets/spain.svg'
+import argentina from '../assets/argentina.svg'
 import portugal from '../assets/portugal.svg'
 import { EquipaContext } from "../context/EquipaContext";
-import './Layout.css'
 import {
   Avatar,
   Menu,
@@ -28,6 +27,7 @@ import Footer from "./Footer";
 import Reloj from "./Reloj";
 import MenuLateral from "./Menu";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const drawerWidth = 280;
 
@@ -114,6 +114,7 @@ export default function Layout({ children }) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const [t] = useTranslation("global")
   const nombre = localStorage.getItem('nombre')
   const rol = localStorage.getItem('rol')
   const handleLogout = ()=>{
@@ -148,19 +149,18 @@ export default function Layout({ children }) {
     } else {
       // Si ya existe un menuItem con el mismo padre, agregamos el subItem
       menu[menuItemIndex].subItems.push({ label: permiso[subLabelKey], path: permiso.path });
+      menu[menuItemIndex].subItems.sort((a, b) => a.label.localeCompare(b.label));
     }
     return menu;
   }, []);
 
 
-  console.log(menuItems)
-    
   return authenticated ? (
     <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="fixed" open={open}>
-          <Toolbar>
+          <Toolbar style={{backgroundColor: '#990000'}}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -188,7 +188,7 @@ export default function Layout({ children }) {
                     EN <img src={ingles} className="icono-lang ps-2" />
                   </MenuItem>
                   <MenuItem value={"es"}>
-                    ES <img src={spain} className="icono-lang ps-2" />
+                    ES <img src={argentina} className="icono-lang ps-3" />
                   </MenuItem>
                   <MenuItem value={"por"}>
                     POR <img src={portugal} className="icono-lang ps-2" />
@@ -235,10 +235,10 @@ export default function Layout({ children }) {
                 onClose={handleCloseUserMenu}
               >
                 <MenuItem onClick={() => navigate('/perfil')}>
-                  <Typography textAlign="center">Perfil</Typography>
+                  <Typography textAlign="center">{t("layout.perfil")}</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
-                  <Typography textAlign="center">Lougout</Typography>
+                  <Typography textAlign="center">{t("layout.cerrarSesion")}</Typography>
                 </MenuItem>
               </Menu>
             </Box>

@@ -25,6 +25,12 @@ const EquipaProvider = ({ children }) => {
   const [provincias, setProvincias] = useState(null);
   const [empresas, setEmpresas] = useState(null);
   const [tpersonas, setTpersonas] = useState(null);
+  const [ttareas, setTtareas] = useState(null);
+  const [organizaciones, setOrganizaciones] = useState(null);
+  const [servicios, setServicios] = useState(null);
+  const [personas, setPersonas] = useState(null);
+  const [tusuarios, setTusuarios] = useState(null);  
+  const [tproductos, setTproductos] = useState(null);  
 
 
   useEffect(() => {
@@ -49,10 +55,10 @@ const EquipaProvider = ({ children }) => {
     try {
       const { data } = await axios.get(`https://v2.equipasis.com/api/usuarios.php?tarea=valida_usuario&email_persona=${loginValues.email_persona}&clave=${loginValues.clave}`);
       setAuthenticated(!!data.persona[0]);
-      setUser(data.persona[0]);
       sessionStorage.setItem("token", data.token[0].token);
       localStorage.setItem("nombre", data.persona[0].nombre_persona);
       localStorage.setItem("rol", data.persona[0].nombre_tusuario);
+      localStorage.setItem("language", "es");
       navigate('/inicio')
       window.location.reload()
     } catch (error) {
@@ -65,6 +71,19 @@ const EquipaProvider = ({ children }) => {
     try {
       const { data } = await axios.post(`https://v2.equipasis.com/api/usuario_menu.php`, token);
       setPermisos(data.permisos)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
+  const consultaPerfil = async (token) => {
+    let datos = {
+      tarea: "consulta_perfil",
+      token : token
+    }
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/perfil.php`, datos);
+      setUser(data.perfil[0])
     } catch (error) {
       console.error(error.response?.data.message || error.message);
     }
@@ -151,6 +170,60 @@ const EquipaProvider = ({ children }) => {
     }
   };
 
+  const traerTtareas = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/tipo_tarea.php`, tarea);
+      setTtareas(data.tipo_tarea)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+  
+  const traerOrganizaciones = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/organizacion.php`, tarea);
+      setOrganizaciones(data.organizacion)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+    
+  const traerServicios = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/servicio.php`, tarea);
+      setServicios(data.servicio)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
+  const traerPersonas = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/persona.php`, tarea);
+      setPersonas(data.persona)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
+  const traerTusuarios = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/tipo_usuario.php`, tarea);
+      setTusuarios(data.servicio)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
+  const traerTproductos = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/tipo_producto.php`, tarea);
+      setTproductos(data.servicio)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
   const getAuth = async () => {
     try {
       const token = sessionStorage.getItem("token");
@@ -216,7 +289,20 @@ const EquipaProvider = ({ children }) => {
         traerEmpresas,
         empresas,
         traerTpersonas,
-        tpersonas
+        tpersonas,
+        traerTtareas,
+        ttareas,
+        traerOrganizaciones,
+        organizaciones,
+        traerServicios,
+        servicios,
+        traerPersonas,
+        personas,
+        traerTusuarios,
+        tusuarios,
+        consultaPerfil,
+        traerTproductos,
+        tproductos
       }}
     >
       {children}

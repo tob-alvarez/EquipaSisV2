@@ -151,9 +151,9 @@ const Tipo_componente = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
+                <TableCell align="center">Id</TableCell>
                 <TableCell>{t("tipo_componente.nombre-tcomponente")}</TableCell>
-                <TableCell>{t("tipo_componente.estado")}</TableCell>
+                <TableCell align="center">{t("tipo_componente.estado")}</TableCell>
                 <TableCell align="center">{t("tipo_componente.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -171,7 +171,7 @@ const Tipo_componente = () => {
                 >
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_tcomponente}</TableCell>
                   <TableCell>{dato.nombre_tcomponente.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >

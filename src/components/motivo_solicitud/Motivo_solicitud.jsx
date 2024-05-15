@@ -151,9 +151,9 @@ const Motivo_solicitud = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
+                <TableCell align="center">Id</TableCell>
                 <TableCell>{t("motivo_solicitud.nombre-motivo_solicitud")}</TableCell>
-                <TableCell>{t("motivo_solicitud.estado")}</TableCell>
+                <TableCell align="center">{t("motivo_solicitud.estado")}</TableCell>
                 <TableCell align="center">{t("motivo_solicitud.acciones")}</TableCell>
               </TableRow>
             </TableHead>
@@ -171,7 +171,7 @@ const Motivo_solicitud = () => {
                 >
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_motivo_solicitud}</TableCell>
                   <TableCell>{dato.nombre_motivo_solicitud.toUpperCase()}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
                     >
