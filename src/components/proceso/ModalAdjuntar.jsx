@@ -46,7 +46,7 @@ const ModalAdjuntar = ({dato}) => {
   }
 
   
-  const handleCheckboxChange = (event, index, fieldName) => {
+  const handleCheckboxChange = (event, index, fieldName, tipo) => {
     const { checked } = event.target;
     const updatedCheckboxState = { ...checkboxState };
   
@@ -54,6 +54,7 @@ const ModalAdjuntar = ({dato}) => {
     updatedCheckboxState[index] = {
       ...updatedCheckboxState[index],
       [fieldName]: checked ? true : false,
+      tusuario: tipo.id_tusuario,
     };
     setCheckboxState(updatedCheckboxState);
   
@@ -140,7 +141,7 @@ const ModalAdjuntar = ({dato}) => {
                   name="ver_opcion"
                   style={{ textAlign: "center" }}
                   checked={checkboxState[index]?.ver_opcion === true}
-                  onChange={(event) => handleCheckboxChange(event, index, 'ver_opcion')}
+                  onChange={(event) => handleCheckboxChange(event, index, 'ver_opcion', tipo)}
                 />
                 </td>
                 <td>
@@ -149,7 +150,7 @@ const ModalAdjuntar = ({dato}) => {
                     name="agregar"
                     style={{ textAlign: "center" }}
                     checked={checkboxState[index]?.agregar === true}
-                    onChange={(event) => handleCheckboxChange(event, index, 'agregar')}
+                    onChange={(event) => handleCheckboxChange(event, index, 'agregar', tipo)}
                   />
                 </td>
                 <td>
@@ -158,7 +159,7 @@ const ModalAdjuntar = ({dato}) => {
                     name="modificar"
                     style={{ textAlign: "center" }}
                     checked={checkboxState[index]?.modificar === true}
-                    onChange={(event) => handleCheckboxChange(event, index, 'modificar')}
+                    onChange={(event) => handleCheckboxChange(event, index, 'modificar', tipo)}
                   />
                 </td>
                 <td>
@@ -167,7 +168,7 @@ const ModalAdjuntar = ({dato}) => {
                     name="eliminar"
                     style={{ textAlign: "center" }}
                     checked={checkboxState[index]?.eliminar === true}
-                    onChange={(event) => handleCheckboxChange(event, index, 'eliminar')}
+                    onChange={(event) => handleCheckboxChange(event, index, 'eliminar', tipo)}
                   />
                 </td>
                 <td>
@@ -176,7 +177,7 @@ const ModalAdjuntar = ({dato}) => {
                     name="imprimir"
                     style={{ textAlign: "center" }}
                     checked={checkboxState[index]?.imprimir === true}
-                    onChange={(event) => handleCheckboxChange(event, index, 'imprimir')}
+                    onChange={(event) => handleCheckboxChange(event, index, 'imprimir', tipo)}
                   />
                 </td>
                 <td>
@@ -185,7 +186,7 @@ const ModalAdjuntar = ({dato}) => {
                     name="exportar"
                     style={{ textAlign: "center" }}
                     checked={checkboxState[index]?.exportar === true}
-                    onChange={(event) => handleCheckboxChange(event, index, 'exportar')}
+                    onChange={(event) => handleCheckboxChange(event, index, 'exportar', tipo)}
                   />
                 </td>
                 <td>
@@ -194,7 +195,7 @@ const ModalAdjuntar = ({dato}) => {
                     name="adjuntar"
                     style={{ textAlign: "center" }}
                     checked={checkboxState[index]?.adjuntar === true}
-                    onChange={(event) => handleCheckboxChange(event, index, 'adjuntar')}
+                    onChange={(event) => handleCheckboxChange(event, index, 'adjuntar', tipo)}
                   />
                 </td>
                 <td>
@@ -203,7 +204,7 @@ const ModalAdjuntar = ({dato}) => {
                     name="habilita"
                     style={{ textAlign: "center" }}
                     checked={checkboxState[index]?.habilita === true}
-                    onChange={(event) => handleCheckboxChange(event, index, 'habilita')}
+                    onChange={(event) => handleCheckboxChange(event, index, 'habilita', tipo)}
                   />
                 </td>
               </tr>
