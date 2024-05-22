@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
-import { alta_stock_productos } from "./funciones_stock_producto";
+import { alta_adjunto_personas } from "./funciones_adjunto_persona";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
@@ -11,22 +11,20 @@ const ModalAgregar = () => {
 
   const [isModalAttachOpen, setIsModalAttachOpen] = useState(false);
   const [t] = useTranslation("global")
-  const [id_stock, setId_stock] = useState("");
-  const [id_tproducto, setId_tproducto] = useState("");
-  const [id_organizacion, setId_organizacion] = useState("");
-  const [id_servicio, setId_servicio] = useState("");
-  const [cantidad, setCantidad] = useState("");
-  const [cantidad_minima, setCantidad_minima] = useState("");
+  const [id_adjunto_persona, setId_adjunto_persona] = useState("");
+  const [id_persona, setId_persona] = useState("");
+  const [id_tadjunto, setId_tadjunto] = useState("");
+  const [id_tarchivo, setId_tarchivo] = useState("");
+  const [nombre_archivo, setNombre_archivo] = useState("");
   const [habilita, setHabilita] = useState(false);
-  const { actualizador, traerOrganizaciones, organizaciones, traerServicios, servicios, traerTproductos, tproductos } = useContext(EquipaContext);
+  const { actualizador, traerPersonas, personas, traerTadjuntos, tadjuntos, traerTarchivos, tarchivos } = useContext(EquipaContext);
   
   const limpia_campos = () => {
-    setId_stock("");
-    setId_tproducto("");
-    setId_organizacion("");
-    setId_servicio("");
-    setCantidad("");
-    setCantidad_minima("");
+    setId_adjunto_persona("");
+    setId_persona("");
+    setId_tadjunto("");
+    setId_tarchivo("");
+    setNombre_archivo("");
     setHabilita(false);
   };
   const closeModalAttach = () => {
@@ -35,22 +33,21 @@ const ModalAgregar = () => {
   };
   const acepta_accion = () => {
     const datos_cambios = {
-      id_stock: id_stock,
-      id_tproducto: id_tproducto,
-      id_organizacion: id_organizacion,
-      id_servicio: id_servicio,
-      cantidad: cantidad,
-      cantidad_minima: cantidad_minima,
+      id_adjunto_persona: id_adjunto_persona,
+      id_persona: id_persona,
+      id_tadjunto: id_tadjunto,
+      id_tarchivo: id_tarchivo,
+      nombre_archivo: nombre_archivo,
       habilita: habilita === true ? "1" : "0",
     };
 
-    if (cantidad === "" || id_servicio === "" || id_organizacion === "" || id_tproducto === "") {
-      toast.error(`${t("stock_producto.datoObligatorio")}`);
+    if (id_persona === "" || nombre_archivo === "" || id_tarchivo === "" || id_tadjunto === "") {
+      toast.error(`${t("adjunto_persona.datoObligatorio")}`);
       return;
     }
     
 
-    alta_stock_productos(datos_cambios).then((respuesta_accion) => {
+    alta_adjunto_personas(datos_cambios).then((respuesta_accion) => {
       if (respuesta_accion[0].registros > 0) {
         toast.success(`${t("varios.alta")}`, {
           duration: 2000,
@@ -67,11 +64,12 @@ const ModalAgregar = () => {
     });
   }
   useEffect(() => {
-    traerOrganizaciones({tarea: "combo_organizacion"})
-    traerServicios({tarea: "combo_servicio"})
-    traerTproductos({tarea: "combo_tipo_producto"})
+    traerPersonas({tarea: "combo_persona"})
+    traerTadjuntos({tarea: "combo_tipo_adjunto"})
+    traerTarchivos({tarea: "combo_tipo_archivo"})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   return (
     <>
@@ -87,12 +85,12 @@ const ModalAgregar = () => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-          {t("stock_producto.agregarTitulo")}
+          {t("adjunto_persona.agregarTitulo")}
             <p
               className="pb-0 mb-0 text-body-emphasis fw-bold"
               style={{ fontSize: "0.5em" }}
             >
-              {t("stock_producto.datoObligatorio")}
+              {t("adjunto_persona.datoObligatorio")}
             </p>
           </Modal.Title>
         </Modal.Header>
@@ -100,23 +98,23 @@ const ModalAgregar = () => {
           <div className="p-3" style={{ backgroundColor: "#f6f5fa" }}>
             <div className="row">
 
-              <div className="col-6">
+            <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                  {t("stock_producto.id_tproducto")}: #
+                  {t("adjunto_persona.nombre_persona")}: #
                 </label>
                 <InputGroup>
                   <Form.Select
-                    id="id_tproducto"
-                    value={id_tproducto}
-                    onChange={(e) => setId_tproducto(e.target.value)}
-                    onKeyUp={(e) => setId_tproducto(e.target.value.toUpperCase())}
+                    id="id_persona"
+                    value={id_persona}
+                    onChange={(e) => setId_persona(e.target.value)}
+                    onKeyUp={(e) => setId_persona(e.target.value.toUpperCase())}
                     className="mb-2"
                   >
-                    <option value="">{t("stock_producto.seleccione_tproducto")}</option>
+                    <option value="">{t("adjunto_persona.seleccione_persona")}</option>
                     
-                    {tproductos?.map((o) => (
-                      <option key={o.id_tproducto} value={o.id_tproducto}>
-                        {o.nombre_tproducto}
+                    {personas?.map((o) => (
+                      <option key={o.id_persona} value={o.id_persona}>
+                        {o.nombre_persona}
                       </option>
                     ))}
                   </Form.Select>
@@ -125,21 +123,21 @@ const ModalAgregar = () => {
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                  {t("stock_producto.id_organizacion")}: #
+                  {t("adjunto_persona.nombre_tadjunto")}: #
                 </label>
                 <InputGroup>
                   <Form.Select
-                    id="id_organizacion"
-                     value={id_organizacion}
-                     onChange={(e) => setId_organizacion(e.target.value)}
-                     onKeyUp={(e) => setId_organizacion(e.target.value.toUpperCase())}
-                     className="mb-2"
+                    id="id_tadjunto"
+                    value={id_tadjunto}
+                    onChange={(e) => setId_tadjunto(e.target.value)}
+                    onKeyUp={(e) => setId_tadjunto(e.target.value.toUpperCase())}
+                    className="mb-2"
                   >
-                    <option value="">{t("stock_producto.seleccione_organizacion")}</option>
+                    <option value="">{t("adjunto_persona.seleccione_tadjunto")}</option>
                     
-                    {organizaciones?.map((o) => (
-                      <option key={o.id_organizacion} value={o.id_organizacion}>
-                       {o.nombre_organizacion}
+                    {tadjuntos?.map((o) => (
+                      <option key={o.id_tadjunto} value={o.id_tadjunto}>
+                        {o.nombre_tadjunto}
                       </option>
                     ))}
                   </Form.Select>
@@ -148,61 +146,47 @@ const ModalAgregar = () => {
 
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                  {t("stock_producto.id_servicio")}: #
+                  {t("adjunto_persona.nombre_tarchivo")}: #
                 </label>
                 <InputGroup>
                   <Form.Select
-                    id="id_servicio"
-                    value={id_servicio}
-                    onChange={(e) => setId_servicio(e.target.value)}
-                    onKeyUp={(e) => setId_servicio(e.target.value.toUpperCase())}
+                    id="id_tarchivo"
+                    value={id_tarchivo}
+                    onChange={(e) => setId_tarchivo(e.target.value)}
+                    onKeyUp={(e) => setId_tarchivo(e.target.value.toUpperCase())}
                     className="mb-2"
                   >
-                    <option value="">{t("stock_producto.seleccione_servicio")}</option>
+                    <option value="">{t("adjunto_persona.seleccione_tarchivo")}</option>
                     
-                    {servicios?.map((o) => (
-                      <option key={o.id_servicio} value={o.id_servicio}>
-                      {o.nombre_servicio}
+                    {tarchivos?.map((o) => (
+                      <option key={o.id_tarchivo} value={o.id_tarchivo}>
+                        {o.nombre_tarchivo}
                       </option>
                     ))}
                   </Form.Select>
                 </InputGroup>
               </div>
-              
+
               <div className="col-6">
                 <label htmlFor="name" className="label-material mb-1">
-                {t("stock_producto.cantidad")}: #
+                {t("adjunto_persona.nombre_archivo")}: #
                 </label>
                 <InputGroup>
                   <Form.Control
-                    id="cantidad"
-                    value={cantidad}
-                    onChange={(e) => setCantidad(e.target.value)}
-                    className="mb-2"
-                  />
-                </InputGroup>
-              </div>
-
-              <div className="col-6">
-                <label htmlFor="name" className="label-material mb-1">
-                {t("stock_producto.cantidad_minima")}: 
-                </label>
-                <InputGroup>
-                  <Form.Control
-                    id="cantidad_minima"
-                    value={cantidad_minima}
-                    onChange={(e) => setCantidad_minima(e.target.value)}
+                    id="nombre_archivo"
+                    value={nombre_archivo}
+                    onChange={(e) => setNombre_archivo(e.target.value)}
                     className="mb-2"
                   />
                 </InputGroup>
               </div>
 
               <div className="col-6 text-start">
-                {t("stock_producto.habilitado")}
+                {t("adjunto_persona.habilitado")}
                 <Switch 
                   id={"habilita"}
                   checked={habilita}
-                  label={t("stock_producto.habilitado")}
+                  label={t("adjunto_persona.habilitado")}
                   onChange={(e) => setHabilita(e.target.checked)}
                 />
               </div>
