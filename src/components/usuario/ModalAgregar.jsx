@@ -62,7 +62,7 @@ const ModalAgregar = () => {
   }
   useEffect(() => {
     traerPersonas({tarea: "combo_persona"})
-    traerTusuarios({tarea: "combo_tusuario"})
+    traerTusuarios({tarea: "combo_tipo_usuario"})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -149,9 +149,6 @@ const ModalAgregar = () => {
                     id="clave"
                     value={clave}
                     onChange={(e) => setClave(e.target.value)}
-                    onKeyUp={(e) =>
-                      setClave(e.target.value.toUpperCase())
-                    }
                     className="mb-2"
                   />
                 </InputGroup>

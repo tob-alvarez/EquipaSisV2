@@ -7,6 +7,7 @@ import Layout from "./common/Layout";
 import Login from "./components/Login/Login";
 import PrivateRoute from "./routes/PrivateRoute";
 import Accion from "./components/accion/Accion";
+import Adjunto_persona from "./components/adjunto_persona/Adjunto_persona";
 import Ayuda from "./components/ayuda/Ayuda";
 import Categoria from "./components/categoria/Categoria";
 import Cliente from "./components/cliente/Cliente";
@@ -77,6 +78,15 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route
+              exact
+              path="/adjunto_persona"
+              element={
+                <PrivateRoute>
+                  <Adjunto_persona />
+                </PrivateRoute>
+              }
+            />            
             <Route
               exact
               path="/ayuda"
