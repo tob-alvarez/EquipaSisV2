@@ -16,7 +16,7 @@ const ModalEditar = ({dato}) => {
     const [id_tusuario, setId_tusuario] = useState("");
     const [clave, setClave] = useState("");
     const [habilita, setHabilita] = useState(false);
-    const { actualizador, traerPersonas, personas, traerTusuarios, usuarios } = useContext(EquipaContext);
+    const { actualizador, traerPersonas, personas, traerTusuarios, tusuarios } = useContext(EquipaContext);
   
 
     useEffect(() => {
@@ -34,7 +34,7 @@ const ModalEditar = ({dato}) => {
     
     useEffect(() => {
       traerPersonas({tarea: "combo_persona"})
-      traerTusuarios({tarea: "combo_tusuario"})
+      traerTusuarios({tarea: "combo_tipo_usuario"})
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
@@ -143,7 +143,7 @@ const ModalEditar = ({dato}) => {
                   >
                     <option value="">{t("usuario.seleccione_tusuario")}</option>
                     
-                    {usuarios?.map((o) => (
+                    {tusuarios?.map((o) => (
                       <option key={o.id_tusuario} value={o.id_tusuario}>
                         {o.nombre_tusuario}
                       </option>

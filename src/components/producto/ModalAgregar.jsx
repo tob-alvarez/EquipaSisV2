@@ -72,7 +72,7 @@ const ModalAgregar = () => {
   useEffect(() => {
     traerOrganizaciones({tarea: "combo_organizacion"})
     traerServicios({tarea: "combo_servicio"})
-    traerTproductos({tarea: "combo_tproducto"})
+    traerTproductos({tarea: "combo_tipo_producto"})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import './table.css'
 import {
-  trae_organizacion_servicios,
-  ayuda_organizacion_servicios,
+  trae_adjunto_personas,
+  ayuda_adjunto_personas,
   trae_permisos
-} from "./funciones_organizacion_servicio";
-import { organizacion_servicio_pdf, organizacion_servicio_xls } from "../pdf/organizacion_servicio_pdf";
+} from "./funciones_adjunto_persona";
+import { adjunto_persona_pdf, adjunto_persona_xls } from "../pdf/adjunto_persona_pdf";
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -20,9 +20,9 @@ import ModalEditar from "./ModalEditar";
 import ModalBorrar from "./ModalBorrar";
 import { EquipaContext } from "../../context/EquipaContext";
 
-const Organizacion_servicio = () => {
+const Adjunto_persona = () => {
   const [t] = useTranslation("global")
-  const [datos_organizacion_servicios, setDatosorganizacion_servicios] = useState([]);
+  const [datos_adjunto_personas, setDatosadjunto_personas] = useState([]);
   const [permisos_usuario, setPermisos_usuario] = useState([]);
   const [ayuda, setAyuda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,31 +32,31 @@ const Organizacion_servicio = () => {
   // eslint-disable-next-line no-unused-vars
   const [datos, setDatos] = useState({
     tarea: "permiso_usuario",
-    organizacion_servicio: "organizacion_servicio",
+    adjunto_persona: "adjunto_persona",
     id_usuario: "1"
   });
-  
+
   let idioma = localStorage.getItem('language')
-  
+
   useEffect(() => {
-      trae_organizacion_servicios().then((result) => setDatosorganizacion_servicios(result));
-      switch (idioma) {
-        case "es":
-          ayuda_organizacion_servicios().then((ayuda) => setAyuda(ayuda[0].texto));
-          break;
-        case "en":
-          ayuda_organizacion_servicios().then((ayuda) => setAyuda(ayuda[0].texto_en));
-          break;
-        case "por":
-          ayuda_organizacion_servicios().then((ayuda) => setAyuda(ayuda[0].texto_por));
-          break;
-        default:
-          ayuda_organizacion_servicios().then((ayuda) => setAyuda(ayuda[0].texto));
-      }
-      trae_permisos(datos).then((result) =>setPermisos_usuario(result[0]))
+    trae_adjunto_personas().then((result) => setDatosadjunto_personas(result));
+    switch (idioma) {
+      case "es":
+        ayuda_adjunto_personas().then((ayuda) => setAyuda(ayuda[0].texto));
+        break;
+      case "en":
+        ayuda_adjunto_personas().then((ayuda) => setAyuda(ayuda[0].texto_en));
+        break;
+      case "por":
+        ayuda_adjunto_personas().then((ayuda) => setAyuda(ayuda[0].texto_por));
+        break;
+      default:
+        ayuda_adjunto_personas().then((ayuda) => setAyuda(ayuda[0].texto));
+    }
+    trae_permisos(datos).then((result) => setPermisos_usuario(result[0]))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [idioma, refresh]);
-  
+  }, [idioma, refresh]);
+
   ////////////////// majeador de busqueda////////////////////////
 
   function buscarPorExpresiones(grilla, expresiones) {
@@ -65,15 +65,17 @@ const Organizacion_servicio = () => {
       .map((expresion) => expresion.trim());
     return expresionesArray.some(
       (expresion) =>
-        grilla.id_orga_serv.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.nombre_organizacion.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.nombre_servicio.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.id_adjunto_persona.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_persona.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_tadjunto.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_tarchivo.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_archivo.toLowerCase().includes(expresion.toLowerCase()) ||
         grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
     );
   }
 
   function buscarEnGrilla(expresiones) {
-    return datos_organizacion_servicios?.filter((grilla) => buscarPorExpresiones(grilla, expresiones));
+    return datos_adjunto_personas?.filter((grilla) => buscarPorExpresiones(grilla, expresiones));
   }
   const filteredItems = buscarEnGrilla(searchTerm);
   const currentItems = filteredItems?.slice(
@@ -86,27 +88,27 @@ const Organizacion_servicio = () => {
   };
 
   const handlePageChange = (page) => {
-    if (page >= 1 && page <= Math.ceil(datos_organizacion_servicios.length / itemsPerPage)) {
+    if (page >= 1 && page <= Math.ceil(datos_adjunto_personas.length / itemsPerPage)) {
       setCurrentPage(page);
     }
   };
   const printInfoProcess = () => {
     let idioma = localStorage.getItem("language")
     console.log(idioma)
-    organizacion_servicio_pdf(searchTerm, idioma);
+    adjunto_persona_pdf(searchTerm, idioma);
   };
   const downloadInfo = () => {
-    organizacion_servicio_xls(searchTerm);
+    adjunto_persona_xls(searchTerm);
   };
 
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-2 container">
         {/* Funciones agregar, descargar, imprimir y ayuda */}
-        <h1 className="m-0">{t("organizacion_servicio.titulo")}</h1>
+        <h1 className="m-0">{t("adjunto_persona.titulo")}</h1>
         <div className="inputContainer d-flex">
           <label htmlFor="search" className="form-label mb-0 p-2">
-            {t("organizacion_servicio.busqueda")}
+            {t("adjunto_persona.busqueda")}
           </label>
           <input
             type="text"
@@ -152,11 +154,13 @@ const Organizacion_servicio = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell align="center">Id</TableCell>
-                <TableCell>{t("organizacion_servicio.nombre-organizacion")}</TableCell>
-                <TableCell>{t("organizacion_servicio.nombre_servicio")}</TableCell>
-                <TableCell>{t("organizacion_servicio.estado")}</TableCell>
-                <TableCell align="center">{t("organizacion_servicio.acciones")}</TableCell>
+                <TableCell>Id</TableCell>
+                <TableCell>{t("adjunto_persona.nombre-persona")}</TableCell>
+                <TableCell align="center">{t("adjunto_persona.nombre_tadjunto")}</TableCell>
+                <TableCell align="center">{t("adjunto_persona.nombre_tarchivo")}</TableCell>
+                <TableCell>{t("adjunto_persona.nombre_archivo")}</TableCell>
+                <TableCell>{t("adjunto_persona.estado")}</TableCell>
+                <TableCell align="center">{t("adjunto_persona.acciones")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -171,12 +175,14 @@ const Organizacion_servicio = () => {
                     height: '5px', // Ajusta la altura de la fila
                   }}
                 >
-                  <TableCell sx={{textAlign: 'center'}}>{dato.id_orga_serv}</TableCell>
-                  <TableCell>{dato.nombre_organizacion.toUpperCase()}</TableCell>
-                  <TableCell>{dato.nombre_servicio.toUpperCase()}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{dato.id_adjunto_persona}</TableCell>
+                  <TableCell >{dato.nombre_persona.toUpperCase()}</TableCell>
+                  <TableCell >{dato.nombre_tadjunto.toUpperCase()}</TableCell>
+                  <TableCell >{dato.nombre_tarchivo}</TableCell>
+                  <TableCell >{dato.nombre_archivo.toUpperCase()}</TableCell>
                   <TableCell sx={{textAlign: 'center'}}>
                     <p
-                      style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
+                      style={dato.habilita_3 === 'SI' ? { margin: 0 } : { margin: 0, color: "#ff0000" }}
                     >
                       {dato.habilita_3}
                     </p>
@@ -184,7 +190,7 @@ const Organizacion_servicio = () => {
                   <TableCell align="center">
                     {permisos_usuario.modificar === "1" && (
                       <IconButton>
-                        <ModalEditar dato={dato}/>
+                        <ModalEditar dato={dato} />
                       </IconButton>
                     )}
                     {permisos_usuario.eliminar === "1" && (
@@ -203,21 +209,21 @@ const Organizacion_servicio = () => {
               onClick={() => handlePageChange(1)}
               disabled={currentPage === 1}
             >
-              <KeyboardDoubleArrowLeftIcon/>
+              <KeyboardDoubleArrowLeftIcon />
             </Button>
             <Button
               className="mx-2 icons-contact"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
-              <KeyboardArrowLeftIcon/>
+              <KeyboardArrowLeftIcon />
             </Button>
             <Button
               className="mx-2 icons-contact"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === Math.ceil(filteredItems.length / itemsPerPage)}
             >
-              <KeyboardArrowRightIcon/>
+              <KeyboardArrowRightIcon />
             </Button>
             <Button
               className="icons-contact me-3"
@@ -228,14 +234,14 @@ const Organizacion_servicio = () => {
                 currentPage === Math.ceil(filteredItems.length / itemsPerPage)
               }
             >
-              <KeyboardDoubleArrowRightIcon/>
+              <KeyboardDoubleArrowRightIcon />
             </Button>
 
             <Typography variant="p" className="col-3 align-self-center">
-            {t("organizacion_servicio.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
+              {t("adjunto_persona.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
             </Typography>
             <Typography variant="p" className="align-self-center">
-            {t("organizacion_servicio.registros")} {filteredItems.length}
+              {t("adjunto_persona.registros")} {filteredItems.length}
             </Typography>
           </div>
         </TableContainer>
@@ -244,4 +250,4 @@ const Organizacion_servicio = () => {
   )
 }
 
-export default Organizacion_servicio
+export default Adjunto_persona

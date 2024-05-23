@@ -97,8 +97,7 @@ export function equipamiento_pdf(filtro, idioma) {
     // If server returns the name submitted, that means the form works.
     const result = await response.json();
     data = result.datos;
-    data = data.filter(item => item.nombre_organizacion.toLowerCase().indexOf(filtro) > -1); 
-    /*|| 
+    data = data.filter(item => item.nombre_organizacion.toLowerCase().indexOf(filtro) > -1 || 
     item.id_equipamiento.toLowerCase().indexOf(filtro) > -1 ||
     item.nombre_servicio.toLowerCase().indexOf(filtro) > -1 ||
     item.nombre_tequipo.toLowerCase().indexOf(filtro) > -1 ||
@@ -107,8 +106,7 @@ export function equipamiento_pdf(filtro, idioma) {
     item.num_serie.toLowerCase().indexOf(filtro) > -1 ||
     item.anio_fabricacion.toLowerCase().indexOf(filtro) > -1 ||
     item.nombre_estado.toLowerCase().indexOf(filtro) > -1 ||
-    item.habilita.toLowerCase().indexOf(filtro) > -1
-*/
+    item.habilita.toLowerCase().indexOf(filtro) > -1); 
     doc.setProperties({
       title: titulo,
     });
