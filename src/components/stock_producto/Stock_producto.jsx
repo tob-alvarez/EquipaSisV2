@@ -66,12 +66,12 @@ const Stock_producto = () => {
     return expresionesArray.some(
       (expresion) =>
         grilla.id_stock.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.cantidad.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.cantidad_minima.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.corto_organizacion.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.corto_servicio.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.nombre_tproducto.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
+        grilla.cantidad?.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.cantidad_minima?.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.corto_organizacion?.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.corto_servicio?.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_tproducto?.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.habilita_3?.toLowerCase().includes(expresion.toLowerCase())
     );
   }
 
@@ -180,11 +180,11 @@ const Stock_producto = () => {
                   }}
                 >
                   <TableCell sx={{textAlign: 'center'}}>{dato.id_stock}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.nombre_tproducto.toUpperCase()}</TableCell>                  
-                  <TableCell sx={{textAlign: 'center'}}>{dato.corto_organizacion.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.corto_servicio.toUpperCase()}</TableCell>                  <TableCell >{dato.cantidad.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.cantidad.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.cantidad_minima.toUpperCase()}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>{dato.nombre_tproducto?.toUpperCase()}</TableCell>                  
+                  <TableCell sx={{textAlign: 'center'}}>{dato.corto_organizacion?.toUpperCase()}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>{dato.corto_servicio?.toUpperCase()}</TableCell>                  
+                  <TableCell sx={{textAlign: 'center'}}>{dato.stock?.toUpperCase()}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>{dato.stock_minima?.toUpperCase()}</TableCell>
                   <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}

@@ -100,7 +100,6 @@ const Usuario = () => {
     usuario_xls(searchTerm);
   };
 
-  console.log(permisos_usuario)
 
   return (
     <>

@@ -12,7 +12,7 @@ export async function trae_adjunto_personas() {
     const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
 
     const result = await response.json();
-   return result.alta_adjunto_personaspersona;
+   return result.adjunto_persona;
 }
 
 export async function trae_permisos(datos){

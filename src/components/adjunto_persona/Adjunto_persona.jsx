@@ -101,6 +101,8 @@ const Adjunto_persona = () => {
     adjunto_persona_xls(searchTerm);
   };
 
+  console.log(datos_adjunto_personas)
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-2 container">
@@ -154,17 +156,17 @@ const Adjunto_persona = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
-                <TableCell>{t("adjunto_persona.nombre-persona")}</TableCell>
+                <TableCell sx={{textAlign: 'center'}}>Id</TableCell>
+                <TableCell sx={{textAlign: 'center'}}>{t("adjunto_persona.nombre_persona")}</TableCell>
                 <TableCell align="center">{t("adjunto_persona.nombre_tadjunto")}</TableCell>
                 <TableCell align="center">{t("adjunto_persona.nombre_tarchivo")}</TableCell>
-                <TableCell>{t("adjunto_persona.nombre_archivo")}</TableCell>
-                <TableCell>{t("adjunto_persona.estado")}</TableCell>
+                <TableCell sx={{textAlign: 'center'}}>{t("adjunto_persona.nombre_archivo")}</TableCell>
+                <TableCell sx={{textAlign: 'center'}}>{t("adjunto_persona.estado")}</TableCell>
                 <TableCell align="center">{t("adjunto_persona.acciones")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentItems.map((dato, index) => (
+              {currentItems?.map((dato, index) => (
                 <TableRow
                   key={index}
                   sx={{
@@ -176,10 +178,10 @@ const Adjunto_persona = () => {
                   }}
                 >
                   <TableCell sx={{ textAlign: 'center' }}>{dato.id_adjunto_persona}</TableCell>
-                  <TableCell >{dato.nombre_persona.toUpperCase()}</TableCell>
-                  <TableCell >{dato.nombre_tadjunto.toUpperCase()}</TableCell>
-                  <TableCell >{dato.nombre_tarchivo}</TableCell>
-                  <TableCell >{dato.nombre_archivo.toUpperCase()}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>{dato.nombre_persona?.toUpperCase()}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>{dato.nombre_tadjunto?.toUpperCase()}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>{dato.nombre_tarchivo}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>{dato.nombre_archivo.toUpperCase()}</TableCell>
                   <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? { margin: 0 } : { margin: 0, color: "#ff0000" }}
@@ -221,27 +223,27 @@ const Adjunto_persona = () => {
             <Button
               className="mx-2 icons-contact"
               onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === Math.ceil(filteredItems.length / itemsPerPage)}
+              disabled={currentPage === Math.ceil(filteredItems?.length / itemsPerPage)}
             >
               <KeyboardArrowRightIcon />
             </Button>
             <Button
               className="icons-contact me-3"
               onClick={() =>
-                handlePageChange(Math.ceil(filteredItems.length / itemsPerPage))
+                handlePageChange(Math.ceil(filteredItems?.length / itemsPerPage))
               }
               disabled={
-                currentPage === Math.ceil(filteredItems.length / itemsPerPage)
+                currentPage === Math.ceil(filteredItems?.length / itemsPerPage)
               }
             >
               <KeyboardDoubleArrowRightIcon />
             </Button>
 
             <Typography variant="p" className="col-3 align-self-center">
-              {t("adjunto_persona.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
+              {t("adjunto_persona.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems?.length / itemsPerPage)}
             </Typography>
             <Typography variant="p" className="align-self-center">
-              {t("adjunto_persona.registros")} {filteredItems.length}
+              {t("adjunto_persona.registros")} {filteredItems?.length}
             </Typography>
           </div>
         </TableContainer>

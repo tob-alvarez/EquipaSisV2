@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { toast } from "react-toastify";
@@ -11,7 +12,6 @@ import { EquipaContext } from "../../context/EquipaContext";
 const ModalEditar = ({dato}) => {
     const [t] = useTranslation("global")
     const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-    const [id_usuario, setId_usuario] = useState("");
     const [id_persona, setId_persona] = useState("");
     const [id_tusuario, setId_tusuario] = useState("");
     const [clave, setClave] = useState("");
@@ -39,7 +39,6 @@ const ModalEditar = ({dato}) => {
     }, []);
     
     const limpia_campos = () => {
-      setId_usuario("");
       setId_persona("");
       setId_tusuario("");
       setClave("");
@@ -79,7 +78,6 @@ const ModalEditar = ({dato}) => {
         setIsModalEditOpen(false);
       });
     }
-    
 
   return (
     <>
