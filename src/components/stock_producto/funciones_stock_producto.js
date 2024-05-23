@@ -12,7 +12,7 @@ export async function trae_stock_productos() {
     const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
 
     const result = await response.json();
-   return result.producto;
+    return result.stock_producto;
 }
 
 export async function trae_permisos(datos){

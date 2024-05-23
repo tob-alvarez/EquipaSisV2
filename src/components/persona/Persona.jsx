@@ -17,8 +17,8 @@ import { useTranslation } from "react-i18next";
 import ModalAgregar from "./ModalAgregar";
 import ModalAyuda from "./ModalAyuda";
 import ModalEditar from "./ModalEditar";
-import ModalBorrar from "./ModalBorrar";
 import { EquipaContext } from "../../context/EquipaContext";
+import ModalAdjuntar from "./ModalAdjuntar";
 
 const Persona = () => {
   const [t] = useTranslation("global")
@@ -155,11 +155,11 @@ const Persona = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
+                <TableCell sx={{ textAlign: 'center' }}>Id</TableCell>
                 <TableCell>{t("persona.nombre-persona")}</TableCell>
                 <TableCell align="center">{t("persona.telefono_persona")}</TableCell>
                 <TableCell align="center">{t("persona.email_persona")}</TableCell>
-                <TableCell>{t("persona.nombre_empresa")}</TableCell>
+                <TableCell sx={{ textAlign: 'center' }}>{t("persona.nombre_empresa")}</TableCell>
                 <TableCell align="center">{t("persona.nombre_tpersona")}</TableCell>
                 <TableCell>{t("persona.estado")}</TableCell>
                 <TableCell align="center">{t("persona.acciones")}</TableCell>
@@ -179,10 +179,10 @@ const Persona = () => {
                 >
                   <TableCell sx={{ textAlign: 'center' }}>{dato.id_persona}</TableCell>
                   <TableCell >{dato.nombre_persona.toUpperCase()}</TableCell>
-                  <TableCell >{dato.telefono_persona.toUpperCase()}</TableCell>
-                  <TableCell >{dato.email_persona}</TableCell>
-                  <TableCell >{dato.nombre_empresa.toUpperCase()}</TableCell>
-                  <TableCell >{dato.nombre_tpersona.toUpperCase()}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{dato.telefono_persona.toUpperCase()}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{dato.email_persona}</TableCell>
+                  <TableCell sx={{ textAlign: 'center' }}>{dato.nombre_empresa.toUpperCase()}</TableCell>
+                  <TableCell  sx={{ textAlign: 'center' }}>{dato.nombre_tpersona.toUpperCase()}</TableCell>
                   <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? { margin: 0 } : { margin: 0, color: "#ff0000" }}
@@ -196,9 +196,9 @@ const Persona = () => {
                         <ModalEditar dato={dato} />
                       </IconButton>
                     )}
-                    {permisos_usuario.eliminar === "1" && (
+                    {permisos_usuario.adjuntar === "1" && (
                       <IconButton>
-                        <ModalBorrar dato={dato} />
+                        <ModalAdjuntar dato={dato} />
                       </IconButton>
                     )}
                   </TableCell>

@@ -2,9 +2,10 @@
 import { useContext, useEffect, useState } from "react";
 import { Form, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
-import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
+import KeyIcon from '@mui/icons-material/Key';
 import { useTranslation } from "react-i18next";
 import { EquipaContext } from "../../context/EquipaContext";
+import { trae_permisos } from "./funciones_usuario";
 // import { cambia_permisos_procesos, trae_permisos_procesos } from "./funciones_usuario";
 
 // eslint-disable-next-line react/prop-types
@@ -15,7 +16,11 @@ const ModalAdjuntar = ({dato}) => {
   const { actualizador } = useContext(EquipaContext);
   const [checkboxState, setCheckboxState] = useState({});
   const [permisosPorUsuario, setPermisosPorUsuario] = useState([]);
-  const [datos, setDatos] = useState({});
+  const [datos, setDatos] = useState({
+    tarea: "permiso_usuario",
+    usuario: "usuario" ,
+    id_usuario: dato.id_usuario
+  });
 
   const limpia_campos = () => {
     setCheckboxState([])
@@ -26,8 +31,9 @@ const ModalAdjuntar = ({dato}) => {
     setIsModalAttachOpen(false);
   };
    
-  const acepta_accion = () => {
 
+  //AVISAR A FABY QUE HAGA LA FUNCION EN EL BACKEND
+  const acepta_accion = () => {
     cambia_permisos_procesos(datos).then((respuesta_accion) => {
       if (respuesta_accion[0].registros > 0) {
         toast.success(`${t("varios.alta")}`, {
@@ -71,30 +77,30 @@ const ModalAdjuntar = ({dato}) => {
   };
   
   
-  // useEffect(() => {
-  //   trae_permisos_procesos(dato).then((result) => {
-  //     setPermisosPorUsuario(result);
-  //     // Inicializa el estado de los checkboxes aquí
-  //     const initialCheckboxState = {};
-  //     permisosPorUsuario.forEach((tipo, index) => {
-  //       initialCheckboxState[index] = {
-  //         ver_opcion: tipo.ver_opcion === "1",
-  //         agregar: tipo.agregar === "1",
-  //         modificar: tipo.modificar === "1",
-  //         eliminar: tipo.eliminar === "1",
-  //         imprimir: tipo.imprimir === "1",
-  //         exportar: tipo.exportar === "1",
-  //         adjuntar: tipo.adjuntar === "1",
-  //         habilita: tipo.habilita === "1",
-  //         // Agrega otros permisos aquí según sea necesario
-  //       };
-  //     });
-  //     setCheckboxState(initialCheckboxState);
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isModalAttachOpen]);
+  useEffect(() => {
+    trae_permisos(datos).then((result) => {
+      setPermisosPorUsuario(result);
+      // Inicializa el estado de los checkboxes aquí
+      const initialCheckboxState = {};
+      permisosPorUsuario.forEach((tipo, index) => {
+        initialCheckboxState[index] = {
+          ver_opcion: tipo.ver_opcion === "1",
+          agregar: tipo.agregar === "1",
+          modificar: tipo.modificar === "1",
+          eliminar: tipo.eliminar === "1",
+          imprimir: tipo.imprimir === "1",
+          exportar: tipo.exportar === "1",
+          adjuntar: tipo.adjuntar === "1",
+          habilita: tipo.habilita === "1",
+          // Agrega otros permisos aquí según sea necesario
+        };
+      });
+      setCheckboxState(initialCheckboxState);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isModalAttachOpen]);
   
-  // console.log(permisosPorUsuario)
+  console.log(permisosPorUsuario)
   // console.log(checkboxState)
   // console.log(datos)
 
@@ -112,7 +118,7 @@ const ModalAdjuntar = ({dato}) => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            Permisos por tipo de usuario para el proceso : {dato.nombre_proceso}
+            Permisos para el usuario : {dato.nombre_persona}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="p-1">
@@ -241,7 +247,7 @@ const ModalAdjuntar = ({dato}) => {
         </Modal.Footer>
       </Modal>
 
-      <AttachFileOutlinedIcon
+      <KeyIcon
         onClick={() => setIsModalAttachOpen(true)}
         sx={{ fontSize: '20px' }}
         style={{ cursor: "pointer" }} />

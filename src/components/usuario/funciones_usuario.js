@@ -16,6 +16,7 @@ export async function trae_usuarios() {
 }
 
 export async function trae_permisos(datos){
+  console.log(datos)
   const JSONdata = JSON.stringify({ 
     tarea: datos.tarea,
     usuario: datos.usuario ,
@@ -31,7 +32,7 @@ export async function trae_permisos(datos){
   };
   const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
   const result = await response.json();
-  
+  console.log(result)
   return result.usuario;
 }
 
