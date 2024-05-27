@@ -27,18 +27,13 @@ const Tipo_usuario = () => {
   const [ayuda, setAyuda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
-  const { refresh } = useContext(EquipaContext);
+  const { refresh, user, consultaPerfil } = useContext(EquipaContext);
   const [searchTerm, setSearchTerm] = useState("");
-  // eslint-disable-next-line no-unused-vars
-  const [datos, setDatos] = useState({
-    tarea: "permiso_usuario",
-    tipo_usuario: "tipo_usuario",
-    id_usuario: "1"
-  });
-  
   let idioma = localStorage.getItem('language')
   
   useEffect(() => {
+    let token = sessionStorage.getItem('token')
+    consultaPerfil(token)
       trae_tipo_usuarios().then((result) => setDatostipo_usuario(result));
       switch (idioma) {
         case "es":
@@ -53,10 +48,21 @@ const Tipo_usuario = () => {
         default:
           ayuda_tipo_usuarios().then((ayuda) => setAyuda(ayuda[0].texto));
       }
-      trae_permisos(datos).then((result) =>setPermisos_usuario(result[0]))
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [idioma, refresh]);
   
+    useEffect(() => {
+      let id = user?.id_usuario
+      let datos = {
+        tarea: "permiso_usuario",
+        tipo_usuario: "tipo_usuario",
+        id_usuario: id
+      }
+      console.log(datos)
+      trae_permisos(datos).then((result) =>setPermisos_usuario(result[0]))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [consultaPerfil])
+
   ////////////////// majeador de busqueda////////////////////////
 
   function buscarPorExpresiones(grilla, expresiones) {
