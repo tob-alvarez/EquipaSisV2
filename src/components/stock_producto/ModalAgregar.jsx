@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { Form, InputGroup, Modal } from "react-bootstrap"
+import { InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
 import { alta_stock_productos } from "./funciones_stock_producto";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useTranslation } from "react-i18next";
-import { Switch } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, Switch, TextField } from "@mui/material";
 import { EquipaContext } from "../../context/EquipaContext";
 
 const ModalAgregar = () => {
@@ -101,98 +101,138 @@ const ModalAgregar = () => {
             <div className="row">
 
               <div className="col-6">
-                <label htmlFor="name" className="label-material mb-1">
-                  {t("stock_producto.id_tproducto")}: #
-                </label>
-                <InputGroup>
-                  <Form.Select
+                <FormControl fullWidth size="small" className="mb-2">
+                  <InputLabel
+                    sx={{ fontSize: 14 }}
+                    id="demo-select-small-label"
+                  >
+                    {t("stock_producto.id_tproducto") + " #"}
+                  </InputLabel>
+                  <Select
                     id="id_tproducto"
                     value={id_tproducto}
                     onChange={(e) => setId_tproducto(e.target.value)}
                     onKeyUp={(e) => setId_tproducto(e.target.value.toUpperCase())}
                     className="mb-2"
+                    label={t("stock_producto.id_tproducto") + " #"}
                   >
-                    <option value="">{t("stock_producto.seleccione_tproducto")}</option>
+                    <MenuItem
+                      value=""
+                      sx={{ fontSize: 12, fontWeight: "medium" }}
+                    >
+                      <em>None</em>
+                    </MenuItem>
                     
                     {tproductos?.map((o) => (
-                      <option key={o.id_tproducto} value={o.id_tproducto}>
+                      <MenuItem key={o.id_tproducto} value={o.id_tproducto} sx={{ fontSize: 12, fontWeight: "medium" }}>
                         {o.nombre_tproducto}
-                      </option>
+                      </MenuItem>
                     ))}
-                  </Form.Select>
-                </InputGroup>
+                  </Select>
+                </FormControl>
               </div>
 
               <div className="col-6">
-                <label htmlFor="name" className="label-material mb-1">
-                  {t("stock_producto.id_organizacion")}: #
-                </label>
-                <InputGroup>
-                  <Form.Select
-                    id="id_organizacion"
-                     value={id_organizacion}
-                     onChange={(e) => setId_organizacion(e.target.value)}
-                     onKeyUp={(e) => setId_organizacion(e.target.value.toUpperCase())}
-                     className="mb-2"
+                <FormControl fullWidth size="small">
+                  <InputLabel
+                    sx={{ fontSize: 14 }}
+                    id="demo-select-small-label"
                   >
-                    <option value="">{t("stock_producto.seleccione_organizacion")}</option>
-                    
+                    {t("stock_producto.id_organizacion") + " #"}
+                  </InputLabel>
+                  <Select
+                    labelId="demo-select-small-label"
+                    id="id_organizacion"
+                    value={id_organizacion}
+                    onChange={(e) => setId_organizacion(e.target.value)}
+                    onKeyUp={(e) => setId_organizacion(e.target.value.toUpperCase())}
+                    className="mb-2"
+                    label={t("stock_producto.id_organizacion") + " #"}
+                  >
+                    <MenuItem
+                      value=""
+                      sx={{ fontSize: 12, fontWeight: "medium" }}
+                    >
+                      <em>None</em>
+                    </MenuItem>
                     {organizaciones?.map((o) => (
-                      <option key={o.id_organizacion} value={o.id_organizacion}>
-                       {o.nombre_organizacion}
-                      </option>
+                      <MenuItem key={o.id_organizacion} value={o.id_organizacion} sx={{ fontSize: 12, fontWeight: "medium" }}>
+                      {o.nombre_organizacion}
+                      </MenuItem>
                     ))}
-                  </Form.Select>
-                </InputGroup>
+                  </Select>
+                  </FormControl>
               </div>
 
               <div className="col-6">
-                <label htmlFor="name" className="label-material mb-1">
-                  {t("stock_producto.id_servicio")}: #
-                </label>
-                <InputGroup>
-                  <Form.Select
+              <FormControl fullWidth size="small" className="mb-2">
+              <InputLabel
+                    sx={{ fontSize: 14 }}
+                    id="demo-select-small-label"
+                  >
+                    {t("stock_producto.id_servicio") + " #"}
+                  </InputLabel>
+                  <Select
                     id="id_servicio"
                     value={id_servicio}
                     onChange={(e) => setId_servicio(e.target.value)}
                     onKeyUp={(e) => setId_servicio(e.target.value.toUpperCase())}
                     className="mb-2"
+                    label={t("stock_producto.id_servicio") + " #"}
                   >
-                    <option value="">{t("stock_producto.seleccione_servicio")}</option>
+                    <MenuItem
+                      value=""
+                      sx={{ fontSize: 12, fontWeight: "medium" }}
+                    >
+                      <em>None</em>
+                    </MenuItem>
                     
                     {servicios?.map((o) => (
-                      <option key={o.id_servicio} value={o.id_servicio}>
+                      <MenuItem key={o.id_servicio} value={o.id_servicio} sx={{ fontSize: 12, fontWeight: "medium" }}>
                       {o.nombre_servicio}
-                      </option>
+                      </MenuItem>
                     ))}
-                  </Form.Select>
-                </InputGroup>
+                  </Select>
+                  </FormControl>
               </div>
               
               <div className="col-6">
-                <label htmlFor="name" className="label-material mb-1">
-                {t("stock_producto.cantidad")}: #
-                </label>
                 <InputGroup>
-                  <Form.Control
+                  <TextField
                     id="cantidad"
                     value={cantidad}
                     onChange={(e) => setCantidad(e.target.value)}
-                    className="mb-2"
+                    sx={{
+                      "& .MuiInputLabel-outlined": {
+                        fontSize: "14px",
+                      },
+                    }}
+                    inputProps={{
+                      style: { fontSize: "14px", fontWeight: "500", padding: 10 },
+                    }}
+                    fullWidth
+                    label={t("stock_producto.cantidad") + " #"}
                   />
                 </InputGroup>
               </div>
 
               <div className="col-6">
-                <label htmlFor="name" className="label-material mb-1">
-                {t("stock_producto.cantidad_minima")}: 
-                </label>
                 <InputGroup>
-                  <Form.Control
+                  <TextField
                     id="cantidad_minima"
                     value={cantidad_minima}
                     onChange={(e) => setCantidad_minima(e.target.value)}
                     className="mb-2"
+                    sx={{
+                      "& .MuiInputLabel-outlined": {
+                        fontSize: "14px",
+                      },
+                    }}
+                    inputProps={{
+                      style: { fontSize: "14px", fontWeight: "500", padding: 10 },
+                    }}
+                    fullWidth
+                    label={t("stock_producto.cantidad_minima") + " #"}
                   />
                 </InputGroup>
               </div>

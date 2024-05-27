@@ -1,13 +1,11 @@
 import * as React from "react";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./table.css";
 import {
   trae_equipamiento,
   ayuda_equipamiento,
   trae_permisos,
-  trae_combos,
 } from "./funciones_equipamiento";
 import { equipamiento_pdf, equipamiento_xls } from "../pdf/equipamiento_pdf";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
@@ -18,8 +16,6 @@ import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {
   Button,
   IconButton,
@@ -36,15 +32,12 @@ import {
   Grid,
   } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import ModalAgregar from "./ModalAgregar";
 import ModalAyuda from "./ModalAyuda";
 import ModalEditar from "./ModalEditar";
 import ModalBorrar from "./ModalBorrar";
 import { EquipaContext } from "../../context/EquipaContext";
 
 const Equipamiento = () => {
-  const navigate = useNavigate();
-
   const { logout } = React.useContext(EquipaContext);
 
   const [open, setOpen] = React.useState([]);
@@ -97,6 +90,7 @@ const Equipamiento = () => {
     datos_equipamiento.map((dato, index) => {
       setOpen({ [index]: false });
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idioma, refresh]);
 
   ////////////////// majeador de busqueda////////////////////////
