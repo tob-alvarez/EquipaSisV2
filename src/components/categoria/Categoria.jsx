@@ -29,12 +29,6 @@ const Categoria = () => {
   const itemsPerPage = 15;
   const { refresh, user, consultaPerfil } = useContext(EquipaContext);
   const [searchTerm, setSearchTerm] = useState("");
-  // eslint-disable-next-line no-unused-vars
-  const [datos, setDatos] = useState({
-    tarea: "permiso_usuario",
-    categoria: "categoria",
-    id_usuario: "1"
-  });
   
   let idioma = localStorage.getItem('language')
   
@@ -63,13 +57,13 @@ const Categoria = () => {
       let id = user?.id_usuario
       let datos = {
         tarea: "permiso_usuario",
-        accion: "accion",
+        categoria: "categoria",
         id_usuario: id
       }
       console.log(datos)
       trae_permisos(datos).then((result) =>setPermisos_usuario(result[0]))
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [consultaPerfil])
   
 
   ////////////////// majeador de busqueda////////////////////////
