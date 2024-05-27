@@ -185,10 +185,10 @@ const Adjunto_persona = () => {
                   }}
                 >
                   <TableCell sx={{ textAlign: 'center' }}>{dato.id_adjunto_persona}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.nombre_persona?.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.nombre_tadjunto?.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.nombre_tarchivo}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.nombre_archivo.toUpperCase()}</TableCell>
+                  <TableCell>{dato.nombre_persona}</TableCell>
+                  <TableCell>{dato.nombre_tadjunto}</TableCell>
+                  <TableCell>{dato.nombre_tarchivo}</TableCell>
+                  <TableCell>{dato.nombre_archivo}</TableCell>
                   <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? { margin: 0 } : { margin: 0, color: "#ff0000" }}
