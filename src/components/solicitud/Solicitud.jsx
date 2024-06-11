@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import './table.css'
 import {
-  trae_stock_productos,
-  ayuda_stock_productos,
+  trae_solicitudes,
+  ayuda_solicitudes,
   trae_permisos
-} from "./funciones_stock_producto";
-import { stock_producto_pdf, stock_producto_xls } from "../pdf/stock_producto_pdf";
+} from "./funciones_solicitud";
+import { solicitud_pdf, solicitud_xls } from "../pdf/solicitud_pdf";
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -20,9 +20,9 @@ import ModalEditar from "./ModalEditar";
 import ModalBorrar from "./ModalBorrar";
 import { EquipaContext } from "../../context/EquipaContext";
 
-const Stock_producto = () => {
+const Solicitud = () => {
   const [t] = useTranslation("global")
-  const [datos_stock_productos, setDatosstockproductos] = useState([]);
+  const [datos_solicitudes, setDatossolicitudes] = useState([]);
   const [permisos_usuario, setPermisos_usuario] = useState([]);
   const [ayuda, setAyuda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,19 +35,19 @@ const Stock_producto = () => {
   useEffect(() => {
     let token = sessionStorage.getItem('token')
     consultaPerfil(token)
-      trae_stock_productos().then((result) => setDatosstockproductos(result));
+      trae_solicitudes().then((result) => setDatossolicitudes(result));
       switch (idioma) {
         case "es":
-          ayuda_stock_productos().then((ayuda) => setAyuda(ayuda[0].texto));
+          ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto));
           break;
         case "en":
-          ayuda_stock_productos().then((ayuda) => setAyuda(ayuda[0].texto_en));
+          ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto_en));
           break;
         case "por":
-          ayuda_stock_productos().then((ayuda) => setAyuda(ayuda[0].texto_por));
+          ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto_por));
           break;
         default:
-          ayuda_stock_productos().then((ayuda) => setAyuda(ayuda[0].texto));
+          ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto));
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [idioma, refresh]);
@@ -56,7 +56,7 @@ const Stock_producto = () => {
       let id = user?.id_usuario
       let datos = {
         tarea: "permiso_usuario",
-        stock_producto: "stock_producto",
+        solicitud: "solicitud",
         id_usuario: id
       }
       console.log(datos)
@@ -71,18 +71,19 @@ const Stock_producto = () => {
       .map((expresion) => expresion.trim());
     return expresionesArray.some(
       (expresion) =>
-        grilla.id_stock.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.cantidad?.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.cantidad_minima?.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.corto_organizacion?.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.corto_servicio?.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.nombre_tproducto?.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.habilita_3?.toLowerCase().includes(expresion.toLowerCase())
+        grilla.id_solicitud.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.detalle_solicita.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.corto_organizacion_solicita.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.corto_servicio_solicita.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_persona_solicita.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_tsolicitud.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.nombre_persona_deriva.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
     );
   }
 
   function buscarEnGrilla(expresiones) {
-    return datos_stock_productos?.filter((grilla) => buscarPorExpresiones(grilla, expresiones));
+    return datos_solicitudes?.filter((grilla) => buscarPorExpresiones(grilla, expresiones));
   }
   const filteredItems = buscarEnGrilla(searchTerm);
   const currentItems = filteredItems?.slice(
@@ -95,29 +96,27 @@ const Stock_producto = () => {
   };
 
   const handlePageChange = (page) => {
-    if (page >= 1 && page <= Math.ceil(datos_stock_productos.length / itemsPerPage)) {
+    if (page >= 1 && page <= Math.ceil(datos_solicitudes.length / itemsPerPage)) {
       setCurrentPage(page);
     }
   };
   const printInfoProcess = () => {
     let idioma = localStorage.getItem("language")
     console.log(idioma)
-    stock_producto_pdf(searchTerm, idioma);
+    solicitud_pdf(searchTerm, idioma);
   };
   const downloadInfo = () => {
-    stock_producto_xls(searchTerm);
+    solicitud_xls(searchTerm);
   };
-
-  console.log(datos_stock_productos)
 
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-2 container">
         {/* Funciones agregar, descargar, imprimir y ayuda */}
-        <h1 className="m-0">{t("stock_producto.titulo")}</h1>
+        <h1 className="m-0">{t("solicitud.titulo")}</h1>
         <div className="inputContainer d-flex">
           <label htmlFor="search" className="form-label mb-0 p-2">
-            {t("stock_producto.busqueda")}
+            {t("solicitud.busqueda")}
           </label>
           <input
             type="text"
@@ -163,18 +162,19 @@ const Stock_producto = () => {
           <Table aria-label="material ui table">
             <TableHead>
               <TableRow>
-                <TableCell align="center">Id</TableCell>
-                <TableCell align="center">{t("stock_producto.nombre_tproducto")}</TableCell>
-                <TableCell align="center">{t("stock_producto.corto_organizacion")}</TableCell>
-                <TableCell align="center">{t("stock_producto.corto_servicio")}</TableCell>
-                <TableCell align="center">{t("stock_producto.cantidad")}</TableCell>
-                <TableCell align="center">{t("stock_producto.cantidad_minima")}</TableCell>
-                <TableCell align="center">{t("stock_producto.estado")}</TableCell>
-                <TableCell align="center">{t("stock_producto.acciones")}</TableCell>
+                <TableCell>Id</TableCell>
+                <TableCell align="center">{t("solicitud.nombre_tsolicitud")}</TableCell>
+                <TableCell align="center">{t("solicitud.detalle-solicitud")}</TableCell>
+                <TableCell align="center">{t("solicitud.corto_organizacion_solicita")}</TableCell>
+                <TableCell align="center">{t("solicitud.corto_servicio_solicita")}</TableCell>
+                <TableCell align="center">{t("solicitud.nombre_persona_solicita")}</TableCell>
+                <TableCell align="center">{t("solicitud.nombre_persona_deriva")}</TableCell>
+                <TableCell align="center">{t("solicitud.estado")}</TableCell>
+                <TableCell align="center">{t("solicitud.acciones")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentItems?.map((dato, index) => (
+              {currentItems.map((dato, index) => (
                 <TableRow
                   key={index}
                   sx={{
@@ -185,12 +185,13 @@ const Stock_producto = () => {
                     height: '5px', // Ajusta la altura de la fila
                   }}
                 >
-                  <TableCell sx={{textAlign: 'center'}}>{dato.id_stock}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.nombre_tproducto?.toUpperCase()}</TableCell>                  
-                  <TableCell sx={{textAlign: 'center'}}>{dato.corto_organizacion?.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.corto_servicio?.toUpperCase()}</TableCell>                  
-                  <TableCell sx={{textAlign: 'center'}}>{dato.cantidad}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>{dato.cantidad_minima}</TableCell>
+                  <TableCell sx={{textAlign: 'center'}}>{dato.id_solicitud}</TableCell>
+                  <TableCell>{dato.nombre_tsolicitud.toUpperCase()}</TableCell>
+                  <TableCell>{dato.detalle_solicita}</TableCell>
+                  <TableCell>{dato.corto_organizacion_solicita.toUpperCase()}</TableCell>
+                  <TableCell>{dato.corto_servicio_solicita.toUpperCase()}</TableCell>
+                  <TableCell>{dato.nombre_persona_solicita.toUpperCase()}</TableCell>
+                  <TableCell>{dato.nombre_persona_deriva.toUpperCase()}</TableCell>
                   <TableCell sx={{textAlign: 'center'}}>
                     <p
                       style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
@@ -232,27 +233,27 @@ const Stock_producto = () => {
             <Button
               className="mx-2 icons-contact"
               onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === Math.ceil(filteredItems?.length / itemsPerPage)}
+              disabled={currentPage === Math.ceil(filteredItems.length / itemsPerPage)}
             >
               <KeyboardArrowRightIcon/>
             </Button>
             <Button
               className="icons-contact me-3"
               onClick={() =>
-                handlePageChange(Math.ceil(filteredItems?.length / itemsPerPage))
+                handlePageChange(Math.ceil(filteredItems.length / itemsPerPage))
               }
               disabled={
-                currentPage === Math.ceil(filteredItems?.length / itemsPerPage)
+                currentPage === Math.ceil(filteredItems.length / itemsPerPage)
               }
             >
               <KeyboardDoubleArrowRightIcon/>
             </Button>
 
             <Typography variant="p" className="col-3 align-self-center">
-            {t("producto.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems?.length / itemsPerPage)}
+            {t("solicitud.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
             </Typography>
             <Typography variant="p" className="align-self-center">
-            {t("producto.registros")} {filteredItems?.length}
+            {t("solicitud.registros")} {filteredItems.length}
             </Typography>
           </div>
         </TableContainer>
@@ -261,4 +262,4 @@ const Stock_producto = () => {
   )
 }
 
-export default Stock_producto
+export default Solicitud

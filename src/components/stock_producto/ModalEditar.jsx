@@ -32,8 +32,8 @@ const ModalEditar = ({dato}) => {
         setId_tproducto(dato.id_tproducto);
         setId_organizacion(dato.id_organizacion);
         setId_servicio(dato.id_servicio);
-        setCantidad(dato.stock);
-        setCantidad_minima(dato.stock_minima);
+        setCantidad(dato.cantidad);
+        setCantidad_minima(dato.cantidad_minima);
       }
     }, [isModalEditOpen, dato]);
     

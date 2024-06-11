@@ -32,7 +32,11 @@ const EquipaProvider = ({ children }) => {
   const [tusuarios, setTusuarios] = useState(null);  
   const [tproductos, setTproductos] = useState(null);  
   const [tadjuntos, setTadjuntos] = useState(null);  
-
+  const [organizaciones_solicita, setOrganizaciones_solicita] = useState(null);
+  const [servicios_solicita, setServicios_solicita] = useState(null);
+  const [tsolicitudes, setTsolicitudes] = useState(null);
+  const [personas_solicita, setPersonas_solicita] = useState(null);
+  const [personas_deriva, setPersonas_deriva] = useState(null);
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem('language');
@@ -234,6 +238,52 @@ const EquipaProvider = ({ children }) => {
     }
   };
 
+  const traerTsolicitudes = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/tipo_solicitud.php`, tarea);
+      setTsolicitudes(data.tipo_solicitud)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
+   
+  const traerOrganizaciones_solicita = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/organizacion.php`, tarea);
+      setOrganizaciones_solicita(data.organizacion_solicita)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+    
+  const traerServicios_solicita = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/servicio.php`, tarea);
+      setServicios_solicita(data.servicio_solicita)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
+  const traerPersonas_solicita = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/persona.php`, tarea);
+      setPersonas_solicita(data.persona_solicita)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
+  const traerPersonas_deriva = async (tarea) => {
+    try {
+      const { data } = await axios.post(`https://v2.equipasis.com/api/persona.php`, tarea);
+      setPersonas_deriva(data.persona_deriva)
+    } catch (error) {
+      console.error(error.response?.data.message || error.message);
+    }
+  };
+
   const getAuth = async () => {
     try {
       const token = sessionStorage.getItem("token");
@@ -314,7 +364,17 @@ const EquipaProvider = ({ children }) => {
         traerTproductos,
         tproductos,
         traerTadjuntos,
-        tadjuntos
+        tadjuntos,
+        traerOrganizaciones_solicita,
+        organizaciones_solicita,
+        traerServicios_solicita,
+        servicios_solicita,
+        traerTsolicitudes,
+        tsolicitudes,
+        traerPersonas_solicita,
+        personas_solicita,
+        traerPersonas_deriva,
+        personas_deriva
       }}
     >
       {children}
