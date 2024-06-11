@@ -29,6 +29,7 @@ import Producto from "./components/producto/Producto";
 import Provincia from "./components/provincia/Provincia";
 import Servicio from "./components/servicio/Servicio";
 import Software from "./components/software/Software";
+import Solicitud from "./components/solicitud/Solicitud";
 import Stock_producto from "./components/stock_producto/Stock_producto";
 import Tarea from "./components/tarea/Tarea";
 import Tipo_adjunto from "./components/tipo_adjunto/Tipo_adjunto";
@@ -267,6 +268,15 @@ function App() {
                 </PrivateRoute>
               }
             /> 
+            <Route
+              exact
+              path="/solicitud"
+              element={
+                <PrivateRoute>
+                  <Solicitud />
+                </PrivateRoute>
+              }
+            />  
             <Route
               exact
               path="/software"
