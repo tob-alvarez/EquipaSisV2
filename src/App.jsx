@@ -50,6 +50,7 @@ import Tipo_tarea from "./components/tipo_tarea/Tipo_tarea";
 import Tipo_usuario from "./components/tipo_usuario/Tipo_usuario";
 import Usuario from "./components/usuario/Usuario";
 import Perfil from "./common/Perfil";
+import GestionSolicitud from "./components/gestion_solicitud/GestionSolicitud";
 
 
 function App() {
@@ -274,6 +275,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <Solicitud />
+                </PrivateRoute>
+              }
+            />  
+            <Route
+              exact
+              path="/gestion_solicitud"
+              element={
+                <PrivateRoute>
+                  <GestionSolicitud />
                 </PrivateRoute>
               }
             />  
