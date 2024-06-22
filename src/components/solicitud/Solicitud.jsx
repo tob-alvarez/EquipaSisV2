@@ -1,18 +1,30 @@
 import { useContext, useEffect, useState } from "react";
-import './table.css'
+import "./table.css";
 import {
   trae_solicitudes,
   ayuda_solicitudes,
-  trae_permisos
+  trae_permisos,
 } from "./funciones_solicitud";
 import { solicitud_pdf, solicitud_xls } from "../pdf/solicitud_pdf";
-import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
-import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
-import { Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
+import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import {
+  Button,
+  IconButton,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { useTranslation } from "react-i18next";
 import ModalAgregar from "./ModalAgregar";
 import ModalAyuda from "./ModalAyuda";
@@ -21,7 +33,7 @@ import ModalBorrar from "./ModalBorrar";
 import { EquipaContext } from "../../context/EquipaContext";
 
 const Solicitud = () => {
-  const [t] = useTranslation("global")
+  const [t] = useTranslation("global");
   const [datos_solicitudes, setDatossolicitudes] = useState([]);
   const [permisos_usuario, setPermisos_usuario] = useState([]);
   const [ayuda, setAyuda] = useState("");
@@ -29,40 +41,50 @@ const Solicitud = () => {
   const itemsPerPage = 15;
   const { refresh, user, consultaPerfil } = useContext(EquipaContext);
   const [searchTerm, setSearchTerm] = useState("");
-  
-  let idioma = localStorage.getItem('language')
-  
+
+  let idioma = localStorage.getItem("language");
+
   useEffect(() => {
-    let token = sessionStorage.getItem('token')
-    consultaPerfil(token)
-      trae_solicitudes().then((result) => setDatossolicitudes(result));
-      switch (idioma) {
-        case "es":
-          ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto));
-          break;
-        case "en":
-          ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto_en));
-          break;
-        case "por":
-          ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto_por));
-          break;
-        default:
-          ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto));
-      }
+    let token = sessionStorage.getItem("token");
+    consultaPerfil(token);
+    console.log(consultaPerfil(token));
+    let id = user?.id_usuario;
+    let datos = {
+      tarea: "permiso_usuario",
+      solicitud: "solicitud",
+      id_usuario: token,
+    };
+    console.log(datos);
+    trae_permisos(datos).then((result) => setPermisos_usuario(result[0]));
+
+    trae_solicitudes().then((result) => setDatossolicitudes(result));
+    switch (idioma) {
+      case "es":
+        ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto));
+        break;
+      case "en":
+        ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto_en));
+        break;
+      case "por":
+        ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto_por));
+        break;
+      default:
+        ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [idioma, refresh]);
-  
-    useEffect(() => {
-      let id = user?.id_usuario
-      let datos = {
-        tarea: "permiso_usuario",
-        solicitud: "solicitud",
-        id_usuario: id
-      }
-      console.log(datos)
-      trae_permisos(datos).then((result) =>setPermisos_usuario(result[0]))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [consultaPerfil])
+  }, [idioma, refresh]);
+
+  /*   useEffect(() => {
+    let id = user?.id_usuario;
+    let datos = {
+      tarea: "permiso_usuario",
+      solicitud: "solicitud",
+      id_usuario: id,
+    };
+    console.log(datos);
+    trae_permisos(datos).then((result) => setPermisos_usuario(result[0]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [consultaPerfil]); */
   ////////////////// majeador de busqueda////////////////////////
 
   function buscarPorExpresiones(grilla, expresiones) {
@@ -72,18 +94,32 @@ const Solicitud = () => {
     return expresionesArray.some(
       (expresion) =>
         grilla.id_solicitud.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.detalle_solicita.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.corto_organizacion_solicita.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.corto_servicio_solicita.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.nombre_persona_solicita.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.nombre_tsolicitud.toLowerCase().includes(expresion.toLowerCase()) ||
-        grilla.nombre_persona_deriva.toLowerCase().includes(expresion.toLowerCase()) ||
+        grilla.detalle_solicita
+          .toLowerCase()
+          .includes(expresion.toLowerCase()) ||
+        grilla.corto_organizacion_solicita
+          .toLowerCase()
+          .includes(expresion.toLowerCase()) ||
+        grilla.corto_servicio_solicita
+          .toLowerCase()
+          .includes(expresion.toLowerCase()) ||
+        grilla.nombre_persona_solicita
+          .toLowerCase()
+          .includes(expresion.toLowerCase()) ||
+        grilla.nombre_tsolicitud
+          .toLowerCase()
+          .includes(expresion.toLowerCase()) ||
+        grilla.nombre_persona_deriva
+          .toLowerCase()
+          .includes(expresion.toLowerCase()) ||
         grilla.habilita_3.toLowerCase().includes(expresion.toLowerCase())
     );
   }
 
   function buscarEnGrilla(expresiones) {
-    return datos_solicitudes?.filter((grilla) => buscarPorExpresiones(grilla, expresiones));
+    return datos_solicitudes?.filter((grilla) =>
+      buscarPorExpresiones(grilla, expresiones)
+    );
   }
   const filteredItems = buscarEnGrilla(searchTerm);
   const currentItems = filteredItems?.slice(
@@ -96,13 +132,16 @@ const Solicitud = () => {
   };
 
   const handlePageChange = (page) => {
-    if (page >= 1 && page <= Math.ceil(datos_solicitudes.length / itemsPerPage)) {
+    if (
+      page >= 1 &&
+      page <= Math.ceil(datos_solicitudes.length / itemsPerPage)
+    ) {
       setCurrentPage(page);
     }
   };
   const printInfoProcess = () => {
-    let idioma = localStorage.getItem("language")
-    console.log(idioma)
+    let idioma = localStorage.getItem("language");
+    console.log(idioma);
     solicitud_pdf(searchTerm, idioma);
   };
   const downloadInfo = () => {
@@ -127,14 +166,10 @@ const Solicitud = () => {
           />
         </div>
         <div>
-          {permisos_usuario.agregar == 1 ? (
-            <ModalAgregar />
-          ) : (
-            ""
-          )}
+          {permisos_usuario.agregar == 1 ? <ModalAgregar /> : ""}
           {permisos_usuario.exportar == 1 ? (
             <DownloadOutlinedIcon
-              sx={{ fontSize: '40px' }}
+              sx={{ fontSize: "40px" }}
               className="icons"
               style={{ cursor: "pointer" }}
               onClick={downloadInfo}
@@ -145,16 +180,14 @@ const Solicitud = () => {
           {permisos_usuario.imprimir == 1 ? (
             <LocalPrintshopOutlinedIcon
               className="icons"
-              sx={{ fontSize: '40px' }}
+              sx={{ fontSize: "40px" }}
               style={{ cursor: "pointer" }}
               onClick={printInfoProcess}
             />
           ) : (
             ""
           )}
-          <ModalAyuda
-            ayuda={ayuda}
-          />
+          <ModalAyuda ayuda={ayuda} />
         </div>
       </div>
       <div className="container mt-3 mb-5">
@@ -163,12 +196,24 @@ const Solicitud = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell align="center">{t("solicitud.nombre_tsolicitud")}</TableCell>
-                <TableCell align="center">{t("solicitud.detalle-solicitud")}</TableCell>
-                <TableCell align="center">{t("solicitud.corto_organizacion_solicita")}</TableCell>
-                <TableCell align="center">{t("solicitud.corto_servicio_solicita")}</TableCell>
-                <TableCell align="center">{t("solicitud.nombre_persona_solicita")}</TableCell>
-                <TableCell align="center">{t("solicitud.nombre_persona_deriva")}</TableCell>
+                <TableCell align="center">
+                  {t("solicitud.nombre_tsolicitud")}
+                </TableCell>
+                <TableCell align="center">
+                  {t("solicitud.detalle-solicitud")}
+                </TableCell>
+                <TableCell align="center">
+                  {t("solicitud.corto_organizacion_solicita")}
+                </TableCell>
+                <TableCell align="center">
+                  {t("solicitud.corto_servicio_solicita")}
+                </TableCell>
+                <TableCell align="center">
+                  {t("solicitud.nombre_persona_solicita")}
+                </TableCell>
+                <TableCell align="center">
+                  {t("solicitud.nombre_persona_deriva")}
+                </TableCell>
                 <TableCell align="center">{t("solicitud.estado")}</TableCell>
                 <TableCell align="center">{t("solicitud.acciones")}</TableCell>
               </TableRow>
@@ -178,37 +223,60 @@ const Solicitud = () => {
                 <TableRow
                   key={index}
                   sx={{
-                    backgroundColor: index % 2 === 0 ? '#f0f0f0' : '#e0e0e0',
-                    '& .MuiTableCell-root': {
-                      padding: '0px', // Ajusta el relleno de las celdas para reducir la altura
+                    backgroundColor:
+                      dato.id_persona_deriva != "0" ? "#d4edda" : "#f8d7da",
+                    "& .MuiTableCell-root": {
+                      padding: "0px", // Ajusta el relleno de las celdas para reducir la altura
                     },
-                    height: '5px', // Ajusta la altura de la fila
+                    height: "5px", // Ajusta la altura de la fila
                   }}
                 >
-                  <TableCell sx={{textAlign: 'center'}}>{dato.id_solicitud}</TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>
+                    {dato.id_solicitud}
+                  </TableCell>
                   <TableCell>{dato.nombre_tsolicitud.toUpperCase()}</TableCell>
                   <TableCell>{dato.detalle_solicita}</TableCell>
-                  <TableCell>{dato.corto_organizacion_solicita.toUpperCase()}</TableCell>
-                  <TableCell>{dato.corto_servicio_solicita.toUpperCase()}</TableCell>
-                  <TableCell>{dato.nombre_persona_solicita.toUpperCase()}</TableCell>
-                  <TableCell>{dato.nombre_persona_deriva.toUpperCase()}</TableCell>
-                  <TableCell sx={{textAlign: 'center'}}>
+                  <TableCell>
+                    {dato.corto_organizacion_solicita.toUpperCase()}
+                  </TableCell>
+                  <TableCell>
+                    {dato.corto_servicio_solicita.toUpperCase()}
+                  </TableCell>
+                  <TableCell>
+                    {dato.nombre_persona_solicita.toUpperCase()}
+                  </TableCell>
+                  <TableCell>
+                    {dato.nombre_persona_deriva.toUpperCase()}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>
                     <p
-                      style={dato.habilita_3 === 'SI' ? {margin: 0}:{margin:0, color: "#ff0000"}}
+                      style={
+                        dato.habilita_3 === "SI"
+                          ? { margin: 0 }
+                          : { margin: 0, color: "#ff0000" }
+                      }
                     >
                       {dato.habilita_3}
                     </p>
                   </TableCell>
-                  <TableCell align="center">
-                    {permisos_usuario.modificar === "1" && (
+                  <TableCell align="right">
+                    {permisos_usuario.modificar === "1" &&
+                    dato.id_persona_deriva == "0" ? (
                       <IconButton>
-                        <ModalEditar dato={dato}/>
+                        <ModalEditar dato={dato} />
+                      </IconButton>
+                    ) : (
+                      <IconButton>
+                         <VisibilityIcon />
                       </IconButton>
                     )}
-                    {permisos_usuario.eliminar === "1" && (
+                    {permisos_usuario.eliminar === "1" &&
+                    dato.id_persona_deriva == "0" ? (
                       <IconButton>
                         <ModalBorrar dato={dato} />
                       </IconButton>
+                    ) : (
+                      ''
                     )}
                   </TableCell>
                 </TableRow>
@@ -221,21 +289,23 @@ const Solicitud = () => {
               onClick={() => handlePageChange(1)}
               disabled={currentPage === 1}
             >
-              <KeyboardDoubleArrowLeftIcon/>
+              <KeyboardDoubleArrowLeftIcon />
             </Button>
             <Button
               className="mx-2 icons-contact"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
-              <KeyboardArrowLeftIcon/>
+              <KeyboardArrowLeftIcon />
             </Button>
             <Button
               className="mx-2 icons-contact"
               onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === Math.ceil(filteredItems.length / itemsPerPage)}
+              disabled={
+                currentPage === Math.ceil(filteredItems.length / itemsPerPage)
+              }
             >
-              <KeyboardArrowRightIcon/>
+              <KeyboardArrowRightIcon />
             </Button>
             <Button
               className="icons-contact me-3"
@@ -246,20 +316,21 @@ const Solicitud = () => {
                 currentPage === Math.ceil(filteredItems.length / itemsPerPage)
               }
             >
-              <KeyboardDoubleArrowRightIcon/>
+              <KeyboardDoubleArrowRightIcon />
             </Button>
 
             <Typography variant="p" className="col-3 align-self-center">
-            {t("solicitud.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
+              {t("solicitud.pagina")} {currentPage} {t("accion.de")}{" "}
+              {Math.ceil(filteredItems.length / itemsPerPage)}
             </Typography>
             <Typography variant="p" className="align-self-center">
-            {t("solicitud.registros")} {filteredItems.length}
+              {t("solicitud.registros")} {filteredItems.length}
             </Typography>
           </div>
         </TableContainer>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Solicitud
+export default Solicitud;
