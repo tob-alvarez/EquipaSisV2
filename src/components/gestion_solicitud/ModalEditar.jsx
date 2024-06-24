@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { toast } from "react-toastify";
-import { cambia_solicitudes } from "./funciones_solicitud";
+import { cambia_gestion_solicitudes } from "./funciones_gestion_solicitud";
 import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from "react-i18next";
 import { FormControl, InputLabel, MenuItem, Select, Switch, TextField } from "@mui/material";
@@ -20,6 +20,7 @@ const ModalEditar = ({dato}) => {
     const [id_persona_solicita, setId_persona_solicita] = useState("");
     const [id_tsolicitud, setId_tsolicitud] = useState("");
     const [id_persona_deriva, setId_persona_deriva] = useState("");
+    const [id_persona_resuelve, setId_persona_resuelve] = useState("");
     const [fecha_hora, setFecha_hora] = useState("");
     const [habilita, setHabilita] = useState(false);
     const { actualizador, traerOrganizaciones_solicita, organizaciones_solicita, traerServicios_solicita, servicios_solicita, traerTsolicitudes, tsolicitudes, traerPersonas_solicita, personas_solicita, traerPersonas_deriva, personas_deriva } = useContext(EquipaContext);

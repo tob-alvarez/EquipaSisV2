@@ -3,7 +3,7 @@
 import { useContext, useState } from "react";
 import { Form, InputGroup, Modal } from "react-bootstrap"
 import { ToastContainer, toast } from "react-toastify";
-import { borra_solicitudes } from "./funciones_solicitud";
+import { borra_gestion_solicitudes } from "./funciones_gestion_solicitud";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useTranslation } from "react-i18next";
 import { EquipaContext } from "../../context/EquipaContext";
@@ -18,11 +18,11 @@ const ModalBorrar = ({dato}) => {
     const closeModalDelete = () => {
         setIsModalDeleteOpen(false);
       };
-    const borra_solicitud = () => {
+    const borra_gestion_solicitud = () => {
         const datos_cambios = {
             id_solicitud: dato.id_solicitud,
         };
-        borra_solicitudes(datos_cambios).then(() => {
+        borra_gestion_solicitudes(datos_cambios).then(() => {
             setIsModalDeleteOpen(false);
             toast.success(`${t("varios.borrado")}`, {
             duration: 1000,
@@ -43,22 +43,22 @@ const ModalBorrar = ({dato}) => {
                 centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title> {t("solicitud.borrarTitulo")}...</Modal.Title>
+                    <Modal.Title> {t("gestion_solicitud.borrarTitulo")}...</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {dato.habilita_3 == 'SI' ? (
                         <>
                             <h6>
-                                <b>{t("solicitud.titulo")}:</b> {dato.detalle_solicita}
+                                <b>{t("gestion_solicitud.titulo")}:</b> {dato.detalle_solicita}
                             </h6>
                         </>
                     ) : (
                         <>
                             <h6>
-                                <b>{t("solicitud.titulo")}:</b> {dato.detalle_solicita}
+                                <b>{t("gestion_solicitud.titulo")}:</b> {dato.detalle_solicita}
                             </h6>
                             <p style={{ fontSize: "0.8em", color: "red" }}>
-                            {t("solicitud.borrarListo")}
+                            {t("gestion_solicitud.borrarListo")}
                             </p>
                         </>
                     )}
@@ -67,7 +67,7 @@ const ModalBorrar = ({dato}) => {
                     <div className="justify-content-center mt-2">
                         {dato.habilita_3 == 'SI' ? (
                             <button
-                                onClick={borra_solicitud}
+                                onClick={borra_gestion_solicitud}
                                 className="btn btn-primary btn-sm m-2"
                                 style={{
                                     float: "right",

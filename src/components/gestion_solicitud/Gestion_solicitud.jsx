@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import './table.css'
 import {
-    trae_solicitudes,
-    ayuda_solicitudes,
+    trae_gestion_solicitudes,
+    ayuda_gestion_solicitudes,
     trae_permisos
-} from "./funciones_solicitud";
-import { solicitud_pdf, solicitud_xls } from "../pdf/solicitud_pdf";
+} from "./funciones_gestion_solicitud";
+import { gestion_solicitud_pdf, gestion_solicitud_xls } from "../pdf/gestion_solicitud_pdf";
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -14,13 +14,12 @@ import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import ModalAgregar from "./ModalAgregar";
 import ModalAyuda from "./ModalAyuda";
 import ModalEditar from "./ModalEditar";
 import ModalBorrar from "./ModalBorrar";
 import { EquipaContext } from "../../context/EquipaContext";
 
-const GestionSolicitud = () => {
+const Gestion_solicitud = () => {
     const [t] = useTranslation("global")
     const [datos_solicitudes, setDatossolicitudes] = useState([]);
     const [permisos_usuario, setPermisos_usuario] = useState([]);
@@ -35,19 +34,19 @@ const GestionSolicitud = () => {
     useEffect(() => {
         let token = sessionStorage.getItem('token')
         consultaPerfil(token)
-        trae_solicitudes().then((result) => setDatossolicitudes(result));
+        trae_gestion_solicitudes().then((result) => setDatossolicitudes(result));
         switch (idioma) {
             case "es":
-                ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto));
+                ayuda_gestion_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto));
                 break;
             case "en":
-                ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto_en));
+                ayuda_gestion_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto_en));
                 break;
             case "por":
-                ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto_por));
+                ayuda_gestion_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto_por));
                 break;
             default:
-                ayuda_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto));
+                ayuda_gestion_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [idioma, refresh]);
@@ -103,10 +102,10 @@ const GestionSolicitud = () => {
     const printInfoProcess = () => {
         let idioma = localStorage.getItem("language")
         console.log(idioma)
-        solicitud_pdf(searchTerm, idioma);
+        gestion_solicitud_pdf(searchTerm, idioma);
     };
     const downloadInfo = () => {
-        solicitud_xls(searchTerm);
+        gestion_solicitud_xls(searchTerm);
     };
 
     console.log(permisos_usuario)
@@ -115,10 +114,10 @@ const GestionSolicitud = () => {
         <>
             <div className="d-flex justify-content-between align-items-center mb-2 container">
                 {/* Funciones agregar, descargar, imprimir y ayuda */}
-                <h1 className="m-0">Gestion de solicitudes</h1>
+                <h1 className="m-0">{t("gestion_solicitud.titulo")}</h1>
                 <div className="inputContainer d-flex">
                     <label htmlFor="search" className="form-label mb-0 p-2">
-                        {t("solicitud.busqueda")}
+                        {t("gestion_solicitud.busqueda")}
                     </label>
                     <input
                         type="text"
@@ -129,11 +128,6 @@ const GestionSolicitud = () => {
                     />
                 </div>
                 <div>
-                    {permisos_usuario.agregar == 1 ? (
-                        <ModalAgregar />
-                    ) : (
-                        ""
-                    )}
                     {permisos_usuario.exportar == 1 ? (
                         <DownloadOutlinedIcon
                             sx={{ fontSize: '40px' }}
@@ -164,16 +158,16 @@ const GestionSolicitud = () => {
                     <Table aria-label="material ui table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Id</TableCell>
-                                <TableCell align="center">Tipo</TableCell>
-                                <TableCell align="center">Detalle</TableCell>
-                                <TableCell align="center">Organizacion</TableCell>
-                                <TableCell align="center">Servicio</TableCell>
-                                <TableCell align="center">Quien Solicita</TableCell>
-                                <TableCell align="center">Quien Deriva</TableCell>
-                                <TableCell align="center">Quien Resuelve</TableCell>
-                                <TableCell align="center">Habilita</TableCell>
-                                <TableCell align="center">{t("solicitud.acciones")}</TableCell>
+                            <TableCell>Id</TableCell>
+                            <TableCell align="center">{t("gestion_solicitud.nombre_tsolicitud")}</TableCell>
+                            <TableCell align="center">{t("gestion_solicitud.detalle-solicitud")}</TableCell>
+                            <TableCell align="center">{t("gestion_solicitud.corto_organizacion_solicita")}</TableCell>
+                            <TableCell align="center">{t("gestion_solicitud.corto_servicio_solicita")}</TableCell>
+                            <TableCell align="center">{t("gestion_solicitud.nombre_persona_solicita")}</TableCell>
+                            <TableCell align="center">{t("gestion_solicitud.nombre_persona_deriva")}</TableCell>
+                            <TableCell align="center">{t("gestion_solicitud.nombre_persona_resuelve")}</TableCell>
+                            <TableCell align="center">{t("gestion_solicitud.estado")}</TableCell>
+                            <TableCell align="center">{t("gestion_solicitud.acciones")}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -194,6 +188,7 @@ const GestionSolicitud = () => {
                                     <TableCell>{dato.corto_organizacion_solicita.toUpperCase()}</TableCell>
                                     <TableCell>{dato.corto_servicio_solicita.toUpperCase()}</TableCell>
                                     <TableCell>{dato.nombre_persona_solicita.toUpperCase()}</TableCell>
+                                    <TableCell>{dato.nombre_persona_resuelve.toUpperCase()}</TableCell>
                                     <TableCell>{dato.nombre_persona_deriva.toUpperCase()}</TableCell>
                                     <TableCell sx={{ textAlign: 'center' }}>
                                         <p
@@ -253,10 +248,10 @@ const GestionSolicitud = () => {
                         </Button>
 
                         <Typography variant="p" className="col-3 align-self-center">
-                            {t("solicitud.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
+                            {t("gestion_solicitud.pagina")} {currentPage} {t("accion.de")} {Math.ceil(filteredItems.length / itemsPerPage)}
                         </Typography>
                         <Typography variant="p" className="align-self-center">
-                            {t("solicitud.registros")} {filteredItems.length}
+                            {t("gestion_solicitud.registros")} {filteredItems.length}
                         </Typography>
                     </div>
                 </TableContainer>
@@ -265,4 +260,4 @@ const GestionSolicitud = () => {
     )
 }
 
-export default GestionSolicitud
+export default Gestion_solicitud
