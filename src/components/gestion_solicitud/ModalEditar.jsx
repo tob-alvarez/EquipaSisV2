@@ -20,7 +20,6 @@ const ModalEditar = ({dato}) => {
     const [id_persona_solicita, setId_persona_solicita] = useState("");
     const [id_tsolicitud, setId_tsolicitud] = useState("");
     const [id_persona_deriva, setId_persona_deriva] = useState("");
-    const [id_persona_resuelve, setId_persona_resuelve] = useState("");
     const [fecha_hora, setFecha_hora] = useState("");
     const [habilita, setHabilita] = useState(false);
     const { actualizador, traerOrganizaciones_solicita, organizaciones_solicita, traerServicios_solicita, servicios_solicita, traerTsolicitudes, tsolicitudes, traerPersonas_solicita, personas_solicita, traerPersonas_deriva, personas_deriva } = useContext(EquipaContext);

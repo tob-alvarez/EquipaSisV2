@@ -18,7 +18,7 @@ export async function trae_gestion_solicitudes() {
 export async function trae_permisos(datos){
   const JSONdata = JSON.stringify({ 
     tarea: datos.tarea,
-    solicitud: datos.solicitud ,
+    gestion_solicitud: datos.gestion_solicitud,
     id_usuario: datos.id_usuario
   }); // Send the data to the server in JSON format.
   const endpoint = "https://v2.equipasis.com/api/gestion_solicitud.php"; // API endpoint where we send form data.
@@ -31,8 +31,8 @@ export async function trae_permisos(datos){
   };
   const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
   const result = await response.json();
-  
-  return result.solicitud;
+
+  return result.gestion_solicitud;
 }
 
 export async function cambia_gestion_solicitudes(datos){
