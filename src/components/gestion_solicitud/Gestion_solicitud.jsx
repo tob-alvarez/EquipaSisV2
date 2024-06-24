@@ -18,6 +18,7 @@ import ModalAyuda from "./ModalAyuda";
 import ModalEditar from "./ModalEditar";
 import ModalBorrar from "./ModalBorrar";
 import { EquipaContext } from "../../context/EquipaContext";
+import ModalAsignar from "./ModalAsignar";
 
 const Gestion_solicitud = () => {
     const [t] = useTranslation("global")
@@ -58,12 +59,11 @@ const Gestion_solicitud = () => {
             gestion_solicitud: "gestion_solicitud",
             id_usuario: id
         }
-        console.log(datos)
         trae_permisos(datos).then((result) => setPermisos_usuario(result[0]))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [consultaPerfil])
-    ////////////////// majeador de busqueda////////////////////////
 
+    ////////////////// majeador de busqueda////////////////////////
     function buscarPorExpresiones(grilla, expresiones) {
         const expresionesArray = expresiones
             .split(" ")
@@ -108,7 +108,6 @@ const Gestion_solicitud = () => {
         gestion_solicitud_xls(searchTerm);
     };
 
-    console.log(permisos_usuario)
 
     return (
         <>
@@ -165,7 +164,6 @@ const Gestion_solicitud = () => {
                             <TableCell align="center">{t("gestion_solicitud.corto_servicio_solicita")}</TableCell>
                             <TableCell align="center">{t("gestion_solicitud.nombre_persona_solicita")}</TableCell>
                             <TableCell align="center">{t("gestion_solicitud.nombre_persona_deriva")}</TableCell>
-                            <TableCell align="center">{t("gestion_solicitud.nombre_persona_resuelve")}</TableCell>
                             <TableCell align="center">{t("gestion_solicitud.estado")}</TableCell>
                             <TableCell align="center">{t("gestion_solicitud.acciones")}</TableCell>
                             </TableRow>
@@ -183,13 +181,12 @@ const Gestion_solicitud = () => {
                                     }}
                                 >
                                     <TableCell sx={{ textAlign: 'center' }}>{dato.id_solicitud}</TableCell>
-                                    <TableCell>{dato.nombre_tsolicitud.toUpperCase()}</TableCell>
-                                    <TableCell>{dato.detalle_solicita}</TableCell>
-                                    <TableCell>{dato.corto_organizacion_solicita.toUpperCase()}</TableCell>
-                                    <TableCell>{dato.corto_servicio_solicita.toUpperCase()}</TableCell>
-                                    <TableCell>{dato.nombre_persona_solicita.toUpperCase()}</TableCell>
-                                    <TableCell>{dato.nombre_persona_resuelve.toUpperCase()}</TableCell>
-                                    <TableCell>{dato.nombre_persona_deriva.toUpperCase()}</TableCell>
+                                    <TableCell sx={{ textAlign: 'center' }}>{dato.nombre_tsolicitud?.toUpperCase()}</TableCell>
+                                    <TableCell sx={{ textAlign: 'center' }}>{dato.detalle_solicita}</TableCell>
+                                    <TableCell sx={{ textAlign: 'center' }}>{dato.corto_organizacion_solicita?.toUpperCase()}</TableCell>
+                                    <TableCell sx={{ textAlign: 'center' }}>{dato.corto_servicio_solicita?.toUpperCase()}</TableCell>
+                                    <TableCell sx={{ textAlign: 'center' }}>{dato.nombre_persona_solicita?.toUpperCase()}</TableCell>
+                                    <TableCell sx={{ textAlign: 'center' }}>{dato.nombre_persona_deriva?.toUpperCase()}</TableCell>
                                     <TableCell sx={{ textAlign: 'center' }}>
                                         <p
                                             style={dato.habilita_3 === 'SI' ? { margin: 0 } : { margin: 0, color: "#ff0000" }}
@@ -201,6 +198,11 @@ const Gestion_solicitud = () => {
                                         {permisos_usuario.modificar === "1" && (
                                             <IconButton>
                                                 <ModalEditar dato={dato} />
+                                            </IconButton>
+                                        )}
+                                        {permisos_usuario.agregar === "1" && (
+                                            <IconButton>
+                                                <ModalAsignar dato={dato} />
                                             </IconButton>
                                         )}
                                         {permisos_usuario.eliminar === "1" && (
