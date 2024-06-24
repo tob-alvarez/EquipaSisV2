@@ -16,15 +16,15 @@ export function estado_solicitud_pdf(filtro, idioma) {
       page = "Página";
       reporte = "Reporte al"
     } else if (idioma === 'en') {
-      titulo = "Records of Application Status";
-      nombreestado_solicitud = "Application Status Name";
+      titulo = "Records of Request Status";
+      nombreestado_solicitud = "Request Status Name";
       color = "Color";
       habilitado = "Enabled";
       page = "Page";
       reporte = "Report as of";
     } else if (idioma === 'por') {
-      titulo = "Datas do Status do Aplicativo";
-      nombreestado_solicitud = "Nome do Status do Aplicativo";
+      titulo = "Datas do Status do Solicitação";
+      nombreestado_solicitud = "Nome do Status do Solicitação";
       color = "Cor";
       habilitado = "Habilitado";
       page = "Página";
