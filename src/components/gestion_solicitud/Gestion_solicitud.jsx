@@ -165,7 +165,6 @@ const Gestion_solicitud = () => {
                             <TableCell align="center">{t("gestion_solicitud.corto_servicio_solicita")}</TableCell>
                             <TableCell align="center">{t("gestion_solicitud.nombre_persona_solicita")}</TableCell>
                             <TableCell align="center">{t("gestion_solicitud.nombre_persona_deriva")}</TableCell>
-                            <TableCell align="center">{t("gestion_solicitud.nombre_persona_resuelve")}</TableCell>
                             <TableCell align="center">{t("gestion_solicitud.estado")}</TableCell>
                             <TableCell align="center">{t("gestion_solicitud.acciones")}</TableCell>
                             </TableRow>
@@ -188,7 +187,6 @@ const Gestion_solicitud = () => {
                                     <TableCell>{dato.corto_organizacion_solicita.toUpperCase()}</TableCell>
                                     <TableCell>{dato.corto_servicio_solicita.toUpperCase()}</TableCell>
                                     <TableCell>{dato.nombre_persona_solicita.toUpperCase()}</TableCell>
-                                    <TableCell>{dato.nombre_persona_resuelve.toUpperCase()}</TableCell>
                                     <TableCell>{dato.nombre_persona_deriva.toUpperCase()}</TableCell>
                                     <TableCell sx={{ textAlign: 'center' }}>
                                         <p
