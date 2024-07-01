@@ -87,7 +87,7 @@ export async function alta_adjunto_personas(datos){
     id_persona: datos.id_persona,
     id_tadjunto: datos.id_tadjunto,
     id_tarchivo: datos.id_tarchivo,
-    nombre_archivo: datos.nombre_archivo,
+    archivo: datos.archivo,
     habilita: datos.habilita
   }); // Send the data to the server in JSON format.
   const endpoint = "https://v2.equipasis.com/api/adjunto_persona.php"; // API endpoint where we send form data.

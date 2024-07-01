@@ -100,7 +100,8 @@
         "borrarTitulo": "Borrar Adjunto",
         "borrarListo": "Este Adjunto ya está deshabilitado",
         "datoObligatorio": "Datos obligatorios marcados con #",
-        "habilitado": "Habilitado"
+        "habilitado": "Habilitado",
+        "seleccion": "Seleccione el archivo"
     },
     "ayuda": {
         "titulo": "Ayuda",

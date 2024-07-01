@@ -100,7 +100,8 @@
         "borrarTitulo": "Excluir Anexo",
         "borrarListo": "Este Anexo já está desativado",
         "datoObligatorio": "Dados obrigatórios marcados com #",
-        "habilitado": "Ativado"
+        "habilitado": "Ativado",
+        "seleccion": "Selecione o arquivo"
     },
     "ayuda":{
         "titulo": "Ajuda",

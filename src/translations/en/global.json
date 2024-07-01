@@ -100,7 +100,8 @@
         "borrarTitulo": "Delete Attach",
         "borrarListo": "This Attach is already disabled",
         "datoObligatorio": "Mandatory data marked with #",
-        "habilitado": "Enabled"
+        "habilitado": "Enabled",
+        "seleccion" : "Select the file"
     },
     "ayuda":{
         "titulo": "Help",

@@ -51,6 +51,7 @@ import Tipo_tarea from "./components/tipo_tarea/Tipo_tarea";
 import Tipo_usuario from "./components/tipo_usuario/Tipo_usuario";
 import Usuario from "./components/usuario/Usuario";
 import Perfil from "./common/Perfil";
+import ArchivoPersona from "./components/persona/ArchivoPersona";
 
 
 
@@ -87,6 +88,15 @@ function App() {
               element={
                 <PrivateRoute>
                   <Adjunto_persona />
+                </PrivateRoute>
+              }
+            />            
+            <Route
+              exact
+              path="/archivo_persona/:id_persona"
+              element={
+                <PrivateRoute>
+                  <ArchivoPersona />
                 </PrivateRoute>
               }
             />            

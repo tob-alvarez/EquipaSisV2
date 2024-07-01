@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import { Form, Modal } from "react-bootstrap"
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
 import { useTranslation } from "react-i18next";
 import { EquipaContext } from "../../context/EquipaContext";
@@ -29,14 +29,14 @@ const ModalAdjuntar = ({dato}) => {
   const acepta_accion = () => {
 
     cambia_permisos_procesos(datos).then((respuesta_accion) => {
-      if (respuesta_accion[0].registros > 0) {
+      if (respuesta_accion) {
         toast.success(`${t("varios.alta")}`, {
           duration: 2000,
         });
         limpia_campos()
         actualizador()
       } else {
-        toast.error(`${respuesta_accion[0].Mensage}`, {
+        toast.error(`${respuesta_accion}`, {
           duration: 2000,
           className: "bg-success text-white fs-6",
         });
@@ -100,7 +100,6 @@ const ModalAdjuntar = ({dato}) => {
 
   return (
     <>
-      <ToastContainer />
       <Modal
         show={isModalAttachOpen}
         onHide={closeModalAttach}

@@ -90,7 +90,8 @@ console.log(objetoModificado);
   const response = await fetch(endpoint, options); // Send the form data to our forms API on Vercel and get a response.
 
   const result = await response.json();
-  return result.permisos;
+  console.log(result.registros[0].Mensage)
+  return result.registros[0].Mensage;
 }
 
 export async function cambia_procesos(datos){

@@ -7,6 +7,7 @@ import {
 } from "./funciones_persona";
 import { persona_pdf, persona_xls } from "../pdf/persona_pdf";
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -19,6 +20,7 @@ import ModalAyuda from "./ModalAyuda";
 import ModalEditar from "./ModalEditar";
 import { EquipaContext } from "../../context/EquipaContext";
 import ModalAdjuntar from "./ModalAdjuntar";
+import { useNavigate } from "react-router-dom";
 
 const Persona = () => {
   const [t] = useTranslation("global")
@@ -29,6 +31,7 @@ const Persona = () => {
   const itemsPerPage = 15;
   const { refresh, user, consultaPerfil } = useContext(EquipaContext);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate()
 
   let idioma = localStorage.getItem('language')
 
@@ -59,7 +62,6 @@ const Persona = () => {
       persona: "persona",
       id_usuario: id
     }
-    console.log(datos)
     trae_permisos(datos).then((result) =>setPermisos_usuario(result[0]))
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [consultaPerfil])
@@ -107,6 +109,10 @@ const Persona = () => {
   const downloadInfo = () => {
     persona_xls(searchTerm);
   };
+
+  const irHaciaArchivoPersona = (dato) =>{
+    navigate(`/archivo_persona/${dato.id_persona}`);
+  }
 
   return (
     <>
@@ -205,6 +211,11 @@ const Persona = () => {
                     {permisos_usuario.adjuntar === "1" && (
                       <IconButton>
                         <ModalAdjuntar dato={dato} />
+                      </IconButton>
+                    )}
+                    {permisos_usuario.ver_opcion === "1" && (
+                      <IconButton>
+                        <RemoveRedEyeOutlinedIcon onClick={() => {irHaciaArchivoPersona(dato)}}/>
                       </IconButton>
                     )}
                   </TableCell>
