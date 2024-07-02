@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import './table.css'
+import './persona.css'
 import {
   trae_personas,
   ayuda_personas,

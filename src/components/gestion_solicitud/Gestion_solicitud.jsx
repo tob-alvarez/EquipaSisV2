@@ -35,7 +35,7 @@ const Gestion_solicitud = () => {
     useEffect(() => {
         let token = sessionStorage.getItem('token')
         consultaPerfil(token)
-        trae_gestion_solicitudes().then((result) => setDatossolicitudes(result));
+        trae_gestion_solicitudes(user?.id_usuario).then((result) => setDatossolicitudes(result));
         switch (idioma) {
             case "es":
                 ayuda_gestion_solicitudes().then((ayuda) => setAyuda(ayuda[0].texto));

@@ -1,6 +1,9 @@
-export async function trae_gestion_solicitudes() {
+export async function trae_gestion_solicitudes(id_usuario) {
 
-    const JSONdata = JSON.stringify({ tarea: "consulta_gestion_solicitud" }); // Send the data to the server in JSON format.
+    const JSONdata = JSON.stringify({
+        tarea: "consulta_gestion_solicitud",
+        id_usuario: id_usuario
+      }); // Send the data to the server in JSON format.
     const endpoint = "https://v2.equipasis.com/api/gestion_solicitud.php"; // API endpoint where we send form data.
 
     // Form the request for sending data to the server.
